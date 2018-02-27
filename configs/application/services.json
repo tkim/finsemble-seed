@@ -7,7 +7,18 @@
             "name": "yellowfinService",
             "file": "yellowfin/yellowfinService.js",
             "visible": false,
-            "html": "/services/yellowfin/yellowfin.html"
+            "html": "/services/yellowfin/yellowfin.html",
+            "component": {
+                "type": "service"
+            },
+            "foreign":{
+                "components":{
+                    "Window Manager": false
+                }
+            },
+            "window": {
+                "preload": "$moduleRoot/FSBL.js"
+            }
         }
     }
 }
