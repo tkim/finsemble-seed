@@ -1,4 +1,13 @@
 {
     "comment": "Houses config for any custom services that you'd like to import into Finsemble.",
-    "services": {}
+    "services": {
+        "yellowfinService": {
+            "useWindow": true,
+            "active": true,
+            "name": "yellowfinService",
+            "file": "yellowfin/yellowfinService.js",
+            "visible": false,
+            "html": "/services/yellowfin/yellowfin.html"
+        }
+    }
 }
