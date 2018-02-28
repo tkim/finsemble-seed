@@ -2,23 +2,21 @@
     "comment": "Houses config for any custom services that you'd like to import into Finsemble.",
     "services": {
         "yellowfinService": {
-            "useWindow": true,
+            "visible": false,
+            "showDevConsoleOnVisible": true,
             "active": true,
             "name": "yellowfinService",
-            "file": "yellowfin/yellowfinService.js",
-            "visible": false,
             "html": "/services/yellowfin/yellowfin.html",
-            "component": {
-                "type": "service"
-            },
-            "foreign":{
-                "components":{
-                    "Window Manager": false
-                }
-            },
-            "window": {
-                "preload": "$moduleRoot/FSBL.js"
-            }
+            "file": "/services/yellowfin/yellowfinService.js",
+            "category": "system"
+        },
+        "yellowfin2Service": {
+            "visible": false,
+            "showDevConsoleOnVisible": true,
+            "active": true,
+            "name": "yellowfin2Service",
+            "html": "/services/yellowfin2/yellowfin2.html",
+            "file": "/services/yellowfin2/yellowfin2Service.js"
         }
     }
 }

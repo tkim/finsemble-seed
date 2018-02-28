@@ -1,17 +1,20 @@
 //replace with import when ready
 var Finsemble = require("@chartiq/finsemble");
 
+var RouterClient = Finsemble.Clients.RouterClient;
 var baseService = Finsemble.baseService;
 var Logger = Finsemble.Clients.Logger;
 var util = Finsemble.Util;
 var StorageClient = Finsemble.Clients.StorageClient;
+StorageClient.initialize();
 var LauncherClient = Finsemble.Clients.LauncherClient;
+LauncherClient.initialize();
 
 /**
- * The yellowfin Service receives calls from the yellowfinClient.
+ * The yellowfin2 Service receives calls from the yellowfin2Client.
  * @constructor
  */
-function yellowfinService() {
+function yellowfin2Service() {
 
 	var self = this;
 	/**
@@ -24,17 +27,19 @@ function yellowfinService() {
 
 	return this;
 }
-yellowfinService.prototype = new baseService({
+yellowfin2Service.prototype = new baseService({
 	startupDependencies: {
-		services: ["dockingService", "authenticationService"]
+		services: ["dockingService", "authenticationService"],
+		clients: ["storageClient", "launcherClient"]
 	}
 });
-var serviceInstance = new yellowfinService('yellowfinService');
+var serviceInstance = new yellowfin2Service('yellowfin2Service');
 
 serviceInstance.onBaseServiceReady(function (callback) {
 	Logger.start();
-	Logger.system.log("yellowFin Service ready");
+	Logger.log("yellowFin2 Service ready");
 	callback();
 });
+
 serviceInstance.start();
 module.exports = serviceInstance;

@@ -1,4 +1,7 @@
+
 FSBL.addEventListener('onReady', function () {
+	var yellowfin2Client = require('/clients/yellowfin2Client');
+	console.log("yellowfin2Client: " + yellowfin2Client);
 	//host config - to move elsewhere
 	var yellowfinProtocol = "http://";
 	var yellowfinHost = "localhost";
