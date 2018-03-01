@@ -7,8 +7,8 @@ var Logger = Finsemble.Clients.Logger;
 var util = Finsemble.Util;
 var StorageClient = Finsemble.Clients.StorageClient;
 StorageClient.initialize();
-var LauncherClient = Finsemble.Clients.LauncherClient;
-LauncherClient.initialize();
+//var LauncherClient = Finsemble.Clients.LauncherClient;
+//LauncherClient.initialize();
 
 /**
  * The yellowfin2 Service receives calls from the yellowfin2Client.
@@ -30,7 +30,7 @@ function yellowfin2Service() {
 yellowfin2Service.prototype = new baseService({
 	startupDependencies: {
 		services: ["dockingService", "authenticationService"],
-		clients: ["storageClient", "launcherClient"]
+		clients: ["storageClient"]
 	}
 });
 var serviceInstance = new yellowfin2Service('yellowfin2Service');

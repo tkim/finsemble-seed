@@ -1,19 +1,14 @@
 var Finsemble = require("@chartiq/finsemble");
-var Utils =Finsemble.Utils; 
-var Validate = Finsemble.Validate; // Finsemble args validator
-var validate = new Validate(); 
-var FSBLconsole = new Utils.Console("BaseClient"); // Finsemble console
-
-var RouterClient = Finsemble.RouterClient;
-var baseService = Finsemble.baseService;
+var Util = Finsemble.Util; 
+var FSBLconsole = new Util.Console("BaseClient"); // Finsemble console
+var RouterClient = Finsemble.Clients.RouterClient;
  /*
  * Your client
  * @constructor
  */
 
-var BaseClient = Finsemble.BaseClient;
+var BaseClient = Finsemble.Clients.BaseClient;
 var yellowfin2Client = function (params) {
-	validate.args(params, "object=") && params && validate.args2("params.onReady", params.onReady, "function=");
 	BaseClient.call(this, params);
 	var self = this;
 
