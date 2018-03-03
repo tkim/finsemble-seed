@@ -1,17 +1,51 @@
+var yellowfinProtocol = "http://";
+var yellowfinHost = "localhost";
+var yellowfinPort = "8081";
+var yellowfinPath = "/JsAPI"
+var yellowfinReportPath = "/JsAPI?api=reports"
+
+var filtersSelected = {};
+var filterArr = [];
+var reportUUID = null;
+
+
+/**
+ * Sets the state of a component to the Workspace
+ */
+function setState() {
+
+	var state = {"filtersSelected": filtersSelected,
+				"filterArr": filterArr,
+				"reportUUID": reportUUID};
+	FSBL.Clients.WindowClient.setComponentState({ field: 'reportState', value: state });
+}
+
+/**
+ * Gets the the stored state of a component
+ */
+function getState() {
+	FSBL.Clients.WindowClient.getComponentState({
+		field: 'reportState',
+	}, function (err, state) {
+		if (state === null) {
+			return;
+		}
+
+		filtersSelected = state.filtersSelected;
+		filterArr = state.filterArr;
+		reportUUID = state.reportUUID;
+	});
+}
 
 FSBL.addEventListener('onReady', function () {
+	//report identifier
+	reportUUID = '32384c5a-7892-4ecb-93be-dc1efbdb7edd';	
+
+	getState();
+	
 	var yellowfin2Client = require('../../clients/yellowfin2Client');
 	console.log("yellowfin2Client: " + yellowfin2Client);
-	//host config - to move elsewhere
-	var yellowfinProtocol = "http://";
-	var yellowfinHost = "localhost";
-	var yellowfinPort = "8081";
-	var yellowfinPath = "/JsAPI"
-	var yellowfinReportPath = "/JsAPI?api=reports"
-
-	//report identifier
-	var reportUUID = '32384c5a-7892-4ecb-93be-dc1efbdb7edd';	
-
+	
 	//load YellowFin API from host
 	var yellowfinScr = document.createElement('script');
 	yellowfinScr.setAttribute('src',yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinPath);
@@ -36,11 +70,11 @@ FSBL.addEventListener('onReady', function () {
 		//default options
 		options.reportUUID = uuid;
 		options.elementId = elementId;
-		options.showFilters = 'true';
+		options.showFilters = 'false';
 		options.showSeries = 'true';
 		options.display = 'chart';
 		options.fitTableWidth = 'true';
-		options.showTitle = 'false';
+		options.showTitle = 'true';
 
 		options.width = $(window).width();
 		options.height = $(window).height();
@@ -53,7 +87,7 @@ FSBL.addEventListener('onReady', function () {
 		if (options.showTitle === 'true'){
 			options.height -= 30;
 		}
-
+		
 		// //add space for breadcrumbs in case user drills down 
 		// // - disabled as YF seems to include in the containing div but doesn't account for it in sizing calculations
 		// // - awaiting comment from YF
@@ -63,11 +97,18 @@ FSBL.addEventListener('onReady', function () {
 		//add space for yf footer
 		options.height -= 5;
 
+		//leave space for filter button
+		options.height -= 30;
+
 		//apply any options passed
 		if (userOpts) {
 			for (key in userOpts) {
 				options[key] = userOpts[key];
 			}
+		}
+
+		if (Object.keys(filtersSelected).length > 0){
+			options.filters = filtersSelected;
 		}
 
 		console.log("yellowfin options: " + JSON.stringify(options))
@@ -77,6 +118,7 @@ FSBL.addEventListener('onReady', function () {
 		var setTitle = function() {
 			if ($('div.yfReportTitle').length > 0){
 				FSBL.Clients.WindowClient.setWindowTitle($('div.yfReportTitle').text());
+				$('div.yfReportTitle').hide();
 			} else {
 				setTimeout(setTitle, 300);
 			}
@@ -87,21 +129,66 @@ FSBL.addEventListener('onReady', function () {
 		}
 	};
 
+
 	function filterCallback(filters) {
 		console.log("Num filters: " + filters.length)
+		filterArr = filters;
 		for (var i = 0; i < filters.length; i++) {
-		   console.log('Filter ' + filters[i].description + ' (' +
-			  filters[i].filterUUID + '), display style: ' +
-			  filters[i].display);
+			var filt = filters[i];
 
 
+			//Rewrite this to support a full filter state with descriptions as well as UUIDs
+			FSBL.Clients.LinkerClient.subscribe("filter:"+ filt.description, function (obj) {
+				console.log('Received filter data: ' + filt.description + " = " + JSON.stringify(obj));
 
+				// //clear other filters - for now we only support one at a time...				
+				// var filterValues = {};
+				// filterValues[filt.filterUUID] = obj;
+				// options.filters = filterValues;
+				injectReport(reportUUID, elementId);
+			});
 		}
+
+		//Listen to instructions from the filter panel
+		FSBL.Clients.RouterClient.addListener(FSBL.Clients.WindowClient.options.name + ".filter", function (err, response) {
+			if (err) return;
+			filtersSelected = response.data;
+			injectReport(reportUUID, elementId);
+		});
+
+
 	 }
+	 
+	 function showFilterPanel() {
+		
+		// A windowIdentifier describes a component window. We create a unique windowName by using our current window's name and appending.
+		// showWindow() will show this windowName if it's found. If not, then it will launch a new accountDetail coponent, and give it this name.
+		var windowIdentifier={
+			componentType: "yellowFinFilterComponent",
+			windowName: FSBL.Clients.WindowClient.options.name + ".filter"
+		};
+	
+		FSBL.Clients.LauncherClient.showWindow(windowIdentifier,
+			{
+				position: "relative",
+				addToWorkspace: true,
+				right: "adjacent",
+				top: 0,
+				height: window.innerHeight,
+				spawnIfNotFound: true,
+				data: {"reportUUID": reportUUID, "filtersSelected": filtersSelected}
+			}, function(err, response){
+				console.log("Filter showWindow requested", response);
+				//accountDetailSpawnResponse=response;
+				// After the component is launched, or displayed, we tell the child which customer to use.
+				//FSBL.Clients.RouterClient.transmit(windowIdentifier.windowName, customers[customerIndex]);
+			}
+		);
+	}
 
 	//retrieve and inject report HTML when API loaded (wait on last script added to DOM)
 	yellowfinReportScr.onload = function () {
-		injectReport(reportUUID, elementId)
+		injectReport(reportUUID, elementId);
 
 		//load any filters
 		window.yellowfin.reports.loadReportFilters(reportUUID, filterCallback);
@@ -114,6 +201,23 @@ FSBL.addEventListener('onReady', function () {
 			//load any filters
 			window.yellowfin.reports.loadReportFilters(reportUUID, filterCallback);
 		};
+
+		//setup the filter button
+		$("#filterButton").click(function () {
+			console.log("filter clicked");
+			showFilterPanel();
+		})
+
+
+		//setup the reset button
+		$("#resetButton").click(function () {
+			console.log("reset clicked");
+			filtersSelected = {};
+			FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);
+			injectReport(reportUUID, elementId);
+		})
+
+
 	};
 
 	document.body.appendChild(yellowfinScr);
