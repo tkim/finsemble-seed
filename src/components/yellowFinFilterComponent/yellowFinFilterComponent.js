@@ -4,7 +4,10 @@ var yellowfinHost = "localhost";
 var yellowfinPort = "8081";
 var yellowfinPath = "/JsAPI"
 var yellowfinReportPath = "/JsAPI?api=reports"
-	
+
+//JQuery
+var $ = require("jquery");
+
 //state
 var filtersSelected = {};
 var filterArr = [];

@@ -326,6 +326,76 @@
                     }
                 }
             }
+        },
+        "yellowFin": {
+            "window": {
+                "url": "$applicationRoot/components/yellowFin/yellowFin.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 1060,
+                "height": 760
+            },
+            "component": {
+                "inject": true
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "yellowFin"
+                    }
+                }
+            }
+        },
+        "yellowFinLauncher": {
+            "window": {
+                "url": "$applicationRoot/components/yellowFinLauncher/yellowFinLauncher.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 400,
+                "height": 600
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "yellowFinLauncher"
+                    }
+                }
+            }
         }
     }
 }

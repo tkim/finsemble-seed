@@ -62,5 +62,13 @@
     "yellowFinFilterComponent": {
         "output": "components\\yellowFinFilterComponent\\yellowFinFilterComponent",
         "entry": ".\\src\\components\\yellowFinFilterComponent\\yellowFinFilterComponent.js"
+    },
+    "yellowFin": {
+        "output": "components\\yellowFin\\yellowFin",
+        "entry": ".\\src\\components\\yellowFin\\yellowFin.js"
+    },
+    "yellowFinLauncher": {
+        "output": "components\\yellowFinLauncher\\yellowFinLauncher",
+        "entry": ".\\src\\components\\yellowFinLauncher\\yellowFinLauncher.js"
     }
 }

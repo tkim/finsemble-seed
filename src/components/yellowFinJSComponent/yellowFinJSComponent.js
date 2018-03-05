@@ -1,9 +1,14 @@
+//host config - to move elsewhere
 var yellowfinProtocol = "http://";
 var yellowfinHost = "localhost";
 var yellowfinPort = "8081";
 var yellowfinPath = "/JsAPI"
 var yellowfinReportPath = "/JsAPI?api=reports"
 
+//JQuery
+var $ = require("jquery");
+
+//state
 var filtersSelected = {};
 var filterArr = [];
 var reportUUID = null;
@@ -37,15 +42,29 @@ function getState() {
 	});
 }
 
+
+var myWindowIdentifier;
+
 FSBL.addEventListener('onReady', function () {
-	//report identifier
 	reportUUID = '32384c5a-7892-4ecb-93be-dc1efbdb7edd';	
+	FSBL.Clients.WindowClient.getWindowIdentifier(function(id) {myWindowIdentifier = id;});
 
 	getState();
 	
+	//get YellowFinCLient if we're using it
 	var yellowfin2Client = require('../../clients/yellowfin2Client');
 	console.log("yellowfin2Client: " + yellowfin2Client);
 	
+	//get spawing data to set report ID
+	var spawnData = FSBL.Clients.WindowClient.getSpawnData();
+	console.log("Spawn data: " + JSON.stringify(spawnData));
+	if (spawnData){
+		if (spawnData.reportUUID) { 
+			reportUUID = spawnData.reportUUID;
+			console.log("Set reportUUID: " + JSON.stringify(reportUUID)); 
+		}
+	}
+
 	//load YellowFin API from host
 	var yellowfinScr = document.createElement('script');
 	yellowfinScr.setAttribute('src',yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinPath);
@@ -120,46 +139,51 @@ FSBL.addEventListener('onReady', function () {
 				FSBL.Clients.WindowClient.setWindowTitle($('div.yfReportTitle').text());
 				$('div.yfReportTitle').hide();
 			} else {
-				setTimeout(setTitle, 300);
+				setTimeout(setTitle, 100);
 			}
 		};
 		//only enable if the title actually exists!
 		if (options.showTitle === 'true'){
-			setTimeout(setTitle, 300);
+			setTimeout(setTitle, 100);
 		}
+
+		setState();
 	};
 
 
 	function filterCallback(filters) {
-		console.log("Num filters: " + filters.length)
-		filterArr = filters;
-		for (var i = 0; i < filters.length; i++) {
-			var filt = filters[i];
+		if (filters && filters.length) { 
+			console.log("Num filters: " + filters.length)
+			filterArr = filters;
+			for (var i = 0; i < filters.length; i++) {
+				var filt = filters[i];
 
 
-			//Rewrite this to support a full filter state with descriptions as well as UUIDs
-			FSBL.Clients.LinkerClient.subscribe("filter:"+ filt.description, function (obj) {
-				console.log('Received filter data: ' + filt.description + " = " + JSON.stringify(obj));
+				//Rewrite this to support a full filter state with descriptions as well as UUIDs
+				FSBL.Clients.LinkerClient.subscribe("filter:"+ filt.description, function (obj) {
+					console.log('Received filter data: ' + filt.description + " = " + JSON.stringify(obj));
 
-				// //clear other filters - for now we only support one at a time...				
-				// var filterValues = {};
-				// filterValues[filt.filterUUID] = obj;
-				// options.filters = filterValues;
+					// //clear other filters - for now we only support one at a time...				
+					// var filterValues = {};
+					// filterValues[filt.filterUUID] = obj;
+					// options.filters = filterValues;
+					injectReport(reportUUID, elementId);
+				});
+			}
+
+			//Listen to instructions from the filter panel
+			FSBL.Clients.RouterClient.addListener(FSBL.Clients.WindowClient.options.name + ".filter", function (err, response) {
+				if (err) return;
+				filtersSelected = response.data;
 				injectReport(reportUUID, elementId);
 			});
+
+		} else {
+			console.log("filterCallback: No filters returned!");
 		}
-
-		//Listen to instructions from the filter panel
-		FSBL.Clients.RouterClient.addListener(FSBL.Clients.WindowClient.options.name + ".filter", function (err, response) {
-			if (err) return;
-			filtersSelected = response.data;
-			injectReport(reportUUID, elementId);
-		});
-
-
-	 }
+	}
 	 
-	 function showFilterPanel() {
+	function showFilterPanel() {
 		
 		// A windowIdentifier describes a component window. We create a unique windowName by using our current window's name and appending.
 		// showWindow() will show this windowName if it's found. If not, then it will launch a new accountDetail coponent, and give it this name.
@@ -176,9 +200,12 @@ FSBL.addEventListener('onReady', function () {
 				top: 0,
 				height: window.innerHeight,
 				spawnIfNotFound: true,
+				slave: true,
+				relativeWindow: myWindowIdentifier,
+				groupOnSpawn: true,
 				data: {"reportUUID": reportUUID, "filtersSelected": filtersSelected}
 			}, function(err, response){
-				console.log("Filter showWindow requested", response);
+				console.log("Filter showWindow error: ", response);
 				//accountDetailSpawnResponse=response;
 				// After the component is launched, or displayed, we tell the child which customer to use.
 				//FSBL.Clients.RouterClient.transmit(windowIdentifier.windowName, customers[customerIndex]);
@@ -186,38 +213,50 @@ FSBL.addEventListener('onReady', function () {
 		);
 	}
 
-	//retrieve and inject report HTML when API loaded (wait on last script added to DOM)
-	yellowfinReportScr.onload = function () {
-		injectReport(reportUUID, elementId);
 
-		//load any filters
-		window.yellowfin.reports.loadReportFilters(reportUUID, filterCallback);
+	var yfLoaded = false;
+	var yfReportsLoaded = false;
+	var checkLoaded = function() {
+		if(yfLoaded && yfReportsLoaded) {
+			injectReport(reportUUID, elementId);
 
-		//reinject the report on window resize
-		window.onresize = function() { 
-			//only regenerate report when done resizing, 200 ms should be plenty, but may be able to shave lower
-			clearTimeout(resizeId);
-			resizeId = setTimeout(function() { injectReport(reportUUID, elementId); }, 200);
 			//load any filters
 			window.yellowfin.reports.loadReportFilters(reportUUID, filterCallback);
-		};
 
-		//setup the filter button
-		$("#filterButton").click(function () {
-			console.log("filter clicked");
-			showFilterPanel();
-		})
+			//reinject the report on window resize
+			window.onresize = function() { 
+				//only regenerate report when done resizing, 200 ms should be plenty, but may be able to shave lower
+				clearTimeout(resizeId);
+				resizeId = setTimeout(function() { injectReport(reportUUID, elementId); }, 200);
+				//load any filters
+				window.yellowfin.reports.loadReportFilters(reportUUID, filterCallback);
+			};
+
+			//setup the filter button
+			$("#filterButton").click(function () {
+				console.log("filter clicked");
+				showFilterPanel();
+			});
 
 
-		//setup the reset button
-		$("#resetButton").click(function () {
-			console.log("reset clicked");
-			filtersSelected = {};
-			FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);
-			injectReport(reportUUID, elementId);
-		})
+			//setup the reset button
+			$("#resetButton").click(function () {
+				console.log("reset clicked");
+				filtersSelected = {};
+				FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);
+				injectReport(reportUUID, elementId);
+			});
+		}
+	}
 
-
+	//retrieve and inject report HTML when API loaded (wait on last script added to DOM)
+	yellowfinScr.onload = function () {
+		yfLoaded = true;
+		checkLoaded();
+	};
+	yellowfinReportScr.onload = function () {
+		yfReportsLoaded = true;
+		checkLoaded();
 	};
 
 	document.body.appendChild(yellowfinScr);
