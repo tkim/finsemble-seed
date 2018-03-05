@@ -1,401 +1,478 @@
 {
-    "comment": "Houses config for custom components that you'd like to import into Finsemble.",
-    "components": {
-        "Finsemble Documentation": {
-            "window": {
-                "url": "http://documentation.chartiq.com/finsemble",
-                "left": "center",
-                "top": "center",
-                "height": 800,
-                "width": 1000
+	"comment": "Houses config for custom components that you'd like to import into Finsemble.",
+	"components": {
+		"Finsemble Documentation": {
+			"window": {
+				"url": "http://documentation.chartiq.com/finsemble",
+				"left": "center",
+				"top": "center",
+				"height": 800,
+				"width": 1000
+			},
+			"component": {},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"isArrangable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": false
+					},
+					"Window Manager": {
+						"persistWindowState": false,
+						"FSBLHeader": true,
+						"showLinker": false
+					}
+				}
+			}
+		},
+		"Getting Started Tutorial": {
+			"window": {
+				"url": "https://documentation.chartiq.com/finsemble/tutorial-gettingStarted.html",
+				"height": 800,
+				"width": 1000
+			},
+			"component": {
+				"spawnOnStartup": false
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"isArrangable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": false
+					},
+					"Window Manager": {
+						"persistWindowState": true,
+						"FSBLHeader": true,
+						"showLinker": false
+					}
+				}
+			}
+		},
+		"Docking Move Mask": {
+			"window": {
+				"url": "$applicationRoot/components/dockingGroupMask/dockingGroupMask.html",
+				"frame": false,
+				"resizable": false,
+				"showTaskbarIcon": false,
+				"options": {
+					"opacity": 0.7,
+					"autoShow": false
+				}
+			},
+			"component": {
+				"category": "system"
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"isArrangable": false
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": false
+					},
+					"Window Manager": {
+						"FSBLHeader": false,
+						"persistWindowState": false
+					}
+				}
+			}
+		},
+		"windowTitleBar": {
+			"window": {
+				"url": "$applicationRoot/components/windowTitleBar/windowTitleBar.js",
+				"top": "center",
+				"left": "center",
+				"width": 358,
+				"height": 458,
+				"ephemeral": true
+			},
+			"component": {
+				"category": "system"
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"isArrangable": false
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": false
+					},
+					"Window Manager": {
+						"FSBLHeader": false,
+						"persistWindowState": false
+					}
+				}
+			}
+		},
+		"Welcome Component": {
+			"window": {
+				"url": "$applicationRoot/components/welcome/welcome.html",
+				"frame": false,
+				"resizable": true,
+				"autoShow": true,
+				"top": "center",
+				"left": "center",
+				"width": 400,
+				"height": 370
+			},
+			"component": {
+				"inject": false,
+				"spawnOnStartup": false
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"canGroup": true,
+						"isArrangable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"FSBLHeader": true,
+						"persistWindowState": true
+					},
+					"Toolbar": {
+						"iconClass": "welcome"
+					}
+				}
+			}
+		},
+		"Notepad": {
+			"window": {
+				"id": "Notepad",
+				"native": true,
+				"path": "notepad.exe",
+				"url": "",
+				"defaultHeight": 600,
+				"autoShow": true,
+				"alwaysOnTop": false,
+				"resizable": true,
+				"showTaskbarIcon": false,
+				"contextMenu": true,
+				"addToWorkspace": true
+			},
+			"component": {
+				"spawnOnHotkey": ["ctrl", "alt", "n"]
+			},
+			"foreign": {
+				"services": {
+					"workspaceService": {
+						"isArrangable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"persistWindowState": false,
+						"FSBLHeader": true
+					},
+					"Toolbar": {
+						"iconURL": "$applicationRoot/components/assets/img/notepad.png"
+					}
+				}
+			}
+		},
+		"UserPreferences": {
+			"window": {
+				"url": "$applicationRoot/components/userPreferences/UserPreferences.html",
+				"frame": false,
+				"top": "center",
+				"left": "center",
+				"width": 800,
+				"height": 600,
+				"options": {
+					"autoShow": false,
+					"resizable": false,
+					"alwaysOnTop": true
+				}
+			},
+			"component": {
+				"category": "system",
+				"spawnOnStartup": true
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"canGroup": false,
+						"isArrangable": false
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": false
+					},
+					"Window Manager": {
+						"FSBLHeader": false,
+						"persistWindowState": true
+					},
+					"Toolbar": {
+						"iconClass": "UserPreferences"
+					}
+				}
+			}
+		}
+	},
+    "myYellowFinEmbedComponent": {
+        "window": {
+            "url": "$applicationRoot/components/myYellowFinEmbedComponent/myYellowFinEmbedComponent.html",
+            "frame": false,
+            "resizable": true,
+            "autoShow": true,
+            "top": "center",
+            "left": "center",
+            "width": 934,
+            "height": 410
+        },
+        "component": {
+            "inject": false
+        },
+        "foreign": {
+            "services": {
+                "dockingService": {
+                    "canGroup": true,
+                    "isArrangable": true
+                }
             },
-            "component": {},
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "isArrangable": true
-                    }
+            "components": {
+                "App Launcher": {
+                    "launchableByUser": true
                 },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": false
-                    },
-                    "Window Manager": {
-                        "persistWindowState": false,
-                        "FSBLHeader": true,
-                        "showLinker": false
-                    }
+                "Window Manager": {
+                    "FSBLHeader": true,
+                    "persistWindowState": true
+                },
+                "Toolbar": {
+                    "iconClass": "myYellowFinEmbedComponent"
                 }
             }
+        }
+    },
+    "myYellowFinEmbedComponent2": {
+        "window": {
+            "url": "$applicationRoot/components/myYellowFinEmbedComponent2/myYellowFinEmbedComponent2.html",
+            "frame": false,
+            "resizable": true,
+            "autoShow": true,
+            "top": "center",
+            "left": "center",
+            "width": 699,
+            "height": 354
         },
-        "Getting Started Tutorial": {
-            "window": {
-                "url": "https://documentation.chartiq.com/finsemble/tutorial-gettingStarted.html",
-                "height": 800,
-                "width": 1000
+        "component": {
+            "inject": false
+        },
+        "foreign": {
+            "services": {
+                "dockingService": {
+                    "canGroup": true,
+                    "isArrangable": true
+                }
             },
-            "component": {
-                "spawnOnStartup": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "isArrangable": true
-                    }
+            "components": {
+                "App Launcher": {
+                    "launchableByUser": true
                 },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": false
-                    },
-                    "Window Manager": {
-                        "persistWindowState": true,
-                        "FSBLHeader": true,
-                        "showLinker": false
-                    }
+                "Window Manager": {
+                    "FSBLHeader": true,
+                    "persistWindowState": true,
+                    "showLinker": true
+                },
+                "Toolbar": {
+                    "iconClass": "myYellowFinEmbedComponent2"
                 }
             }
+        }
+    },
+    "myYellowFinEmbedComponent3": {
+        "window": {
+            "url": "$applicationRoot/components/myYellowFinEmbedComponent3/myYellowFinEmbedComponent3.html",
+            "frame": false,
+            "resizable": true,
+            "autoShow": true,
+            "top": "center",
+            "left": "center",
+            "width": 750,
+            "height": 450
         },
-        "Docking Move Mask": {
-            "window": {
-                "url": "$applicationRoot/components/dockingGroupMask/dockingGroupMask.html",
-                "frame": false,
-                "resizable": false,
-                "showTaskbarIcon": false,
-                "options": {
-                    "opacity": 0.7,
-                    "autoShow": false
+        "component": {
+            "inject": false
+        },
+        "foreign": {
+            "services": {
+                "dockingService": {
+                    "canGroup": true,
+                    "isArrangable": true
                 }
             },
-            "component": {
-                "category": "system"
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "isArrangable": false
-                    }
+            "components": {
+                "App Launcher": {
+                    "launchableByUser": true
                 },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": false
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": false,
-                        "persistWindowState": false
-                    }
-                }
-            }
-        },
-        "windowTitleBar": {
-            "window": {
-                "url": "$applicationRoot/components/windowTitleBar/windowTitleBar.js",
-                "top": "center",
-                "left": "center",
-                "width": 358,
-                "height": 458,
-                "ephemeral": true
-            },
-            "component": {
-                "category": "system"
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "isArrangable": false
-                    }
+                "Window Manager": {
+                    "FSBLHeader": true,
+                    "persistWindowState": true
                 },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": false
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": false,
-                        "persistWindowState": false
-                    }
+                "Toolbar": {
+                    "iconClass": "myYellowFinEmbedComponent3"
                 }
             }
+        }
+    },
+    "yellowFinJSComponent": {
+        "window": {
+            "url": "$applicationRoot/components/yellowFinJSComponent/yellowFinJSComponent.html",
+            "frame": false,
+            "resizable": true,
+            "autoShow": true,
+            "top": "center",
+            "left": "center",
+            "width": 400,
+            "height": 500
         },
-        "Welcome Component": {
-            "window": {
-                "url": "$applicationRoot/components/welcome/welcome.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 400,
-                "height": 370
+        "component": {
+            "inject": false
+        },
+        "foreign": {
+            "services": {
+                "dockingService": {
+                    "canGroup": true,
+                    "isArrangable": true
+                }
             },
-            "component": {
-                "inject": false,
-                "spawnOnStartup": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
+            "components": {
+                "App Launcher": {
+                    "launchableByUser": true
                 },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "welcome"
-                    }
+                "Window Manager": {
+                    "FSBLHeader": true,
+                    "persistWindowState": true
+                },
+                "Toolbar": {
+                    "iconClass": "yellowFinJSComponent"
                 }
             }
+        }
+    },
+    "yellowFinFilterComponent": {
+        "window": {
+            "url": "$applicationRoot/components/yellowFinFilterComponent/yellowFinFilterComponent.html",
+            "frame": false,
+            "resizable": true,
+            "autoShow": true,
+            "top": "center",
+            "left": "center",
+            "width": 250,
+            "height": 400
         },
-        "myYellowFinEmbedComponent": {
-            "window": {
-                "url": "$applicationRoot/components/myYellowFinEmbedComponent/myYellowFinEmbedComponent.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 934,
-                "height": 410
+        "component": {
+            "inject": false
+        },
+        "foreign": {
+            "services": {
+                "dockingService": {
+                    "canGroup": true,
+                    "isArrangable": true
+                }
             },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
+            "components": {
+                "App Launcher": {
+                    "launchableByUser": true
                 },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "myYellowFinEmbedComponent"
-                    }
+                "Window Manager": {
+                    "FSBLHeader": true,
+                    "persistWindowState": true
+                },
+                "Toolbar": {
+                    "iconClass": "yellowFinFilterComponent"
                 }
             }
+        }
+    },
+    "yellowFin": {
+        "window": {
+            "url": "$applicationRoot/components/yellowFin/yellowFin.html",
+            "frame": false,
+            "resizable": true,
+            "autoShow": true,
+            "top": "center",
+            "left": "center",
+            "width": 1060,
+            "height": 760
         },
-        "myYellowFinEmbedComponent2": {
-            "window": {
-                "url": "$applicationRoot/components/myYellowFinEmbedComponent2/myYellowFinEmbedComponent2.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 699,
-                "height": 354
+        "component": {
+            "inject": true
+        },
+        "foreign": {
+            "services": {
+                "dockingService": {
+                    "canGroup": true,
+                    "isArrangable": true
+                }
             },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
+            "components": {
+                "App Launcher": {
+                    "launchableByUser": true
                 },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true,
-                        "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "myYellowFinEmbedComponent2"
-                    }
+                "Window Manager": {
+                    "FSBLHeader": true,
+                    "persistWindowState": true
+                },
+                "Toolbar": {
+                    "iconClass": "yellowFin"
                 }
             }
+        }
+    },
+    "yellowFinLauncher": {
+        "window": {
+            "url": "$applicationRoot/components/yellowFinLauncher/yellowFinLauncher.html",
+            "frame": false,
+            "resizable": true,
+            "autoShow": true,
+            "top": "center",
+            "left": "center",
+            "width": 400,
+            "height": 600
         },
-        "myYellowFinEmbedComponent3": {
-            "window": {
-                "url": "$applicationRoot/components/myYellowFinEmbedComponent3/myYellowFinEmbedComponent3.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 750,
-                "height": 450
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "myYellowFinEmbedComponent3"
-                    }
+        "component": {
+            "inject": false
+        },
+        "foreign": {
+            "services": {
+                "dockingService": {
+                    "canGroup": true,
+                    "isArrangable": true
                 }
-            }
-        },
-        "yellowFinJSComponent": {
-            "window": {
-                "url": "$applicationRoot/components/yellowFinJSComponent/yellowFinJSComponent.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 400,
-                "height": 500
             },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
+            "components": {
+                "App Launcher": {
+                    "launchableByUser": true
                 },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "yellowFinJSComponent"
-                    }
-                }
-            }
-        },
-        "yellowFinFilterComponent": {
-            "window": {
-                "url": "$applicationRoot/components/yellowFinFilterComponent/yellowFinFilterComponent.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 250,
-                "height": 400
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
+                "Window Manager": {
+                    "FSBLHeader": true,
+                    "persistWindowState": true
                 },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "yellowFinFilterComponent"
-                    }
-                }
-            }
-        },
-        "yellowFin": {
-            "window": {
-                "url": "$applicationRoot/components/yellowFin/yellowFin.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 1060,
-                "height": 760
-            },
-            "component": {
-                "inject": true
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "yellowFin"
-                    }
-                }
-            }
-        },
-        "yellowFinLauncher": {
-            "window": {
-                "url": "$applicationRoot/components/yellowFinLauncher/yellowFinLauncher.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 400,
-                "height": 600
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "yellowFinLauncher"
-                    }
+                "Toolbar": {
+                    "iconClass": "yellowFinLauncher"
                 }
             }
         }
     }
 }
+
