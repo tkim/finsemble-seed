@@ -154,6 +154,21 @@ FSBL.addEventListener('onReady', function () {
 			options.filters = filtersSelected;
 		}
 
+
+
+		//Publish filters for linking
+		// if (filterArr && !(userOpts && userOpts.triggerComp && userOpts.triggerComp == FSBL.Clients.WindowClient.options.name)){
+		// 	for (var i = 0; i < filterArr.length; i++) {
+		// 		if (filtersSelected[filterArr[i].filterUUID]) {
+		// 			FSBL.Clients.LinkerClient.publish({dataType: filterArr[i].description, data: {triggerComp: FSBL.Clients.WindowClient.options.name, filtersSelected: filtersSelected[filtersArr[i].filterUUID]}});
+		// 		}
+		// 	}
+		// }
+
+
+
+
+
 		console.log("yellowfin options: " + JSON.stringify(options))
 		window.yellowfin.loadReport(options);
 
@@ -181,16 +196,17 @@ FSBL.addEventListener('onReady', function () {
 			for (var i = 0; i < filters.length; i++) {
 				var filt = filters[i];
 
-
-				//Rewrite this to support a full filter state with descriptions as well as UUIDs
-				FSBL.Clients.LinkerClient.subscribe("filter:"+ filt.description, function (obj) {
+				//subscribe to filters
+				FSBL.Clients.LinkerClient.subscribe(filt.description, function (obj) {
 					console.log('Received filter data: ' + filt.description + " = " + JSON.stringify(obj));
-
-					// //clear other filters - for now we only support one at a time...				
-					// var filterValues = {};
-					// filterValues[filt.filterUUID] = obj;
-					// options.filters = filterValues;
-					injectReport(reportUUID, elementId);
+					
+					//ignore messages from ourselves
+					if (obj && obj.triggerComp != FSBL.Clients.WindowClient.options.name) {
+						filtersSelected[filt.filterUUID] = obj.filtersSelected;
+						FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);					
+						//update filter panel
+						injectReport(reportUUID, elementId, {triggerComp: triggerComp});
+					}
 				});
 			}
 
