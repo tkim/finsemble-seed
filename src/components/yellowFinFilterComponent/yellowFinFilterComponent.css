@@ -45,6 +45,14 @@ filtervalue, filterbetween label, filtertext label {
 	vertical-align: middle;
 }
 
+filterbetween button, filtertext button {
+	float: right;
+}
+
+.clearfix {
+	clear: both;
+}
+
 filtervalue description {
 	padding: 0px 60px 0px 0px;
 }

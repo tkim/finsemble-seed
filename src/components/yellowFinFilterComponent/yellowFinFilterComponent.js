@@ -16,10 +16,11 @@ var reportUUID = null;
 function setFilters() {
 	$("filtervalue").removeClass("selected");
 	for (let filter of filterArr) {
+		var filterBlock = $('filter filterUUID:contains(' + filter.filterUUID + ')').parent();
+		console.log("filter: " + filterBlock.find('filterUUID').text());
 		if (filter.list && filter.listValues){
+			//category filter
 			if (filtersSelected[filter.filterUUID]) {
-				var filterBlock = $('filter filterUUID:contains(' + filter.filterUUID + ')').parent();
-				console.log("filter: " + filterBlock.find('filterUUID').text());
 				filterBlock.find('values filtervalue').each(function () {
 					console.log("value: " + $( this ).find('label description').text());
 					if (filtersSelected[filter.filterUUID].includes($( this ).find('label description').text())) {
@@ -28,12 +29,21 @@ function setFilters() {
 				});
 			}		
 		} else if (filter.list) {
-
+			//string filter
+			if (filtersSelected[filter.filterUUID]) {
+				filterBlock.find('values filtertext label input').text(filtersSelected[filter.filterUUID]);
+			}		
 		} else if (filter.between){
-
+			//between filter
+			if (filtersSelected[filter.filterUUID]) {
+				filterBlock.find('values filterbetween label input.from').text(filtersSelected[filter.filterUUID].from);
+				filterBlock.find('values filterbetween label input.to').text(filtersSelected[filter.filterUUID].to);
+			}	
 		}
 	}
+	//publish selected filters
 	FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);
+	//save to filter panel state
 	setState();
 }
 
@@ -51,11 +61,36 @@ function clickFilter(event) {
 	console.log("filters selected: " + JSON.stringify(filtersSelected));
 	//highlight selected filters
 	setFilters();
-
-	//publish selected filters
-	
 }
 
+function textFilterApply(event) {
+	console.log("textFilterApply: " + JSON.stringify(event.data));
+	var data = event.data;
+	if (data[1]) {
+		filtersSelected[data[0]] = data[1].val();
+	} else {
+		delete filtersSelected[data[0]];
+	}
+
+	console.log("filters selected: " + JSON.stringify(filtersSelected));
+	//highlight selected filters
+	setFilters();
+}
+
+
+function betweenFilterApply(event) {
+	console.log("betweenFilterApply: " + JSON.stringify(event.data));
+	var data = event.data;
+	if (data[1] && data[2]) {
+		filtersSelected[data[0]] = [data[1].val(), data[2].val()];
+	} else {
+		delete filtersSelected[data[0]];
+	}
+
+	console.log("filters selected: " + JSON.stringify(filtersSelected));
+	//highlight selected filters
+	setFilters();
+}
 
 function renderPage() {
 	var filter_template = $("template")[0];
@@ -79,10 +114,15 @@ function renderPage() {
 			}
 		} else if (filter.list) {
 			var freetext_row = $(document.importNode(freetext_template.content, true));
+			var inputbox = freetext_row.find("label input");
+			freetext_row.find("button").click([filter.filterUUID, inputbox], textFilterApply);
 			vals.append(freetext_row);
 
 		} else if (filter.between){
 			var between_row = $(document.importNode(between_template.content, true));
+			var inputboxFrom = between_row.find("label input.from");
+			var inputboxTo = between_row.find("label input.to");
+			between_row.find("button").click([filter.filterUUID, inputboxFrom, inputboxTo], betweenFilterApply);
 			vals.append(between_row);
 
 			//TODO: add an onchanged action
@@ -96,17 +136,20 @@ function renderPage() {
 	console.log("filters selected after page render: " + JSON.stringify(filtersSelected));
 }
 
-
-
-
 /**
  * Sets the state of a component to the Workspace
  */
 function setState() {
-
-	var state = {"filtersSelected": filtersSelected,
-				"filterArr": filterArr,
-				"reportUUID": reportUUID};
+	var state = {
+		"filtersSelected": filtersSelected,
+		"filterArr": filterArr,
+		"reportUUID": reportUUID,
+		"yellowfinProtocol": yellowfinProtocol,
+		"yellowfinHost": yellowfinHost,
+		"yellowfinPort": yellowfinPort,
+		"yellowfinPath": yellowfinPath,
+		"yellowfinReportPath": yellowfinReportPath
+	};
 	FSBL.Clients.WindowClient.setComponentState({ field: 'reportState', value: state });
 }
 
@@ -117,13 +160,18 @@ function getState() {
 	FSBL.Clients.WindowClient.getComponentState({
 		field: 'reportState',
 	}, function (err, state) {
-		if (state === null) {
+		if (!state) {
 			return;
 		}
 
 		filtersSelected = state.filtersSelected;
 		filterArr = state.filterArr;
 		reportUUID = state.reportUUID;
+		yellowfinProtocol = state.yellowfinProtocol
+		yellowfinHost = state.yellowfinHost
+		yellowfinPort = state.yellowfinPort
+		yellowfinPath = state.yellowfinPath
+		yellowfinReportPath = state.yellowfinReportPath
 	});
 }
 
@@ -145,6 +193,14 @@ FSBL.addEventListener("onReady", function () {
 		if (spawnData.filtersSelected) { 
 			filtersSelected = spawnData.filtersSelected; 
 			console.log("Set filtersSelected: " + JSON.stringify(filtersSelected)); 
+		}
+
+		if (spawnData.yellowfinProtocol) {
+			yellowfinProtocol = spawnData.yellowfinProtocol;
+			yellowfinHost = spawnData.yellowfinHost;
+			yellowfinPort = spawnData.yellowfinPort;
+			yellowfinPath = spawnData.yellowfinPath;
+			yellowfinReportPath = spawnData.yellowfinReportPath;
 		}
 	}
 

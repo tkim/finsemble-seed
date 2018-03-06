@@ -2,8 +2,8 @@
 var yellowfinProtocol = "http://";
 var yellowfinHost = "localhost";
 var yellowfinPort = "8081";
-var yellowfinPath = "/JsAPI"
-var yellowfinReportPath = "/JsAPI?api=reports"
+var yellowfinPath = "/JsAPI";
+var yellowfinReportPath = "/JsAPI?api=reports";
 
 //JQuery
 var $ = require("jquery");
@@ -19,9 +19,16 @@ var reportUUID = null;
  */
 function setState() {
 
-	var state = {"filtersSelected": filtersSelected,
-				"filterArr": filterArr,
-				"reportUUID": reportUUID};
+	var state = {
+		"filtersSelected": filtersSelected,
+		"filterArr": filterArr,
+		"reportUUID": reportUUID,
+		"yellowfinProtocol": yellowfinProtocol,
+		"yellowfinHost": yellowfinHost,
+		"yellowfinPort": yellowfinPort,
+		"yellowfinPath": yellowfinPath,
+		"yellowfinReportPath": yellowfinReportPath
+	};
 	FSBL.Clients.WindowClient.setComponentState({ field: 'reportState', value: state });
 }
 
@@ -32,28 +39,28 @@ function getState() {
 	FSBL.Clients.WindowClient.getComponentState({
 		field: 'reportState',
 	}, function (err, state) {
-		if (state === null) {
+		if (!state) {
 			return;
 		}
 
 		filtersSelected = state.filtersSelected;
 		filterArr = state.filterArr;
 		reportUUID = state.reportUUID;
+		yellowfinProtocol = state.yellowfinProtocol;
+		yellowfinHost = state.yellowfinHost;
+		yellowfinPort = state.yellowfinPort;
+		yellowfinPath = state.yellowfinPath;
+		yellowfinReportPath = state.yellowfinReportPath;
 	});
 }
 
 
 var myWindowIdentifier;
-
 FSBL.addEventListener('onReady', function () {
-	reportUUID = '32384c5a-7892-4ecb-93be-dc1efbdb7edd';	
 	FSBL.Clients.WindowClient.getWindowIdentifier(function(id) {myWindowIdentifier = id;});
-
-	getState();
+	reportUUID = '32384c5a-7892-4ecb-93be-dc1efbdb7edd';	
 	
-	//get YellowFinCLient if we're using it
-	var yellowfin2Client = require('../../clients/yellowfin2Client');
-	console.log("yellowfin2Client: " + yellowfin2Client);
+	getState();
 	
 	//get spawing data to set report ID
 	var spawnData = FSBL.Clients.WindowClient.getSpawnData();
@@ -63,15 +70,32 @@ FSBL.addEventListener('onReady', function () {
 			reportUUID = spawnData.reportUUID;
 			console.log("Set reportUUID: " + JSON.stringify(reportUUID)); 
 		}
+		if (spawnData.yellowfinProtocol) {
+			yellowfinProtocol = spawnData.yellowfinProtocol;
+			yellowfinHost = spawnData.yellowfinHost;
+			yellowfinPort = spawnData.yellowfinPort;
+			yellowfinPath = spawnData.yellowfinPath;
+			yellowfinReportPath = spawnData.yellowfinReportPath;
+		}
+		
+		console.log("yellowfinProtocol", yellowfinProtocol);
+		console.log("yellowfinHost", yellowfinHost);
+		console.log("yellowfinPort", yellowfinPort);
+		console.log("yellowfinPath", yellowfinPath);
+		console.log("yellowfinReportPath", yellowfinReportPath);
 	}
 
 	//load YellowFin API from host
 	var yellowfinScr = document.createElement('script');
-	yellowfinScr.setAttribute('src',yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinPath);
+	yellowfinScrSrc = yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinPath;
+	console.log("yellowfinScrSrc: " + yellowfinScrSrc)
+	yellowfinScr.setAttribute('src', yellowfinScrSrc);
 	yellowfinScr.setAttribute('type','text/javascript');
 	
 	var yellowfinReportScr = document.createElement('script');
-	yellowfinReportScr.setAttribute('src',yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinReportPath);
+	var yellowfinReportScrSrc = yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinReportPath;
+	console.log("yellowfinReportScrSrc: " + yellowfinReportScrSrc)
+	yellowfinReportScr.setAttribute('src', yellowfinReportScrSrc);
 	yellowfinReportScr.setAttribute('type','text/javascript');
 
 	var userOpts = null;
@@ -150,7 +174,6 @@ FSBL.addEventListener('onReady', function () {
 		setState();
 	};
 
-
 	function filterCallback(filters) {
 		if (filters && filters.length) { 
 			console.log("Num filters: " + filters.length)
@@ -196,19 +219,25 @@ FSBL.addEventListener('onReady', function () {
 			{
 				position: "relative",
 				addToWorkspace: true,
-				right: "adjacent",
+				left: "adjacent",
 				top: 0,
 				height: window.innerHeight,
 				spawnIfNotFound: true,
 				slave: true,
 				relativeWindow: myWindowIdentifier,
 				groupOnSpawn: true,
-				data: {"reportUUID": reportUUID, "filtersSelected": filtersSelected}
+				data: {
+					"reportUUID": reportUUID, 
+					"filtersSelected": filtersSelected,
+					"reportUUID": reportUUID,
+					"yellowfinProtocol": yellowfinProtocol,
+					"yellowfinHost": yellowfinHost,
+					"yellowfinPort": yellowfinPort,
+					"yellowfinPath": yellowfinPath,
+					"yellowfinReportPath": yellowfinReportPath
+				}
 			}, function(err, response){
 				console.log("Filter showWindow error: ", response);
-				//accountDetailSpawnResponse=response;
-				// After the component is launched, or displayed, we tell the child which customer to use.
-				//FSBL.Clients.RouterClient.transmit(windowIdentifier.windowName, customers[customerIndex]);
 			}
 		);
 	}

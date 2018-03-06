@@ -8,21 +8,27 @@ var RouterClient = Finsemble.Clients.RouterClient;
  */
 
 var BaseClient = Finsemble.Clients.BaseClient;
-var yellowfin2Client = function (params) {
+function Yellowfin2Client(params) {
 	BaseClient.call(this, params);
 	var self = this;
 
-	return this;
-};
+	var getServerDetails = function() {
+		return self.getServerDetails();
+	}
 
-var clientInstance = new yellowfin2Client({
+
+
+	return self;
+}
+
+var yellowfin2Client = new Yellowfin2Client({
 	onReady: function (cb) {
-		console.log("yellowfin2Client Ready");
+		console.log("Yellowfin2Client Ready");
 		cb();
 	},
-	name:"yellowfin2Client"
+	name: "Yellowfin2Client"
 });
 
-clientInstance.requiredServices = ["dockingService", "authenticationService"];
+yellowfin2Client.requiredServices = ["dockingService", "authenticationService"];
 
-module.exports = clientInstance;
+module.exports = yellowfin2Client;

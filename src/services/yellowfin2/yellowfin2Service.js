@@ -4,9 +4,21 @@ var $ = require("jquery");
 $.xml2json = require("jquery-xml2json");
 $.soap = require("jquery.soap");
 
+//defaults
+// var yellowfinProtocol = "http://";
+// var yellowfinHost = "localhost";
+// var yellowfinPort = "8081";
+// var yellowfinPath = "/JsAPI";
+// var yellowfinReportPath = "/JsAPI?api=reports";
+// var yellowfinUser = "admin@yellowfin.com.au";
+// var yellowfinPass = "test";
+
+//yellowfin demo data
 var yellowfinProtocol = "http://";
-var yellowfinHost = "localhost";
-var yellowfinPort = "8081";
+var yellowfinHost = "35.178.45.11";
+var yellowfinPort = "80";
+var yellowfinPath = "/JsAPI";
+var yellowfinReportPath = "/JsAPI?api=reports";
 var yellowfinUser = "admin@yellowfin.com.au";
 var yellowfinPass = "test";
 
@@ -15,8 +27,8 @@ var RouterClient = Finsemble.Clients.RouterClient;
 var baseService = Finsemble.baseService;
 var Logger = Finsemble.Clients.Logger;
 var util = Finsemble.Util;
-var StorageClient = Finsemble.Clients.StorageClient;
-StorageClient.initialize();
+
+
 //var LauncherClient = Finsemble.Clients.LauncherClient;
 //LauncherClient.initialize();
 
@@ -27,23 +39,33 @@ StorageClient.initialize();
 function yellowfin2Service() {
 
 	var self = this;
-	/**
-	 * Creates router endpoints for all of our client APIs. Add servers or listeners for requests coming from your clients.
-	 * @private
-	 */
-	this.createRouterEndpoints = function () {
+	// /**
+	//  * Creates router endpoints for all of our client APIs. Add servers or listeners for requests coming from your clients.
+	//  * @private
+	//  */
+	// this.createRouterEndpoints = function () {
 
-	};
+	// };
 
 	return this;
 }
 yellowfin2Service.prototype = new baseService({
 	startupDependencies: {
 		services: ["dockingService", "authenticationService"],
-		clients: ["storageClient"]
+		clients: []
 	}
 });
 var serviceInstance = new yellowfin2Service('yellowfin2Service');
+
+serviceInstance.getServerDetails = function () {
+	return {
+		"yellowfinProtocol": yellowfinProtocol,
+		"yellowfinHost": yellowfinHost,
+		"yellowfinPort": yellowfinPort,
+		"yellowfinPath": yellowfinPath,
+		"yellowfinReportPath": yellowfinReportPath
+	};
+}
 
 serviceInstance.onBaseServiceReady(function (callback) {
 	Logger.start();
@@ -52,19 +74,21 @@ serviceInstance.onBaseServiceReady(function (callback) {
 	//npm install -PD jquery
 	//npm install -PD jquery.soap
 
+	RouterClient.addPubSubResponder("yellowFinServer", serviceInstance.getServerDetails());
+
+
+
 	//curl "http://localhost:8081/webservices/LegacyAdministrationService/remoteAdministrationCall" -X OPTIONS -H "Access-Control-Request-Method: POST" -H "Origin: http://localhost:3375" -H "Accept-Encoding: gzip, deflate" -H "Accept-Language: en-US" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 OpenFin/8.56.26.50 Safari/537.36" -H "Accept: */*" -H "Referer: http://localhost:3375/services/yellowfin2/yellowfin2.html" -H "Connection: keep-alive" -H "Access-Control-Request-Headers: content-type, soapaction" --compressed
 	$.soap({
-		url: yellowfinProtocol + yellowfinHost + ':' + yellowfinPort + '/webservices/LegacyAdministrationService/',
+		//url: yellowfinProtocol + yellowfinHost + ':' + yellowfinPort + '/webservices/LegacyAdministrationService/',
+		url: yellowfinProtocol + yellowfinHost + ':' + yellowfinPort + '/services/AdministrationService/',
 		method: 'remoteAdministrationCall',
 	
-		// HTTPHeaders: {
-		// 	"Access-Control-Request-Method:": ""
-		// },
 		data: {
 			loginId: yellowfinUser,
 			password: yellowfinPass,
 			orgId: 1,
-			function: 'LOGINUSER',
+			function: 'GETALLUSERREPORTS',
 			person: {
 				userId: yellowfinUser,
 				password: yellowfinPass
@@ -85,7 +109,7 @@ serviceInstance.onBaseServiceReady(function (callback) {
 		}
 	});
 
-
+	
 	Logger.log("yellowFin2 Service ready");
 	console.log("> yellowFin2 Service ready");
 	callback();
