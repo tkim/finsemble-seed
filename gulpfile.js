@@ -13,7 +13,7 @@
 	const merge = require("merge-stream");
 	const launcher = require("openfin-launcher");
 	const path = require("path");
-	const webpack = require("webpack-stream");
+	const webpack = require("webpack");
 
 	// local
 	const webpackFilesConfig = require("./build/webpack/webpack.files.js")
@@ -96,8 +96,15 @@
 	/**
 	 * Builds files using webpack.
 	 */
-	const buildWebpack = () => {
-		return webpack(webpackFilesConfig);
+	const buildWebpack = done => {
+		webpack(webpackFilesConfig, () => {
+			if (webpackServicesConfig) {
+				// Webpack config for sevices exists. Build it
+				webpack(webpackServicesConfig, done);
+			} else {
+				done();
+			}	
+		});
 	}
 
 	/**
