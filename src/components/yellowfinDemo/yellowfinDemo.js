@@ -9,6 +9,6 @@ FSBL.addEventListener('onReady', function () {
 		$('iframe').width(window.innerWidth-5);
 	};
 
-	FSBL.Clients.WindowClient.setWindowTitle("YellowFin (localhost:8081)");
+	FSBL.Clients.WindowClient.setWindowTitle("YellowFin (Demo server)");
  
 }); 

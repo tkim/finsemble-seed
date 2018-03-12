@@ -154,20 +154,14 @@ FSBL.addEventListener('onReady', function () {
 			options.filters = filtersSelected;
 		}
 
-
-
 		//Publish filters for linking
-		// if (filterArr && !(userOpts && userOpts.triggerComp && userOpts.triggerComp == FSBL.Clients.WindowClient.options.name)){
-		// 	for (var i = 0; i < filterArr.length; i++) {
-		// 		if (filtersSelected[filterArr[i].filterUUID]) {
-		// 			FSBL.Clients.LinkerClient.publish({dataType: filterArr[i].description, data: {triggerComp: FSBL.Clients.WindowClient.options.name, filtersSelected: filtersSelected[filtersArr[i].filterUUID]}});
-		// 		}
-		// 	}
-		// }
-
-
-
-
+		if (filterArr && !(userOpts && userOpts.triggerComp && userOpts.triggerComp == FSBL.Clients.WindowClient.options.name)){
+			for (var i = 0; i < filterArr.length; i++) {
+				if (filtersSelected[filterArr[i].filterUUID]) {
+					FSBL.Clients.LinkerClient.publish({dataType: filterArr[i].description, data: {triggerComp: FSBL.Clients.WindowClient.options.name, filterValue: filtersSelected[filtersArr[i].filterUUID]}});
+				}
+			}
+		}
 
 		console.log("yellowfin options: " + JSON.stringify(options))
 		window.yellowfin.loadReport(options);
@@ -189,27 +183,30 @@ FSBL.addEventListener('onReady', function () {
 		setState();
 	};
 
+	var filtersSetup = false;
 	function filterCallback(filters) {
 		if (filters && filters.length) { 
 			console.log("Num filters: " + filters.length)
 			filterArr = filters;
-			for (var i = 0; i < filters.length; i++) {
-				var filt = filters[i];
+			if(!filtersSetup) {
+				for (var i = 0; i < filters.length; i++) {
+					var filt = filters[i];
 
-				//subscribe to filters
-				FSBL.Clients.LinkerClient.subscribe(filt.description, function (obj) {
-					console.log('Received filter data: ' + filt.description + " = " + JSON.stringify(obj));
-					
-					//ignore messages from ourselves
-					if (obj && obj.triggerComp != FSBL.Clients.WindowClient.options.name) {
-						filtersSelected[filt.filterUUID] = obj.filtersSelected;
-						FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);					
-						//update filter panel
-						injectReport(reportUUID, elementId, {triggerComp: triggerComp});
-					}
-				});
+					//subscribe to filters
+					FSBL.Clients.LinkerClient.subscribe(filt.description, function (obj) {
+						console.log('Received filter data: ' + filt.description + " = " + JSON.stringify(obj));
+						
+						//ignore messages from ourselves
+						if (obj && !(obj.triggerComp && obj.triggerComp == FSBL.Clients.WindowClient.options.name)) {
+							filtersSelected[filt.filterUUID] = obj.filterValue;
+							FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);					
+							//update filter panel
+							injectReport(reportUUID, elementId, {triggerComp: triggerComp});
+						}
+					});
+				}
 			}
-
+			filtersSetup = true;
 			//Listen to instructions from the filter panel
 			FSBL.Clients.RouterClient.addListener(FSBL.Clients.WindowClient.options.name + ".filter", function (err, response) {
 				if (err) return;
@@ -223,7 +220,6 @@ FSBL.addEventListener('onReady', function () {
 	}
 	 
 	function showFilterPanel() {
-		
 		// A windowIdentifier describes a component window. We create a unique windowName by using our current window's name and appending.
 		// showWindow() will show this windowName if it's found. If not, then it will launch a new accountDetail coponent, and give it this name.
 		var windowIdentifier={
@@ -282,7 +278,6 @@ FSBL.addEventListener('onReady', function () {
 				console.log("filter clicked");
 				showFilterPanel();
 			});
-
 
 			//setup the reset button
 			$("#resetButton").click(function () {

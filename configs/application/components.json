@@ -383,8 +383,8 @@
                 "autoShow": true,
                 "top": "center",
                 "left": "center",
-                "width": 1060,
-                "height": 760
+                "width": 1065,
+                "height": 830
             },
             "component": {
                 "inject": true
@@ -418,8 +418,8 @@
                 "autoShow": true,
                 "top": "center",
                 "left": "0",
-                "width": 350,
-                "height": 600
+                "width": 300,
+                "height": 400
             },
             "component": {
                 "inject": false
@@ -441,6 +441,76 @@
                     },
                     "Toolbar": {
                         "iconClass": "yellowFinLauncher"
+                    }
+                }
+            }
+        },
+        "yellowfinDemo": {
+            "window": {
+                "url": "$applicationRoot/components/yellowfinDemo/yellowfinDemo.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 1065,
+                "height": 830
+            },
+            "component": {
+                "inject": true
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "yellowfinDemo"
+                    }
+                }
+            }
+        },
+        "yellowFinLauncherDemo": {
+            "window": {
+                "url": "$applicationRoot/components/yellowFinLauncherDemo/yellowFinLauncherDemo.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 300,
+                "height": 600
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "yellowFinLauncherDemo"
                     }
                 }
             }
