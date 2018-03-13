@@ -1,28 +1,24 @@
-//host config - to move elsewhere
-var yellowfinProtocol = "http://";
-var yellowfinHost = "localhost";
-var yellowfinPort = "8081";
-var yellowfinPath = "/JsAPI"
-var yellowfinReportPath = "/JsAPI?api=reports"
-
 //JQuery
-var $ = require("jquery");
+const $ = require("jquery");
+const Logger = FSBL.Clients.Logger;
+// import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfin2Client';
 
 //state
-var filtersSelected = {};
-var filterArr = [];
-var reportUUID = null;
+let serverDetails = null;
+let reportUUID = null;
+let filtersSelected = {};
+let filterArr = [];
 
 function setFilters() {
 	$("filtervalue").removeClass("selected");
 	for (let filter of filterArr) {
-		var filterBlock = $('filter filterUUID:contains(' + filter.filterUUID + ')').parent();
-		console.log("filter: " + filterBlock.find('filterUUID').text());
+		let filterBlock = $('filter filterUUID:contains(' + filter.filterUUID + ')').parent();
+		Logger.log("filter: " + filterBlock.find('filterUUID').text());
 		if (filter.list && filter.listValues){
 			//category filter
 			if (filtersSelected[filter.filterUUID]) {
 				filterBlock.find('values filtervalue').each(function () {
-					console.log("value: " + $( this ).find('label description').text());
+					Logger.log("value: " + $( this ).find('label description').text());
 					if (filtersSelected[filter.filterUUID].includes($( this ).find('label description').text())) {
 						$( this ).addClass("selected");
 					}
@@ -48,8 +44,8 @@ function setFilters() {
 }
 
 function clickFilter(event) {
-	console.log("clickFilter: " + JSON.stringify(event.data));
-	var data = event.data;
+	Logger.log("clickFilter: " + JSON.stringify(event.data));
+	let data = event.data;
 	if (!filtersSelected[data[0]]) {
 		filtersSelected[data[0]] = [data[1].value];
 	} else if (filtersSelected[data[0]].includes(data[1].value)){
@@ -58,70 +54,70 @@ function clickFilter(event) {
 		filtersSelected[data[0]].push(data[1].value);
 	}
 
-	console.log("filters selected: " + JSON.stringify(filtersSelected));
+	Logger.log("filters selected: " + JSON.stringify(filtersSelected));
 	//highlight selected filters
 	setFilters();
 }
 
 function textFilterApply(event) {
-	console.log("textFilterApply: " + JSON.stringify(event.data));
-	var data = event.data;
+	Logger.log("textFilterApply: " + JSON.stringify(event.data));
+	let data = event.data;
 	if (data[1]) {
 		filtersSelected[data[0]] = data[1].val();
 	} else {
 		delete filtersSelected[data[0]];
 	}
 
-	console.log("filters selected: " + JSON.stringify(filtersSelected));
+	Logger.log("filters selected: " + JSON.stringify(filtersSelected));
 	//highlight selected filters
 	setFilters();
 }
 
 
 function betweenFilterApply(event) {
-	console.log("betweenFilterApply: " + JSON.stringify(event.data));
-	var data = event.data;
+	Logger.log("betweenFilterApply: " + JSON.stringify(event.data));
+	let data = event.data;
 	if (data[1] && data[2]) {
 		filtersSelected[data[0]] = [data[1].val(), data[2].val()];
 	} else {
 		delete filtersSelected[data[0]];
 	}
 
-	console.log("filters selected: " + JSON.stringify(filtersSelected));
+	Logger.log("filters selected: " + JSON.stringify(filtersSelected));
 	//highlight selected filters
 	setFilters();
 }
 
 function renderPage() {
-	var filter_template = $("template")[0];
-	var value_template = $("template")[1];
-	var between_template = $("template")[2];
-	var freetext_template = $("template")[3];
+	let filter_template = $("template")[0];
+	let value_template = $("template")[1];
+	let between_template = $("template")[2];
+	let freetext_template = $("template")[3];
 	$("#filters").empty();
 	for (let filter of filterArr) {
-		console.log("filter row: " + JSON.stringify(filter));
-		var filt_row = $(document.importNode(filter_template.content, true));
+		Logger.log("filter row: " + JSON.stringify(filter));
+		let filt_row = $(document.importNode(filter_template.content, true));
 		filt_row.find("description").text(filter.description);
 		filt_row.find("filterUUID").text(filter.filterUUID);
 
-		var vals = filt_row.find("values");
+		let vals = filt_row.find("values");
 		if (filter.list && filter.listValues){
 			for (let value of filter.listValues) {
-				var val_row = $(document.importNode(value_template.content, true));
+				let val_row = $(document.importNode(value_template.content, true));
 				val_row.find("description").text(value.value);
 				val_row.find("description").parent().parent().click([filter.filterUUID, value], clickFilter);
 				vals.append(val_row);
 			}
 		} else if (filter.list) {
-			var freetext_row = $(document.importNode(freetext_template.content, true));
-			var inputbox = freetext_row.find("label input");
+			let freetext_row = $(document.importNode(freetext_template.content, true));
+			let inputbox = freetext_row.find("label input");
 			freetext_row.find("button").click([filter.filterUUID, inputbox], textFilterApply);
 			vals.append(freetext_row);
 
 		} else if (filter.between){
-			var between_row = $(document.importNode(between_template.content, true));
-			var inputboxFrom = between_row.find("label input.from");
-			var inputboxTo = between_row.find("label input.to");
+			let between_row = $(document.importNode(between_template.content, true));
+			let inputboxFrom = between_row.find("label input.from");
+			let inputboxTo = between_row.find("label input.to");
 			between_row.find("button").click([filter.filterUUID, inputboxFrom, inputboxTo], betweenFilterApply);
 			vals.append(between_row);
 
@@ -133,22 +129,18 @@ function renderPage() {
 		$("#filters").append(filt_row);
 	}
 
-	console.log("filters selected after page render: " + JSON.stringify(filtersSelected));
+	Logger.log("filters selected after page render: " + JSON.stringify(filtersSelected));
 }
 
 /**
  * Sets the state of a component to the Workspace
  */
 function setState() {
-	var state = {
+	let state = {
 		"filtersSelected": filtersSelected,
 		"filterArr": filterArr,
 		"reportUUID": reportUUID,
-		"yellowfinProtocol": yellowfinProtocol,
-		"yellowfinHost": yellowfinHost,
-		"yellowfinPort": yellowfinPort,
-		"yellowfinPath": yellowfinPath,
-		"yellowfinReportPath": yellowfinReportPath
+		"serverDetails": serverDetails
 	};
 	FSBL.Clients.WindowClient.setComponentState({ field: 'reportState', value: state });
 }
@@ -167,11 +159,7 @@ function getState() {
 		filtersSelected = state.filtersSelected;
 		filterArr = state.filterArr;
 		reportUUID = state.reportUUID;
-		yellowfinProtocol = state.yellowfinProtocol
-		yellowfinHost = state.yellowfinHost
-		yellowfinPort = state.yellowfinPort
-		yellowfinPath = state.yellowfinPath
-		yellowfinReportPath = state.yellowfinReportPath
+		serverDetails = state.serverDetails;
 	});
 }
 
@@ -183,29 +171,24 @@ FSBL.addEventListener("onReady", function () {
 	getState(); 
 
 	//get spawing data to set report ID
-	var spawnData = FSBL.Clients.WindowClient.getSpawnData();
-	console.log("Spawn data: " + JSON.stringify(spawnData));
+	let spawnData = FSBL.Clients.WindowClient.getSpawnData();
+	Logger.log("Spawn data: " + JSON.stringify(spawnData));
 	if (spawnData){
 		if (spawnData.reportUUID) { 
 			reportUUID = spawnData.reportUUID;
-			console.log("Set reportUUID: " + JSON.stringify(reportUUID)); 
+			Logger.log("Set reportUUID: " + JSON.stringify(reportUUID)); 
 		}
 		if (spawnData.filtersSelected) { 
 			filtersSelected = spawnData.filtersSelected; 
-			console.log("Set filtersSelected: " + JSON.stringify(filtersSelected)); 
+			Logger.log("Set filtersSelected: " + JSON.stringify(filtersSelected)); 
 		}
-
-		if (spawnData.yellowfinProtocol) {
-			yellowfinProtocol = spawnData.yellowfinProtocol;
-			yellowfinHost = spawnData.yellowfinHost;
-			yellowfinPort = spawnData.yellowfinPort;
-			yellowfinPath = spawnData.yellowfinPath;
-			yellowfinReportPath = spawnData.yellowfinReportPath;
+		if (spawnData.serverDetails) {
+			serverDetails = spawnData.serverDetails;
 		}
 	}
 
 	//Listen to instructions from report panel
-	var parent = FSBL.Clients.WindowClient.options.name.substring(0,FSBL.Clients.WindowClient.options.name.lastIndexOf("."));
+	let parent = FSBL.Clients.WindowClient.options.name.substring(0,FSBL.Clients.WindowClient.options.name.lastIndexOf("."));
 	FSBL.Clients.RouterClient.addListener(parent, function (err, response) {
 		if (err) return;
 		filtersSelected = response.data;
@@ -213,19 +196,19 @@ FSBL.addEventListener("onReady", function () {
 	});
 	
 	//load YellowFin API from host
-	var yellowfinScr = document.createElement('script');
-	yellowfinScr.setAttribute('src',yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinPath);
+	let yellowfinScr = document.createElement('script');
+	yellowfinScr.setAttribute('src', serverDetails.yellowfinProtocol + serverDetails.yellowfinHost + ":" + serverDetails.yellowfinPort + serverDetails.yellowfinPath);
 	yellowfinScr.setAttribute('type','text/javascript');
 
-	var yellowfinReportScr = document.createElement('script');
-	yellowfinReportScr.setAttribute('src',yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinReportPath);
+	let yellowfinReportScr = document.createElement('script');
+	yellowfinReportScr.setAttribute('src', serverDetails.yellowfinProtocol + serverDetails.yellowfinHost + ":" + serverDetails.yellowfinPort + serverDetails.yellowfinReportPath);
 	yellowfinReportScr.setAttribute('type','text/javascript');
 
 	function filterCallback(filters) {
-		console.log("Num filters: " + filters.length)
+		Logger.log("Num filters: " + filters.length)
 		filterArr = filters;
-		// for (var i = 0; i < filterArr.length; i++) {
-		// 	var filt = filterArr[i];
+		// for (let i = 0; i < filterArr.length; i++) {
+		// 	let filt = filterArr[i];
 		// }
 		renderPage();
 		setFilters();

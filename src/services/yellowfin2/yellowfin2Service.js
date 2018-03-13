@@ -1,35 +1,32 @@
-//replace with import when ready
-var Finsemble = require("@chartiq/finsemble");
-var $ = require("jquery");
+const Finsemble = require("@chartiq/finsemble");
+const $ = require("jquery");
 $.xml2json = require("jquery-xml2json");
 $.soap = require("jquery.soap");
 
 //defaults
-var yellowfinProtocol = "http://";
-var yellowfinHost = "localhost";
-var yellowfinPort = "8081";
-var yellowfinPath = "/JsAPI";
-var yellowfinReportPath = "/JsAPI?api=reports";
-var yellowfinUser = "admin@yellowfin.com.au";
-var yellowfinPass = "test";
+let yellowfinProtocol = "http://";
+let yellowfinHost = "localhost";
+let yellowfinPort = "8081";
+let yellowfinPath = "/JsAPI";
+let yellowfinReportPath = "/JsAPI?api=reports";
+let yellowfinUser = "admin@yellowfin.com.au";
+let yellowfinPass = "test";
 
 //yellowfin demo data
-// var yellowfinProtocol = "http://";
-// var yellowfinHost = "35.178.45.11";
-// var yellowfinPort = "80";
-// var yellowfinPath = "/JsAPI";
-// var yellowfinReportPath = "/JsAPI?api=reports";
-// var yellowfinUser = "admin@yellowfin.com.au";
-// var yellowfinPass = "test";
+// let yellowfinProtocol = "http://";
+// let yellowfinHost = "35.178.45.11";
+// let yellowfinPort = "80";
+// let yellowfinPath = "/JsAPI";
+// let yellowfinReportPath = "/JsAPI?api=reports";
+// let yellowfinUser = "admin@yellowfin.com.au";
+// let yellowfinPass = "test";
 
 
-var RouterClient = Finsemble.Clients.RouterClient;
-var baseService = Finsemble.baseService;
-var Logger = Finsemble.Clients.Logger;
-var util = Finsemble.Util;
+const RouterClient = Finsemble.Clients.RouterClient;
+const baseService = Finsemble.baseService;
+const Logger = Finsemble.Clients.Logger;
 
-
-//var LauncherClient = Finsemble.Clients.LauncherClient;
+//let LauncherClient = Finsemble.Clients.LauncherClient;
 //LauncherClient.initialize();
 
 /**
@@ -38,7 +35,7 @@ var util = Finsemble.Util;
  */
 function yellowfin2Service() {
 
-	var self = this;
+	let self = this;
 	// /**
 	//  * Creates router endpoints for all of our client APIs. Add servers or listeners for requests coming from your clients.
 	//  * @private
@@ -48,6 +45,8 @@ function yellowfin2Service() {
 	// };
 
 	this.getServerDetails = function () {
+		Logger.log("Received getServerDetails call");
+		
 		return {
 			"yellowfinProtocol": yellowfinProtocol,
 			"yellowfinHost": yellowfinHost,
@@ -58,6 +57,7 @@ function yellowfin2Service() {
 	};
 	
 	this.getLoginToken = function (callback) {
+		Logger.log("Received getLoginToken call");
 		$.soap({
 			url: yellowfinProtocol + yellowfinHost + ':' + yellowfinPort + '/webservices/LegacyAdministrationService',
 			method: 'web:remoteAdministrationCall',
@@ -76,18 +76,19 @@ function yellowfin2Service() {
 				}
 			},
 			success: function (soapResponse) {
-				var responseData = soapResponse.toJSON();
+				let responseData = soapResponse.toJSON();
 				try {
 	
 					if (responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"] === "SUCCESS") {
 						callback(null, responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["loginSessionId"]);
+						Logger.log("Sending response: ", responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["loginSessionId"]);
 					} else {
-						var msg = "YellowFin Webservice request (LOGINUSER) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"];
+						let msg = "YellowFin Webservice request (LOGINUSER) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"];
 						Logger.error(msg);
 						callback(msg, null);
 					}
 				} catch (err) {
-					var msg = "Caught an error when using the YellowFin webservice (LOGINUSER): "
+					let msg = "Caught an error when using the YellowFin webservice (LOGINUSER): "
 					Logger.error(msg, err);
 					callback("YellowFin Webservice (LOGINUSER) response did not contain expected values, response: " + JSON.stringify(responseData, undefined, 2),null); 
 				}
@@ -96,7 +97,7 @@ function yellowfin2Service() {
 				// or soapResponse.toXML() to get XML DOM
 			},
 			error: function (soapResponse) {
-				var msg = "YellowFin Webservice (LOGINUSER) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
+				let msg = "YellowFin Webservice (LOGINUSER) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
 				Logger.error(msg);
 				callback(msg,null); 
 			}
@@ -104,6 +105,7 @@ function yellowfin2Service() {
 	};
 	
 	this.getAllUserReports = function (callback) {
+		Logger.log("Received getAllUserReports call");
 		$.soap({
 			url: yellowfinProtocol + yellowfinHost + ':' + yellowfinPort + '/webservices/LegacyAdministrationService',
 			method: 'web:remoteAdministrationCall',
@@ -122,27 +124,27 @@ function yellowfin2Service() {
 				}
 			},
 			success: function (soapResponse) {
-				var responseData = soapResponse.toJSON();
+				let responseData = soapResponse.toJSON();
 				try {
-	
-					if (responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"] === "SUCCESS") {
+					if (responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"] == "SUCCESS") {
+						Logger.log("Sending response: ", responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["reports"]);
 						callback(null, responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["reports"]);
 					} else {
-						var msg = "YellowFin Webservice request (GETALLUSERREPORTS) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"];
-						Logger.error(msg);
+						let errmsg = "YellowFin Webservice request (GETALLUSERREPORTS) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"];
+						Logger.error(errmsg);
 						callback(msg, null);
 					}
 				} catch (err) {
-					var msg = "Caught an error when using the YellowFin webservice (GETALLUSERREPORTS): "
+					let msg = "Caught an error when using the YellowFin webservice (GETALLUSERREPORTS): "
 					Logger.error(msg, err);
-					callback("YellowFin Webservice (GETALLUSERREPORTS) response did not contain expected values, response: " + JSON.stringify(responseData, undefined, 2),null); 
+					callback("YellowFin Webservice (GETALLUSERREPORTS) response did not contain expected values, response: " + JSON.stringify(responseData, undefined, 2), null); 
 				}
 				// if you want to have the response as JSON use soapResponse.toJSON();
 				// or soapResponse.toString() to get XML string
 				// or soapResponse.toXML() to get XML DOM
 			},
 			error: function (soapResponse) {
-				var msg = "YellowFin Webservice (GETALLUSERREPORTS) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
+				let msg = "YellowFin Webservice (GETALLUSERREPORTS) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
 				Logger.error(msg);
 				callback(msg,null); 
 			}
@@ -154,10 +156,10 @@ function yellowfin2Service() {
 
 yellowfin2Service.prototype = new baseService({
 	startupDependencies: {
-		services: ["dockingService", "authenticationService"]
+		services: ["dockingService", "authenticationService", "routerService"]
 	}
 });
-var serviceInstance = new yellowfin2Service('yellowfin2Service');
+let serviceInstance = new yellowfin2Service('yellowfin2Service');
 serviceInstance.onBaseServiceReady(function (callback) {
 	Logger.start();
 
@@ -165,8 +167,10 @@ serviceInstance.onBaseServiceReady(function (callback) {
 	//npm install -PD jquery
 	//npm install -PD jquery.soap
 	//npm install -PD jquery-xml2json
-	RouterClient.addPubSubResponder("yellowFinServer", serviceInstance.getServerDetails());
+	// Logger.info("Adding PubSub responder for server detailsl");
+	// RouterClient.addPubSubResponder("yellowFinServer", serviceInstance.getServerDetails());
 
+	Logger.log("Adding general purpose Query responder");
 	RouterClient.addResponder("YF server", function(error, queryMessage) {
 		if (!error) {
 			Logger.log('YF server Query: ' + JSON.stringify(queryMessage));
@@ -175,21 +179,23 @@ serviceInstance.onBaseServiceReady(function (callback) {
 				queryMessage.sendQueryResponse(null, serviceInstance.getServerDetails());
 
 			} else if (queryMessage.data.query === "login token") {
-				serviceInstance.getLoginToken(function(err,token) {
-					if (err) {
-						queryMessage.sendQueryResponse(null, {loginToken: token});
-					} else {
-						queryMessage.sendQueryResponse(err, null);
-					}
+				serviceInstance.getLoginToken(function(err, token) {
+					// if (err) {
+					// 	queryMessage.sendQueryResponse(null, {loginToken: token});
+					// } else {
+					// 	queryMessage.sendQueryResponse(err, null);
+					// }
+					queryMessage.sendQueryResponse(err, token);
 				});
 
 			} else if  (queryMessage.data.query === "all reports") {
-				serviceInstance.getAllUserReports(function(err,reports) {
-					if (err) {
-						queryMessage.sendQueryResponse(null, {"reports": reports});
-					} else {
-						queryMessage.sendQueryResponse(err, null);
-					}
+				serviceInstance.getAllUserReports(function(err, reports) {
+					// if (err) {
+					// 	queryMessage.sendQueryResponse(null, {"reports": reports});
+					// } else {
+					// 	queryMessage.sendQueryResponse(err, null);
+					// }
+					queryMessage.sendQueryResponse(err, reports);
 				});
 
 			} else {

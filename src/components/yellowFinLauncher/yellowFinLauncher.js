@@ -1,9 +1,9 @@
 //host config - to move elsewhere
-var yellowfinProtocol = "http://";
-var yellowfinHost = "localhost";
-var yellowfinPort = "8081";
-var yellowfinPath = "/JsAPI";
-var yellowfinReportPath = "/JsAPI?api=reports";
+// var yellowfinProtocol = "http://";
+// var yellowfinHost = "localhost";
+// var yellowfinPort = "8081";
+// var yellowfinPath = "/JsAPI";
+// var yellowfinReportPath = "/JsAPI?api=reports";
 
 // var yellowfinProtocol = "http://";
 // var yellowfinHost = "35.178.45.11";
@@ -11,29 +11,18 @@ var yellowfinReportPath = "/JsAPI?api=reports";
 // var yellowfinPath = "/JsAPI";
 // var yellowfinReportPath = "/JsAPI?api=reports";
 
-//JQuery
-var $ = require("jquery");
+//JQuery (can't get ES6 import to work for this yet)
+const $ = require("jquery");
+const Logger = FSBL.Clients.Logger;
+import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfin2Client';
 
-//state - to switch to API loading
-var reports = [
-	['32384c5a-7892-4ecb-93be-dc1efbdb7edd','Revenue by media category'],
-	['879d3175-1d40-4495-a4d4-45a24e781e53','Invoice vs. Estimate'],
-	['ce3c4461-ea36-427d-bcd4-72448ec2722c','Revenue by Campaign and Demographic']
+let serverDetails = null;
+let reports = [];
+let dashboards = [];
 
-	// ['fe761a5e-db8d-4c55-9ff6-e5879519f57b','Stocks 1'],
-	// ['f6aecf28-ba9b-4478-8890-89e01100c495','Stocks 2'],
-	// ['e1f168de-9710-4cc3-b67f-18af05d994ff','Stocks 3'],
-	// ['5176f636-29b2-4b38-bd6a-deee157d4df9','Stocks 4'],
-	// ['996525dc-8723-4d9f-bc73-05705f9c7b5f','Stocks 5'],
-	// ['758b1bc7-7565-489e-ac86-c70f740d3045','Stocks 6']
-];
-var dashboards = [
-
-];
-
-var clickReport = function(event) {
+let clickReport = function(event) {
 	console.log("clickReport: " + JSON.stringify(event.data));
-	var data = event.data;
+	let data = event.data;
 
 	console.log("Launching report: ", data["reportUUID"]);
 
@@ -45,11 +34,7 @@ var clickReport = function(event) {
 			addToWorkspace: true,
 			data: {
 				"reportUUID": data["reportUUID"],
-				"yellowfinProtocol": yellowfinProtocol,
-				"yellowfinHost": yellowfinHost,
-				"yellowfinPort": yellowfinPort,
-				"yellowfinPath": yellowfinPath,
-				"yellowfinReportPath": yellowfinReportPath
+				"serverDetails": serverDetails
 			}
 		}, function(err, response){
 			console.log("Report showWindow error", response);
@@ -58,47 +43,36 @@ var clickReport = function(event) {
 };
 
 FSBL.addEventListener('onReady', function () {
-
 	FSBL.Clients.WindowClient.setWindowTitle("Report Launcher (localhost)");
-	var reportTemplate = $("template")[0];
-
-	// //get YellowFinClient if we're using it
-	var Yellowfin2Client = require('../../clients/yellowfin2Client');
-	console.log("yellowfin2Client: " + JSON.stringify(Yellowfin2Client, undefined, 2));	
-	var serverDetails = Yellowfin2Client.getServerDetails();
-	console.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
-
-	FSBL.Clients.RouterClient.subscribe("yellowFinServer", function(error, notify) {
-		if (error) {
-			console.log("yellowFinServer Subscribe Error:" + JSON.stringify(error));
+	let reportTemplate = $("template")[0];
+	
+	getServerDetails(function(err,server) {
+		if (err) {
+			Logger.error("Failed to retrieve server details: ", err);
 		} else {
+			serverDetails = server;
+			Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
 
-			console.log("yellowfin server data: ", notify);
+			getAllUserReports(function(err, reportData) {
+				if (err) {
+					Logger.error("Failed to retrieve user reports: ", err);
+				} else {
+					$("#reports").empty();
+					//Logger.log("reports: " + JSON.stringify(reportData, undefined, 2));	
 
-			var serverDetails = notify.data;
-			yellowfinProtocol = serverDetails.yellowfinProtocol;
-			yellowfinHost = serverDetails.yellowfinHost;
-			yellowfinPort = serverDetails.yellowfinPort;
-			yellowfinPath = serverDetails.yellowfinPath;
-			yellowfinReportPath = serverDetails.yellowfinReportPath;
-
-			console.log("yellowfinProtocol", yellowfinProtocol);
-			console.log("yellowfinHost", yellowfinHost);
-			console.log("yellowfinPort", yellowfinPort);
-			console.log("yellowfinPath", yellowfinPath);
-			console.log("yellowfinReportPath", yellowfinReportPath);
-			
-			$("#reports").empty();
-			for (let report of reports) {
-				console.log("report row: " + JSON.stringify(report));
-				var report_row = $(document.importNode(reportTemplate.content, true));
-				report_row.find("description").text(report[1]);
-				report_row.find("reportUUID").text(report[0]);
-				
-				report_row.find("description").parent().click({"reportUUID": report[0]}, clickReport);
-				$("#reports").append(report_row);
-			}
-
+					reportData.forEach(report => {
+						reports.push(report);
+						console.log("report row: " + JSON.stringify(report));
+						let report_row = $(document.importNode(reportTemplate.content, true));
+						 
+						report_row.find("description").text(report.reportName );
+						report_row.find("category").text(report.reportSubCategory ? `${report.reportCategory}: ${report.reportSubCategory}` : report.reportCategory);
+						report_row.find("reportUUID").text(report.reportUUID);
+						report_row.find("description").parent().click({"reportUUID": report.reportUUID}, clickReport);
+						$("#reports").append(report_row);
+					});
+				}
+			});
 		}
 	});
 });

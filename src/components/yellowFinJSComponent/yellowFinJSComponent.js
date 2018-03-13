@@ -1,33 +1,31 @@
-//host config - to move elsewhere
-var yellowfinProtocol = "http://";
-var yellowfinHost = "localhost";
-var yellowfinPort = "8081";
-var yellowfinPath = "/JsAPI";
-var yellowfinReportPath = "/JsAPI?api=reports";
+// //host config - to move elsewhere
+// let yellowfinProtocol = "http://";
+// let yellowfinHost = "localhost";
+// let yellowfinPort = "8081";
+// let yellowfinPath = "/JsAPI";
+// let yellowfinReportPath = "/JsAPI?api=reports";
 
 //JQuery
-var $ = require("jquery");
+const $ = require("jquery");
+const jQuery = $;
+const Logger = FSBL.Clients.Logger;
+import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfin2Client';
 
 //state
-var filtersSelected = {};
-var filterArr = [];
-var reportUUID = null;
-
+let filtersSelected = {};
+let filterArr = [];
+let reportUUID = null;
+let serverDetails = null;
 
 /**
  * Sets the state of a component to the Workspace
  */
 function setState() {
-
-	var state = {
+	let state = {
 		"filtersSelected": filtersSelected,
 		"filterArr": filterArr,
 		"reportUUID": reportUUID,
-		"yellowfinProtocol": yellowfinProtocol,
-		"yellowfinHost": yellowfinHost,
-		"yellowfinPort": yellowfinPort,
-		"yellowfinPath": yellowfinPath,
-		"yellowfinReportPath": yellowfinReportPath
+		"serverDetails": serverDetails,
 	};
 	FSBL.Clients.WindowClient.setComponentState({ field: 'reportState', value: state });
 }
@@ -46,70 +44,47 @@ function getState() {
 		filtersSelected = state.filtersSelected;
 		filterArr = state.filterArr;
 		reportUUID = state.reportUUID;
-		yellowfinProtocol = state.yellowfinProtocol;
-		yellowfinHost = state.yellowfinHost;
-		yellowfinPort = state.yellowfinPort;
-		yellowfinPath = state.yellowfinPath;
-		yellowfinReportPath = state.yellowfinReportPath;
+		serverDetails = state.serverDetails;
 	});
 }
 
 
-var myWindowIdentifier;
+let myWindowIdentifier;
 FSBL.addEventListener('onReady', function () {
 	FSBL.Clients.WindowClient.getWindowIdentifier(function(id) {myWindowIdentifier = id;});
-	reportUUID = '32384c5a-7892-4ecb-93be-dc1efbdb7edd';	
 	
 	getState();
 	
 	//get spawing data to set report ID
-	var spawnData = FSBL.Clients.WindowClient.getSpawnData();
-	console.log("Spawn data: " + JSON.stringify(spawnData));
+	let spawnData = FSBL.Clients.WindowClient.getSpawnData();
+	Logger.log("Spawn data: " + JSON.stringify(spawnData));
 	if (spawnData){
-		if (spawnData.reportUUID) { 
-			reportUUID = spawnData.reportUUID;
-			console.log("Set reportUUID: " + JSON.stringify(reportUUID)); 
+		if (spawnData.serverDetails) {
+			serverDetails = spawnData.serverDetails;
+			Logger.log("Set serverDetails: " + JSON.stringify(serverDetails, undefined, 2)); 
+			if (spawnData.reportUUID) { 
+				reportUUID = spawnData.reportUUID;
+				Logger.log("Set reportUUID: " + JSON.stringify(reportUUID)); 
+			} else {
+				Logger.error("no report details found in spawn data!");
+			}
+		} else {
+			Logger.error("no server details found in spawn data!");
 		}
-		if (spawnData.yellowfinProtocol) {
-			yellowfinProtocol = spawnData.yellowfinProtocol;
-			yellowfinHost = spawnData.yellowfinHost;
-			yellowfinPort = spawnData.yellowfinPort;
-			yellowfinPath = spawnData.yellowfinPath;
-			yellowfinReportPath = spawnData.yellowfinReportPath;
-		}
-		
-		console.log("yellowfinProtocol", yellowfinProtocol);
-		console.log("yellowfinHost", yellowfinHost);
-		console.log("yellowfinPort", yellowfinPort);
-		console.log("yellowfinPath", yellowfinPath);
-		console.log("yellowfinReportPath", yellowfinReportPath);
 	}
 
-	//load YellowFin API from host
-	var yellowfinScr = document.createElement('script');
-	yellowfinScrSrc = yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinPath;
-	console.log("yellowfinScrSrc: " + yellowfinScrSrc)
-	yellowfinScr.setAttribute('src', yellowfinScrSrc);
-	yellowfinScr.setAttribute('type','text/javascript');
-	
-	var yellowfinReportScr = document.createElement('script');
-	var yellowfinReportScrSrc = yellowfinProtocol + yellowfinHost + ":" + yellowfinPort + yellowfinReportPath;
-	console.log("yellowfinReportScrSrc: " + yellowfinReportScrSrc)
-	yellowfinReportScr.setAttribute('src', yellowfinReportScrSrc);
-	yellowfinReportScr.setAttribute('type','text/javascript');
+	let userOpts = null;
+	let resizeId;
+	let elementId = 'yellowfinContainer';
 
-	var userOpts = null;
-	var resizeId;
-	var elementId = 'yellowfinContainer';
-
-	var injectReport = function(uuid, elementId, opts) {
+	let injectReport = function(uuid, elementId, opts) {
 		if (opts) {
 			//disallow forcing width and height so that we respond to window size
 			if (opts.width) { delete opts.width;}
 			if (opts.height) { delete opts.height;}
 			userOpts = opts;
 		}
-		var options = {};
+		let options = {};
 		//default options
 		options.reportUUID = uuid;
 		options.elementId = elementId;
@@ -156,7 +131,7 @@ FSBL.addEventListener('onReady', function () {
 
 		//Publish filters for linking
 		if (filterArr && !(userOpts && userOpts.triggerComp && userOpts.triggerComp == FSBL.Clients.WindowClient.options.name)){
-			for (var i = 0; i < filterArr.length; i++) {
+			for (let i = 0; i < filterArr.length; i++) {
 				if (filtersSelected[filterArr[i].filterUUID]) {
 					FSBL.Clients.LinkerClient.publish({dataType: filterArr[i].description, data: {triggerComp: FSBL.Clients.WindowClient.options.name, filterValue: filtersSelected[filtersArr[i].filterUUID]}});
 				}
@@ -167,7 +142,7 @@ FSBL.addEventListener('onReady', function () {
 		window.yellowfin.loadReport(options);
 
 		//Window title hack - discussing adding a callback to YF JS API so we know when report is loaded AND to receive report metadata
-		var setTitle = function() {
+		let setTitle = function() {
 			if ($('div.yfReportTitle').length > 0){
 				FSBL.Clients.WindowClient.setWindowTitle($('div.yfReportTitle').text());
 				$('div.yfReportTitle').hide();
@@ -183,14 +158,14 @@ FSBL.addEventListener('onReady', function () {
 		setState();
 	};
 
-	var filtersSetup = false;
+	let filtersSetup = false;
 	function filterCallback(filters) {
 		if (filters && filters.length) { 
 			console.log("Num filters: " + filters.length)
 			filterArr = filters;
 			if(!filtersSetup) {
-				for (var i = 0; i < filters.length; i++) {
-					var filt = filters[i];
+				for (let i = 0; i < filters.length; i++) {
+					let filt = filters[i];
 
 					//subscribe to filters
 					FSBL.Clients.LinkerClient.subscribe(filt.description, function (obj) {
@@ -222,7 +197,7 @@ FSBL.addEventListener('onReady', function () {
 	function showFilterPanel() {
 		// A windowIdentifier describes a component window. We create a unique windowName by using our current window's name and appending.
 		// showWindow() will show this windowName if it's found. If not, then it will launch a new accountDetail coponent, and give it this name.
-		var windowIdentifier={
+		let windowIdentifier={
 			componentType: "yellowFinFilterComponent",
 			windowName: FSBL.Clients.WindowClient.options.name + ".filter"
 		};
@@ -242,11 +217,7 @@ FSBL.addEventListener('onReady', function () {
 					"reportUUID": reportUUID, 
 					"filtersSelected": filtersSelected,
 					"reportUUID": reportUUID,
-					"yellowfinProtocol": yellowfinProtocol,
-					"yellowfinHost": yellowfinHost,
-					"yellowfinPort": yellowfinPort,
-					"yellowfinPath": yellowfinPath,
-					"yellowfinReportPath": yellowfinReportPath
+					"serverDetails": serverDetails
 				}
 			}, function(err, response){
 				console.log("Filter showWindow error: ", response);
@@ -255,9 +226,9 @@ FSBL.addEventListener('onReady', function () {
 	}
 
 
-	var yfLoaded = false;
-	var yfReportsLoaded = false;
-	var checkLoaded = function() {
+	let yfLoaded = false;
+	let yfReportsLoaded = false;
+	let checkLoaded = function() {
 		if(yfLoaded && yfReportsLoaded) {
 			injectReport(reportUUID, elementId);
 
@@ -289,6 +260,11 @@ FSBL.addEventListener('onReady', function () {
 		}
 	}
 
+	//get a login token
+	let loginToken = null;
+	let yellowfinScr = document.createElement('script');
+	let yellowfinReportScr = document.createElement('script');
+	
 	//retrieve and inject report HTML when API loaded (wait on last script added to DOM)
 	yellowfinScr.onload = function () {
 		yfLoaded = true;
@@ -299,6 +275,30 @@ FSBL.addEventListener('onReady', function () {
 		checkLoaded();
 	};
 
-	document.body.appendChild(yellowfinScr);
-	document.body.appendChild(yellowfinReportScr);
+	getLoginToken(function(err, token) {
+		if (err) {
+			Logger.error("Failed to retreive login token from webservice!");
+		} else {
+			Logger.log("Retrieved login token: " + token);
+			loginToken = token;
+		}
+		
+		//Setup YellowFin API script paths
+		let yellowfinScrSrc = serverDetails.yellowfinProtocol + serverDetails.yellowfinHost + ":" + serverDetails.yellowfinPort + serverDetails.yellowfinPath;
+		if (loginToken) {
+			yellowfinScrSrc += `?reportUUID=${reportUUID}&token=${loginToken}`;
+		}
+		Logger.info("yellowfinScrSrc: " + yellowfinScrSrc)
+		yellowfinScr.setAttribute('src', yellowfinScrSrc);
+		yellowfinScr.setAttribute('type','text/javascript');
+		document.body.appendChild(yellowfinScr);
+		
+		let yellowfinReportScrSrc = serverDetails.yellowfinProtocol + serverDetails.yellowfinHost + ":" + serverDetails.yellowfinPort + serverDetails.yellowfinReportPath;
+		Logger.info("yellowfinReportScrSrc: " + yellowfinReportScrSrc)
+		yellowfinReportScr.setAttribute('src', yellowfinReportScrSrc);
+		yellowfinReportScr.setAttribute('type','text/javascript');
+
+		document.body.appendChild(yellowfinReportScr);
+	});
+
 });
