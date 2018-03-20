@@ -230,6 +230,76 @@
                     }
                 }
             }
+        },
+        "test-stack": {
+            "window": {
+                "url": "$applicationRoot/components/test-stack/test-stack.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 800,
+                "height": 600
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "test-stack"
+                    }
+                }
+            }
+        },
+        "notification": {
+            "window": {
+                "url": "$applicationRoot/components/notification/notification.html",
+                "frame": false,
+                "resizable": false,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 350,
+                "height": 150
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": false,
+                        "isArrangable": false
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": false
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": false,
+                        "persistWindowState": false
+                    },
+                    "Toolbar": {
+                        "iconClass": "notification"
+                    }
+                }
+            }
         }
     }
 }

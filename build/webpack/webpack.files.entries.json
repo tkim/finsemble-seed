@@ -58,5 +58,13 @@
     "searchMenu": {
         "output": "components/searchMenu/searchMenu",
         "entry": "./src/components/searchMenu/src/app.jsx"
+    },
+    "test-stack": {
+        "output": "components\\test-stack\\test-stack",
+        "entry": ".\\src\\components\\test-stack\\test-stack.js"
+    },
+    "notification": {
+        "output": "components\\notification\\notification",
+        "entry": ".\\src\\components\\notification\\notification.js"
     }
 }

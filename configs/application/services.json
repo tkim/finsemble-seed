@@ -1,4 +1,13 @@
 {
     "comment": "Houses config for any custom services that you'd like to import into Finsemble.",
-    "services": {}
+    "services": {
+        "stackingService": {
+            "useWindow": true,
+            "active": true,
+            "name": "stackingService",
+            "file": "stacking/stackingService.js",
+            "visible": false,
+            "html": "/services/stacking/stacking.html"
+        }
+    }
 }
