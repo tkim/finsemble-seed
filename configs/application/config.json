@@ -22,7 +22,7 @@
 	"authentication": {
 		"startup": {
 			"adapter": "PASSWORD",
-			"component": "rpc-test"
+			"component": "RPC Linker Example"
 		}
 	},
 	"systemTrayIcon": "$applicationRoot/components/assets/img/Finsemble_Taskbar_Icon.png",

@@ -336,6 +336,44 @@
                     }
                 }
             }
-        }
+        },
+		"RPC Linker Example": {
+			"window": {
+				"id": "RPCLinkerExample",
+				"native": true,
+				"alias": "rpclinkerexample",
+				"path": "",
+				"url": "",
+				"autoShow": true,
+				"alwaysOnTop": false,
+				"resizable": true,
+				"showTaskbarIcon": false,
+				"contextMenu": true,
+				"addToWorkspace": true
+			},
+			"component": {
+				"mode": "native",
+				"category": "system"
+			},
+			"foreign": {
+				"services": {
+					"workspaceService": {
+						"isArrangable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"persistWindowState": false,
+						"FSBLHeader": true
+					},
+					"Toolbar": {
+						"iconURL": "$applicationRoot/components/assets/img/Finsemble_Taskbar_Icon.png"
+					}
+				}
+			}
+		}
     }
 }

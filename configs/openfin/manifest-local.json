@@ -56,6 +56,12 @@
             "version": "1.0.92",
             "alias": "assimilation",
             "target": "assimilationMain.exe"
+        },
+        {
+            "src": "http://connect2.chartiq.com/finsemble/RPCv2LinkerExample-2.2.0.zip",
+            "version": "2.2.0",
+            "alias": "rpclinkerexample",
+            "target": "FinsembleRPCLinkerExample.exe"
         }
     ],
     "finsemble": {
