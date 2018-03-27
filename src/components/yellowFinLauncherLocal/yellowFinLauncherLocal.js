@@ -3,7 +3,15 @@ const $ = require("jquery");
 const Logger = FSBL.Clients.Logger;
 import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfin2Client';
 
-let serverDetails = null;
+let serverDetails = {
+	yellowfinProtocol: "http://",
+	yellowfinHost: "localhost",
+	yellowfinPort: "8081",
+	yellowfinPath: "/JsAPI",
+	yellowfinReportPath: "/JsAPI?api=reports",
+	yellowfinUser: "admin@yellowfin.com.au",
+	yellowfinPass: "test"
+};
 let reports = [];
 let dashboards = [];
 
@@ -74,19 +82,8 @@ let getReports = function() {
 
 FSBL.addEventListener('onReady', function () {
 	let reportTemplate = $("template")[0];
-	$('.header #refreshButton').click(getReports);
-	$('.header #addButton').click(clickAddReport);
-	
-	getServerDetails(function(err,server) {
-		if (err) {
-			Logger.error("Failed to retrieve server details: ", err);
-		} else {
-			serverDetails = server;
-			FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:(${serverDetails.yellowfinPort})`);
-	
-			Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
-
-			getReports();
-		}
-	});
-}); 
+	$('.header button').click(clickAddReport);
+	FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:(${serverDetails.yellowfinPort})`);
+	Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
+	getReports();
+});

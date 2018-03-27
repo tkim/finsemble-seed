@@ -83,12 +83,8 @@
         "output": "components/yellowFinLauncher/yellowFinLauncher",
         "entry": "./src/components/yellowFinLauncher/yellowFinLauncher.js"
     },
-    "yellowfinDemo": {
-        "output": "components\\yellowfinDemo\\yellowfinDemo",
-        "entry": ".\\src\\components\\yellowfinDemo\\yellowfinDemo.js"
-    },
-    "yellowFinLauncherDemo": {
-        "output": "components\\yellowFinLauncherDemo\\yellowFinLauncherDemo",
-        "entry": ".\\src\\components\\yellowFinLauncherDemo\\yellowFinLauncherDemo.js"
+    "yellowFinLauncherLocal": {
+        "output": "components\\yellowFinLauncherLocal\\yellowFinLauncherLocal",
+        "entry": ".\\src\\components\\yellowFinLauncherLocal\\yellowFinLauncherLocal.js"
     }
 }

@@ -3,31 +3,28 @@ const $ = require("jquery");
 $.xml2json = require("jquery-xml2json");
 $.soap = require("jquery.soap");
 
-//defaults
-let yellowfinProtocol = "http://";
-let yellowfinHost = "localhost";
-let yellowfinPort = "8081";
-let yellowfinPath = "/JsAPI";
-let yellowfinReportPath = "/JsAPI?api=reports";
-let yellowfinUser = "admin@yellowfin.com.au";
-let yellowfinPass = "test";
-
-//yellowfin demo data
+// //defaults
 // let yellowfinProtocol = "http://";
-// let yellowfinHost = "35.178.45.11";
-// let yellowfinPort = "80";
+// let yellowfinHost = "localhost";
+// let yellowfinPort = "8081";
 // let yellowfinPath = "/JsAPI";
 // let yellowfinReportPath = "/JsAPI?api=reports";
 // let yellowfinUser = "admin@yellowfin.com.au";
 // let yellowfinPass = "test";
 
+// yellowfin demo data
+let yellowfinProtocol = "http://";
+let yellowfinHost = "35.178.45.11";
+let yellowfinPort = "80";
+let yellowfinPath = "/JsAPI";
+let yellowfinReportPath = "/JsAPI?api=reports";
+let yellowfinUser = "admin@yellowfin.com.au";
+let yellowfinPass = "test";
+
 
 const RouterClient = Finsemble.Clients.RouterClient;
 const baseService = Finsemble.baseService;
 const Logger = Finsemble.Clients.Logger;
-
-//let LauncherClient = Finsemble.Clients.LauncherClient;
-//LauncherClient.initialize();
 
 /**
  * The yellowfin2 Service receives calls from the yellowfin2Client.
@@ -36,13 +33,6 @@ const Logger = Finsemble.Clients.Logger;
 function yellowfin2Service() {
 
 	let self = this;
-	// /**
-	//  * Creates router endpoints for all of our client APIs. Add servers or listeners for requests coming from your clients.
-	//  * @private
-	//  */
-	// this.createRouterEndpoints = function () {
-
-	// };
 
 	this.getServerDetails = function () {
 		Logger.log("Received getServerDetails call");
@@ -52,7 +42,9 @@ function yellowfin2Service() {
 			"yellowfinHost": yellowfinHost,
 			"yellowfinPort": yellowfinPort,
 			"yellowfinPath": yellowfinPath,
-			"yellowfinReportPath": yellowfinReportPath
+			"yellowfinReportPath": yellowfinReportPath,
+			"yellowfinUser": yellowfinUser,
+			"yellowfinPass": yellowfinPass
 		};
 	};
 	
@@ -104,22 +96,22 @@ function yellowfin2Service() {
 		});
 	};
 	
-	this.getAllUserReports = function (callback) {
+	this.getAllUserReports = function (serverDeets, callback) {
 		Logger.log("Received getAllUserReports call");
 		$.soap({
-			url: yellowfinProtocol + yellowfinHost + ':' + yellowfinPort + '/webservices/LegacyAdministrationService',
+			url: serverDeets.yellowfinProtocol + serverDeets.yellowfinHost + ':' + serverDeets.yellowfinPort + '/webservices/LegacyAdministrationService',
 			method: 'web:remoteAdministrationCall',
 			appendMethodToURL: false,
 			envAttributes: {'xmlns:web': 'http://webservices.web.mi.hof.com/'},
 			data: {
 				arg0: {
 					function: 'GETALLUSERREPORTS',
-					loginId: yellowfinUser,
+					loginId: serverDeets.yellowfinUser,
 					orgId: 1,
-					password: yellowfinPass,
+					password: serverDeets.yellowfinPass,
 					person: {
-						userId: yellowfinUser,
-						password: yellowfinPass
+						userId: serverDeets.yellowfinUser,
+						password: serverDeets.yellowfinPass
 					}
 				}
 			},
@@ -130,7 +122,7 @@ function yellowfin2Service() {
 						Logger.log("Sending response: ", responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["reports"]);
 						callback(null, responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["reports"]);
 					} else {
-						let errmsg = "YellowFin Webservice request (GETALLUSERREPORTS) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"];
+						let errmsg = "YellowFin Webservice request (GETALLUSERREPORTS) was not successful! Response: " + JSON.stringify(responseData, undefined, 2);
 						Logger.error(errmsg);
 						callback(msg, null);
 					}
@@ -144,7 +136,61 @@ function yellowfin2Service() {
 				// or soapResponse.toXML() to get XML DOM
 			},
 			error: function (soapResponse) {
-				let msg = "YellowFin Webservice (GETALLUSERREPORTS) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
+				let msg = "YellowFin Webservice (GETALLUSERREPORTS) returned an error! response: " + JSON.stringify(soapResponse, undefined, 2);
+				Logger.error(msg);
+				callback(msg,null); 
+			}
+		});
+	};
+
+	this.getReportHtml = function (serverDeets, reportId, filters, callback) {
+		Logger.log("Received getReportHtml call");
+		let args = {
+			arg0: {
+				reportRequest: 'HTML',
+				loginId: serverDeets.yellowfinUser,
+				orgId: 1,
+				password: serverDeets.yellowfinPass,
+				reportId: reportId
+				// person: {
+				// 	userId: yellowfinUser,
+				// 	password: yellowfinPass
+				// }
+			}
+		};
+		if (filters){ 
+			args[args0].filters = filters;
+		}
+		
+		$.soap({
+			url: serverDeets.yellowfinProtocol + serverDeets.yellowfinHost + ':' + serverDeets.yellowfinPort + '/webservices/LegacyReportService',
+			method: 'web:remoteReportCall',
+			appendMethodToURL: false,
+			envAttributes: {'xmlns:web': 'http://webservices.web.mi.hof.com/'},
+			data: {
+				args
+			},
+			success: function (soapResponse) {
+				let responseData = soapResponse.toJSON();
+				Logger.log('Response: ' + JSON.stringify(responseData));
+				try {
+	
+					if (responseData["#document"]["S:Envelope"]["S:Body"]["ns2:tns:remoteReportCallResponse"]["return"]["statusCode"] === "SUCCESS") {
+						callback(null, responseData["#document"]["S:Envelope"]["S:Body"]["ns2:tns:remoteReportCallResponse"]["return"]["ReportBinaryObject"]);
+						Logger.log("Sending response: ", responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteReportCallResponse"]["return"]["ReportBinaryObject"]);
+					} else {
+						let msg = "YellowFin Webservice report request (HTML) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteReportCallResponse"]["return"]["ReportBinaryObject"];
+						Logger.error(msg);
+						callback(msg, null);
+					}
+				} catch (err) {
+					let msg = "Caught an error when using the YellowFin webservice (HTML): "
+					Logger.error(msg, err);
+					callback("YellowFin Webservice Report response (HTML) did not contain expected values, response: " + JSON.stringify(responseData, undefined, 2),null); 
+				}
+			},
+			error: function (soapResponse) {
+				let msg = "YellowFin Webservice Report service (HTML) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
 				Logger.error(msg);
 				callback(msg,null); 
 			}
@@ -167,9 +213,7 @@ serviceInstance.onBaseServiceReady(function (callback) {
 	//npm install -PD jquery
 	//npm install -PD jquery.soap
 	//npm install -PD jquery-xml2json
-	// Logger.info("Adding PubSub responder for server detailsl");
-	// RouterClient.addPubSubResponder("yellowFinServer", serviceInstance.getServerDetails());
-
+	
 	Logger.log("Adding general purpose Query responder");
 	RouterClient.addResponder("YF server", function(error, queryMessage) {
 		if (!error) {
@@ -179,24 +223,16 @@ serviceInstance.onBaseServiceReady(function (callback) {
 				queryMessage.sendQueryResponse(null, serviceInstance.getServerDetails());
 
 			} else if (queryMessage.data.query === "login token") {
-				serviceInstance.getLoginToken(function(err, token) {
-					// if (err) {
-					// 	queryMessage.sendQueryResponse(null, {loginToken: token});
-					// } else {
-					// 	queryMessage.sendQueryResponse(err, null);
-					// }
-					queryMessage.sendQueryResponse(err, token);
-				});
+				serviceInstance.getLoginToken(queryMessage.sendQueryResponse(err, token));
 
 			} else if  (queryMessage.data.query === "all reports") {
-				serviceInstance.getAllUserReports(function(err, reports) {
-					// if (err) {
-					// 	queryMessage.sendQueryResponse(null, {"reports": reports});
-					// } else {
-					// 	queryMessage.sendQueryResponse(err, null);
-					// }
-					queryMessage.sendQueryResponse(err, reports);
-				});
+
+				let server = queryMessage.data.serverDetails ? queryMessage.data.serverDetails : serviceInstance.getServerDetails();
+				serviceInstance.getAllUserReports(server, queryMessage.sendQueryResponse);
+
+			} else if  (queryMessage.data.query === "report html") {
+				let server = queryMessage.data.serverDetails ? queryMessage.data.serverDetails : serviceInstance.getServerDetails();
+				serviceInstance.getReportHtml(server, queryMessage.data.reportId, queryMessage.data.filters, queryMessage.sendQueryResponse);
 
 			} else {
 				queryMessage.sendQueryResponse("Unknown query function: " + queryMessage, null);

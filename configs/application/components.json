@@ -445,51 +445,16 @@
                 }
             }
         },
-        "yellowfinDemo": {
+        "yellowFinLauncherLocal": {
             "window": {
-                "url": "$applicationRoot/components/yellowfinDemo/yellowfinDemo.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 1065,
-                "height": 830
-            },
-            "component": {
-                "inject": true
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "yellowfinDemo"
-                    }
-                }
-            }
-        },
-        "yellowFinLauncherDemo": {
-            "window": {
-                "url": "$applicationRoot/components/yellowFinLauncherDemo/yellowFinLauncherDemo.html",
+                "url": "$applicationRoot/components/yellowFinLauncherLocal/yellowFinLauncherLocal.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
                 "top": "center",
                 "left": "center",
                 "width": 300,
-                "height": 600
+                "height": 400
             },
             "component": {
                 "inject": false
@@ -510,7 +475,7 @@
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFinLauncherDemo"
+                        "iconClass": "yellowFinLauncherLocal"
                     }
                 }
             }

@@ -9,7 +9,8 @@ let destination = null;
 
 function setState() {
 	let state = {
-		"serverDetails": serverDetails,
+		//you could add this to state and then not retrieve from service to permit locking to a server in workspace)
+		// "serverDetails": serverDetails,
 		"destination": destination
 	};
 	FSBL.Clients.WindowClient.setComponentState({ field: 'yfState', value: state });
@@ -22,12 +23,11 @@ function getState() {
 		if (!state) {
 			return;
 		}
-
-		serverDetails = state.serverDetails;
+		//you could add this to state and then not retrieve from service to permit locking to a server in workspace)
+		// serverDetails = state.serverDetails;
 		destination = state.destination;
 	});
 }
-
 
 FSBL.addEventListener('onReady', function () {
 	getState();
@@ -49,9 +49,10 @@ FSBL.addEventListener('onReady', function () {
 		} else {
 			serverDetails = server;
 			Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
-
+			FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
+ 
 			setState();
-			
+
 			getLoginToken(function(err, token) {
 				if (err) {
 					Logger.error("Failed to retreive login token from webservice!");
@@ -60,7 +61,7 @@ FSBL.addEventListener('onReady', function () {
 					
 					let yfURL = serverDetails.yellowfinProtocol + serverDetails.yellowfinHost + ":" + serverDetails.yellowfinPort + "/logon.i4?LoginWebserviceId=" + token + "&disablelogoff=true&hideheader=true&hidefooter=true";
 					if (destination) {
-						yfURL += `entry=${destination}`;
+						yfURL += `&entry=${destination}`;
 					}
 					iframe.setAttribute('src', yfURL);
 					iframe.setAttribute('width', window.innerWidth-5);
@@ -82,6 +83,5 @@ FSBL.addEventListener('onReady', function () {
 		$('iframe').width(window.innerWidth-5);
 	};
 
-	FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
- 
+	
 }); 

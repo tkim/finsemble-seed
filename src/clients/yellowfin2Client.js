@@ -22,9 +22,9 @@ export function getLoginToken(cb) {
 	});
 };
 
-export function getAllUserReports(cb) {
+export function getAllUserReports(serverDetails, cb) {
 	Logger.log("getAllUserReports called");
-	RouterClient.query("YF server", { query: "all reports" }, function (err, response) {
+	RouterClient.query("YF server", { query: "all reports", server: serverDetails }, function (err, response) {
 		Logger.log("Yellowfin2Client.getAllUserReports response", response.data);
 		if (cb) {
 			cb(err, response.data);
