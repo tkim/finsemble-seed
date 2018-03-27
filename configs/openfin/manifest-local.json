@@ -20,8 +20,8 @@
         "alwaysOnTop": false
     },
     "runtime": {
-        "arguments": "--noerrdialogs  --v=4 --no-sandbox  --enable-crash-reporting",
-        "version": "8.56.28.34"
+        "arguments": "--noerrdialogs  --v=4 --no-sandbox  --enable-crash-reporting --framestrategy=frames",
+        "version": "8.56.28.36"
     },
     "shortcut": {
         "company": "ChartIQ",
@@ -51,18 +51,18 @@
     "fileName": "ChartIQ-local-installer",
     "appAssets": [
         {
-            "src": "http://connect2.chartiq.com/finsemble/Assimilation_1_9_2.zip",
-            "version": "1.0.92",
+            "src": "http://connect2.chartiq.com/finsemble/Assimilation_1_9_3.zip",
+            "version": "1.9.3",
             "alias": "assimilation",
             "target": "assimilationMain.exe"
         }
     ],
     "finsemble": {
-        "applicationRoot": "http://localhost:3375/",
+        "applicationRoot": "http://localhost:3375",
         "moduleRoot": "http://localhost:3375/finsemble",
         "servicesRoot": "http://localhost:3375/finsemble/services",
         "importConfig": [
-            "$applicationRoot/configs/application/config.json"
+            "$applicationRoot/configs/application/default/config.json"
         ]
     }
 }
