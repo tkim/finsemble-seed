@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@chartiq/finsemble": "2.2.*",
+    "@chartiq/finsemble": "rc",
     "@chartiq/finsemble-react-controls": "1.1",
     "async": "^2.6.0",
     "babel-minify-webpack-plugin": "^0.3.0",

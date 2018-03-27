@@ -39,7 +39,7 @@ FSBL.addEventListener('onReady', function () {
 			destination = spawnData.destination;
 			Logger.log(`Set destination: ${destination}`); 
 		} else {
-			Logger.error("no destination details found in spawn data!");
+			Logger.log("no destination details found in spawn data - will launch straight to yellowfin dashboard");
 		}
 	}
 
