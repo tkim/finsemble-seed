@@ -142,7 +142,7 @@
 					packFiles(webpackAdaptersConfig, "Adapters bundle", cb);
 				},
 				(cb) => {
-					const webpackVendorConfig = require("./build/webpack/webpack.vendor.config.js")
+					const webpackVendorConfig = require("./build/webpack/webpack.vendor.js")
 					packFiles(webpackVendorConfig, "vendor bundle", cb);
 				},
 				(cb) => {
@@ -321,7 +321,7 @@
 		/**
 		 * Builds the application and starts the server to host it.
 		 */
-		gulp.task("prod", gulp.series(taskMethods.setProdEnvironment, "build", taskMethods.buildWebpack, taskMethods.startServer));
+		gulp.task("prod", gulp.series(taskMethods.setProdEnvironment, "build", taskMethods.startServer));
 
 		/**
 		 * Builds the application, starts the server and launches the Finsemble application.
@@ -337,6 +337,11 @@
 		 * Wipes the babel cache and webpack cache, clears dist, rebuilds the application, and starts the server.
 		 */
 		gulp.task("dev:run-fresh", gulp.series(taskMethods.setDevEnvironment, "rebuild", taskMethods.startServer, taskMethods.launchApplication));
+
+		/**
+		 * Builds the application and runs the server *without* launching openfin.
+		 */
+		gulp.task("server", gulp.series(taskMethods.setDevEnvironment, "build", taskMethods.startServer));
 
 
 		/**

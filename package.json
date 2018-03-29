@@ -8,18 +8,24 @@
     "dev-fresh": "gulp --gulpfile=./gulpfile.js dev:run-fresh",
     "prod": "gulp prod --gulpfile=./gulpfile.js",
     "prod:run": "gulp prod:run --gulpfile=./gulpfile.js",
+    "server": "gulp server --gulpfile=./gulpfile.js",
     "build": "gulp build --gulpfile=./gulpfile.js",
     "build:prod": "gulp build --gulpfile=./gulpfile.js",
     "rebuild": "gulp build --gulpfile=./gulpfile.js rebuild",
     "clean": "gulp clean --gulpfile=./gulpfile.js",
     "update-finsemble": "npm update @chartiq/finsemble && npm update -g @chartiq/finsemble-cli",
-    "finsemble-cli": "finsemble-cli"
+    "finsemble-cli": "finsemble-cli",
+    "migrate": "node migration/2.3/migrationScripts/migrate.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@chartiq/finsemble": "rc",
     "@chartiq/finsemble-react-controls": "1.1",
+<<<<<<< HEAD
+=======
+    "@chartiq/finsemble-cli": "2.*",
+>>>>>>> origin/reorg2
     "async": "^2.6.0",
     "babel-minify-webpack-plugin": "^0.3.0",
     "compression": "^1.7.2",

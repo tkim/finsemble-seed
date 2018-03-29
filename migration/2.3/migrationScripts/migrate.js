@@ -3,54 +3,54 @@ const glob_entries = require('webpack-glob-entries');
 const shelljs = require('shelljs');
 const path = require('path');
 const fs = require('fs');
-const { copy, log, PROJECT_ROOT } = require("./common");
-log("Migrating your project to finsemble-seed v2.3");
+const { OLD_PROJECT_ROOT, THIS_PROJECT_ROOT } = require("./config");
 
-//
+const log = function log(msg) {
+    console.log(`[${new Date().toLocaleTimeString()}]`, msg);
+};
+
+const copy = function copy(params, cb) {
+    const { oldPath, newPath, messageOnComplete, deleteAfterCopy } = params;
+    const COPYING_NODE_MODULES = oldPath.includes("node_modules");
+
+
+    log(`Copying "${oldPath}" to "${newPath}"`);
+
+    if (COPYING_NODE_MODULES) {
+        log("Copying node modules. The operation is blocking, so we cannot periodically let you know that the script is still working. This will likely take more than 5 minutes.");
+    }
+    //Copy the folder so we have a backup.
+    shelljs.cp('-R', oldPath, newPath);
+
+    log(messageOnComplete);
+
+    if (deleteAfterCopy) {
+        log(`Removing old file/folder: ${oldPath}`);
+        //Delete the old folder. This is done when we're goign to copy something from the migration folder into the seed.
+        shelljs.rm('-rf', oldPath);
+        log(`Old file/folder removed: ${oldPath}`);
+    }
+
+    cb();
+}
+
+log("Migrating your existing project to finsemble-seed v2.3");
 
 function copyFoldersAndFiles(cb) {
     async.eachSeries([
         {
-            oldPath: path.join(PROJECT_ROOT, "build"),
-            newPath: path.join(PROJECT_ROOT, "build-original"),
-            messageOnComplete: "Copied old build directory to build-original.",
-            deleteAfterCopy: true
+            oldPath: path.join(OLD_PROJECT_ROOT, "src"),
+            newPath: path.join(THIS_PROJECT_ROOT),
+            messageOnComplete: "Copied existing src directory.",
         },
         {
-            oldPath: path.join(__dirname, "../build"),
-            newPath: path.join(PROJECT_ROOT, "build"),
-            messageOnComplete: "Copied new build directory into the project."
+            oldPath: path.join(OLD_PROJECT_ROOT, "configs"),
+            newPath: path.join(THIS_PROJECT_ROOT),
+            messageOnComplete: "Copied existing configs directory.",
         },
         {
-            oldPath: path.join(PROJECT_ROOT, "server"),
-            newPath: path.join(PROJECT_ROOT, "server-original"),
-            messageOnComplete: "Copied old server directory to server-original.",
-            deleteAfterCopy: true
-        },
-        {
-            oldPath: path.join(__dirname, "../server"),
-            newPath: path.join(PROJECT_ROOT, "server"),
-            messageOnComplete: "Copied new server directory into the project."
-        },
-        {
-            oldPath: path.join(__dirname, "../src-built-in"),
-            newPath: path.join(PROJECT_ROOT, "src-built-in"),
-            messageOnComplete: "Copied new presentation components into src-built-in."
-        },
-        {
-            oldPath: path.join(PROJECT_ROOT, "gulpfile.js"),
-            newPath: path.join(PROJECT_ROOT, "gulpfile.js.original"),
-            messageOnComplete: "Copied old gulpfile.",
-            deleteAfterCopy: true
-        },
-        {
-            oldPath: path.join(__dirname, "../gulpfile.js"),
-            newPath: path.join(PROJECT_ROOT, "gulpfile.js"),
-            messageOnComplete: "Copied new gulpfile.",
-        },
-        {
-            oldPath: path.join(PROJECT_ROOT, "build-original/webpack/webpack.components.entries.json"),
-            newPath: path.join(PROJECT_ROOT, "build/webpack/webpack.components.entries.json"),
+            oldPath: path.join(OLD_PROJECT_ROOT, "build/webpack/webpack.files.entries.json"),
+            newPath: path.join(THIS_PROJECT_ROOT, "build/webpack/webpack.components.entries.json"),
             messageOnComplete: "Copied old webpack entries file into the new build directory.",
         }
     ],
@@ -58,50 +58,95 @@ function copyFoldersAndFiles(cb) {
         cb);
 }
 
-function copyNodeModules(done) {
-    //If we don't remove node_modules, some folders are not copied over correctly, and the project ends up with multiple versions of react, causing the toolbar to break.
-    log("Removing existing node modules folder.");
-    shelljs.rm('-rf', path.join(__dirname, "../node_modules/"))
-    copy({
-        oldPath: path.join(__dirname, "../node_modules/"),
-        newPath: path.join(PROJECT_ROOT, "node_modules/"),
-        messageOnComplete: "Copied new node modules in."
-    }, done);
+function moveAdapters(done) {
+    const componentsEntry = path.join(THIS_PROJECT_ROOT, "build/webpack/webpack.components.entries.json");
+    const adapterEntry = path.join(THIS_PROJECT_ROOT, "build/webpack/webpack.adapters.entries.json");
+    let componentsConfig = require(componentsEntry);
+    let components = Object.keys(componentsConfig);
+    let adaptersConfig = require(adapterEntry);
+
+    components.forEach(cmp => {
+        if (cmp.toLowerCase().includes("adapter")) {
+            log(`Removing adapter ${cmp} from webpack.components.entries.json`)
+            let clone = JSON.parse(JSON.stringify(componentsConfig[cmp]));
+            delete componentsConfig[cmp];
+            log(`Adding adapter ${cmp} to webpack.adapters.entries.json`)
+            adaptersConfig[cmp] = clone;
+        }
+    });
+
+    const newComponentsConfig = JSON.stringify(componentsConfig, null, '\t');
+    fs.writeFileSync(componentsEntry, newComponentsConfig, 'utf8');
+
+    const newAdapterConfig = JSON.stringify(adaptersConfig, null, '\t');
+    fs.writeFileSync(adapterEntry, newAdapterConfig, 'utf8');
+    done();
 }
 
 function updatePackageFile(done) {
-    let existingPackagePath = path.join(PROJECT_ROOT, "package.json")
-    let existingPackage = require(existingPackagePath);
-    let newPackage = require("../package.json");
+    const oldPackagePath = path.join(OLD_PROJECT_ROOT, "package.json")
+    const newPackagePath = path.join(THIS_PROJECT_ROOT, "package.json");
+    let oldPackage = require(oldPackagePath);
+    let newPackage = require(newPackagePath);
 
-    let oldScripts = Object.keys(existingPackage.scripts);
+    const oldScripts = Object.keys(oldPackage.scripts);
+    const oldDependencies = Object.keys(oldPackage.dependencies);
+    const oldDevDependencies = Object.keys(oldPackage.devDependencies);
+    const newDependencies = Object.keys(newPackage.dependencies);
+    const newDevDependencies = Object.keys(newPackage.devDependencies);
+
     let newScripts = Object.keys(newPackage.scripts);
 
-    newScripts.forEach((script) => {
-        if (oldScripts.includes(script)) {
-            log(`Not adding script "${script}" to package.json. Script already exists.`);
-        } else {
-            existingPackage.scripts[script] = newPackage.scripts[script];
+    oldScripts.forEach((script) => {
+        if (!newScripts.includes(script)) {
+            newScripts.scripts[script] = oldScripts.scripts[script];
             log(`Adding script "${script}" to package.json.`);
         }
     });
 
-    const newPackages = {
-        "uglifyjs-webpack-plugin": "^1.2.3",
-        "webpack": "^2.7.0",
-        "death": "^1.1.0",
-        "cookie-parser": "1.4.3",
-        "babel-minify-webpack-plugin": "^0.3.0"
-    }
-    existingPackage.devDependencies = Object.assign(existingPackage.devDependencies, newPackages);
-    const content = JSON.stringify(existingPackage, null, '\t');
-    fs.writeFileSync(existingPackagePath, content, 'utf8');
+    oldDependencies.forEach(dep => {
+        if (!newDependencies.includes(dep)) {
+            newPackage.dependencies[dep] = oldPackage.dependencies[dep];
+            log(`Adding package ${dep} to package.json's dependencies`);
+        }
+    });
+
+    oldDevDependencies.forEach(dep => {
+        if (!newDevDependencies.includes(dep)) {
+            newPackage.devDependencies[dep] = oldPackage.devDependencies[dep];
+            log(`Adding package ${dep} to package.json's devDependencies`);
+        }
+    });
+
+    const content = JSON.stringify(newPackage, null, '\t');
+    fs.writeFileSync(newPackagePath, content, 'utf8');
     done();
 }
 
+function updateApplicationConfigs(cb) {
+    log("Updating your local manifest");
+    const MANIFEST_PATH = path.join(THIS_PROJECT_ROOT, "configs/openfin/manifest-local.json");
+    const manifest = require(MANIFEST_PATH);
+    let runtimeArgs = manifest.runtime.arguments.split("--").map(arg=>arg.trim());
+    let addFrameStrategy = true;
+    runtimeArgs = runtimeArgs.map((arg) => {
+        if (arg.includes("v=")) {
+            arg = "v=4"
+        }
+        if (arg === "framestrategy=frames") addFrameStrategy = false;
+        return arg;
+    }).join(" --");
+    if (addFrameStrategy) {
+        runtimeArgs+= " --framestrategy=frames"
+    }
+    manifest.runtime.arguments = runtimeArgs;
+    const content = JSON.stringify(manifest, null, '\t');
+    fs.writeFileSync(MANIFEST_PATH, content, 'utf8');
+    cb();
+}
 
 function addVendorBundle(cb) {
-    const COMPONENTS_DIRECTORY = path.join(PROJECT_ROOT, 'src/components/');
+    const COMPONENTS_DIRECTORY = path.join(THIS_PROJECT_ROOT, 'src/components/');
     //There's probably a better globber out there, this is the one I know.
     const HTMLFiles = glob_entries(path.join(COMPONENTS_DIRECTORY, '**/*.html'));
     let files = [];
@@ -134,9 +179,9 @@ function addVendorBundle(cb) {
 
 async.series([
     copyFoldersAndFiles,
-    updatePackageFile,
     addVendorBundle,
-    copyNodeModules
+    moveAdapters,
+    updateApplicationConfigs
 ], () => {
-    log("Migration complete. Inspect webpack.components.entries.json, and remove any presentation components that you have not modified. You will also want to delete that folder from your src directory.");
+    log("Migration complete. Inspect /build/webpack/webpack.components.entries.json, and remove any presentation components that you have not modified. You will also want to delete the corresponding folders from your src directory.");
 });

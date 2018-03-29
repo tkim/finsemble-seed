@@ -1,13 +1,17 @@
-# Instructions
-To migrate to the latest version of the Finsemble seed project, follow these steps:
-1. Unzip the migration folder provided by ChartIQ into the root of your finsemble project.
-2. From the root of that project, run the following command:
-```javascript
-node migration/2.3/migrationScripts/migrate.js
-```
-3. This may take several minutes, mostly because we will have to copy the node_modules into your project. While it's running, feel free to read the notes below.
+# Migration Instructions For Version 2.3
+Follow these steps to migrate to version 2.3 of the Finsemble seed project. After following these steps, you will have a new project directory that is side-by-side with your original project's root directory (i.e., *finsemble-seed*). Nothing here will touch your existing application.
 
-## Post-script Steps
-1. Comb through your `src/components` directory, and remove any presentation component that you have not modified. Also remove this from `build/webpack/webpack.components.entries.json`.
-2. Enjoy the powahhhhh and speeeeeed.
+1. Clone the Finsemble seed project from the master branch and put the directory into the same **parent** folder as your existing project.
+2. In your new directory, use a command prompt to run `>npm install`. (Skip this step if you received a zip directly from ChartIQ. That zip will already contain node_modules.)
+3. Go to the folder *finsemble-seed/migration/2.3/migrationScripts* and modify *config.js* so that the value of `OLD_PROJECT_ROOT` points to your existing project's folder.
+4. Use a command prompt to run `>npm run migrate`. This moves all of Finsemble's built-in components (the ones that came with the seed) to the folder *finsemble-seed/src-built-in*.
+5. Delete all components from the *finsemble-seed/src* directory **except** for any component that you created **or** any built-in components that you have modified, such as the toolbar.
+6. Go to the folder *finsemble-seed/build/webpack* and open *webpack.components.entries.json* in an editor. Remove the entries for all components that you have not created or modified. **Be careful not to delete presentation components/assets if you have modified built-in components, such as the toolbar**
 
+* If you have made changes to _gulpfile.js_ or to _server/server.js_, you will need to manually move your changes to the appropriate extensions file. ([See here for more info](../../README.md)).
+
+* If you've created new OpenFin manifests for other environments you should manually modify them to match the updated *config/openfin/manifest.local.json*. Notably, `--framestrategy=frames` was added to the runtime arguments. 
+
+7. Use a command prompt to run `>npm run dev` in your new directory. Make sure everything works as expected! 
+
+You now should have a fully functional application that includes any components and customizations from your old project. **Once you've confirmed that everything is working as expected** you can copy this new directory over your original project's root directory and continue developing as normal.
