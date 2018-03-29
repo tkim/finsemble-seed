@@ -38,32 +38,32 @@ function yellowfin2Service() {
 		Logger.log("Received getServerDetails call");
 		
 		return {
-			"yellowfinProtocol": yellowfinProtocol,
-			"yellowfinHost": yellowfinHost,
-			"yellowfinPort": yellowfinPort,
-			"yellowfinPath": yellowfinPath,
-			"yellowfinReportPath": yellowfinReportPath,
-			"yellowfinUser": yellowfinUser,
-			"yellowfinPass": yellowfinPass
+			"yellowfinProtocol": 	yellowfinProtocol,
+			"yellowfinHost":	 	yellowfinHost,
+			"yellowfinPort": 		yellowfinPort,
+			"yellowfinPath": 		yellowfinPath,
+			"yellowfinReportPath": 	yellowfinReportPath,
+			"yellowfinUser": 		yellowfinUser,
+			"yellowfinPass": 		yellowfinPass
 		};
 	};
 	
-	this.getLoginToken = function (callback) {
+	this.getLoginToken = function (serverDeets, callback) {
 		Logger.log("Received getLoginToken call");
 		$.soap({
-			url: yellowfinProtocol + yellowfinHost + ':' + yellowfinPort + '/webservices/LegacyAdministrationService',
+			url: serverDeets.yellowfinProtocol + serverDeets.yellowfinHost + ':' + serverDeets.yellowfinPort + '/webservices/LegacyAdministrationService',
 			method: 'web:remoteAdministrationCall',
 			appendMethodToURL: false,
 			envAttributes: {'xmlns:web': 'http://webservices.web.mi.hof.com/'},
 			data: {
 				arg0: {
 					function: 'LOGINUSER',
-					loginId: yellowfinUser,
+					loginId: serverDeets.yellowfinUser,
 					orgId: 1,
-					password: yellowfinPass,
+					password:serverDeets. yellowfinPass,
 					person: {
-						userId: yellowfinUser,
-						password: yellowfinPass
+						userId: serverDeets.yellowfinUser,
+						password: serverDeets.yellowfinPass
 					}
 				}
 			},
@@ -122,14 +122,14 @@ function yellowfin2Service() {
 						Logger.log("Sending response: ", responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["reports"]);
 						callback(null, responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["reports"]);
 					} else {
-						let errmsg = "YellowFin Webservice request (GETALLUSERREPORTS) was not successful! Response: " + JSON.stringify(responseData, undefined, 2);
+						let errmsg = "YellowFin Webservice request (GETALLUSERREPORTS) was not successful! Response: " + JSON.stringify(soapResponse, undefined, 2);
 						Logger.error(errmsg);
 						callback(msg, null);
 					}
 				} catch (err) {
 					let msg = "Caught an error when using the YellowFin webservice (GETALLUSERREPORTS): "
 					Logger.error(msg, err);
-					callback("YellowFin Webservice (GETALLUSERREPORTS) response did not contain expected values, response: " + JSON.stringify(responseData, undefined, 2), null); 
+					callback("YellowFin Webservice (GETALLUSERREPORTS) response did not contain expected values, response: " + JSON.stringify(soapResponse, undefined, 2), null); 
 				}
 				// if you want to have the response as JSON use soapResponse.toJSON();
 				// or soapResponse.toString() to get XML string
@@ -223,11 +223,12 @@ serviceInstance.onBaseServiceReady(function (callback) {
 				queryMessage.sendQueryResponse(null, serviceInstance.getServerDetails());
 
 			} else if (queryMessage.data.query === "login token") {
-				serviceInstance.getLoginToken(queryMessage.sendQueryResponse(err, token));
+				let server = queryMessage.data.server ? queryMessage.data.server : serviceInstance.getServerDetails();
+				serviceInstance.getLoginToken(server, queryMessage.sendQueryResponse);
 
 			} else if  (queryMessage.data.query === "all reports") {
 
-				let server = queryMessage.data.serverDetails ? queryMessage.data.serverDetails : serviceInstance.getServerDetails();
+				let server = queryMessage.data.server ? queryMessage.data.server : serviceInstance.getServerDetails();
 				serviceInstance.getAllUserReports(server, queryMessage.sendQueryResponse);
 
 			} else if  (queryMessage.data.query === "report html") {
