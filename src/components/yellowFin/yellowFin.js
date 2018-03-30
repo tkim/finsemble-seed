@@ -1,4 +1,4 @@
-import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfin2Client';
+import { getServerDetails, getLoginToken, getAllUserReports } from '../../clients/yellowfin2Client';
 
 let yf_iframe = document.createElement('iframe');
 yf_iframe.setAttribute("id", "yf_iframe");
@@ -44,13 +44,13 @@ FSBL.addEventListener('onReady', function () {
 	// Logger.log("Spawn data: " + JSON.stringify(spawnData, undefined, 2));
 	// if (spawnData.destination) {
 	// 	destination = spawnData.destination;
-	// 	Logger.log(`Set destination: ${destination}`); 
+	// 	Logger.log(`Set destination: ${destination}`);
 	// } else {
 	// 	Logger.log("no destination details found in spawn data - will launch straight to yellowfin dashboard");
 	// }
 	// if (spawnData.server) {
 	// 	serverDetails = spawnData.server;
-	// 	Logger.log(`Set server details: ${JSON.stringify(destination, undefined, 2)}`); 
+	// 	Logger.log(`Set server details: ${JSON.stringify(destination, undefined, 2)}`);
 	// } else {
 	// 	Logger.log("no server details found in spawn data - will launch to service's default server");
 	// }
@@ -60,9 +60,9 @@ FSBL.addEventListener('onReady', function () {
 	// 		Logger.error("Failed to retrieve server details: ", err);
 	// 	} else {
 	// 		serverDetails = server;
-	// 		//Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
+	// 		//Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));
 	// 		FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
- 
+
 	// 		setState();
 
 	// 		getLoginToken(serverDetails, function(err, token) {
@@ -70,7 +70,7 @@ FSBL.addEventListener('onReady', function () {
 	// 				//Logger.error("Failed to retreive login token from webservice!");
 	// 			} else {
 	// 				//Logger.log("Retrieved login token: " + token);
-					
+
 	// 				let yfURL = serverDetails.yellowfinProtocol + serverDetails.yellowfinHost + ":" + serverDetails.yellowfinPort + "/logon.i4?LoginWebserviceId=" + token + "&disablelogoff=true&hideheader=true&hidefooter=true";
 	// 				if (destination) {
 	// 					yfURL += `&entry=${destination}`;
@@ -90,10 +90,10 @@ FSBL.addEventListener('onReady', function () {
 	// FSBL.Clients.WindowClient.setWindowTitle("YellowFin");
 
 	// //resize the iframe on window resize
-	// window.onresize = function() { 
+	// window.onresize = function() {
 	// 	$('#yf_iframe').height(window.innerHeight-50);
 	// 	$('#yf_iframe').width(window.innerWidth-5);
 	// };
 
-	
-}); 
+
+});
