@@ -4,6 +4,9 @@
 	// #region Imports
 	// NPM
 	const chalk = require("chalk");
+	chalk.enabled = true;
+	//setting the level to 1 will force color output.
+	chalk.level = 1;
 	const { exec, spawn } = require("child_process");
 	const ON_DEATH = require("death")({ debug: false });
 	const del = require("del");
@@ -19,18 +22,23 @@
 	const extensions = fs.existsSync("./gulpfile-extensions.js") ? require("./gulpfile-extensions.js") : undefined;
 	const async = require("async");
 	// #endregion
-	const allowedColors = ["green", "cyan", "red", "yellow"];
+	const allowedColors = ["green", "cyan", "red", "yellow", "magenta", "white", "bgCyan"];
 	const logToTerminal = (color, msg) => {
+		let bg = "bgBlack";
 		if (!allowedColors.includes(color)) {
 			msg = color;
 			color = "white";
 		}
-		console.log(`[${new Date().toLocaleTimeString()}] ${chalk[color](msg)}.`);
+		if (color === "bgCyan") {
+			color = "black";
+			bg = "bgCyan";
+		}
+		console.log(`[${new Date().toLocaleTimeString()}] ${chalk[color][bg](msg)}.`);
+
 	}
 	// #region Constants
 	const startupConfig = require("./configs/other/server-environment-startup");
 	//Force colors on terminals.
-	chalk.enabled = true;
 	let angularComponents;
 	try {
 		angularComponents = require("./build/angular-components.json");
@@ -39,7 +47,6 @@
 		angularComponents = null;
 	}
 
-	chalk.enabled = true;
 	const errorOutColor = chalk.red;
 	// #endregion
 
@@ -128,6 +135,9 @@
 					} else {
 						console.error(errorOutColor("Webpack Error.", err));
 					}
+					if (stats.hasErrors()) {
+						console.error(errorOutColor(stats));
+					}
 					//Webpack invokes this function (basically, an onComplete) each time the bundle is built. We only want to invoke the async callback the first time.
 					if (callback) {
 						callback();
@@ -174,6 +184,42 @@
 			del(path.join(__dirname, "build/webpack/vendor-manifest.json"), { force: true })
 			return del(".webpack-file-cache", { force: true })
 		},
+		checkSymbolicLinks: done => {
+			const FINSEMBLE_PATH = path.join(__dirname, "node_modules", "@chartiq", "finsemble");
+			const CLI_PATH = path.join(__dirname, "node_modules", "@chartiq", "finsemble-cli");
+			const CONTROLS_PATH = path.join(__dirname, "node_modules", "@chartiq", "finsemble-react-controls");
+
+			function checkLink(params, cb) {
+				let { path, name } = params;
+				fs.readlink(path,
+					(err, str) => {
+						if (str) {
+							logToTerminal("magenta", `LINK DETECTED: ${name}. Path: ${str}`)
+						}
+						cb();
+					});
+			};
+			async.parallel([
+				(cb) => {
+					checkLink({
+						path: FINSEMBLE_PATH,
+						name: "Finsemble"
+					}, cb)
+				},
+				(cb) => {
+					checkLink({
+						path: CLI_PATH,
+						name: "Finsemble"
+					}, cb)
+				},
+				(cb) => {
+					checkLink({
+						path: CONTROLS_PATH,
+						name: "Finsemble"
+					}, cb)
+				},
+			], done)
+		},
 
 		/**
 		 * Launches the application.
@@ -192,7 +238,12 @@
 					process.exit();
 				});
 			});
+			logToTerminal("bgCyan", "Launching Finsemble");
+			//Wipe old stats.
+			fs.writeFileSync(path.join(__dirname, "server", "stats.json"), JSON.stringify({}), "utf-8");
 
+			let startTime = Date.now();
+			fs.writeFileSync(path.join(__dirname, "server", "stats.json"), JSON.stringify({ startTime }), "utf-8");
 			launcher
 				.launchOpenFin({
 					configPath: startupConfig[env.NODE_ENV].serverConfig
@@ -304,7 +355,7 @@
 		gulp.task("clean", taskMethods.clean);
 
 		/**
-		 * Builds the application in the distribution directory.
+		 * Builds the application in the distribution directory. Internal only, don't use because no environment is set!!!!
 		 */
 		gulp.task(
 			"build",
@@ -319,35 +370,55 @@
 		gulp.task("rebuild", gulp.series("clean", "build"));
 
 		/**
-		 * Builds the application and starts the server to host it.
+		 * Builds the application, starts the server, launches the Finsemble application and watches for file changes.
 		 */
-		gulp.task("prod", gulp.series(taskMethods.setProdEnvironment, "build", taskMethods.startServer));
-
-		/**
-		 * Builds the application, starts the server and launches the Finsemble application.
-		 */
-		gulp.task("prod:run", gulp.series(taskMethods.setProdEnvironment, "prod", taskMethods.launchApplication));
+		gulp.task("build:dev", gulp.series(taskMethods.setDevEnvironment, "build", taskMethods.checkSymbolicLinks));
 
 		/**
 		 * Builds the application, starts the server, launches the Finsemble application and watches for file changes.
 		 */
-		gulp.task("dev:run", gulp.series(taskMethods.setDevEnvironment, "build", taskMethods.startServer, taskMethods.launchApplication));
+		gulp.task("dev", gulp.series("build:dev", taskMethods.startServer, taskMethods.launchApplication));
 
 		/**
 		 * Wipes the babel cache and webpack cache, clears dist, rebuilds the application, and starts the server.
 		 */
-		gulp.task("dev:run-fresh", gulp.series(taskMethods.setDevEnvironment, "rebuild", taskMethods.startServer, taskMethods.launchApplication));
+		gulp.task("dev:fresh", gulp.series(taskMethods.setDevEnvironment, "rebuild", taskMethods.startServer, taskMethods.launchApplication));
 
 		/**
 		 * Builds the application and runs the server *without* launching openfin.
 		 */
-		gulp.task("server", gulp.series(taskMethods.setDevEnvironment, "build", taskMethods.startServer));
+		gulp.task("dev:nolaunch", gulp.series("build:dev", taskMethods.startServer));
+
+		/**
+		 * Builds the application in production mode (minimized). It does not start the server or openfin.
+		 */
+		gulp.task("build:prod", gulp.series(taskMethods.setProdEnvironment, "rebuild"));
+
+		/**
+		 * Builds the application, starts the server and launches openfin. Use this to test production mode on your local machine.
+		 */
+		gulp.task("prod", gulp.series("build:prod", taskMethods.startServer, taskMethods.launchApplication));
+
+		/**
+		 * Builds the application in production mode and starts the server without launching openfin.
+		 */
+		gulp.task("prod:nolaunch", gulp.series("build:prod", taskMethods.startServer));
+
+		/**
+		 * Launches the server in dev environment. No build, no openfin launch.
+		 */
+		gulp.task("server", gulp.series(taskMethods.setDevEnvironment, taskMethods.startServer));
+
+		/**
+		 * Launches the server in prod environment. No build, no openfin launch.
+		 */
+		gulp.task("server:prod", gulp.series(taskMethods.setProdEnvironment, taskMethods.startServer));
 
 
 		/**
 		 * Specifies the default task to run if no task is passed in.
 		 */
-		gulp.task("default", gulp.series("dev:run"));
+		gulp.task("default", gulp.series("dev"));
 
 		taskMethods.post(err => {
 			if (err) {
