@@ -157,7 +157,7 @@
                 "height": 830
             },
             "component": {
-                "inject": true
+                "inject": false
             },
             "foreign": {
                 "services": {
