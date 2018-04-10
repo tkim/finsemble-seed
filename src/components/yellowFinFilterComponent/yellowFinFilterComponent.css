@@ -7,6 +7,16 @@ body {
 	height: calc(100% - 32px);
 }
 
+#filters > .none {
+	text-align: center;
+	font-family: Roboto Condensed, sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+	letter-spacing: .1em;
+	color: #FFFFFF;
+	display: block;
+}
+
 filter {
 	font-family: Roboto Condensed, sans-serif;
 	font-weight: 300;

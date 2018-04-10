@@ -93,42 +93,47 @@ function renderPage() {
 	let value_template = $("template")[1];
 	let between_template = $("template")[2];
 	let freetext_template = $("template")[3];
+	let none_template = $("template")[4];
 	$("#filters").empty();
-	for (let filter of filterArr) {
-		Logger.log("filter row: " + JSON.stringify(filter));
-		let filt_row = $(document.importNode(filter_template.content, true));
-		filt_row.find("description").text(filter.description);
-		filt_row.find("filterUUID").text(filter.filterUUID);
+	if (filterArr && filterArr.length > 0) {
+		for (let filter of filterArr) {
+			Logger.log("filter row: " + JSON.stringify(filter));
+			let filt_row = $(document.importNode(filter_template.content, true));
+			filt_row.find("description").text(filter.description);
+			filt_row.find("filterUUID").text(filter.filterUUID);
 
-		let vals = filt_row.find("values");
-		if (filter.list && filter.listValues){
-			for (let value of filter.listValues) {
-				let val_row = $(document.importNode(value_template.content, true));
-				val_row.find("description").text(value.value);
-				val_row.find("description").parent().parent().click([filter.filterUUID, value], clickFilter);
-				vals.append(val_row);
+			let vals = filt_row.find("values");
+			if (filter.list && filter.listValues){
+				for (let value of filter.listValues) {
+					let val_row = $(document.importNode(value_template.content, true));
+					val_row.find("description").text(value.value);
+					val_row.find("description").parent().parent().click([filter.filterUUID, value], clickFilter);
+					vals.append(val_row);
+				}
+			} else if (filter.list) {
+				let freetext_row = $(document.importNode(freetext_template.content, true));
+				let inputbox = freetext_row.find("label input");
+				freetext_row.find("button").click([filter.filterUUID, inputbox], textFilterApply);
+				vals.append(freetext_row);
+
+			} else if (filter.between){
+				let between_row = $(document.importNode(between_template.content, true));
+				let inputboxFrom = between_row.find("label input.from");
+				let inputboxTo = between_row.find("label input.to");
+				between_row.find("button").click([filter.filterUUID, inputboxFrom, inputboxTo], betweenFilterApply);
+				vals.append(between_row);
+
+				//TODO: add an onchanged action
+				//val_row.find("description").parent().click([filter.filterUUID, value], clickFilter);
+			} else {
+				vals.append("<div>Unkown filter type</div>");
 			}
-		} else if (filter.list) {
-			let freetext_row = $(document.importNode(freetext_template.content, true));
-			let inputbox = freetext_row.find("label input");
-			freetext_row.find("button").click([filter.filterUUID, inputbox], textFilterApply);
-			vals.append(freetext_row);
-
-		} else if (filter.between){
-			let between_row = $(document.importNode(between_template.content, true));
-			let inputboxFrom = between_row.find("label input.from");
-			let inputboxTo = between_row.find("label input.to");
-			between_row.find("button").click([filter.filterUUID, inputboxFrom, inputboxTo], betweenFilterApply);
-			vals.append(between_row);
-
-			//TODO: add an onchanged action
-			//val_row.find("description").parent().click([filter.filterUUID, value], clickFilter);
-		} else {
-			vals.append("<div>Unkown filter type</div>");
+			$("#filters").append(filt_row);
 		}
-		$("#filters").append(filt_row);
+	} else {
+		let none_row = $(document.importNode(none_template.content, true));
+		$("#filters").append(none_row);
 	}
-
 	Logger.log("filters selected after page render: " + JSON.stringify(filtersSelected));
 }
 

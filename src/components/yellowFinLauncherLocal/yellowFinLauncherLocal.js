@@ -89,7 +89,7 @@ FSBL.addEventListener('onReady', function () {
 	$('.header #refreshButton').click(getReports);
 	$('.header #addButton').click(clickAddReport);
 
-	FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:(${serverDetails.yellowfinPort})`);
+	FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
 
 	Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
 

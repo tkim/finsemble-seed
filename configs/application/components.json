@@ -1,6 +1,6 @@
 {
-	"comment": "Sample component configuration",
-	"components": {
+    "comment": "Sample component configuration",
+    "components": {
         "myYellowFinEmbedComponent": {
             "window": {
                 "url": "$applicationRoot/components/myYellowFinEmbedComponent/myYellowFinEmbedComponent.html",
@@ -27,7 +27,7 @@
                 },
                 "components": {
                     "App Launcher": {
-                        "launchableByUser": true
+                        "launchableByUser": false
                     },
                     "Window Manager": {
                         "FSBLHeader": true,
@@ -62,7 +62,7 @@
                 },
                 "components": {
                     "App Launcher": {
-                        "launchableByUser": true
+                        "launchableByUser": false
                     },
                     "Window Manager": {
                         "FSBLHeader": true,
@@ -98,11 +98,12 @@
                 },
                 "components": {
                     "App Launcher": {
-                        "launchableByUser": true
+                        "launchableByUser": false
                     },
                     "Window Manager": {
                         "FSBLHeader": true,
-                        "persistWindowState": true
+                        "persistWindowState": true,
+                        "showLinker": true
                     },
                     "Toolbar": {
                         "iconClass": "yellowFinJSComponent"
@@ -145,7 +146,7 @@
                 }
             }
         },
-        "yellowFin": {
+        "YellowFin": {
             "window": {
                 "url": "$applicationRoot/components/yellowFin/yellowFin.html",
                 "frame": false,
@@ -180,7 +181,7 @@
                 }
             }
         },
-        "yellowFinLauncher": {
+        "YellowFin Report Launcher": {
             "window": {
                 "url": "$applicationRoot/components/yellowFinLauncher/yellowFinLauncher.html",
                 "frame": false,
@@ -215,7 +216,7 @@
                 }
             }
         },
-        "yellowFinLauncherLocal": {
+        "YellowFin Report Launcher Localhost": {
             "window": {
                 "url": "$applicationRoot/components/yellowFinLauncherLocal/yellowFinLauncherLocal.html",
                 "frame": false,
@@ -250,169 +251,173 @@
                 }
             }
         },
-		"Welcome Component": {
-			"window": {
-				"url": "$applicationRoot/components/welcome/welcome.html",
-				"frame": false,
-				"resizable": true,
-				"autoShow": true,
-				"top": "center",
-				"left": "center",
-				"width": 400,
-				"height": 370
-			},
-			"component": {
-				"inject": false,
-				"spawnOnStartup": false
-			},
-			"foreign": {
-				"services": {
-					"dockingService": {
-						"canGroup": true,
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"FSBLHeader": true,
-						"persistWindowState": true
-					},
-					"Toolbar": {
-						"iconClass": "welcome"
-					}
-				}
-			}
-		},
-		"Notepad": {
-			"window": {
-				"id": "Notepad",
-				"native": true,
-				"path": "notepad.exe",
-				"url": "",
-				"defaultHeight": 600,
-				"autoShow": true,
-				"alwaysOnTop": false,
-				"resizable": true,
-				"showTaskbarIcon": false,
-				"contextMenu": true,
-				"addToWorkspace": true
-			},
-			"component": {
-				"spawnOnHotkey": ["ctrl", "alt", "n"]
-			},
-			"foreign": {
-				"services": {
-					"workspaceService": {
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"persistWindowState": false,
-						"FSBLHeader": true
-					},
-					"Toolbar": {
-						"iconURL": "$applicationRoot/components/assets/img/notepad.png"
-					}
-				}
-			}
-		},
-		"Getting Started Tutorial": {
-			"window": {
-				"url": "https://documentation.chartiq.com/finsemble/tutorial-gettingStarted.html",
-				"height": 800,
-				"width": 1000
-			},
-			"component": {
-				"spawnOnStartup": false
-			},
-			"foreign": {
-				"services": {
-					"dockingService": {
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": false
-					},
-					"Window Manager": {
-						"persistWindowState": true,
-						"FSBLHeader": true,
-						"showLinker": false
-					}
-				}
-			}
-		},
-		"Finsemble Documentation": {
-			"window": {
-				"url": "http://documentation.chartiq.com/finsemble",
-				"left": "center",
-				"top": "center",
-				"height": 800,
-				"width": 1000
-			},
-			"component": {},
-			"foreign": {
-				"services": {
-					"dockingService": {
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": false
-					},
-					"Window Manager": {
-						"persistWindowState": false,
-						"FSBLHeader": true,
-						"showLinker": false
-					}
-				}
-			}
-		},
-		"defaultAuthentication": {
-			"window": {
-				"url": "$applicationRoot/components/authentication/defaultAuthentication.html",
-				"top": "center",
-				"left": "center",
-				"width": 358,
-				"height": 458,
-				"ephemeral": true,
-				"options": {
-					"autoShow": false
-				}
-			},
-			"component": {
-				"neededClients": [
-					"LauncherClient",
-					"AuthenticationClient",
-					"StorageClient"
-				],
-				"category": "system"
-			},
-			"foreign": {
-				"services": {
-					"dockingService": {
-						"isArrangable": false
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": false
-					},
-					"Window Manager": {
-						"FSBLHeader": false,
-						"persistWindowState": false
-					}
-				}
-			}
-		}
-	}
+        "Welcome Component": {
+            "window": {
+                "url": "$applicationRoot/components/welcome/welcome.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 400,
+                "height": 370
+            },
+            "component": {
+                "inject": false,
+                "spawnOnStartup": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": false
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "welcome"
+                    }
+                }
+            }
+        },
+        "Notepad": {
+            "window": {
+                "id": "Notepad",
+                "native": true,
+                "path": "notepad.exe",
+                "url": "",
+                "defaultHeight": 600,
+                "autoShow": true,
+                "alwaysOnTop": false,
+                "resizable": true,
+                "showTaskbarIcon": false,
+                "contextMenu": true,
+                "addToWorkspace": true
+            },
+            "component": {
+                "spawnOnHotkey": [
+                    "ctrl",
+                    "alt",
+                    "n"
+                ]
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
+                    }
+                }
+            }
+        },
+        "Getting Started Tutorial": {
+            "window": {
+                "url": "https://documentation.chartiq.com/finsemble/tutorial-gettingStarted.html",
+                "height": 800,
+                "width": 1000
+            },
+            "component": {
+                "spawnOnStartup": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": false
+                    },
+                    "Window Manager": {
+                        "persistWindowState": true,
+                        "FSBLHeader": true,
+                        "showLinker": false
+                    }
+                }
+            }
+        },
+        "Finsemble Documentation": {
+            "window": {
+                "url": "http://documentation.chartiq.com/finsemble",
+                "left": "center",
+                "top": "center",
+                "height": 800,
+                "width": 1000
+            },
+            "component": {},
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": false
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true,
+                        "showLinker": false
+                    }
+                }
+            }
+        },
+        "defaultAuthentication": {
+            "window": {
+                "url": "$applicationRoot/components/authentication/defaultAuthentication.html",
+                "top": "center",
+                "left": "center",
+                "width": 358,
+                "height": 458,
+                "ephemeral": true,
+                "options": {
+                    "autoShow": false
+                }
+            },
+            "component": {
+                "neededClients": [
+                    "LauncherClient",
+                    "AuthenticationClient",
+                    "StorageClient"
+                ],
+                "category": "system"
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "isArrangable": false
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": false
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": false,
+                        "persistWindowState": false
+                    }
+                }
+            }
+        }
+    }
 }

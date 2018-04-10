@@ -76,7 +76,8 @@ function injectReport(uuid, elementId, opts) {
 	options.showTitle = 'true';
 
 	//we use the admin username and password for auth as SSO token auth causes some issues 
-	//  with report embedding and changes the scipt URLs (which is awkward after the DOM is closed)
+	//  with report embedding and changes the script URLs 
+	// (which is awkward after the DOM is closed as YF doesn't use DOM manipulation)
 	options.username = serverDetails.yellowfinUser;
 	options.password = serverDetails.yellowfinPass;
 
@@ -87,7 +88,7 @@ function injectReport(uuid, elementId, opts) {
 	if (FSBL.Clients.WindowClient.options.customData.foreign.components["Window Manager"].FSBLHeader){
 		options.height -= 32;
 	}
-	//add space yf title if enabled
+	//add space for yf title if enabled
 	if (options.showTitle === 'true'){
 		options.height -= 30;
 	}
@@ -95,7 +96,7 @@ function injectReport(uuid, elementId, opts) {
 	// //add space for breadcrumbs in case user drills down 
 	// // - disabled as YF seems to include in the containing div but doesn't account for it in sizing calculations
 	// // - awaiting comment from YF
-	// // - 27 Feb 18: Confirmed that it will need a fix on YF end - affects drill down reports
+	// // - 27 Feb 18: Confirmed that it will need a fix on YF end - affects drill down reports only
 	// options.height -= 30;
 
 	//add space for yf footer
@@ -115,11 +116,14 @@ function injectReport(uuid, elementId, opts) {
 		options.filters = filtersSelected;
 	}
 
-	//Publish filters for linking
-	if (filterArr && !(userOpts && userOpts.triggerComp && userOpts.triggerComp == FSBL.Clients.WindowClient.options.name)){
+	//Publish filters for linking (only if they are set and were not triggered by another component)
+	if (filterArr && !(userOpts && userOpts.triggerComp)){
 		for (let i = 0; i < filterArr.length; i++) {
 			if (filtersSelected[filterArr[i].filterUUID]) {
-				FSBL.Clients.LinkerClient.publish({dataType: filterArr[i].description, data: {triggerComp: FSBL.Clients.WindowClient.options.name, filterValue: filtersSelected[filtersArr[i].filterUUID]}});
+				FSBL.Clients.LinkerClient.publish({
+					dataType: filterArr[i].description, 
+					data: {triggerComp: FSBL.Clients.WindowClient.options.name, filterValue: filtersSelected[filterArr[i].filterUUID]}
+				});
 			}
 		}
 	}

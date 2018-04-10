@@ -4,7 +4,7 @@ let yf_iframe = document.createElement('iframe');
 yf_iframe.setAttribute("id", "yf_iframe");
 let serverDetails = null;
 let destination = null;
-
+let Logger = FSBL.Clients.Logger;
 
 function setState() {
 	let state = {

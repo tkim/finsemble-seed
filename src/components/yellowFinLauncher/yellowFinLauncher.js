@@ -82,7 +82,7 @@ FSBL.addEventListener('onReady', function () {
 			Logger.error("Failed to retrieve server details: ", err);
 		} else {
 			serverDetails = server;
-			FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:(${serverDetails.yellowfinPort})`);
+			FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
 	
 			Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
 
