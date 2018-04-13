@@ -1,4 +1,4 @@
-import { getServerDetails, getLoginToken, getAllUserReports } from '../../clients/yellowfin2Client';
+import { getServerDetails, getLoginToken, getAllUserReports } from '../../clients/yellowfinClient';
 
 let yf_iframe = document.createElement('iframe');
 yf_iframe.setAttribute("id", "yf_iframe");

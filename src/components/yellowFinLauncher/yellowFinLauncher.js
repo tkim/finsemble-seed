@@ -1,7 +1,7 @@
 //JQuery (can't get ES6 import to work for this yet)
 const $ = require("jquery");
 const Logger = FSBL.Clients.Logger;
-import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfin2Client';
+import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfinClient';
 
 let serverDetails = null;
 let reports = [];
@@ -37,7 +37,7 @@ FSBL.addEventListener('onReady', function () {
 	
 		Logger.log("Launching report creator");
 	
-		FSBL.Clients.LauncherClient.spawn("yellowFin",
+		FSBL.Clients.LauncherClient.spawn("YellowFin",
 			{
 				left: "center",
 				top: "center",

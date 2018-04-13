@@ -1,7 +1,7 @@
 //N.B. JQuery is included in HTML
 const Logger = FSBL.Clients.Logger;
 //YellowFin service functions
-import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfin2Client';
+import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfinClient';
 
 //state
 let filtersSelected = {};
@@ -107,25 +107,13 @@ function injectReport(uuid, elementId, opts) {
 
 	//apply any options passed
 	if (userOpts) {
-		for (key in userOpts) {
+		for (let key in userOpts) {
 			options[key] = userOpts[key];
 		}
 	}
 
 	if (Object.keys(filtersSelected).length > 0){
 		options.filters = filtersSelected;
-	}
-
-	//Publish filters for linking (only if they are set and were not triggered by another component)
-	if (filterArr && !(userOpts && userOpts.triggerComp)){
-		for (let i = 0; i < filterArr.length; i++) {
-			if (filtersSelected[filterArr[i].filterUUID]) {
-				FSBL.Clients.LinkerClient.publish({
-					dataType: filterArr[i].description, 
-					data: {triggerComp: FSBL.Clients.WindowClient.options.name, filterValue: filtersSelected[filterArr[i].filterUUID]}
-				});
-			}
-		}
 	}
 
 	console.log("yellowfin options: " + JSON.stringify(options))
@@ -145,6 +133,13 @@ function injectReport(uuid, elementId, opts) {
 		setTimeout(setTitle, 100);
 	}
 
+	//load any filters - delay as it happens more stably once report is loaded and theres no callback on YF report load
+	setTimeout(
+		function() {
+			window.yellowfin.reports.loadReportFilters(uuid, function(filters) { filterCallback(filters,userOpts); });
+		},
+		120);
+
 	setState();
 };
 
@@ -152,7 +147,7 @@ function injectReport(uuid, elementId, opts) {
   Receives filter information from the YellowFin API and subscribes for linking
   and FIlter panel inputs.
 */
-function filterCallback(filters) {
+function filterCallback(filters, userOpts) {
 	if (filters && filters.length) { 
 		console.log("Num filters: " + filters.length)
 		filterArr = filters;
@@ -169,7 +164,7 @@ function filterCallback(filters) {
 						filtersSelected[filt.filterUUID] = obj.filterValue;
 						FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);					
 						//update filter panel
-						injectReport(reportUUID, elementId, {triggerComp: triggerComp});
+						injectReport(reportUUID, elementId, {triggerComp: obj.triggerComp});
 					}
 				});
 			}
@@ -181,6 +176,18 @@ function filterCallback(filters) {
 			filtersSelected = response.data;
 			injectReport(reportUUID, elementId);
 		});
+
+		//Publish filters for linking (only if they are set and were not triggered by another component)
+		if (filterArr && !(userOpts && userOpts.triggerComp)){
+			for (let i = 0; i < filterArr.length; i++) {
+				if (filtersSelected[filterArr[i].filterUUID]) {
+					FSBL.Clients.LinkerClient.publish({
+						dataType: filterArr[i].description, 
+						data: {triggerComp: FSBL.Clients.WindowClient.options.name, filterValue: filtersSelected[filterArr[i].filterUUID]}
+					});
+				}
+			}
+		}
 
 	} else {
 		console.log("filterCallback: No filters returned!");
@@ -226,16 +233,12 @@ function checkLoaded() {
 	if(yfLoaded && yfReportsLoaded) {
 		injectReport(reportUUID, elementId);
 
-		//load any filters
-		window.yellowfin.reports.loadReportFilters(reportUUID, filterCallback);
-
+		
 		//reinject the report on window resize
 		window.onresize = function() { 
 			//only regenerate report when done resizing, 200 ms should be plenty, but may be able to shave lower
 			clearTimeout(resizeId);
 			resizeId = setTimeout(function() { injectReport(reportUUID, elementId); }, 200);
-			//load any filters
-			window.yellowfin.reports.loadReportFilters(reportUUID, filterCallback);
 		};
 
 		//setup the filter button

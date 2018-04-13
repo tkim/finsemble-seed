@@ -1,3 +1,4 @@
+
 const Finsemble = require("@chartiq/finsemble");
 const $ = require("jquery");
 $.xml2json = require("jquery-xml2json");
@@ -25,14 +26,13 @@ let yellowfinPass = "test";
 const RouterClient = Finsemble.Clients.RouterClient;
 const baseService = Finsemble.baseService;
 const Logger = Finsemble.Clients.Logger;
+Logger.start();
 
 /**
- * The yellowfin2 Service receives calls from the yellowfin2Client.
+ * The yellowfin Service receives calls from the yellowfinClient.
  * @constructor
  */
-function yellowfin2Service() {
-
-	let self = this;
+function yellowfinService() {
 
 	this.getServerDetails = function () {
 		Logger.log("Received getServerDetails call");
@@ -200,14 +200,14 @@ function yellowfin2Service() {
 	return this;
 }
 
-yellowfin2Service.prototype = new baseService({
+yellowfinService.prototype = new baseService({
 	startupDependencies: {
 		services: ["dockingService", "authenticationService", "routerService"]
 	}
 });
-let serviceInstance = new yellowfin2Service('yellowfin2Service');
+let serviceInstance = new yellowfinService('yellowfinService');
 serviceInstance.onBaseServiceReady(function (callback) {
-	Logger.start();
+	
 
 	//Set up SOAP client
 	//npm install -PD jquery
@@ -244,8 +244,8 @@ serviceInstance.onBaseServiceReady(function (callback) {
 		}
 	});
 
-	Logger.log("yellowFin2 Service ready");
-	console.log("> yellowFin2 Service ready");
+	Logger.log("yellowFin Service ready");
+	console.log("> yellowFin Service ready");
 	callback();
 });
 

@@ -1,7 +1,6 @@
 //JQuery
 const $ = require("jquery");
 const Logger = FSBL.Clients.Logger;
-// import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfin2Client';
 
 //state
 let serverDetails = null;
