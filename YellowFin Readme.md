@@ -2,7 +2,7 @@
 
 ## Installation 
 
-1) Setup the YellowFin service
+### 1. Setup the YellowFin service
 Copy service source files to: */src/services/yellowfin/*
 and client to:                */src/clients/yellowfinClient.js*
 
@@ -23,12 +23,17 @@ Then add the service configuration below to */config/application/services.json*:
 }
 ```
 
-2) Install the components by copying their sources over:
-- */src/components/yellowFin*                - A viewer for the YellowFin app
-- */src/components/yellowFinLauncher*        - A component to list and launch YellowFin reports from Finsemble 
-- */src/components/yellowFinLauncherLocal*   - A version of the report launcher pointing to localhost for development use 
-- */src/components/yellowFinJSComponent*     - A component for displaying reports using the YF Javascript API 
-- */src/components/yellowFinFilterComponent* - A component slaved to the JS component to be used for filtering in FInsemble 
+### 2. Install the components by copying their sources over:
+- */src/components/yellowFin*                
+  - A viewer for the YellowFin app, displays the default, or can be used programatically to launch a specific view such as the report creator.
+- */src/components/yellowFinLauncher*        
+  - A Finsemble component to list and launch YellowFin reports using the YellowFin API 
+- */src/components/yellowFinLauncherLocal*   
+  - A version of the report launcher pointing to localhost for development use.
+- */src/components/yellowFinJSComponent*     
+  - A component for displaying reports using the YF Javascript API. 
+- */src/components/yellowFinFilterComponent* 
+  - A component slaved to the JS component to be used for filtering in Finsemble.
 
 and add the following configuraitons for them to */configs/application/components.json*:
 ```JSON
@@ -215,7 +220,7 @@ and add the following configuraitons for them to */configs/application/component
 }
 ```
 
-3) Configure the Yellowfin service and credentials
+### 3. Configure the Yellowfin service and credentials
 The YellowFin server that the service will talk to is configured in */src/services/yellowfin/yellowfinService.js*. The credentials for the Yellowfin demo server are:
 
 ```javascript
@@ -233,4 +238,6 @@ However, in future this maybe changed to integrate with either the Preferences s
 
 The server settings are retrieved from the service by the components and/or passed between them during spawning and stored as part of their state in the weorkspace.
 
-4) Build it and run: `npm run dev`
+
+### 4. Build it and run
+Execute `npm run dev` to build the seed project and then select the YellowFin component or YellowFin Report Launcher component from the apps menu to begin.
