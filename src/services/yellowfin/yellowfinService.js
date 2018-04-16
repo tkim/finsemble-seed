@@ -15,11 +15,13 @@ $.soap = require("jquery.soap");
 
 // yellowfin demo data
 let yellowfinProtocol = "http://";
-let yellowfinHost = "35.178.45.11";
+let yellowfinHost = "18.130.26.97";
 let yellowfinPort = "80";
 let yellowfinPath = "/JsAPI";
 let yellowfinReportPath = "/JsAPI?api=reports";
-let yellowfinUser = "admin@yellowfin.com.au";
+let yellowfinAdminUser = "admin@yellowfin.com.au";
+let yellowfinAdminPass = "test";
+let yellowfinUser = "consumer@yellowfin.bi";
 let yellowfinPass = "test";
 
 
@@ -43,6 +45,8 @@ function yellowfinService() {
 			"yellowfinPort": 		yellowfinPort,
 			"yellowfinPath": 		yellowfinPath,
 			"yellowfinReportPath": 	yellowfinReportPath,
+			"yellowfinAdminUser": 	yellowfinAdminUser,
+			"yellowfinAdminPass": 	yellowfinAdminPass,
 			"yellowfinUser": 		yellowfinUser,
 			"yellowfinPass": 		yellowfinPass
 		};
@@ -58,9 +62,9 @@ function yellowfinService() {
 			data: {
 				arg0: {
 					function: 'LOGINUSER',
-					loginId: serverDeets.yellowfinUser,
+					loginId: serverDeets.yellowfinAdminUser,
 					orgId: 1,
-					password:serverDeets. yellowfinPass,
+					password:serverDeets. yellowfinAdminPass,
 					person: {
 						userId: serverDeets.yellowfinUser,
 						password: serverDeets.yellowfinPass
@@ -106,9 +110,9 @@ function yellowfinService() {
 			data: {
 				arg0: {
 					function: 'GETALLUSERREPORTS',
-					loginId: serverDeets.yellowfinUser,
+					loginId: serverDeets.yellowfinAdminUser,
 					orgId: 1,
-					password: serverDeets.yellowfinPass,
+					password: serverDeets.yellowfinAdminPass,
 					person: {
 						userId: serverDeets.yellowfinUser,
 						password: serverDeets.yellowfinPass
@@ -148,9 +152,9 @@ function yellowfinService() {
 		let args = {
 			arg0: {
 				reportRequest: 'HTML',
-				loginId: serverDeets.yellowfinUser,
+				loginId: serverDeets.yellowfinAdminUser,
 				orgId: 1,
-				password: serverDeets.yellowfinPass,
+				password: serverDeets.yellowfinAdminPass,
 				reportId: reportId
 				// person: {
 				// 	userId: yellowfinUser,

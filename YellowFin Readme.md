@@ -226,7 +226,7 @@ The YellowFin server that the service will talk to is configured in */src/servic
 ```javascript
 // yellowfin demo data
 let yellowfinProtocol = "http://";
-let yellowfinHost = "35.178.45.11";
+let yellowfinHost = "18.130.26.97";
 let yellowfinPort = "80";
 let yellowfinPath = "/JsAPI";
 let yellowfinReportPath = "/JsAPI?api=reports";
