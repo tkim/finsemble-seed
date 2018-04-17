@@ -25,9 +25,9 @@ function ipushpullService() {
 	let self = this;
 	
 	this.ipp = ipushpull.create({
-		api_url: "https://www.ipushpull.com/api/1.0",
-		ws_url: "https://www.ipushpull.com",
-		web_url: "https://www.ipushpull.com",
+		api_url: "https://test.ipushpull.com/api/1.0",
+		ws_url: "https://test.ipushpull.com",
+		web_url: "https://test.ipushpull.com",
 		docs_url: "https://docs.ipushpull.com",
 		storage_prefix: "ipp_local",
 		api_key: ipp_id,
@@ -35,19 +35,25 @@ function ipushpullService() {
 		transport: "polling"
 	});
 
-	this.getLoginToken = function (userDeets, callback) {
+	this.getLoginToken = function (userDeets, cb) {
 		Logger.log("Received getLoginToken call");
-		this.ipp.auth.login(userDeets.email, userDeets.password)
+		self.ipp.auth.login(userDeets.email, userDeets.password)
 		.then(function () {
-
-			Logger.log(IPUSHPULL:'done login, responding to query');
-			callback(null, {access_token: this.ipp.api.tokens.access_token, refresh_token: this.ipp.api.tokens.refresh_token});
+			Logger.log('IPUSHPULL: done login');
+			let tokens = {access_token: self.ipp.api.tokens.access_token, refresh_token: self.ipp.api.tokens.refresh_token};
+			Logger.log('IPUSHPULL: tokens: ' + JSON.stringify(tokens, undefined, 2));
+			
+			cb(null, tokens);
+		}).catch(function(err) {
+			let msg = 'IPUSHPULL: Error occurred in getLoginToken' ;
+			Logger.error(msg, err);
+			cb(msg + JSON.stringify(err,undefined, 2), null);
 		});		
 	};
 
-	this.getUserDetails = function (callback) {
+	this.getUserDetails = function (cb) {
 		Logger.log("Received getUserDetails call");
-		callback(null, {email: user_email, password: user_pass});
+		cb(null, {email: user_email, password: user_pass});
 	};
 
 	return this;
