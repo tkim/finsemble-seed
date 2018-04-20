@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="yellowFinFilterComponent.css?{cachebuster}">
   <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="yellowFinFilterComponent.js?{cachebuster}"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+  <script src="yellowFinFilterComponent.js?{cachebuster}"></script>
   <script src="/vendor.bundle.js"></script>
 </head>
 <body>
@@ -20,6 +20,7 @@
     <filtervalue><label><span>category:</span><description></description></label></filtervalue>
   </template>
   <template>
+    <!-- More work needed on the between filter - particularly if its a date type (needs date selector rather than number fields) -->
     <filterbetween>
       <label><span>From: </span><input class="from" type="number"/></label>
       <label><span>To: </span><input class="to" type="number"/></label>

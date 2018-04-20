@@ -1,5 +1,4 @@
 //JQuery
-const $ = require("jquery");
 const Logger = FSBL.Clients.Logger;
 
 //state

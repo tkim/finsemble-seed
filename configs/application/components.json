@@ -418,6 +418,42 @@
                     }
                 }
             }
+        },
+        "YellowFin filter context tester": {
+            "window": {
+                "url": "$applicationRoot/components/yellowfinFilterStatus/yellowfinFilterStatus.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 400,
+                "height": 500
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true,
+                        "showLinker": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "yellowfinFilterStatus"
+                    }
+                }
+            }
         }
     }
 }

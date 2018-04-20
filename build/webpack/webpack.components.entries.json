@@ -26,5 +26,9 @@
     "yellowFinLauncherLocal": {
         "output": "components\\yellowFinLauncherLocal\\yellowFinLauncherLocal",
         "entry": ".\\src\\components\\yellowFinLauncherLocal\\yellowFinLauncherLocal.js"
+    },
+    "yellowfinFilterStatus": {
+        "output": "components\\yellowfinFilterStatus\\yellowfinFilterStatus",
+        "entry": ".\\src\\components\\yellowfinFilterStatus\\yellowfinFilterStatus.js"
     }
 }
