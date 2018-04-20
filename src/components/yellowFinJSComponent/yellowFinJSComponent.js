@@ -3,6 +3,8 @@ const Logger = FSBL.Clients.Logger;
 //YellowFin service functions
 import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfinClient';
 
+const FILTER_TOPIC = 'yellowfin_filters';
+
 //state
 let filtersSelected = {};
 let filterArr = [];
@@ -116,7 +118,7 @@ function injectReport(uuid, elementId, opts) {
 		options.filters = filtersSelected;
 	}
 
-	console.log("yellowfin options: " + JSON.stringify(options))
+	Logger.log("yellowfin options: ", options)
 	window.yellowfin.loadReport(options);
 
 	//Window title hack - discussing adding a callback to YF JS API so we know when report is loaded AND to receive report metadata
@@ -136,7 +138,9 @@ function injectReport(uuid, elementId, opts) {
 	//load any filters - delay as it happens more stably once report is loaded and theres no callback on YF report load
 	setTimeout(
 		function() {
-			window.yellowfin.reports.loadReportFilters(uuid, function(filters) { filterCallback(filters,userOpts); });
+			if (!filterArr || filterArr.length == 0){
+				window.yellowfin.reports.loadReportFilters(uuid, function(filters) { filterCallback(filters, userOpts); });
+			}
 		},
 		120);
 
@@ -145,52 +149,33 @@ function injectReport(uuid, elementId, opts) {
 
 /*
   Receives filter information from the YellowFin API and subscribes for linking
-  and FIlter panel inputs.
+  and Filter panel inputs.
 */
 function filterCallback(filters, userOpts) {
 	if (filters && filters.length) { 
-		console.log("Num filters: " + filters.length)
+		let filtersStr = "";
+		for (filt in filters) {
+			filtersStr += `|${filt.description}| `;
+		}
+		Logger.log("Filters: " + filtersStr);
 		filterArr = filters;
-		if(!filtersSetup) {
-			for (let i = 0; i < filters.length; i++) {
-				let filt = filters[i];
-
-				//subscribe to filters
-				FSBL.Clients.LinkerClient.subscribe(filt.description, function (obj) {
-					console.log('Received filter data: ' + filt.description + " = " + JSON.stringify(obj));
-					
-					//ignore messages from ourselves
-					if (obj && !(obj.triggerComp && obj.triggerComp == FSBL.Clients.WindowClient.options.name)) {
-						filtersSelected[filt.filterUUID] = obj.filterValue;
-						FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);					
-						//update filter panel
-						injectReport(reportUUID, elementId, {triggerComp: obj.triggerComp});
-					}
-				});
-			}
-		}
-		filtersSetup = true;
-		//Listen to instructions from the filter panel
-		FSBL.Clients.RouterClient.addListener(FSBL.Clients.WindowClient.options.name + ".filter", function (err, response) {
-			if (err) return;
-			filtersSelected = response.data;
-			injectReport(reportUUID, elementId);
-		});
-
-		//Publish filters for linking (only if they are set and were not triggered by another component)
-		if (filterArr && !(userOpts && userOpts.triggerComp)){
-			for (let i = 0; i < filterArr.length; i++) {
-				if (filtersSelected[filterArr[i].filterUUID]) {
-					FSBL.Clients.LinkerClient.publish({
-						dataType: filterArr[i].description, 
-						data: {triggerComp: FSBL.Clients.WindowClient.options.name, filterValue: filtersSelected[filterArr[i].filterUUID]}
-					});
-				}
-			}
-		}
-
 	} else {
-		console.log("filterCallback: No filters returned!");
+		Logger.log("filterCallback: No filters returned!");
+	}
+}
+
+function publishFilters() {
+	let out = {};
+	for (let i = 0; i < filterArr.length; i++) {
+		if (filtersSelected[filterArr[i].filterUUID]){
+			out[filterArr[i].description] = filtersSelected[filterArr[i].filterUUID];
+		} else {
+			out[filterArr[i].description] = [];
+		}
+		FSBL.Clients.LinkerClient.publish({
+			dataType: FILTER_TOPIC, 
+			data: {triggerComp: FSBL.Clients.WindowClient.options.name, filtersSelected: out}
+		});
 	}
 }
 
@@ -221,7 +206,11 @@ function showFilterPanel() {
 				"serverDetails": serverDetails
 			}
 		}, function(err, response){
-			console.log("Filter showWindow error: ", response);
+			if (err) {
+				Logger.error("Filter showWindow error: ", err);
+			} else {
+				Logger.log("Showing filter panel " + windowIdentifier.windowName);
+			}
 		}
 	);
 }
@@ -243,24 +232,33 @@ function checkLoaded() {
 
 		//setup the filter button
 		$("#filterButton").click(function () {
-			console.log("filter clicked");
+			Logger.log("filter clicked");
 			showFilterPanel();
 		});
 
 		//setup the reset button
 		$("#resetButton").click(function () {
-			console.log("reset clicked");
+			Logger.log("reset clicked");
 			filtersSelected = {};
+			//reset filter panel
 			FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);
+			//publish reset
+			publishFilters();
 			injectReport(reportUUID, elementId);
 		});
+
+
 	}
 }
 
 //retrieve and inject report HTML when API loaded (wait on last script added to DOM)
 yellowfinScr.onload = function () {
 	yfLoaded = true;
-	checkLoaded();
+	//checkLoaded();
+	Logger.info("yellowfinReportScrSrc: " + yellowfinReportScrSrc)
+	yellowfinReportScr.setAttribute('src', yellowfinReportScrSrc);
+	yellowfinReportScr.setAttribute('type','text/javascript');
+	document.body.appendChild(yellowfinReportScr);
 };
 yellowfinReportScr.onload = function () {
 	yfReportsLoaded = true;
@@ -274,11 +272,11 @@ FSBL.addEventListener('onReady', function () {
 	
 	//get spawing data to set report ID
 	let spawnData = FSBL.Clients.WindowClient.getSpawnData();
-	Logger.log("Spawn data: " + JSON.stringify(spawnData));
+	Logger.log("Spawn data: ", spawnData);
 	if (spawnData){
 		if (spawnData.serverDetails) {
 			serverDetails = spawnData.serverDetails;
-			Logger.log("Set serverDetails: " + JSON.stringify(serverDetails, undefined, 2)); 
+			Logger.log("Set serverDetails: ", serverDetails); 
 			
 			if (spawnData.reportUUID) { 
 				reportUUID = spawnData.reportUUID;
@@ -298,9 +296,45 @@ FSBL.addEventListener('onReady', function () {
 	yellowfinScr.setAttribute('src', yellowfinScrSrc);
 	yellowfinScr.setAttribute('type','text/javascript');
 	document.body.appendChild(yellowfinScr);
+
+	// Logger.info("yellowfinReportScrSrc: " + yellowfinReportScrSrc)
+	// yellowfinReportScr.setAttribute('src', yellowfinReportScrSrc);
+	// yellowfinReportScr.setAttribute('type','text/javascript');
+	// document.body.appendChild(yellowfinReportScr);
+
+	//subscribe to filters
+	FSBL.Clients.LinkerClient.subscribe(FILTER_TOPIC, function (obj) {
+		Logger.log('Received filter context: ', obj);
 		
-	Logger.info("yellowfinReportScrSrc: " + yellowfinReportScrSrc)
-	yellowfinReportScr.setAttribute('src', yellowfinReportScrSrc);
-	yellowfinReportScr.setAttribute('type','text/javascript');
-	document.body.appendChild(yellowfinReportScr);
+		//ignore messages from ourselves
+		if (obj && !(obj.triggerComp && obj.triggerComp == FSBL.Clients.WindowClient.options.name)) {
+			filtersSelected = {};
+			for (let i = 0; i < filterArr.length; i++) {
+				let filt = filterArr[i];
+				if (filt.description in obj.filtersSelected && obj.filtersSelected[filt.description].length > 0){
+					//perhaps should spin through and make sure values exist for categorical filters with a list
+					filtersSelected[filt.filterUUID] = obj.filtersSelected[filt.description];
+				} // ignore empty filters - explicitly setting and empty array will override defaults, which omitting the element will respect
+			}	
+			Logger.log('Updated filter selections to: ', filtersSelected);
+			//update filter panel
+			FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);					
+			//update report panel
+			injectReport(reportUUID, elementId, {triggerComp: obj.triggerComp});
+		} else{
+			Logger.log(`Filter data transmitted by: ${obj.triggerComp}, ignored by: ${FSBL.Clients.WindowClient.options.name},`);
+		}
+	});
+	
+	//Listen to instructions from the filter panel
+	FSBL.Clients.RouterClient.addListener(FSBL.Clients.WindowClient.options.name + ".filter", function (err, response) {
+		if (err) return;
+		filtersSelected = response.data;
+		injectReport(reportUUID, elementId);
+
+		//Publish filters for linking (only if they are set and were not triggered by another component)
+		if (filterArr && filtersSelected){
+			publishFilters();
+		}
+	});
 });

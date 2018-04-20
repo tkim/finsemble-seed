@@ -8,7 +8,10 @@ let reportUUID = null;
 let filtersSelected = {};
 let filterArr = [];
 
-function setFilters() {
+let yfLoaded = false;
+let yfReportsLoaded = false;
+
+function setFilters(fromParent) {
 	$("filtervalue").removeClass("selected");
 	for (let filter of filterArr) {
 		let filterBlock = $('filter filterUUID:contains(' + filter.filterUUID + ')').parent();
@@ -37,7 +40,9 @@ function setFilters() {
 		}
 	}
 	//publish selected filters
-	FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);
+	if (!fromParent) {
+		FSBL.Clients.RouterClient.transmit(FSBL.Clients.WindowClient.options.name, filtersSelected);
+	}
 	//save to filter panel state
 	setState();
 }
@@ -196,7 +201,7 @@ FSBL.addEventListener("onReady", function () {
 	FSBL.Clients.RouterClient.addListener(parent, function (err, response) {
 		if (err) return;
 		filtersSelected = response.data;
-		setFilters();
+		setFilters(true);
 	});
 	
 	//load YellowFin API from host
@@ -211,17 +216,28 @@ FSBL.addEventListener("onReady", function () {
 	function filterCallback(filters) {
 		Logger.log("Num filters: " + filters.length)
 		filterArr = filters;
-		// for (let i = 0; i < filterArr.length; i++) {
-		// 	let filt = filterArr[i];
-		// }
 		renderPage();
-		setFilters();
+		setFilters(true);
 	 }
 
+	/*
+		Check if YellowFin scripts have loaded and setup the report filters.
+	*/
+	function checkLoaded() {
+		if(yfLoaded && yfReportsLoaded) {
+			//load filters for a particular report
+			window.yellowfin.reports.loadReportFilters(reportUUID, filterCallback);
+		}
+	}
+
 	//retrieve and inject report HTML when API loaded (wait on last script added to DOM)
+	yellowfinScr.onload = function () {
+		yfLoaded = true;
+		checkLoaded();
+	};
 	yellowfinReportScr.onload = function () {
-		//load filters for a particular report
-		window.yellowfin.reports.loadReportFilters(reportUUID, filterCallback);
+		yfReportsLoaded = true;
+		checkLoaded();
 	};
 
 	document.body.appendChild(yellowfinScr);
