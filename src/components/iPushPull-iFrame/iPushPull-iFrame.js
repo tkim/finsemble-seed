@@ -2,6 +2,11 @@ let $ = require('jquery');
 const Logger = FSBL.Clients.Logger;
 import {getUserDetails, getLoginToken}  from '../../services/ipushpull/ipushpullClient';
 
+//sample page UUID
+let uuid = "XBKWkrMmstQmSSs3KuojBd";
+let domain = "KrisWest";
+let page = "MyDataPage";
+
 FSBL.addEventListener('onReady', function () {
 	Logger.log("IPUSHPULL: iPushPull comp ready");
 	//create the iFrame for iPushPull embedapp
@@ -11,7 +16,7 @@ FSBL.addEventListener('onReady', function () {
 	document.body.appendChild(iframe);
 	
 	//set title and auto-scale the iframe
-	FSBL.Clients.WindowClient.setWindowTitle("iPushPull");
+	FSBL.Clients.WindowClient.setWindowTitle("iPushPull iFrame");
 	$('#ipp_frame').height(window.innerHeight-30);
 	$('#ipp_frame').width(window.innerWidth);
 	//resize the iframe on window resize
@@ -21,6 +26,8 @@ FSBL.addEventListener('onReady', function () {
 	};
 
 	//setup URL for the iFrame
+	//N.b. when using the excel plugin you can change 
+	//  API url in \Users\[USER]\AppData\Local\iPushPull Excel Add-In\iPushPullAPI.config
 	let url = "https://test.ipushpull.com/set.php?";
 	//"https://www.ipushpull.com/embedapp/?contrast=dark";
 	
@@ -39,7 +46,9 @@ FSBL.addEventListener('onReady', function () {
 					Logger.log("IPUSHPULL: Login successful, response :" + JSON.stringify(response, undefined, 2));
 				
 					//add tokens to the URL here
-					url += `&access_token=${response.access_token}&refresh_token=${response.refresh_token}`;
+					url += `access_token=${response.access_token}&refresh_token=${response.refresh_token}`;
+					//url += `uuid=${uuid}`;
+					url += `&domain=${domain}&page=${page}`;
 					iframe.src = url;
 				}
 			});

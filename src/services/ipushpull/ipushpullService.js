@@ -9,12 +9,16 @@ Logger.start();
 
 const $ = require("jquery");
 
-let ipp_id = 'knniS7q3hStTMcrz6T4Yy16CI5gc816M9M92b1j9';
-let ipp_secret = '4kMIkMsT7BOV4CLqvXllKUftaLwQWRqWlWE9wndH5IT3DzvmF7OKOqO2rCdnEqxcZtpaeoP9VPUfrCEHjDa2NuJdevzqFXhkJmBzKpPvLpfattGLJMkytOYkdMLAZS0F';
+//test
+let ipp_id = '4I4cEwF0fF0hvXOPrXkf5c0BhJhScUgI6qpubEqa';
+let ipp_secret = 'h3FBgcN75mMJq2lSUCWvBTgu6uesAhgxZzVe6d5T4KuGNImx6hd4jPKIXWG1SG7ALhnjlJtvUKyDh5q2XbKWNiTFlfeL4toE2pZoVBQLOUgSvRk6bMNvyGNpR4UwbqW5';
+
+//prod
+// let ipp_id = 'knniS7q3hStTMcrz6T4Yy16CI5gc816M9M92b1j9';
+// let ipp_secret = '4kMIkMsT7BOV4CLqvXllKUftaLwQWRqWlWE9wndH5IT3DzvmF7OKOqO2rCdnEqxcZtpaeoP9VPUfrCEHjDa2NuJdevzqFXhkJmBzKpPvLpfattGLJMkytOYkdMLAZS0F';
 
 let user_email = 'kris@chartiq.com';
-let user_pass = '83ipushpullNumbers!';
-
+let user_pass = 'abc123'//'83ipushpullNumbers!';
 
 /**
  * The ipushpull Service receives calls from the ipushpullClient.
