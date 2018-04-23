@@ -8,6 +8,14 @@
             "file": "ipushpull/ipushpullService.js",
             "visible": false,
             "html": "/services/ipushpull/ipushpull.html"
+        },
+        "ipushpullTestService": {
+            "useWindow": true,
+            "active": true,
+            "name": "ipushpullTestService",
+            "file": "ipushpullTest/ipushpullService.js",
+            "visible": false,
+            "html": "/services/ipushpullTest/ipushpull.html"
         }
     }
 }

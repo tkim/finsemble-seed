@@ -6,5 +6,9 @@
     "iPushPull": {
         "output": "components\\mindcontrol\\iPushPull",
         "entry": ".\\src\\components\\iPushPull\\iPushPull.js"
+    },
+    "iPushPullTest": {
+        "output": "components\\mindcontrol\\iPushPullTest",
+        "entry": ".\\src\\components\\iPushPullTest\\iPushPullTest.js"
     }
 }

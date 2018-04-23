@@ -1,29 +1,25 @@
 import $ from "jquery";
 import Cookies from 'js-cookie';
-import {getUserDetails, getLoginToken}  from '../../services/ipushpull/ipushpullClient';
+import {getUserDetails, getLoginToken}  from '../../services/ipushpullTest/ipushpullTestClient';
 const Logger = FSBL.Clients.Logger;
-const cookie_prefix = 'ipp';
+const cookie_prefix = 'ipp_test';
 
 //check for ipp cookie, if not present set it and refresh
 let access_token = Cookies.get(cookie_prefix + "_access_token");
-
+			
 FSBL.addEventListener('onReady', function () {
 	$(
-	`<style>
-		#app{
-			position: absolute;	
-		}
-		#paste-box{
-			position: absolute;
-			top: 10px;
-		}
-		.modal{
-			position: absolute;
-		}
-	</style>`
-	).appendTo( "head" );
-
-	FSBL.Clients.WindowClient.setWindowTitle("iPushPull");
+		`<style>
+			#paste-box{
+				position: absolute;
+				top: 10px;
+			}
+			.modal{
+				position: absolute;
+			}
+		</style>`
+		).appendTo( "head" );
+	FSBL.Clients.WindowClient.setWindowTitle("iPushPull (Test)");
 	if (!access_token) {
 		getUserDetails(function(err, userDetails) {	
 			if (err) {

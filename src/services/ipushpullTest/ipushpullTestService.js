@@ -9,26 +9,26 @@ Logger.start();
 
 const $ = require("jquery");
 
-//prod env credentials
-let ipp_id = 'knniS7q3hStTMcrz6T4Yy16CI5gc816M9M92b1j9';
-let ipp_secret = '4kMIkMsT7BOV4CLqvXllKUftaLwQWRqWlWE9wndH5IT3DzvmF7OKOqO2rCdnEqxcZtpaeoP9VPUfrCEHjDa2NuJdevzqFXhkJmBzKpPvLpfattGLJMkytOYkdMLAZS0F';
+//test env credentials
+let ipp_id = '4I4cEwF0fF0hvXOPrXkf5c0BhJhScUgI6qpubEqa';
+let ipp_secret = 'h3FBgcN75mMJq2lSUCWvBTgu6uesAhgxZzVe6d5T4KuGNImx6hd4jPKIXWG1SG7ALhnjlJtvUKyDh5q2XbKWNiTFlfeL4toE2pZoVBQLOUgSvRk6bMNvyGNpR4UwbqW5';
 let user_email = 'kris@chartiq.com';
-let user_pass = '83ipushpullNumbers!';
+let user_pass = 'abc123';
 
 /**
  * The ipushpull Service receives calls from the ipushpullClient.
  * @constructor
  */
-function ipushpullService() {
+function ipushpullTestService() {
 
 	let self = this;
 	
 	this.ipp = ipushpull.create({
-		api_url: "https://www.ipushpull.com/api/1.0",
-		ws_url: "https://www.ipushpull.com",
-		web_url: "https://www.ipushpull.com",
+		api_url: "https://test.ipushpull.com/api/1.0",
+		ws_url: "https://test.ipushpull.com",
+		web_url: "https://test.ipushpull.com",
 		docs_url: "https://docs.ipushpull.com",
-		storage_prefix: "ipp",
+		storage_prefix: "ipp_local",
 		api_key: ipp_id,
 		api_secret: ipp_secret,
 		transport: "polling"
@@ -58,16 +58,16 @@ function ipushpullService() {
 	return this;
 }
 
-ipushpullService.prototype = new baseService({
+ipushpullTestService.prototype = new baseService({
 	startupDependencies: {
 		services: ["authenticationService", "routerService"]
 	}
 });
-let serviceInstance = new ipushpullService('ipushpullService');
+let serviceInstance = new ipushpullTestService('ipushpullTestService');
 serviceInstance.onBaseServiceReady(function (callback) {
 	
 	Logger.log("Adding general purpose Query responder");
-	RouterClient.addResponder("iPushPull server", function(error, queryMessage) {
+	RouterClient.addResponder("iPushPull test server", function(error, queryMessage) {
 		if (!error) {
 			Logger.log('iPushPull server Query: ' + JSON.stringify(queryMessage));
 
@@ -90,11 +90,11 @@ serviceInstance.onBaseServiceReady(function (callback) {
 		}
 	});
 
-	Logger.log("iPushPull Service ready");
+	Logger.log("iPushPull Test Service ready");
 	callback();
 });
 
 serviceInstance.start();
-window.ipushpull = serviceInstance;
+window.ipushpullTestService = serviceInstance;
 
 

@@ -206,13 +206,13 @@
         },
         "iPushPull": {
             "window": {
-                "url": "https://test.ipushpull.com/embedded/?contrast=dark",
+                "url": "https://www.ipushpull.com/embedapp/?contrast=dark",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
                 "top": "center",
                 "left": "center",
-                "width": 800,
+                "width": 650,
                 "height": 600
             },
             "component": {
@@ -235,6 +235,41 @@
                     },
                     "Toolbar": {
                         "iconClass": "iPushPull"
+                    }
+                }
+            }
+        },
+        "iPushPullTest": {
+            "window": {
+                "url": "https://test.ipushpull.com/embedded/?contrast=dark",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 650,
+                "height": 600
+            },
+            "component": {
+                "inject": "iPushPullTest.js"
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "iPushPullTest"
                     }
                 }
             }
