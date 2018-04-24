@@ -152,9 +152,9 @@ function injectReport(uuid, elementId, opts) {
   and Filter panel inputs.
 */
 function filterCallback(filters, userOpts) {
-	if (filters && filters.length) { 
+	if (filters && filters.length > 0) { 
 		let filtersStr = "";
-		for (filt in filters) {
+		for (let filt in filters) {
 			filtersStr += `|${filt.description}| `;
 		}
 		Logger.log("Filters: " + filtersStr);
