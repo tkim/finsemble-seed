@@ -248,8 +248,8 @@ serviceInstance.onBaseServiceReady(function (callback) {
 		}
 	});
 
-	Logger.log("yellowFin Service ready");
-	console.log("> yellowFin Service ready");
+	Logger.log("yellowfin Service ready");
+	console.log("> yellowfin Service ready");
 	callback();
 });
 

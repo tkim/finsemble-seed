@@ -24,25 +24,25 @@ Then add the service configuration below to */config/application/services.json*:
 ```
 
 ### 2. Install the components by copying their sources over:
-- */src/components/yellowFin*                
-  - A viewer for the YellowFin app, displays the default, or can be used programatically to launch a specific view such as the report creator.
-- */src/components/yellowFinLauncher*        
+- */src/components/yellowfin/yellowfin*                
+  - A viewer for the YellowFin app, displays the default, or can be used programmatically to launch a specific view such as the report creator.
+- */src/components/yellowfin/Launcher*        
   - A Finsemble component to list and launch YellowFin reports using the YellowFin API 
-- */src/components/yellowFinLauncherLocal*   
+- */src/components/yellowfin/launcherLocal*   
   - A version of the report launcher pointing to localhost for development use.
-- */src/components/yellowFinJSComponent*     
+- */src/components/yellowfin/jsComponent*     
   - A component for displaying reports using the YF Javascript API. 
-- */src/components/yellowFinFilterComponent* 
+- */src/components/yellowfin/filterComponent* 
   - A component slaved to the JS component to be used for filtering in Finsemble.
 
-and add the following configuraitons for them to */configs/application/components.json*:
+and add the following configurations for them to */configs/application/components.json*:
 ```JSON
 {
     "comment": "Component configuration",
     "components": {
-        "yellowFinJSComponent": {
+        "yellowfinJSComponent": {
             "window": {
-                "url": "$applicationRoot/components/yellowFinJSComponent/yellowFinJSComponent.html",
+                "url": "$applicationRoot/components/yellowfin/jsComponent/jsComponent.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -71,14 +71,14 @@ and add the following configuraitons for them to */configs/application/component
                         "showLinker": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFinJSComponent"
+                        "iconClass": "yellowfinJSComponent"
                     }
                 }
             }
         },
-        "yellowFinFilterComponent": {
+        "yellowfinFilterComponent": {
             "window": {
-                "url": "$applicationRoot/components/yellowFinFilterComponent/yellowFinFilterComponent.html",
+                "url": "$applicationRoot/components/yellowfin/filterComponent/filterComponent.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -106,14 +106,14 @@ and add the following configuraitons for them to */configs/application/component
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFinFilterComponent"
+                        "iconClass": "yellowfinFilterComponent"
                     }
                 }
             }
         },
         "YellowFin": {
             "window": {
-                "url": "$applicationRoot/components/yellowFin/yellowFin.html",
+                "url": "$applicationRoot/components/yellowfin/yellowfin/yellowfin.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -141,14 +141,14 @@ and add the following configuraitons for them to */configs/application/component
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFin"
+                        "iconClass": "yellowfin"
                     }
                 }
             }
         },
         "YellowFin Report Launcher": {
             "window": {
-                "url": "$applicationRoot/components/yellowFinLauncher/yellowFinLauncher.html",
+                "url": "$applicationRoot/components/yellowfin/launcher/launcher.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -176,14 +176,14 @@ and add the following configuraitons for them to */configs/application/component
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFinLauncher"
+                        "iconClass": "yellowfinLauncher"
                     }
                 }
             }
         },
         "YellowFin Report Launcher Localhost": {
             "window": {
-                "url": "$applicationRoot/components/yellowFinLauncherLocal/yellowFinLauncherLocal.html",
+                "url": "$applicationRoot/components/yellowfin/launcherLocal/launcherLocal.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -211,7 +211,7 @@ and add the following configuraitons for them to */configs/application/component
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFinLauncherLocal"
+                        "iconClass": "yellowfinLauncherLocal"
                     }
                 }
             }
@@ -236,7 +236,7 @@ let yellowfinPass = "test";
 
 However, in future this maybe changed to integrate with either the Preferences service (allowing user configuration) or Dynamic Config (allowing it to be configured using an entitlements system).
 
-The server settings are retrieved from the service by the components and/or passed between them during spawning and stored as part of their state in the weorkspace.
+The server settings are retrieved from the service by the components and/or passed between them during spawning and stored as part of their state in the workspaces.
 
 
 ### 4. Build it and run

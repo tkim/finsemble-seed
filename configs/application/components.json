@@ -1,83 +1,9 @@
 {
     "comment": "Sample component configuration",
     "components": {
-        "myYellowFinEmbedComponent": {
+        "yellowfinJSComponent": {
             "window": {
-                "url": "$applicationRoot/components/myYellowFinEmbedComponent/myYellowFinEmbedComponent.html",
-                "frame": false,
-                "top": "center",
-                "left": "center",
-                "width": 934,
-                "height": 410,
-                "options": {
-                    "autoShow": true,
-                    "resizable": true,
-                    "alwaysOnTop": false
-                }
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": false
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "myYellowFinEmbedComponent"
-                    }
-                }
-            }
-        },
-        "myYellowFinEmbedComponent2": {
-            "window": {
-                "url": "$applicationRoot/components/myYellowFinEmbedComponent2/myYellowFinEmbedComponent2.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 699,
-                "height": 354
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": false
-                    },
-                    "Window Manager": {
-                        "FSBLHeader": true,
-                        "persistWindowState": true,
-                        "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "myYellowFinEmbedComponent2"
-                    }
-                }
-            }
-        },
-        "yellowFinJSComponent": {
-            "window": {
-                "url": "$applicationRoot/components/yellowFinJSComponent/yellowFinJSComponent.html",
+                "url": "$applicationRoot/components/yellowfin/jsComponent/jsComponent.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -106,14 +32,14 @@
                         "showLinker": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFinJSComponent"
+                        "iconClass": "yellowfinJSComponent"
                     }
                 }
             }
         },
-        "yellowFinFilterComponent": {
+        "yellowfinFilterComponent": {
             "window": {
-                "url": "$applicationRoot/components/yellowFinFilterComponent/yellowFinFilterComponent.html",
+                "url": "$applicationRoot/components/yellowfin/filterComponent/filterComponent.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -141,14 +67,14 @@
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFinFilterComponent"
+                        "iconClass": "yellowfinFilterComponent"
                     }
                 }
             }
         },
-        "YellowFin": {
+        "Yellowfin": {
             "window": {
-                "url": "$applicationRoot/components/yellowFin/yellowFin.html",
+                "url": "$applicationRoot/components/yellowfin/yellowfin/yellowfin.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -176,14 +102,14 @@
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFin"
+                        "iconClass": "Yellowfin"
                     }
                 }
             }
         },
-        "YellowFin Report Launcher": {
+        "Yellowfin Report Launcher": {
             "window": {
-                "url": "$applicationRoot/components/yellowFinLauncher/yellowFinLauncher.html",
+                "url": "$applicationRoot/components/yellowfin/launcher/launcher.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -211,14 +137,14 @@
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFinLauncher"
+                        "iconClass": "yellowfinLauncher"
                     }
                 }
             }
         },
-        "YellowFin Report Launcher Localhost": {
+        "Yellowfin Report Launcher Localhost": {
             "window": {
-                "url": "$applicationRoot/components/yellowFinLauncherLocal/yellowFinLauncherLocal.html",
+                "url": "$applicationRoot/components/yellowfin/launcherLocal/launcherLocal.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -246,7 +172,7 @@
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "yellowFinLauncherLocal"
+                        "iconClass": "yellowfinLauncherLocal"
                     }
                 }
             }
@@ -419,9 +345,9 @@
                 }
             }
         },
-        "YellowFin filter context tester": {
+        "Yellowfin filter context tester": {
             "window": {
-                "url": "$applicationRoot/components/yellowfinFilterStatus/yellowfinFilterStatus.html",
+                "url": "$applicationRoot/components/yellowfin/filterStatus/filterStatus.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,

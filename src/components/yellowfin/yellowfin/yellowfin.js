@@ -1,4 +1,4 @@
-import { getServerDetails, getLoginToken, getAllUserReports } from '../../clients/yellowfinClient';
+import { getServerDetails, getLoginToken, getAllUserReports } from '../../../services/yellowfin/yellowfinClient';
 
 let yf_iframe = document.createElement('iframe');
 yf_iframe.setAttribute("id", "yf_iframe");
@@ -67,7 +67,7 @@ FSBL.addEventListener('onReady', function () {
 
 			getLoginToken(serverDetails, function(err, token) {
 				if (err) {
-					//Logger.error("Failed to retreive login token from webservice!");
+					//Logger.error("Failed to retrieve login token from web service!");
 				} else {
 					//Logger.log("Retrieved login token: " + token);
 					

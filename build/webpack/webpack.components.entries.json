@@ -1,34 +1,26 @@
 {
-    "myYellowFinEmbedComponent": {
-        "output": "components/myYellowFinEmbedComponent/myYellowFinEmbedComponent",
-        "entry": "./src/components/myYellowFinEmbedComponent/myYellowFinEmbedComponent.js"
+    "yellowfinJSComponent": {
+        "output": "components/yellowfin/jsComponent/jsComponent",
+        "entry": "./src/components/yellowfin/jsComponent/jsComponent.js"
     },
-    "myYellowFinEmbedComponent2": {
-        "output": "components/myYellowFinEmbedComponent2/myYellowFinEmbedComponent2",
-        "entry": "./src/components/myYellowFinEmbedComponent2/myYellowFinEmbedComponent2.js"
+    "yellowfinFilterComponent": {
+        "output": "components/yellowfin/filterComponent/filterComponent",
+        "entry": "./src/components/yellowfin/filterComponent/filterComponent.js"
     },
-    "yellowFinJSComponent": {
-        "output": "components/yellowFinJSComponent/yellowFinJSComponent",
-        "entry": "./src/components/yellowFinJSComponent/yellowFinJSComponent.js"
+    "yellowfin": {
+        "output": "components/yellowfin/yellowfin/yellowfin",
+        "entry": "./src/components/yellowfin/yellowfin/yellowfin.js"
     },
-    "yellowFinFilterComponent": {
-        "output": "components/yellowFinFilterComponent/yellowFinFilterComponent",
-        "entry": "./src/components/yellowFinFilterComponent/yellowFinFilterComponent.js"
+    "yellowfinLauncher": {
+        "output": "components/yellowfin/launcher/launcher",
+        "entry": "./src/components/yellowfin/launcher/launcher.js"
     },
-    "yellowFin": {
-        "output": "components/yellowFin/yellowFin",
-        "entry": "./src/components/yellowFin/yellowFin.js"
-    },
-    "yellowFinLauncher": {
-        "output": "components/yellowFinLauncher/yellowFinLauncher",
-        "entry": "./src/components/yellowFinLauncher/yellowFinLauncher.js"
-    },
-    "yellowFinLauncherLocal": {
-        "output": "components\\yellowFinLauncherLocal\\yellowFinLauncherLocal",
-        "entry": ".\\src\\components\\yellowFinLauncherLocal\\yellowFinLauncherLocal.js"
+    "yellowfinLauncherLocal": {
+        "output": "components/yellowfin/launcherLocal/launcherLocal",
+        "entry": "./src/components/yellowfin/launcherLocal/launcherLocal.js"
     },
     "yellowfinFilterStatus": {
-        "output": "components\\yellowfinFilterStatus\\yellowfinFilterStatus",
-        "entry": ".\\src\\components\\yellowfinFilterStatus\\yellowfinFilterStatus.js"
+        "output": "components/yellowfin/filterStatus/filterStatus",
+        "entry": "./src/components/yellowfin/filterStatus/filterStatus.js"
     }
 }

@@ -1,7 +1,7 @@
 //N.B. JQuery is included in HTML
 const Logger = FSBL.Clients.Logger;
 //YellowFin service functions
-import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfinClient';
+import {getServerDetails, getLoginToken, getAllUserReports} from '../../../services/yellowfin/yellowfinClient';
 
 const FILTER_TOPIC = 'yellowfin_filters';
 
@@ -184,7 +184,7 @@ function publishFilters() {
 */
 function showFilterPanel() {
 	let windowIdentifier={
-		componentType: "yellowFinFilterComponent",
+		componentType: "yellowfinFilterComponent",
 		windowName: FSBL.Clients.WindowClient.options.name + ".filter"
 	};
 
@@ -223,7 +223,7 @@ function checkLoaded() {
 		injectReport(reportUUID, elementId);
 
 		
-		//reinject the report on window resize
+		//re-inject the report on window resize
 		window.onresize = function() { 
 			//only regenerate report when done resizing, 200 ms should be plenty, but may be able to shave lower
 			clearTimeout(resizeId);
@@ -270,7 +270,7 @@ FSBL.addEventListener('onReady', function () {
 	
 	getState();
 	
-	//get spawing data to set report ID
+	//get spawning data to set report ID
 	let spawnData = FSBL.Clients.WindowClient.getSpawnData();
 	Logger.log("Spawn data: ", spawnData);
 	if (spawnData){

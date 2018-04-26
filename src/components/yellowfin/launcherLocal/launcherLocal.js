@@ -1,12 +1,22 @@
 //JQuery (can't get ES6 import to work for this yet)
 const $ = require("jquery");
 const Logger = FSBL.Clients.Logger;
-import {getServerDetails, getLoginToken, getAllUserReports} from '../../clients/yellowfinClient';
+import {getServerDetails, getLoginToken, getAllUserReports} from '../../../services/yellowfin/yellowfinClient';
 
-let serverDetails = null;
+let serverDetails = {
+	yellowfinProtocol: "http://",
+	yellowfinHost: "localhost",
+	yellowfinPort: "8081",
+	yellowfinPath: "/JsAPI",
+	yellowfinReportPath: "/JsAPI?api=reports",
+	yellowfinUser: "admin@yellowfin.com.au",
+	yellowfinPass: "test"
+};
 let reports = [];
+let dashboards = [];
 
 FSBL.addEventListener('onReady', function () {
+	
 	let reportTemplate = $("template")[0];
 
 	let clickReport = function(event) {
@@ -15,7 +25,7 @@ FSBL.addEventListener('onReady', function () {
 	
 		Logger.log("Launching report: ", data["reportUUID"]);
 	
-		FSBL.Clients.LauncherClient.spawn("yellowFinJSComponent",
+		FSBL.Clients.LauncherClient.spawn("yellowfinJSComponent",
 			{
 				position: "relative",
 				left: "adjacent",
@@ -76,17 +86,10 @@ FSBL.addEventListener('onReady', function () {
 
 	$('.header #refreshButton').click(getReports);
 	$('.header #addButton').click(clickAddReport);
-	
-	getServerDetails(function(err,server) {
-		if (err) {
-			Logger.error("Failed to retrieve server details: ", err);
-		} else {
-			serverDetails = server;
-			FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
-	
-			Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
 
-			getReports();
-		}
-	});
+	FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
+
+	Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
+
+	getReports();
 }); 
