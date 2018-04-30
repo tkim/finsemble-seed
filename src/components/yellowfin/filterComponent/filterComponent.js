@@ -203,7 +203,7 @@ FSBL.addEventListener("onReady", function () {
 		setFilters(true);
 	});
 	
-	//load YellowFin API from host
+	//load Yellowfin API from host
 	let yellowfinScr = document.createElement('script');
 	yellowfinScr.setAttribute('src', serverDetails.yellowfinProtocol + serverDetails.yellowfinHost + ":" + serverDetails.yellowfinPort + serverDetails.yellowfinPath);
 	yellowfinScr.setAttribute('type','text/javascript');
@@ -220,7 +220,7 @@ FSBL.addEventListener("onReady", function () {
 	 }
 
 	/*
-		Check if YellowFin scripts have loaded and setup the report filters.
+		Check if Yellowfin scripts have loaded and setup the report filters.
 	*/
 	function checkLoaded() {
 		if(yfLoaded && yfReportsLoaded) {

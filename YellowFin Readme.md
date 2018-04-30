@@ -1,8 +1,8 @@
-# YellowFin README 
+# Yellowfin README 
 
 ## Installation 
 
-### 1. Setup the YellowFin service
+### 1. Setup the Yellowfin service
 Copy service source files to: */src/services/yellowfin/*
 and client to:                */src/clients/yellowfinClient.js*
 
@@ -25,9 +25,9 @@ Then add the service configuration below to */config/application/services.json*:
 
 ### 2. Install the components by copying their sources over:
 - */src/components/yellowfin/yellowfin*                
-  - A viewer for the YellowFin app, displays the default, or can be used programmatically to launch a specific view such as the report creator.
+  - A viewer for the Yellowfin app, displays the default, or can be used programmatically to launch a specific view such as the report creator.
 - */src/components/yellowfin/Launcher*        
-  - A Finsemble component to list and launch YellowFin reports using the YellowFin API 
+  - A Finsemble component to list and launch Yellowfin reports using the Yellowfin API 
 - */src/components/yellowfin/launcherLocal*   
   - A version of the report launcher pointing to localhost for development use.
 - */src/components/yellowfin/jsComponent*     
@@ -111,7 +111,7 @@ and add the following configurations for them to */configs/application/component
                 }
             }
         },
-        "YellowFin": {
+        "Yellowfin": {
             "window": {
                 "url": "$applicationRoot/components/yellowfin/yellowfin/yellowfin.html",
                 "frame": false,
@@ -146,7 +146,7 @@ and add the following configurations for them to */configs/application/component
                 }
             }
         },
-        "YellowFin Report Launcher": {
+        "Yellowfin Report Launcher": {
             "window": {
                 "url": "$applicationRoot/components/yellowfin/launcher/launcher.html",
                 "frame": false,
@@ -181,7 +181,7 @@ and add the following configurations for them to */configs/application/component
                 }
             }
         },
-        "YellowFin Report Launcher Localhost": {
+        "Yellowfin Report Launcher Localhost": {
             "window": {
                 "url": "$applicationRoot/components/yellowfin/launcherLocal/launcherLocal.html",
                 "frame": false,
@@ -221,7 +221,7 @@ and add the following configurations for them to */configs/application/component
 ```
 
 ### 3. Configure the Yellowfin service and credentials
-The YellowFin server that the service will talk to is configured in */src/services/yellowfin/yellowfinService.js*. The credentials for the Yellowfin demo server are:
+The Yellowfin server that the service will talk to is configured in */src/services/yellowfin/yellowfinService.js*. The credentials for the Yellowfin demo server are:
 
 ```javascript
 // yellowfin demo data
@@ -240,4 +240,4 @@ The server settings are retrieved from the service by the components and/or pass
 
 
 ### 4. Build it and run
-Execute `npm run dev` to build the seed project and then select the YellowFin component or YellowFin Report Launcher component from the apps menu to begin.
+Execute `npm run dev` to build the seed project and then select the Yellowfin component or Yellowfin Report Launcher component from the apps menu to begin.

@@ -47,7 +47,7 @@ FSBL.addEventListener('onReady', function () {
 	
 		Logger.log("Launching report creator");
 	
-		FSBL.Clients.LauncherClient.spawn("YellowFin",
+		FSBL.Clients.LauncherClient.spawn("Yellowfin",
 			{
 				left: "center",
 				top: "center",
@@ -87,7 +87,7 @@ FSBL.addEventListener('onReady', function () {
 	$('.header #refreshButton').click(getReports);
 	$('.header #addButton').click(clickAddReport);
 
-	FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
+	FSBL.Clients.WindowClient.setWindowTitle(`Yellowfin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
 
 	Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
 

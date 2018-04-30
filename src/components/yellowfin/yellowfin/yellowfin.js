@@ -61,7 +61,7 @@ FSBL.addEventListener('onReady', function () {
 		} else {
 			serverDetails = server;
 			//Logger.log("serverDetails: " + JSON.stringify(serverDetails, undefined, 2));	
-			FSBL.Clients.WindowClient.setWindowTitle(`YellowFin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
+			FSBL.Clients.WindowClient.setWindowTitle(`Yellowfin (${serverDetails.yellowfinHost}:${serverDetails.yellowfinPort})`);
  
 			setState();
 
@@ -87,7 +87,7 @@ FSBL.addEventListener('onReady', function () {
 		}
 	});
 
-	FSBL.Clients.WindowClient.setWindowTitle("YellowFin");
+	FSBL.Clients.WindowClient.setWindowTitle("Yellowfin");
 
 	//resize the iframe on window resize
 	window.onresize = function() { 

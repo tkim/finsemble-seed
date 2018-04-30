@@ -24,7 +24,7 @@ let render = function(filterContext) {
 }
 
 FSBL.addEventListener('onReady', function () {
-	FSBL.Clients.WindowClient.setWindowTitle("YellowFin Filter Context");
+	FSBL.Clients.WindowClient.setWindowTitle("Yellowfin Filter Context");
 	
 	//do things with FSBL in here.
 	//subscribe to filters

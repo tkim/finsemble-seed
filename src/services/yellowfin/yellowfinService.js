@@ -79,21 +79,21 @@ function yellowfinService() {
 						callback(null, responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["loginSessionId"]);
 						Logger.log("Sending response: ", responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["loginSessionId"]);
 					} else {
-						let msg = "YellowFin Webservice request (LOGINUSER) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"];
+						let msg = "Yellowfin Webservice request (LOGINUSER) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["statusCode"];
 						Logger.error(msg);
 						callback(msg, null);
 					}
 				} catch (err) {
-					let msg = "Caught an error when using the YellowFin webservice (LOGINUSER): "
+					let msg = "Caught an error when using the Yellowfin webservice (LOGINUSER): "
 					Logger.error(msg, err);
-					callback("YellowFin Webservice (LOGINUSER) response did not contain expected values, response: " + JSON.stringify(responseData, undefined, 2),null); 
+					callback("Yellowfin Webservice (LOGINUSER) response did not contain expected values, response: " + JSON.stringify(responseData, undefined, 2),null); 
 				}
 				// if you want to have the response as JSON use soapResponse.toJSON();
 				// or soapResponse.toString() to get XML string
 				// or soapResponse.toXML() to get XML DOM
 			},
 			error: function (soapResponse) {
-				let msg = "YellowFin Webservice (LOGINUSER) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
+				let msg = "Yellowfin Webservice (LOGINUSER) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
 				Logger.error(msg);
 				callback(msg,null); 
 			}
@@ -126,21 +126,21 @@ function yellowfinService() {
 						Logger.log("Sending response: ", responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["reports"]);
 						callback(null, responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteAdministrationCallResponse"]["return"]["reports"]);
 					} else {
-						let errmsg = "YellowFin Webservice request (GETALLUSERREPORTS) was not successful! Response: " + JSON.stringify(soapResponse, undefined, 2);
+						let errmsg = "Yellowfin Webservice request (GETALLUSERREPORTS) was not successful! Response: " + JSON.stringify(soapResponse, undefined, 2);
 						Logger.error(errmsg);
 						callback(msg, null);
 					}
 				} catch (err) {
-					let msg = "Caught an error when using the YellowFin webservice (GETALLUSERREPORTS): "
+					let msg = "Caught an error when using the Yellowfin webservice (GETALLUSERREPORTS): "
 					Logger.error(msg, err);
-					callback("YellowFin Webservice (GETALLUSERREPORTS) response did not contain expected values, response: " + JSON.stringify(soapResponse, undefined, 2), null); 
+					callback("Yellowfin Webservice (GETALLUSERREPORTS) response did not contain expected values, response: " + JSON.stringify(soapResponse, undefined, 2), null); 
 				}
 				// if you want to have the response as JSON use soapResponse.toJSON();
 				// or soapResponse.toString() to get XML string
 				// or soapResponse.toXML() to get XML DOM
 			},
 			error: function (soapResponse) {
-				let msg = "YellowFin Webservice (GETALLUSERREPORTS) returned an error! response: " + JSON.stringify(soapResponse, undefined, 2);
+				let msg = "Yellowfin Webservice (GETALLUSERREPORTS) returned an error! response: " + JSON.stringify(soapResponse, undefined, 2);
 				Logger.error(msg);
 				callback(msg,null); 
 			}
@@ -183,18 +183,18 @@ function yellowfinService() {
 						callback(null, responseData["#document"]["S:Envelope"]["S:Body"]["ns2:tns:remoteReportCallResponse"]["return"]["ReportBinaryObject"]);
 						Logger.log("Sending response: ", responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteReportCallResponse"]["return"]["ReportBinaryObject"]);
 					} else {
-						let msg = "YellowFin Webservice report request (HTML) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteReportCallResponse"]["return"]["ReportBinaryObject"];
+						let msg = "Yellowfin Webservice report request (HTML) was not successful! Response: " + responseData["#document"]["S:Envelope"]["S:Body"]["ns2:remoteReportCallResponse"]["return"]["ReportBinaryObject"];
 						Logger.error(msg);
 						callback(msg, null);
 					}
 				} catch (err) {
-					let msg = "Caught an error when using the YellowFin webservice (HTML): "
+					let msg = "Caught an error when using the Yellowfin webservice (HTML): "
 					Logger.error(msg, err);
-					callback("YellowFin Webservice Report response (HTML) did not contain expected values, response: " + JSON.stringify(responseData, undefined, 2),null); 
+					callback("Yellowfin Webservice Report response (HTML) did not contain expected values, response: " + JSON.stringify(responseData, undefined, 2),null); 
 				}
 			},
 			error: function (soapResponse) {
-				let msg = "YellowFin Webservice Report service (HTML) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
+				let msg = "Yellowfin Webservice Report service (HTML) returned an error! response: " + JSON.stringify(soapResponse.toJSON(), undefined, 2);
 				Logger.error(msg);
 				callback(msg,null); 
 			}

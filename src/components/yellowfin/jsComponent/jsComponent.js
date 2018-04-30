@@ -1,6 +1,6 @@
 //N.B. JQuery is included in HTML
 const Logger = FSBL.Clients.Logger;
-//YellowFin service functions
+//Yellowfin service functions
 import {getServerDetails, getLoginToken, getAllUserReports} from '../../../services/yellowfin/yellowfinClient';
 
 const FILTER_TOPIC = 'yellowfin_filters';
@@ -20,7 +20,7 @@ let yfReportsLoaded = false;
 let loginToken = null;
 let myWindowIdentifier;
 
-//DOM entries for YellowFin scripts
+//DOM entries for Yellowfin scripts
 let yellowfinScr = document.createElement('script');
 let yellowfinReportScr = document.createElement('script');
 let yellowfinScrSrc = null; 
@@ -58,7 +58,7 @@ function getState() {
 }
 
 /*
-Load the YellowFin report and inject it into the component
+Load the Yellowfin report and inject it into the component
 */
 function injectReport(uuid, elementId, opts) {
 	if (opts) {
@@ -148,7 +148,7 @@ function injectReport(uuid, elementId, opts) {
 };
 
 /*
-  Receives filter information from the YellowFin API and subscribes for linking
+  Receives filter information from the Yellowfin API and subscribes for linking
   and Filter panel inputs.
 */
 function filterCallback(filters, userOpts) {
@@ -216,7 +216,7 @@ function showFilterPanel() {
 }
 
 /*
-	Check if YellowFin scripts have loaded and setup the report.
+	Check if Yellowfin scripts have loaded and setup the report.
 */
 function checkLoaded() {
 	if(yfLoaded && yfReportsLoaded) {
