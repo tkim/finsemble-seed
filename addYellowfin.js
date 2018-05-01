@@ -114,6 +114,39 @@
     copy(componentSrc, componentDest);
     console.log("Copied Yellowfin components");
 
+    const checkVersion = () => {
+        // Check Finsemble version
+        console.log(`Checking Finsemble version in ${seedPath}`);
+        exec("npx finsemble-cli --version", { cwd: seedPath }, (error, stdout, stderr) => {
+            if (error) {
+                console.error(error);
+            } else if (stderr && !stdout) {
+                console.error(stderr);
+            } else {
+                if (!stdout.includes("Finsemble version")) {
+                    console.error(`Finsemble not found in ${seedPath}, please run "npm install" in that folder first.`);
+                } else {
+                    const lines = stdout.split(/\n/);
+                    const parts = lines[1].split(/\:/);
+                    let finsembleVersion = parts[1];
+
+                    // Strip away color characters
+                    finsembleVersion = finsembleVersion.substring(6, finsembleVersion.length - 6);
+                    const versionParts = finsembleVersion.split(".");
+                    if ((Number.parseInt(versionParts[0]) < 2) ||
+                        ((versionParts[0] === "2") && Number.parseInt(versionParts[1]) < 4)) {
+                        console.error(`Requires Finsemble 2.4 or newer. Version found: ${finsembleVersion}`);
+                    } else {
+                        console.log(`Version is good. Version found: ${finsembleVersion}`);
+                        console.log("Done");
+                    }
+                }
+            }
+
+            process.exit();
+        });
+    }; 
+
     // Install node modules
     console.log(`Installing required node modules to ${seedPath}`);
     exec(`npm install jquery jquery.soap jquery-xml2json --save-prod`, { cwd: seedPath }, (error, stdout, stderr) => {
@@ -122,36 +155,7 @@
         } else if (stderr) {
             console.error(stderr);
         }
-    });
 
-    // Check Finsemble version
-    console.log(`Checking Finsemble version in ${seedPath}`);
-    exec("npx finsemble-cli --version", { cwd: seedPath }, (error, stdout, stderr) => {
-        if (error) {
-            console.error(error);
-        } else if (stderr && !stdout) {
-            console.error(stderr);
-        } else {
-            if (!stdout.includes("Finsemble version")) {
-                console.error(`Finsemble not found in ${seedPath}, please run "npm install" in that folder first.`);
-            } else {
-                const lines = stdout.split(/\n/);
-                const parts = lines[1].split(/\:/);
-                let finsembleVersion = parts[1];
-
-                // Strip away color characters
-                finsembleVersion = finsembleVersion.substring(6, finsembleVersion.length - 6);
-                const versionParts = finsembleVersion.split(".");
-                if ((Number.parseInt(versionParts[0]) < 2) ||
-                    ((versionParts[0] === "2") && Number.parseInt(versionParts[1]) < 4)) {
-                    console.error(`Requires Finsemble 2.4 or newer. Version found: ${finsembleVersion}`);
-                } else {
-                    console.log(`Version is good. Version found: ${finsembleVersion}`);
-                    console.log("Done");
-                }
-            }
-        }
-
-        process.exit();
-    });
+        checkVersion();
+    });   
 })()
