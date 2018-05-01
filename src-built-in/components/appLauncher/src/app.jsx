@@ -7,8 +7,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 //Finsemble font-icons, general styling, and specific styling.
 import "../../assets/css/finfont.css";
-import "../../assets/css/finsemble.scss";
-import "../appLauncher.scss";
+import "../../assets/css/finsemble.css";
+import "../appLauncher.css";
 import ComponentList from "./components/componentList";
 import * as storeExports from "./stores/appLauncherStore";
 import { Actions as appLauncherActions } from "./stores/appLauncherStore";
@@ -52,7 +52,8 @@ class AppLauncher extends React.Component {
 	}
 
 	openAdHoc() {
-		FSBL.Clients.LauncherClient.spawn("AdhocComponentForm", { monitor: "mine" });
+		//FSBL.Clients.LauncherClient.spawn("AdhocComponentForm", { monitor: "mine" });
+		FSBL.Clients.DialogManager.open("AdhocComponentForm", {}, () => { });
 	}
 
 	openAppCatalog() {
@@ -73,20 +74,17 @@ class AppLauncher extends React.Component {
 		var self = this;
 		return (<FinsembleMenu>
 			<FinsembleMenuSection className="menu-secondary">
-				{/* <FinsembleMenuItem>
+				{<FinsembleMenuItem>
 					<FinsembleMenuItemLabel onClick={this.openAdHoc}>
 						<i className="ff-new-workspace"></i> New App
 					</FinsembleMenuItemLabel>
-				</FinsembleMenuItem> */}
+				</FinsembleMenuItem> }
 				<FinsembleMenuItem>
 					<FinsembleMenuItemLabel onClick={this.openAppCatalog}>
 						<i className="ff-list"></i> App Catalog
 					</FinsembleMenuItemLabel>
 				</FinsembleMenuItem>
 			</FinsembleMenuSection>
-			<FinsembleMenuSectionLabel>
-				Applications
-			</FinsembleMenuSectionLabel>
 			<ComponentList />
 		</FinsembleMenu>);
 	}

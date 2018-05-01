@@ -12,7 +12,6 @@
 	const del = require("del");
 	const fs = require("fs");
 	const gulp = require("gulp");
-	const sass = require("gulp-sass");
 	const watch = require("gulp-watch");
 	const shell = require("shelljs");
 	const launcher = require("openfin-launcher");
@@ -38,7 +37,7 @@
 	}
 	// #region Constants
 	const startupConfig = require("./configs/other/server-environment-startup");
-	//Force colors on terminals.
+
 	let angularComponents;
 	try {
 		angularComponents = require("./build/angular-components.json");
@@ -47,7 +46,9 @@
 		angularComponents = null;
 	}
 
+	//Force colors on terminals.
 	const errorOutColor = chalk.red;
+
 	// #endregion
 
 	// #region Script variables
@@ -102,26 +103,11 @@
 
 			done();
 		},
-
 		/**
-		 * Builds the SASS files for the project.
+		 * Stub for building sass files. Add this with gulp-extensions.js if your project uses sass
 		 */
-		buildSass: () => {
-			const source = [
-				path.join(srcPath, "components", "**", "*.scss"),
-				path.join(__dirname, "src-built-in", "components", "**", "*.scss"),
-			];
-			// // Don't build files built by angular
-			// if (angularComponents) {
-			// 	angularComponents.forEach(comp => {
-			// 		source.push(path.join('!' + __dirname, comp.source, '**'));
-			// 	});
-			// }
-
-			return gulp
-				.src(source)
-				.pipe(sass().on("error", sass.logError))
-				.pipe(gulp.dest(path.join(distPath, "components")));
+		buildSass: done => {
+			return done();
 		},
 		/**
 		 * Builds files using webpack.
@@ -160,6 +146,24 @@
 				(cb) => {
 					const webpackComponentsConfig = require("./build/webpack/webpack.components.js")
 					packFiles(webpackComponentsConfig, "component bundle", cb);
+				},
+				(cb) => {
+					const webpackPreloadsConfig = require("./build/webpack/webpack.preloads.js")
+					webpack(webpackPreloadsConfig, (err, stats) => {
+						if (!err) {
+							logToTerminal("cyan", `Finished building preloads`)
+						} else {
+							console.error(errorOutColor("Webpack Error.", err));
+						}
+						if (stats.hasErrors()) {
+							console.error(errorOutColor(stats));
+						}
+						//Webpack invokes this function (basically, an onComplete) each time the bundle is built. We only want to invoke the async callback the first time.
+						if (cb) {
+							cb();
+							cb = undefined;
+						}
+					});
 				},
 				(cb) => {
 					const webpackHeaderConfig = require("./build/webpack/webpack.titleBar.js")
@@ -359,12 +363,11 @@
 		/**
 		 * Builds the application in the distribution directory. Internal only, don't use because no environment is set!!!!
 		 */
-		gulp.task(
-			"build",
-			gulp.series(
-				taskMethods.buildWebpack,
-				taskMethods.buildSass,
-				taskMethods.buildAngular));
+		gulp.task("build", gulp.series(
+			taskMethods.buildWebpack,
+			taskMethods.buildSass,
+			taskMethods.buildAngular
+		));
 
 		/**
 		 * Wipes the babel cache and webpack cache, clears dist, rebuilds the application.
@@ -431,5 +434,6 @@
 	}
 	// #endregion
 
+	// Run anything that we need to do before the gulp task is run
 	taskMethods.pre(defineTasks);
 })();
