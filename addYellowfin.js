@@ -117,35 +117,35 @@
     const checkVersion = () => {
         // Check Finsemble version
         console.log(`Checking Finsemble version in ${seedPath}`);
-        exec("node ./node_modules/@chartiq/finsemble-cli/finsemble.js --version", { cwd: seedPath }, (error, stdout, stderr) => {
-            if (error) {
-                console.error(error);
-            } else if (stderr && !stdout) {
-                console.error(stderr);
-            } else {
-                if (!stdout.includes("Finsemble version")) {
-                    console.error(`Finsemble not found in ${seedPath}, please run "npm install" in that folder first.`);
+        exec(
+            "node ./node_modules/@chartiq/finsemble-cli/finsemble.js --version",
+            { cwd: seedPath },
+            (error, stdout, stderr) => {
+                if (error) {
+                    console.error(error);
+                } else if (stderr && !stdout) {
+                    console.error(stderr);
                 } else {
-                    const lines = stdout.split(/\n/);
-                    const parts = lines[1].split(/\:/);
-                    let finsembleVersion = parts[1];
-
-                    // Strip away color characters
-                    finsembleVersion = finsembleVersion.substring(6, finsembleVersion.length - 6);
-                    const versionParts = finsembleVersion.split(".");
-                    if ((Number.parseInt(versionParts[0]) < 2) ||
-                        ((versionParts[0] === "2") && Number.parseInt(versionParts[1]) < 4)) {
-                        console.error(`Requires Finsemble 2.4 or newer. Version found: ${finsembleVersion}`);
+                    if (!stdout.includes("Finsemble version")) {
+                        console.error(`Finsemble not found in ${seedPath}, please run "npm install" in that folder first.`);
                     } else {
-                        console.log(`Finsemble version is good. Version found: ${finsembleVersion}`);
-                        console.log("Done");
+                        const results = /.*Finsemble version.*(\d+\.\d+\.\d+)/g.exec(stdout);
+                        const finsembleVersion = results[1];
+
+                        const versionParts = finsembleVersion.split(".");
+                        if ((Number.parseInt(versionParts[0]) < 2) ||
+                            ((versionParts[0] === "2") && Number.parseInt(versionParts[1]) < 4)) {
+                            console.error(`Requires Finsemble 2.4 or newer. Version found: ${finsembleVersion}`);
+                        } else {
+                            console.log(`Finsemble version is good. Version found: ${finsembleVersion}`);
+                            console.log("Done");
+                        }
                     }
                 }
-            }
 
-            process.exit();
-        });
-    }; 
+                process.exit();
+            });
+    };
 
     // Install node modules
     console.log(`Installing required node modules to ${seedPath}`);
@@ -157,5 +157,5 @@
         }
 
         checkVersion();
-    });   
+    });
 })()
