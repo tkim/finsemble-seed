@@ -117,7 +117,7 @@
     const checkVersion = () => {
         // Check Finsemble version
         console.log(`Checking Finsemble version in ${seedPath}`);
-        exec("npx finsemble-cli --version", { cwd: seedPath }, (error, stdout, stderr) => {
+        exec("node ./node_modules/@chartiq/finsemble-cli/finsemble.js --version", { cwd: seedPath }, (error, stdout, stderr) => {
             if (error) {
                 console.error(error);
             } else if (stderr && !stdout) {
@@ -137,7 +137,7 @@
                         ((versionParts[0] === "2") && Number.parseInt(versionParts[1]) < 4)) {
                         console.error(`Requires Finsemble 2.4 or newer. Version found: ${finsembleVersion}`);
                     } else {
-                        console.log(`Version is good. Version found: ${finsembleVersion}`);
+                        console.log(`Finsemble version is good. Version found: ${finsembleVersion}`);
                         console.log("Done");
                     }
                 }
