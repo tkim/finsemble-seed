@@ -16,6 +16,14 @@
             "file": "ipushpullTest/ipushpullService.js",
             "visible": false,
             "html": "/services/ipushpullTest/ipushpull.html"
+        },
+        "testerService": {
+            "useWindow": true,
+            "active": true,
+            "name": "testerService",
+            "file": "tester/testerService.js",
+            "visible": false,
+            "html": "/services/tester/tester.html"
         }
     }
 }
