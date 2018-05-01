@@ -17,10 +17,10 @@
      * Create ZIP file.
      * 
      * @param {string} filename The name of the ZIP file to create
-     * @param {string[]} fileFilter Array of file filters to include in ZIP
-     * @param {function} cb Callback called when error occurs or ZIP file has been created. 
+     * @param {string} dir Folder that should be zipped
+     * @param {function} cb (optional) Callback called when error occurs or ZIP file has been created. 
      */
-    const createZip = (filename, fileFilter, cb) => {
+    const createZip = (filename, dir, cb) => {
         const output = fs.createWriteStream(path.join(__dirname, filename));
         const archive = archiver("zip");
 
@@ -30,7 +30,7 @@
 
         archive.pipe(output);
 
-        fileFilter.forEach(value => archive.glob(value, { dot: true }));
+        archive.directory(dir, false);
 
         archive.finalize();
     }
@@ -90,6 +90,6 @@
     console.log("\tCreating ZIP package");
     createZip(
         zipFilename,
-        [path.join(exampleFolder, "**", "*")],
+        exampleFolder,
         () => { console.log("Package created"); process.exit() });
 })()
