@@ -9,9 +9,6 @@
     const rimraf = require("rimraf");
     // #endregion
 
-    const exampleFolder = path.join(__dirname, "yellowfinExample");
-    const zipFilename = "yellowfinExample.zip";
-
     // #region Functions
     /**
      * Create ZIP file.
@@ -36,6 +33,11 @@
     }
     // #endregion
 
+    // #region Constants
+    const exampleFolder = path.join(__dirname, "yellowfinExample");
+    const zipFilename = "yellowfinExample.zip";
+    // #endregion
+    
     console.log("Creating Yellowfin example package");
 
     // Delete existing ZIP
@@ -80,12 +82,18 @@
         path.join(__dirname, "build", "webpack", "webpack.components.entries.json"),
         path.join(exampleFolder, "yellowfin.webpack.components.entries.json"));
 
-    // copy addYellowfin.js to yellowfinExample
+    // Copy addYellowfin.js to yellowfinExample
     console.log("\tCopying setup script");
     fs.copyFileSync(
         path.join(__dirname, "addYellowfin.js"),
         path.join(exampleFolder, "addYellowfin.js"));
 
+    // Copy README
+    console.log("\tCopying README");
+    fs.copyFileSync(
+        path.join(__dirname, "YellowFin Readme.md"),
+        path.join(exampleFolder, "README.md"));
+    
     // Create zip folder of the exampleFolder contents.
     console.log("\tCreating ZIP package");
     createZip(
