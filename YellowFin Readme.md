@@ -51,6 +51,6 @@ let yellowfinUser = "consumer@yellowfin.bi";
 let yellowfinPass = "test";
 ```
 
-This may be changed to integrate with either the Preferences Service (allowing user configuration) or Dynamic Config (allowing it to be configured using an entitlements system).
+These configuration parameters could be saved via a [storage adapter](https://documentation.chartiq.com/finsemble/tutorial-CustomDataStorage.html) or [Dynamic Configuration](https://documentation.chartiq.com/finsemble/tutorial-dynamicConfiguration.html), allowing it to be configured using an entitlements system, then passed to the Yellowfin microservice.
 
 The server settings are retrieved from the microservice by the components or passed between them during spawning and stored as part of their state in the workspaces.
