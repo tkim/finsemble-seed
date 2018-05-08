@@ -54,3 +54,41 @@ let yellowfinPass = "test";
 These configuration parameters could be saved via a [storage adapter](https://documentation.chartiq.com/finsemble/tutorial-CustomDataStorage.html) or [Dynamic Configuration](https://documentation.chartiq.com/finsemble/tutorial-dynamicConfiguration.html), allowing it to be configured using an entitlements system, then passed to the Yellowfin microservice.
 
 The server settings are retrieved from the microservice by the components or passed between them during spawning and stored as part of their state in the workspaces.
+
+## Configuring the Yellowfin server for CORS
+Yellowfin supports CORS filtering out-of-the-box but needs to be configured to accept requests from localhost. To do so please add the following filter definitions to the web.xml file in the Apache Tomcat instance bundled with Yellowfin (in *Yellowfin/appserver/webapps/ROOT/WEB-INF/web.xml*):
+``` xml
+<filter>
+        <filter-name>ResponseHeaderFilter</filter-name>
+        <filter-class>com.hof.adapter.ResponseHeaderFilter</filter-class>
+        <init-param>
+            <param-name>Access-Control-Allow-Origin</param-name>
+            <param-value>*</param-value>
+         </init-param>
+     <init-param>
+            <param-name>Access-Control-Allow-Headers</param-name>
+            <param-value>origin, content-type, accept, authorization, SOAPAction</param-value>
+         </init-param>
+     <init-param>
+            <param-name>Access-Control-Allow-Credentials</param-name>
+            <param-value>true</param-value>
+         </init-param>
+     <init-param>
+            <param-name>Access-Control-Allow-Methods</param-name>
+            <param-value>GET, POST, PUT, DELETE, OPTIONS, HEAD</param-value>
+         </init-param>
+     <init-param>
+            <param-name>Access-Control-Max-Age</param-name>
+            <param-value>1209600</param-value>
+         </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>ResponseHeaderFilter</filter-name>
+    <url-pattern>/webservices/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>ResponseHeaderFilter</filter-name>
+    <url-pattern>/services/*</url-pattern>
+  </filter-mapping>
+  ```
+  This is just a basic ServletFilter that adds particular headers to the response. The ResponseHeaderFilter is included with Yellowfin out-of-the-box.
