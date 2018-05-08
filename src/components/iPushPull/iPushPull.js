@@ -20,6 +20,9 @@ FSBL.addEventListener('onReady', function () {
 		.modal{
 			position: absolute;
 		}
+		.topbar {
+            -webkit-app-region: no-drag;
+        }
 	</style>`
 	).appendTo( "head" );
 
