@@ -55,6 +55,15 @@ function ipushpullService() {
 		cb(null, {email: user_email, password: user_pass});
 	};
 
+	this.getUserDocs = function (cd) {
+		Logger.log("Received getUserDocs call");
+		//do something
+
+
+		//return the data
+		cb(null, {});
+	};
+
 	return this;
 }
 
@@ -80,6 +89,9 @@ serviceInstance.onBaseServiceReady(function (callback) {
 
 			} else if (queryMessage.data.query === "user details") {
 				serviceInstance.getUserDetails(queryMessage.sendQueryResponse);
+
+			} else if (queryMessage.data.query === "user docs") {
+				serviceInstance.getUserDocs(queryMessage.sendQueryResponse);
 
 			} else {
 				queryMessage.sendQueryResponse("Unknown query function: " + queryMessage, null);
