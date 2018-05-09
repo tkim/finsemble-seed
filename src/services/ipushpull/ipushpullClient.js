@@ -12,7 +12,7 @@ export function getUserDetails(cb) {
 };
 
 export function getUserDocs(cb) {
-	Logger.log("getUserDetails called");
+	Logger.log("getUserDocs called");
 	RouterClient.query("iPushPull server", { query: "user docs" }, function (err, response) {
 		Logger.log("iPushPullClient.getUserDocs response: ", response.data);
 		if (cb) {

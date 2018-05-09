@@ -11,6 +11,17 @@ export function getUserDetails(cb) {
 	});
 };
 
+export function getUserDocs(cb) {
+	Logger.log("getUserDocs called");
+	RouterClient.query("iPushPull server", { query: "user docs" }, function (err, response) {
+		Logger.log("iPushPullClient.getUserDocs response: ", response.data);
+		if (cb) {
+			cb(err, response.data);
+		}
+	});
+};
+
+
 export function getLoginToken(userDeets, cb) {
 	Logger.log("getLoginToken called");
 	RouterClient.query("iPushPull test server", { query: "login token", user: userDeets }, function (err, response) {

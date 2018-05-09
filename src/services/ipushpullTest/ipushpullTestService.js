@@ -50,6 +50,23 @@ function ipushpullTestService() {
 		});		
 	};
 
+	this.getUserDocs = function (userDeets, cb) {
+		Logger.log("Received getUserDocs call");
+
+        self.ipp.auth.login(userDeets.email, userDeets.password)
+		.then(self.ipp.api.getDomainsAndPages)
+        .then(function(res) {
+            Logger.log(res.data);
+            Logger.log('IPUSHPULL: user docs: ' + JSON.stringify(res.data, undefined, 2));
+            cb(null, res.data);
+        }).catch(function(err) {
+            Logger.error(err);
+            let msg = 'IPUSHPULL: Error occurred in getUserDocs' ;
+            Logger.error(msg, err);
+            cb(msg + JSON.stringify(err,undefined, 2), null);
+        });
+	};
+
 	this.getUserDetails = function (cb) {
 		Logger.log("Received getUserDetails call");
 		cb(null, {email: user_email, password: user_pass});
@@ -80,6 +97,9 @@ serviceInstance.onBaseServiceReady(function (callback) {
 
 			} else if (queryMessage.data.query === "user details") {
 				serviceInstance.getUserDetails(queryMessage.sendQueryResponse);
+
+			} else if (queryMessage.data.query === "user docs") {
+				serviceInstance.getUserDocs(queryMessage.sendQueryResponse);
 
 			} else {
 				queryMessage.sendQueryResponse("Unknown query function: " + queryMessage, null);

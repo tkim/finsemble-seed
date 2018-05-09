@@ -55,13 +55,21 @@ function ipushpullService() {
 		cb(null, {email: user_email, password: user_pass});
 	};
 
-	this.getUserDocs = function (cd) {
+	this.getUserDocs = function (userDeets, cb) {
 		Logger.log("Received getUserDocs call");
-		//do something
 
-
-		//return the data
-		cb(null, {});
+        self.ipp.auth.login(userDeets.email, userDeets.password)
+		.then(self.ipp.api.getDomainsAndPages)
+        .then(function(res) {
+            Logger.log(res.data);
+            Logger.log('IPUSHPULL: user docs: ' + JSON.stringify(res.data, undefined, 2));
+            cb(null, res.data);
+        }).catch(function(err) {
+            Logger.error(err);
+            let msg = 'IPUSHPULL: Error occurred in getUserDocs' ;
+            Logger.error(msg, err);
+            cb(msg + JSON.stringify(err,undefined, 2), null);
+        });
 	};
 
 	return this;
