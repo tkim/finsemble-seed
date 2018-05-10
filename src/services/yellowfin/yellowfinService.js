@@ -237,8 +237,11 @@ function yellowfinService() {
 				// }
 				const result = {
 					name: item.viewName,
+					score: 100,
 					type: "Application",
-					description: item.viewDescription
+					description: item.viewDescription,
+					actions: [{ name: "Spawn" }],
+					tags: []
 					// TODO: Figure out how to spawn the report
 				};
 				console.log(item);
