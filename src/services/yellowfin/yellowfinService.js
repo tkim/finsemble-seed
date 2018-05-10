@@ -252,6 +252,9 @@ function yellowfinService() {
 		});
 	};
 
+	this.searchResultActionCallback = function () {
+		// TODO: I think this is to launch the item
+	};
 	return this;
 }
 
@@ -304,6 +307,7 @@ serviceInstance.onBaseServiceReady(function (callback) {
 		{
 			name: "Yellowfin Search Provider",
 			searchCallback: serviceInstance.providerSearchFunction,
+			itemActionCallback: serviceInstance.searchResultActionCallback	
 		},
 		function (err) {
 			console.log("Registration succeeded");
