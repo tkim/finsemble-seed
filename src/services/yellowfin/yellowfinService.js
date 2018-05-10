@@ -28,6 +28,10 @@ let yellowfinPass = "test";
 const RouterClient = Finsemble.Clients.RouterClient;
 const baseService = Finsemble.baseService;
 const Logger = Finsemble.Clients.Logger;
+const SearchClient = Finsemble.Clients.SearchClient;
+
+SearchClient.initialize();
+
 Logger.start();
 
 /**
@@ -201,6 +205,53 @@ function yellowfinService() {
 		});
 	};
 
+	this.providerSearchFunction = function (params, callback) {
+		// Get reports from the server
+		const server = serviceInstance.getServerDetails();
+		serviceInstance.getAllUserReports(server, (err, res) => {
+			if (err) {
+				callback(err);
+				return;
+			}
+
+			const results = [];
+
+			// Filter Reports down to matches
+			const matches = res.filter(item => {
+				// Dumb match criteria. If category or sub-category contains search text.
+				const text = params.text.toLowerCase();
+				return item.reportCategory.toLowerCase().includes(text) ||
+					item.reportSubCategory.toLowerCase().includes(text)
+			});
+			
+			// Build results from the matches
+			matches.forEach(item => { 
+				// Result item template
+				// {
+				// 	name: resultName, // This should be the value you want displayed
+				// 	score: resultScore, // (optional) This is used to help order search results from multiple providers
+				// 	type: "Application", // The type of data your result returns
+				// 	description: "Your description here",
+				// 	actions: [{ name: "Spawn" }], // (optional) Actions can be an array of actions 
+				// 	tags: [] // (optional) This can be used for adding additional identifying information to your result
+				// }
+				const result = {
+					name: item.viewName,
+					type: "Application",
+					description: item.viewDescription
+					// TODO: Figure out how to spawn the report
+				};
+				console.log(item);
+				results.push(result);
+			});
+			
+			// TODO: Figure out why returned results aren't showing up in search.
+
+			// Return results when done.
+			callback(null, results);
+		});
+	};
+
 	return this;
 }
 
@@ -247,6 +298,16 @@ serviceInstance.onBaseServiceReady(function (callback) {
 			Logger.error("Failed to setup query responder", error);
 		}
 	});
+
+	Logger.log("Adding Yellowfin search provider");
+	SearchClient.register(
+		{
+			name: "Yellowfin Search Provider",
+			searchCallback: serviceInstance.providerSearchFunction,
+		},
+		function (err) {
+			console.log("Registration succeeded");
+		});
 
 	Logger.log("yellowfin Service ready");
 	console.log("> yellowfin Service ready");
