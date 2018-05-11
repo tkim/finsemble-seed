@@ -4,15 +4,6 @@ const $ = require("jquery");
 $.xml2json = require("jquery-xml2json");
 $.soap = require("jquery.soap");
 
-// //defaults
-// let yellowfinProtocol = "http://";
-// let yellowfinHost = "localhost";
-// let yellowfinPort = "8081";
-// let yellowfinPath = "/JsAPI";
-// let yellowfinReportPath = "/JsAPI?api=reports";
-// let yellowfinUser = "admin@yellowfin.com.au";
-// let yellowfinPass = "test";
-
 // yellowfin demo data
 let yellowfinProtocol = "http://";
 let yellowfinHost = "18.130.26.97";
@@ -28,10 +19,10 @@ let yellowfinPass = "test";
 const RouterClient = Finsemble.Clients.RouterClient;
 const baseService = Finsemble.baseService;
 const Logger = Finsemble.Clients.Logger;
+Logger.start();
 const SearchClient = Finsemble.Clients.SearchClient;
-const LauncherClient = Finsemble.Clients.LauncherClient;
-
 SearchClient.initialize();
+const LauncherClient = Finsemble.Clients.LauncherClient;
 LauncherClient.initialize();
 
 Logger.start();
@@ -293,7 +284,8 @@ function yellowfinService() {
 
 yellowfinService.prototype = new baseService({
 	startupDependencies: {
-		services: ["dockingService", "authenticationService", "routerService"]
+		clients: ["searchClient", "launcherClient"],
+		services: ["authenticationService", "routerService"]
 	}
 });
 let serviceInstance = new yellowfinService('yellowfinService');
@@ -345,7 +337,7 @@ serviceInstance.onBaseServiceReady(function (callback) {
 			providerActionTitle: "more yellowfin reports"
 		},
 		function (err) {
-			console.log("Registration succeeded");
+			console.log("Yellowfin search provider registration succeeded");
 		});
 
 	Logger.log("yellowfin Service ready");
