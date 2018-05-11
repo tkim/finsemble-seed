@@ -1,13 +1,16 @@
 //replace with import when ready
 const Finsemble = require("@chartiq/finsemble");
+const $ = require("jquery");
 
 const RouterClient = Finsemble.Clients.RouterClient;
 const baseService = Finsemble.baseService;
 const util = Finsemble.Util;
 const Logger = Finsemble.Clients.Logger;
 Logger.start();
-
-const $ = require("jquery");
+const SearchClient = Finsemble.Clients.SearchClient;
+SearchClient.initialize();
+const LauncherClient = Finsemble.Clients.LauncherClient;
+LauncherClient.initialize();
 
 //prod env credentials
 let ipp_id = 'knniS7q3hStTMcrz6T4Yy16CI5gc816M9M92b1j9';
@@ -52,7 +55,12 @@ function ipushpullService() {
 
 	this.getUserDetails = function (cb) {
 		Logger.log("IPUSHPULL: Received getUserDetails call");
-		cb(null, {email: user_email, password: user_pass});
+		let deets = {email: user_email, password: user_pass};
+		if(cb){
+			cb(null, deets);
+		} else {
+			return deets;
+		}
 	};
 
 	this.getUserDocs = function (userDeets, cb) {
@@ -71,11 +79,87 @@ function ipushpullService() {
         });
 	};
 
+	this.providerSearchFunction = function (params, callback) {
+		// Get reports from the server
+		const userDeets = serviceInstance.getUserDetails();
+		const text = params.text.toLowerCase();
+		serviceInstance.getUserDocs(userDeets, (err, res) => {
+			const results = [];
+			if (err) {
+				//just log it and return no results - otherwise it kills off the search provider
+				Logger.error("iPushPull search provider received an error from the iPP API", err);
+			} else {
+				res.domains.forEach(domain => {
+					//if domain matches, add all docs
+					if (domain.display_name.toLowerCase().includes(text)) {
+						domain.current_user_domain_page_access.pages.forEach(page => {
+							const result = {
+								name: `${domain.display_name} > ${page.name}`,
+								score: 0,
+								type: "Application",
+								description: page.name,
+								actions: [{ name: "Spawn", domain: domain.id, page: page.id }],
+								tags: []
+							};
+							console.log(result);
+							results.push(result);
+						});
+					} else { // test individual docs for match
+						domain.current_user_domain_page_access.pages.forEach(page => {
+							if (page.name.toLowerCase().includes(text)) {
+								const result = {
+									name: `${domain.display_name} > ${page.name}`,
+									score: 0,
+									type: "Application",
+									description: page.name,
+									actions: [{ name: "Spawn", domain: domain.id, page: page.id }],
+									tags: []
+								};
+								console.log(result);
+								results.push(result);
+							}
+						});
+					}
+				});
+			}
+
+			// Return results when done.
+			callback(null, results);
+		});
+	};
+
+	this.searchResultActionCallback = function (params) {
+		Logger.log("Launching iPP doc from search result: ", params);
+	
+		LauncherClient.spawn("iPushPull",
+			{
+				url: `https://www.ipushpull.com/embedapp/domains/${params.item.actions[0].domain}/pages/${params.item.actions[0].page}?contrast=dark`,
+				addToWorkspace: true
+			}, function(err, response){
+				console.log("Report showWindow error", response);
+			}
+		);
+		//debugger;
+	};
+
+	this.providerActionCallback = function () {
+		Logger.log("Spawning Yellowfin report launcher");
+	
+		LauncherClient.spawn("iPushPull Launcher",
+			{
+				addToWorkspace: true
+			}, function(err, response){
+				console.log("Report showWindow error", response);
+			}
+		);
+		//debugger;
+	};
 	return this;
 }
 
 ipushpullService.prototype = new baseService({
 	startupDependencies: {
+		clients: ["searchClient", "launcherClient"],
 		services: ["authenticationService", "routerService"]
 	}
 });
@@ -108,6 +192,19 @@ serviceInstance.onBaseServiceReady(function (callback) {
 			Logger.error("Failed to setup query responder", error);
 		}
 	});
+
+	Logger.log("Adding iPushPull search provider");
+	SearchClient.register(
+		{
+			name: "iPushPulls",
+			searchCallback: serviceInstance.providerSearchFunction,
+			itemActionCallback: serviceInstance.searchResultActionCallback,	
+			providerActionCallback: serviceInstance.providerActionCallback,
+			providerActionTitle: "more iPushPulls"
+		},
+		function (err) {
+			console.log(" iPushPull search provider registration succeeded");
+		});
 
 	Logger.log("iPushPull Service ready");
 	callback();
