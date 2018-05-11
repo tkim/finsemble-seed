@@ -1,6 +1,6 @@
 {
     "name": "FinsembleSeed",
-    "version": "2.4.0",
+    "version": "2.4.2",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -24,8 +24,8 @@
     "license": "ISC",
     "dependencies": {
         "@chartiq/finsemble": "latest",
-        "@chartiq/finsemble-cli": "latest",
-        "@chartiq/finsemble-react-controls": "latest",
+        "@chartiq/finsemble-cli": "2.*",
+        "@chartiq/finsemble-react-controls": "1.1",
         "async": "^2.6.0",
         "babel-minify-webpack-plugin": "^0.3.0",
         "compression": "^1.7.2",
@@ -48,7 +48,7 @@
         "body-parser": "^1.18.2",
         "chalk": "^2.3.2",
         "cookie-parser": "1.4.3",
-        "copy-webpack-plugin": "^4.0.1",
+        "copy-webpack-plugin": "^4.5.1",
         "css-loader": "^0.28.7",
         "death": "^1.1.0",
         "del": "^2.2.2",
@@ -65,6 +65,7 @@
         "querystring": "^0.2.0",
         "react": "^15.4.2",
         "react-dom": "^15.4.2",
+        "react-table": "^6.8.2",
         "shelljs": "^0.8.1",
         "socket.io": "^2.0.4",
         "strip-ansi": "^3.0.0",
