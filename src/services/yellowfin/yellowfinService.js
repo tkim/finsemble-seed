@@ -218,9 +218,10 @@ function yellowfinService() {
 
 			// Filter Reports down to matches
 			const matches = res.filter(item => {
-				// Dumb match criteria. If category or sub-category contains search text.
+				// Dumb match criteria. If report name, category or sub-category contains search text.
 				const text = params.text.toLowerCase();
-				return item.reportCategory.toLowerCase().includes(text) ||
+				return item.reportName.toLowerCase().includes(text) ||
+					item.reportCategory.toLowerCase().includes(text) ||
 					item.reportSubCategory.toLowerCase().includes(text)
 			});
 			
@@ -236,7 +237,7 @@ function yellowfinService() {
 				// 	tags: [] // (optional) This can be used for adding additional identifying information to your result
 				// }
 				const result = {
-					name: item.viewName,
+					name: item.reportName,
 					score: 100,
 					type: "Application",
 					description: item.viewDescription,
