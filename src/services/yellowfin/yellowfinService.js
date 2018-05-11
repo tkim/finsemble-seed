@@ -255,8 +255,9 @@ function yellowfinService() {
 		});
 	};
 
-	this.searchResultActionCallback = function () {
+	this.searchResultActionCallback = function (params, parent, cb) {
 		// TODO: I think this is to launch the item
+		debugger;
 	};
 	return this;
 }
