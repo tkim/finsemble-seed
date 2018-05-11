@@ -1,0 +1,15 @@
+body {
+	margin: 0px;
+}
+
+body::before body::after {
+	height: 0px;
+}
+
+iframe {
+	height: 300px;
+	width: 300px;
+	resize: both;
+	overflow: auto;
+	border: none;
+}

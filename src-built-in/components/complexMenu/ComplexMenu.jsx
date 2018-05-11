@@ -3,11 +3,9 @@
 * All rights reserved.
 */
 import React from "react";
+import "./menu.css";
 import "../assets/css/finfont.css";
-import "../assets/css/finsemble.scss";
-import "./menu.scss";
-
-
+import "../assets/css/finsemble.css";
 
 export default class ComplexMenu extends React.Component {
 	constructor() {
@@ -39,22 +37,24 @@ export default class ComplexMenu extends React.Component {
 		var self = this;
 		let navEntries = this.props.navOptions;
 		var activeContent = [];
-		console.log("self.props.headerImgUrl", self.props.headerImgUrl)
+		let headerImgStyle = {
+			paddingLeft: self.props.headerImgUrl === "" ? "10px" : "0px"
+		};
 		return (<div className="user-preferences" >
 			<div className="complex-menu-wrapper">
-				<div className="container">
+				<div className="complex-menu-container">
 					<div className="complex-menu-left-nav">
-						<div className="complex-menu-left-nav-header">
-							<img className="complex-menu-left-nav-header-img" src={self.props.headerImgUrl} /> {this.props.title}
+						<div className="complex-menu-left-nav-header" style={headerImgStyle}>
+							{self.props.headerImgUrl !== "" && <img className="complex-menu-left-nav-header-img" src={self.props.headerImgUrl} />} {this.props.title}
 						</div>
 						{
 							navEntries.map((el, i) => {
 								let sectionToggleClasses = "complex-menu-section-toggle";
 								if (el.label === this.state.activeSection) {
 									sectionToggleClasses += " active-section-toggle";
-									activeContent.push(<div className="conatinerItem active">{el.content}</div>);
+									activeContent.push(<div className="containerItem active">{el.content}</div>);
 								} else {
-									activeContent.push(<div className="conatinerItem">{el.content}</div>);
+									activeContent.push(<div className="containerItem">{el.content}</div>);
 								}
 								return <div className={sectionToggleClasses} key={i} onClick={() => {
 									self.setActiveSection(el.label);

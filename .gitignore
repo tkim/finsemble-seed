@@ -20,5 +20,4 @@ finsemble/
 .babel_cache
 build/webpack/vendor-manifest.json
 server/stats.json
-yellowfinExample/
-yellowfinExample.zip
+package-lock.json

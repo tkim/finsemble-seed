@@ -240,7 +240,7 @@
 		"AdhocComponentForm": {
 			"window": {
 				"url": "$applicationRoot/components/adhocComponentForm/adhocComponentForm.html",
-				"width": 350,
+				"width": 550,
 				"height": 175,
 				"position": "absolute",
 				"top": "center",
@@ -302,9 +302,9 @@
 		},
 		"yesNo": {
 			"window": {
-				"url": "$applicationRoot/components/yesNoDialog/YesNoDialog.html",
-				"width": 350,
-				"height": 175,
+				"url": "$applicationRoot/components/yesNoDialog/yesNoDialog.html",
+				"width": 500,
+				"height": 223,
 				"position": "absolute",
 				"top": "center",
 				"left": "center",
@@ -343,8 +343,8 @@
 		"singleInput": {
 			"window": {
 				"url": "$applicationRoot/components/singleInputDialog/singleInputDialog.html",
-				"width": 350,
-				"height": 175,
+				"width": 480,
+				"height": 154,
 				"position": "absolute",
 				"top": "center",
 				"left": "center",
@@ -474,7 +474,8 @@
 					"resizeRegion": {
 						"bottomRightCorner": 0,
 						"size": 0
-					}
+					},
+					"smallWindow": true
 				}
 			},
 			"component": {
@@ -531,7 +532,7 @@
 		},
 		"UserPreferences": {
 			"window": {
-				"url": "$applicationRoot/components/userPreferences/UserPreferences.html",
+				"url": "$applicationRoot/components/userPreferences/userPreferences.html",
 				"frame": false,
 				"top": "center",
 				"left": "center",
@@ -567,37 +568,71 @@
 					}
 				}
 			}
-		}
-	},
-	"Docking Move Mask": {
-		"window": {
-			"url": "$applicationRoot/components/dockingGroupMask/dockingGroupMask.html",
-			"frame": false,
-			"resizable": false,
-			"showTaskbarIcon": false,
-			"options": {
-				"opacity": 0.7,
-				"autoShow": false
-			}
 		},
-		"component": {
-			"category": "system"
-		},
-		"foreign": {
-			"services": {
-				"dockingService": {
-					"isArrangable": false
+		"App Catalog": {
+			"window": {
+				"url": "$applicationRoot/components/appCatalog/appCatalog.html",
+				"frame": false,
+				"top": "center",
+				"left": "center",
+				"width": 800,
+				"height": 600,
+				"options": {
+					"autoShow": true,
+					"resizable": false,
+					"alwaysOnTop": true
 				}
 			},
-			"components": {
-				"App Launcher": {
-					"launchableByUser": false
+			"component": {
+				"category": "system"
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"canGroup": false,
+						"isArrangable": false
+					}
 				},
-				"Window Manager": {
-					"FSBLHeader": false,
-					"persistWindowState": false
+				"components": {
+					"App Launcher": {
+						"launchableByUser": false
+					},
+					"Window Manager": {
+						"FSBLHeader": false,
+						"persistWindowState": false
+					},
+					"Toolbar": {
+						"iconClass": "UserPreferences"
+					}
 				}
 			}
-		}
+		},
+		"Process Monitor": {
+			"window": {
+				"url": "$applicationRoot/components/processMonitor/processMonitor.html",
+				"width": 600,
+				"height": 400
+			},
+			"component": {
+				"category": "system"
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"isArrangable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"FSBLHeader": true,
+						"persistWindowState": true,
+						"title": "Process Monitor"
+					}
+				}
+			}
+		}		
 	}
 }

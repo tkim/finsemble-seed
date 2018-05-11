@@ -1,7 +1,5 @@
 {
 	"comment": "Top-level application config for development, adding on top of the core config",
-	"mode": "",
-	"isAuthEnabled": false,
 	"storage": {
 		"topicToDataStoreAdapters" : {
 			"finsemble" : "LocalStorageAdapter",
@@ -32,7 +30,9 @@
 			"blacklist": [],
 			"whitelist": [],
 			"onlySpawned": true,
-			"throttle": 10
+			"throttle": 20,
+			"focusDelay": 30,
+			"eventIgnore": 50
 		}
 	},
 	"splinteringConfig": {
@@ -73,12 +73,18 @@
 			}
 		]
 	},
+	"globalHotkeys": {
+		"BRING_ALL_TO_FRONT": [
+			"ctrl",
+			"shift",
+			"b"
+		]
+	},
 	"importConfig": [
 		"$applicationRoot/configs/application/presentationComponents.json",
 		"$applicationRoot/configs/application/components.json",
 		"$applicationRoot/configs/application/workspaces.json",
 		"$applicationRoot/configs/application/workspaceTemplates.json",
-		"$applicationRoot/configs/application/services.json",
-		"$applicationRoot/configs/application/components.json"
+		"$applicationRoot/configs/application/services.json"
 	]
 }
