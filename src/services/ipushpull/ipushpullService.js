@@ -196,11 +196,11 @@ serviceInstance.onBaseServiceReady(function (callback) {
 	Logger.log("Adding iPushPull search provider");
 	SearchClient.register(
 		{
-			name: "iPushPulls",
+			name: "iPushPull Pages",
 			searchCallback: serviceInstance.providerSearchFunction,
 			itemActionCallback: serviceInstance.searchResultActionCallback,	
 			providerActionCallback: serviceInstance.providerActionCallback,
-			providerActionTitle: "more iPushPulls"
+			providerActionTitle: "more iPushPull pages"
 		},
 		function (err) {
 			console.log(" iPushPull search provider registration succeeded");
