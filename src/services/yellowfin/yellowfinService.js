@@ -29,8 +29,10 @@ const RouterClient = Finsemble.Clients.RouterClient;
 const baseService = Finsemble.baseService;
 const Logger = Finsemble.Clients.Logger;
 const SearchClient = Finsemble.Clients.SearchClient;
+const LauncherClient = Finsemble.Clients.LauncherClient;
 
 SearchClient.initialize();
+LauncherClient.initialize();
 
 Logger.start();
 
@@ -209,56 +211,82 @@ function yellowfinService() {
 		// Get reports from the server
 		const server = serviceInstance.getServerDetails();
 		serviceInstance.getAllUserReports(server, (err, res) => {
-			if (err) {
-				callback(err);
-				return;
-			}
-
 			const results = [];
+			if (err) {
+				//just log it and return no results - otherwise it kills off the search provider
+				Logger.error("Yellowfin search provider received an error form the YellowFin API", err);
+				
+			} else {
 
-			// Filter Reports down to matches
-			const matches = res.filter(item => {
-				// Dumb match criteria. If report name, category or sub-category contains search text.
-				const text = params.text.toLowerCase();
-				return item.reportName.toLowerCase().includes(text) ||
-					item.reportCategory.toLowerCase().includes(text) ||
-					item.reportSubCategory.toLowerCase().includes(text)
-			});
-			
-			// Build results from the matches
-			matches.forEach(item => { 
-				// Result item template
-				// {
-				// 	name: resultName, // This should be the value you want displayed
-				// 	score: resultScore, // (optional) This is used to help order search results from multiple providers
-				// 	type: "Application", // The type of data your result returns
-				// 	description: "Your description here",
-				// 	actions: [{ name: "Spawn" }], // (optional) Actions can be an array of actions 
-				// 	tags: [] // (optional) This can be used for adding additional identifying information to your result
-				// }
-				const result = {
-					name: item.reportName,
-					score: 100,
-					type: "Application",
-					description: item.viewDescription,
-					actions: [{ name: "Spawn" }],
-					tags: []
-					// TODO: Figure out how to spawn the report
-				};
-				console.log(item);
-				results.push(result);
-			});
-			
-			// TODO: Figure out why returned results aren't showing up in search.
+				// Filter Reports down to matches
+				const matches = res.filter(item => {
+					// Dumb match criteria. If report name, category or sub-category contains search text.
+					const text = params.text.toLowerCase();
+					return item.reportName.toLowerCase().includes(text) ||
+						item.reportCategory.toLowerCase().includes(text) ||
+						item.reportSubCategory.toLowerCase().includes(text)
+				});
+				
+				// Build results from the matches
+				matches.forEach(item => { 
+					// Result item template
+					// {
+					// 	name: resultName, // This should be the value you want displayed
+					// 	score: resultScore, // (optional) This is used to help order search results from multiple providers
+					// 	type: "Application", // The type of data your result returns
+					// 	description: "Your description here",
+					// 	actions: [{ name: "Spawn" }], // (optional) Actions can be an array of actions 
+					// 	tags: [] // (optional) This can be used for adding additional identifying information to your result
+					// }
+					const result = {
+						name: item.reportName,
+						score: 0,
+						type: "Application",
+						description: item.viewDescription,
+						actions: [{ name: "Spawn", reportUUID: item.reportUUID }],
+						tags: []
+					};
+					console.log(item);
+					results.push(result);
+				});
+			}
 
 			// Return results when done.
 			callback(null, results);
 		});
 	};
 
-	this.searchResultActionCallback = function (params, parent, cb) {
-		// TODO: I think this is to launch the item
-		debugger;
+	this.searchResultActionCallback = function (params) {
+		Logger.log("Launching report from search result: ", params);
+	
+		LauncherClient.spawn("yellowfinJSComponent",
+			{
+				addToWorkspace: true,
+				data: {
+					"reportUUID": params.item.actions[0].reportUUID,
+					"serverDetails": serviceInstance.getServerDetails()
+				}
+			}, function(err, response){
+				console.log("Report showWindow error", response);
+			}
+		);
+		//debugger;
+	};
+
+	this.providerActionCallback = function () {
+		Logger.log("Spawning Yellowfin report launcher");
+	
+		LauncherClient.spawn("Yellowfin Report Launcher",
+			{
+				addToWorkspace: true,
+				data: {
+					"serverDetails": serviceInstance.getServerDetails()
+				}
+			}, function(err, response){
+				console.log("Report showWindow error", response);
+			}
+		);
+		//debugger;
 	};
 	return this;
 }
@@ -310,9 +338,11 @@ serviceInstance.onBaseServiceReady(function (callback) {
 	Logger.log("Adding Yellowfin search provider");
 	SearchClient.register(
 		{
-			name: "Yellowfin Search Provider",
+			name: "Yellowfin Reports",
 			searchCallback: serviceInstance.providerSearchFunction,
-			itemActionCallback: serviceInstance.searchResultActionCallback	
+			itemActionCallback: serviceInstance.searchResultActionCallback,	
+			providerActionCallback: serviceInstance.providerActionCallback,
+			providerActionTitle: "more yellowfin reports"
 		},
 		function (err) {
 			console.log("Registration succeeded");
