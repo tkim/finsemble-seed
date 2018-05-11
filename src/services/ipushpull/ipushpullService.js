@@ -51,16 +51,15 @@ function ipushpullService() {
 	};
 
 	this.getUserDetails = function (cb) {
-		Logger.log("Received getUserDetails call");
+		Logger.log("IPUSHPULL: Received getUserDetails call");
 		cb(null, {email: user_email, password: user_pass});
 	};
 
 	this.getUserDocs = function (userDeets, cb) {
-		Logger.log("Received getUserDocs call");
+		Logger.log("IPUSHPULL: Received getUserDocs call with user details " + JSON.stringify(userDeets));
 
-        self.ipp.auth.login(userDeets.email, userDeets.password)
-		.then(self.ipp.api.getDomainsAndPages)
-        .then(function(res) {
+        //self.ipp.auth.login(userDeets.email, userDeets.password).then(self.ipp.api.getDomainsAndPages)
+        self.ipp.api.getDomainsAndPages().then(function(res) {
             Logger.log(res.data);
             Logger.log('IPUSHPULL: user docs: ' + JSON.stringify(res.data, undefined, 2));
             cb(null, res.data);
@@ -99,7 +98,7 @@ serviceInstance.onBaseServiceReady(function (callback) {
 				serviceInstance.getUserDetails(queryMessage.sendQueryResponse);
 
 			} else if (queryMessage.data.query === "user docs") {
-				serviceInstance.getUserDocs(queryMessage.sendQueryResponse);
+				serviceInstance.getUserDocs(queryMessage.data.user, queryMessage.sendQueryResponse);
 
 			} else {
 				queryMessage.sendQueryResponse("Unknown query function: " + queryMessage, null);

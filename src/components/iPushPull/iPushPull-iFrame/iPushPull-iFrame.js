@@ -1,6 +1,6 @@
 let $ = require('jquery');
 const Logger = FSBL.Clients.Logger;
-import {getUserDetails, getLoginToken}  from '../../services/ipushpull/ipushpullClient';
+import {getUserDetails, getLoginToken}  from '../../../services/ipushpull/ipushpullClient';
 
 //sample page UUID
 let uuid = "XBKWkrMmstQmSSs3KuojBd";

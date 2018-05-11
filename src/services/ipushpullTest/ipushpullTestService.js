@@ -50,12 +50,16 @@ function ipushpullTestService() {
 		});		
 	};
 
-	this.getUserDocs = function (userDeets, cb) {
-		Logger.log("Received getUserDocs call");
+	this.getUserDetails = function (cb) {
+		Logger.log("IPUSHPULL: Received getUserDetails call");
+		cb(null, {email: user_email, password: user_pass});
+	};
 
-        self.ipp.auth.login(userDeets.email, userDeets.password)
-		.then(self.ipp.api.getDomainsAndPages)
-        .then(function(res) {
+	this.getUserDocs = function (userDeets, cb) {
+		Logger.log("IPUSHPULL: Received getUserDocs call with user details " + JSON.stringify(userDeets));
+
+        //self.ipp.auth.login(userDeets.email, userDeets.password).then(self.ipp.api.getDomainsAndPages)
+        self.ipp.api.getDomainsAndPages().then(function(res) {
             Logger.log(res.data);
             Logger.log('IPUSHPULL: user docs: ' + JSON.stringify(res.data, undefined, 2));
             cb(null, res.data);
@@ -67,11 +71,6 @@ function ipushpullTestService() {
         });
 	};
 
-	this.getUserDetails = function (cb) {
-		Logger.log("Received getUserDetails call");
-		cb(null, {email: user_email, password: user_pass});
-	};
-
 	return this;
 }
 
@@ -80,13 +79,13 @@ ipushpullTestService.prototype = new baseService({
 		services: ["authenticationService", "routerService"]
 	}
 });
-let serviceInstance = new ipushpullTestService('ipushpullTestService');
+let serviceInstance = new ipushpullTestService('ipushpullService');
 serviceInstance.onBaseServiceReady(function (callback) {
 	
 	Logger.log("Adding general purpose Query responder");
 	RouterClient.addResponder("iPushPull test server", function(error, queryMessage) {
 		if (!error) {
-			Logger.log('iPushPull server Query: ' + JSON.stringify(queryMessage));
+			Logger.log('iPushPull test server Query: ' + JSON.stringify(queryMessage));
 
 			if (queryMessage.data.query === "login token") {
 				if (queryMessage.data.user) {
@@ -99,7 +98,7 @@ serviceInstance.onBaseServiceReady(function (callback) {
 				serviceInstance.getUserDetails(queryMessage.sendQueryResponse);
 
 			} else if (queryMessage.data.query === "user docs") {
-				serviceInstance.getUserDocs(queryMessage.sendQueryResponse);
+				serviceInstance.getUserDocs(queryMessage.data.user, queryMessage.sendQueryResponse);
 
 			} else {
 				queryMessage.sendQueryResponse("Unknown query function: " + queryMessage, null);
@@ -110,11 +109,11 @@ serviceInstance.onBaseServiceReady(function (callback) {
 		}
 	});
 
-	Logger.log("iPushPull Test Service ready");
+	Logger.log("iPushPull Service ready");
 	callback();
 });
 
 serviceInstance.start();
-window.ipushpullTestService = serviceInstance;
+window.ipushpull = serviceInstance;
 
 

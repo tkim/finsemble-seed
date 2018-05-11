@@ -11,9 +11,9 @@ export function getUserDetails(cb) {
 	});
 };
 
-export function getUserDocs(cb) {
+export function getUserDocs(userDeets, cb) {
 	Logger.log("getUserDocs called");
-	RouterClient.query("iPushPull server", { query: "user docs" }, function (err, response) {
+	RouterClient.query("iPushPull server", { query: "user docs", user: userDeets }, function (err, response) {
 		Logger.log("iPushPullClient.getUserDocs response: ", response.data);
 		if (cb) {
 			cb(err, response.data);

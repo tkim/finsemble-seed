@@ -1,6 +1,6 @@
 import $ from "jquery";
 import Cookies from 'js-cookie';
-import {getUserDetails, getUserDocs, getLoginToken}  from '../../services/ipushpullTest/ipushpullTestClient';
+import {getUserDetails, getUserDocs, getLoginToken}  from '../../../services/ipushpullTest/ipushpullTestClient';
 const Logger = FSBL.Clients.Logger;
 const cookie_prefix = 'ipp_test';
 
