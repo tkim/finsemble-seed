@@ -13,7 +13,6 @@
         "resizable": false,
         "maximizable": false,
         "delay_connection": true,
-        "contextMenu": true,
         "cornerRounding": {
             "width": 4,
             "height": 4

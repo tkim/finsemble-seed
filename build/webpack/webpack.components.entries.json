@@ -1,1 +1,26 @@
-{}
+{
+    "yellowfinJSComponent": {
+        "output": "components/yellowfin/jsComponent/jsComponent",
+        "entry": "./src/components/yellowfin/jsComponent/jsComponent.js"
+    },
+    "yellowfinFilterComponent": {
+        "output": "components/yellowfin/filterComponent/filterComponent",
+        "entry": "./src/components/yellowfin/filterComponent/filterComponent.js"
+    },
+    "yellowfin": {
+        "output": "components/yellowfin/yellowfin/yellowfin",
+        "entry": "./src/components/yellowfin/yellowfin/yellowfin.js"
+    },
+    "yellowfinLauncher": {
+        "output": "components/yellowfin/launcher/launcher",
+        "entry": "./src/components/yellowfin/launcher/launcher.js"
+    },
+    "yellowfinLauncherLocal": {
+        "output": "components/yellowfin/launcherLocal/launcherLocal",
+        "entry": "./src/components/yellowfin/launcherLocal/launcherLocal.js"
+    },
+    "yellowfinFilterStatus": {
+        "output": "components/yellowfin/filterStatus/filterStatus",
+        "entry": "./src/components/yellowfin/filterStatus/filterStatus.js"
+    }
+}

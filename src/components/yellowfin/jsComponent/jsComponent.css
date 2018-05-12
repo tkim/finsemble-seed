@@ -1,0 +1,32 @@
+body {
+	margin:0px;
+	overflow:hidden;
+}
+
+#buttons {
+	display: flex;
+	flex-direction:row;
+}
+
+
+button {
+	flex: 1;
+	padding: 7px 10px 10px 10px;
+	font-family: Roboto Condensed, sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: .1em;
+	color: #FFFFFF;
+	font-size: 14px;
+	background: #243744;
+	height: 31px;
+	justify-content: center;
+    align-content: center;
+	text-align: center;
+	border: 1px solid #243744;
+}
+
+button:hover {
+	padding: 7px 10px 5px 10px;
+	border-bottom: 5px solid #0ccd87 !important;
+}

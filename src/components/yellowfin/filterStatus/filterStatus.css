@@ -1,0 +1,38 @@
+body {
+	margin: 0px;
+	background: #18252e;
+	font-family: Roboto Condensed, sans-serif;
+	letter-spacing: .1em;
+	font-weight: 600;
+	font-size: 17px;
+	color: #FFFFFF;
+}
+#tip {
+	font-weight: 300;
+	font-size: 12px;
+	color: #4a6877;
+}
+#container {
+	padding: 20px;
+}
+#filters, #triggeredBy, filter {
+	text-align: center;
+	margin-top: 15px;
+}
+filter {
+	display: block;
+}
+filter description {
+	font-weight: 300;
+	font-size: 15px;
+	color:  #74a4bc;
+}
+
+#triggeredBy {
+	margin-top: 25px;
+	font-weight: 600;
+	font-size: 15px;
+	color: #74a4bc;
+}
+
+
