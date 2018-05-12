@@ -1,0 +1,17 @@
+body {
+	margin: 0px;
+	overflow: hidden;
+	background-color: black;
+}
+
+body::before body::after {
+	height: 0px;
+}
+
+iframe {
+	height: 600px;
+	width: 800px;
+	resize: both;
+	overflow: auto;
+	border: none;
+}

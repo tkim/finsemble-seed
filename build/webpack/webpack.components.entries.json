@@ -22,5 +22,25 @@
     "yellowfinFilterStatus": {
         "output": "components/yellowfin/filterStatus/filterStatus",
         "entry": "./src/components/yellowfin/filterStatus/filterStatus.js"
+    },
+    "iPushPull-iFrame": {
+        "output": "components\\iPushPull\\iPushPull-iFrame\\iPushPull-iFrame",
+        "entry": ".\\src\\components\\iPushPull\\iPushPull-iFrame\\iPushPull-iFrame.js"
+    },
+    "iPushPull": {
+        "output": "components\\mindcontrol\\iPushPull",
+        "entry": ".\\src\\components\\iPushPull\\iPushPull\\iPushPull.js"
+    },
+    "iPushPullTest": {
+        "output": "components\\mindcontrol\\iPushPullTest",
+        "entry": ".\\src\\components\\iPushPull\\iPushPullTest\\iPushPullTest.js"
+    },
+    "iPushPullLauncher": {
+        "output": "components\\iPushPull\\launcher\\launcher",
+        "entry": ".\\src\\components\\iPushPull\\launcher\\launcher.js"
+    },
+    "iPushPullLauncherTest": {
+        "output": "components\\iPushPull\\launcherTest\\launcher",
+        "entry": ".\\src\\components\\iPushPull\\launcherTest\\launcher.js"
     }
 }
