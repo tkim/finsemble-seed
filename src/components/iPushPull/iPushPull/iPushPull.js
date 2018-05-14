@@ -17,12 +17,24 @@ FSBL.addEventListener('onReady', function () {
 			position: absolute;
 			top: 10px;
 		}
+		#content{
+			top: 16px;
+		}
 		.modal{
 			position: absolute;
 		}
 		.topbar {
-            -webkit-app-region: no-drag;
-        }
+			-webkit-app-region: no-drag;
+		}
+		.toolbar {
+			-webkit-app-region: no-drag;
+		}
+		.toolbar.toolbar-fixed {
+			top: 32px
+		}
+		#view {
+			top: 64px;
+		}
 	</style>`
 	).appendTo( "head" );
 
