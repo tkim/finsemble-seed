@@ -173,8 +173,8 @@
                 "autoShow": true,
                 "top": "center",
                 "left": "center",
-                "width": 400,
-                "height": 500
+                "width": 320,
+                "height": 400
             },
             "component": {
                 "inject": false
@@ -435,7 +435,7 @@
                 },
                 "components": {
                     "App Launcher": {
-                        "launchableByUser": true
+                        "launchableByUser": false
                     },
                     "Window Manager": {
                         "FSBLHeader": true,
@@ -505,7 +505,7 @@
                 },
                 "components": {
                     "App Launcher": {
-                        "launchableByUser": true
+                        "launchableByUser": false
                     },
                     "Window Manager": {
                         "FSBLHeader": true,
