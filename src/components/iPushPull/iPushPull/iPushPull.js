@@ -8,34 +8,44 @@ const cookie_prefix = 'ipp';
 let access_token = Cookies.get(cookie_prefix + "_access_token");
 
 FSBL.addEventListener('onReady', function () {
+	// $(
+	// `<style>
+	// 	#app{
+	// 		position: absolute;	
+	// 	}
+	// 	#paste-box{
+	// 		position: absolute;
+	// 		top: 10px;
+	// 	}
+	// 	#content{
+	// 		top: 16px;
+	// 	}
+	// 	.modal{
+	// 		position: absolute;
+	// 	}
+	// 	.topbar {
+	// 		-webkit-app-region: no-drag;
+	// 	}
+	// 	.toolbar {
+	// 		-webkit-app-region: no-drag;
+	// 	}
+	// 	.toolbar.toolbar-fixed {
+	// 		top: 32px
+	// 	}
+	// 	#view {
+	// 		top: 64px;
+	// 	}
+	// </style>`
+	// ).appendTo( "head" );
 	$(
-	`<style>
-		#app{
-			position: absolute;	
+		`<style>
+		#app, #app.fullscreen #content{
+            position: absolute;
+        }
+        .toolbar,  .topbar {
+            -webkit-app-region: no-drag;
 		}
-		#paste-box{
-			position: absolute;
-			top: 10px;
-		}
-		#content{
-			top: 16px;
-		}
-		.modal{
-			position: absolute;
-		}
-		.topbar {
-			-webkit-app-region: no-drag;
-		}
-		.toolbar {
-			-webkit-app-region: no-drag;
-		}
-		.toolbar.toolbar-fixed {
-			top: 32px
-		}
-		#view {
-			top: 64px;
-		}
-	</style>`
+		</style>`
 	).appendTo( "head" );
 
 	FSBL.Clients.WindowClient.setWindowTitle("iPushPull");
