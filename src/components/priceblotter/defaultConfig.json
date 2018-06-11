@@ -1,0 +1,88 @@
+{
+    "QuickSearch": {
+        "QuickSearchText": "",
+        "QuickSearchOperator": "StartsWith",
+        "QuickSearchDisplayType": "ShowRowAndColourCell",
+        "QuickSearchBackColor": "#ffa500"
+    },
+    "FlashingCell": {
+        "FlashingColumns": [
+            {
+                "IsLive": true,
+                "ColumnName": "bloombergBid",
+                "FlashingCellDuration": 500,
+                "UpBackColor": "#008000",
+                "DownBackColor": "#FF0000",
+                "IsPredefined": true
+            },
+            {
+                "IsLive": true,
+                "ColumnName": "bloombergAsk",
+                "FlashingCellDuration": 500,
+                "UpBackColor": "#008000",
+                "DownBackColor": "#FF0000",
+                "IsPredefined": true
+            },
+            {
+                "IsLive": true,
+                "ColumnName": "ask",
+                "FlashingCellDuration": 500,
+                "UpBackColor": "#008000",
+                "DownBackColor": "#FF0000",
+                "IsPredefined": true
+            },
+            {
+                "IsLive": true,
+                "ColumnName": "bid",
+                "FlashingCellDuration": 500,
+                "UpBackColor": "#008000",
+                "DownBackColor": "#FF0000",
+                "IsPredefined": true
+            },
+            {
+                "IsLive": true,
+                "ColumnName": "changeOnDay",
+                "FlashingCellDuration": 500,
+                "UpBackColor": "#008000",
+                "DownBackColor": "#FF0000",
+                "IsPredefined": true
+            }
+        ]
+    },
+    "Dashboard": {
+        "DashboardStrategyControls": [
+            {
+                "Strategy": "Functions",
+                "IsVisible": true,
+                "IsCollapsed": true
+            },
+            {
+                "Strategy": "DashboardBookmarks",
+                "IsVisible": true,
+                "IsCollapsed": true,
+                "ControlConfiguration": [
+                    "Dashboard",
+                    "Smart Edit",
+                    "Plus/Minus",
+                    "Conditional Style"
+                ]
+            },
+            {
+                "Strategy": "AdvancedSearch",
+                "IsVisible": false
+            },
+            {
+                "Strategy": "QuickSearch",
+                "IsVisible": true
+            },
+            {
+                "Strategy": "Layout",
+                "IsVisible": false
+            },
+            {
+                "Strategy": "Filter",
+                "IsVisible": false
+            }
+        ]
+    }
+}

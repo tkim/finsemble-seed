@@ -1,0 +1,8 @@
+{
+    "QuickSearch": {
+        "QuickSearchText": "",
+        "QuickSearchOperator": "StartsWith",
+        "QuickSearchDisplayType": "ShowRowAndColourCell",
+        "QuickSearchBackColor": "#ffa500"
+    }
+}
