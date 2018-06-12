@@ -2,16 +2,21 @@
 //replace with import when ready
 require('@chartiq/finsemble')
 //var FSBL = require("@chartiq/finsemble");
-var RouterClient = FSBL.RouterClient;
-var baseService = FSBL.BaseService;
-var Utils = FSBL.Utils;
-var console = new Utils.Console("blotterdataService"); // Finsemble console
-var tradesModule = require('../../tradesdatagenerator');
-var positionsModule = require('../../positiondatagenerator');
-var pricesModule = require('../../pricedatagenerator');
-var tradesDG = new tradesModule.TradesDataGenerator();
-var positionsDG = new positionsModule.PositionsDataGenerator();
-var pricesDG = new pricesModule.PricesDataGenerator();
+
+const Finsemble = require("@chartiq/finsemble");
+
+
+const RouterClient = Finsemble.Clients.RouterClient;
+const baseService = Finsemble.baseService;
+const Logger = Finsemble.Clients.Logger;
+Logger.start();
+const tradesModule = require('../../tradesdatagenerator');
+const positionsModule = require('../../positiondatagenerator');
+const pricesModule = require('../../pricedatagenerator');
+const tradesDG = new tradesModule.TradesDataGenerator();
+const positionsDG = new positionsModule.PositionsDataGenerator();
+const pricesDG = new pricesModule.PricesDataGenerator();
+
 /**
  * The blotterdata Service receives calls from the blotterdataClient. 
  * @constructor
@@ -49,12 +54,12 @@ function blotterdataService() {
 		//we listen for trades that are edited in a client
 		FSBL.Clients.RouterClient.addListener("TradeEdited", function (error, response) {
 			if (error) {
-				console.log("TradeEdited Error: " + JSON.stringify(error));
+				Logger.log("TradeEdited Error: " + JSON.stringify(error));
 			} else {
 				//we update our cache of trades
 				let tradeIdx = trades.findIndex(x => x.tradeId === response.data.tradeId);
 				trades[tradeIdx] = response.data;
-				console.log("TradeEdited Response: " + JSON.stringify(response));
+				Logger.log("TradeEdited Response: " + JSON.stringify(response));
 				response.data.lastUpdated = new Date();
 				//we send back the trade on the update trade chanel
 				Finsemble.Clients.RouterClient.transmit("UpdateTrade", response.data);
@@ -68,12 +73,12 @@ function blotterdataService() {
 		//we listen for prices that are edited in a client
 		FSBL.Clients.RouterClient.addListener("PriceEdited", function (error, response) {
 			if (error) {
-				console.log("PriceEdited Error: " + JSON.stringify(error));
+				Logger.log("PriceEdited Error: " + JSON.stringify(error));
 			} else {
 				//we update our cache of prices
 				let priceIdx = prices.findIndex(x => x.instrumentId === response.data.instrumentId);
 				prices[priceIdx] = response.data;
-				console.log("PriceEdited Response: " + JSON.stringify(response));
+				Logger.log("PriceEdited Response: " + JSON.stringify(response));
 				//we update the calculation of the price object
 				pricesDG.updateCalculationWhenPriceChange(response.data);
 				//we send back the price on the update price chanel
@@ -110,7 +115,7 @@ serviceInstance.addNeededServices(["authenticationService"]);
 
 fin.desktop.main(function () {
 	serviceInstance.setOnConnectionComplete(function (callback) {
-		console.debug("onConnectionCompleteCalled");
+		Logger.debug("onConnectionCompleteCalled");
 		serviceInstance.createRouterEndpoints();
 		callback();
 	});
