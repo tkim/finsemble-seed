@@ -34,25 +34,25 @@ function blotterdataService() {
 	 */
 	this.createRouterEndpoints = function () {
 		//Response for when clients requests initial load of trades
-		FSBL.Clients.RouterClient.addResponder("Trades", function (error, queryMessage) {
+		Finsemble.Clients.RouterClient.addResponder("Trades", function (error, queryMessage) {
 			if (!error) {
 				queryMessage.sendQueryResponse(null, trades);
 			}
 		});
 		//Response for when clients requests initial load of positions
-		FSBL.Clients.RouterClient.addResponder("Positions", function (error, queryMessage) {
+		Finsemble.Clients.RouterClient.addResponder("Positions", function (error, queryMessage) {
 			if (!error) {
 				queryMessage.sendQueryResponse(null, positions);
 			}
 		});
 		//Response for when clients requests initial load of prices
-		FSBL.Clients.RouterClient.addResponder("Prices", function (error, queryMessage) {
+		Finsemble.Clients.RouterClient.addResponder("Prices", function (error, queryMessage) {
 			if (!error) {
 				queryMessage.sendQueryResponse(null, prices);
 			}
 		});
 		//we listen for trades that are edited in a client
-		FSBL.Clients.RouterClient.addListener("TradeEdited", function (error, response) {
+		Finsemble.Clients.RouterClient.addListener("TradeEdited", function (error, response) {
 			if (error) {
 				Logger.log("TradeEdited Error: " + JSON.stringify(error));
 			} else {
@@ -71,7 +71,7 @@ function blotterdataService() {
 			}
 		});
 		//we listen for prices that are edited in a client
-		FSBL.Clients.RouterClient.addListener("PriceEdited", function (error, response) {
+		Finsemble.Clients.RouterClient.addListener("PriceEdited", function (error, response) {
 			if (error) {
 				Logger.log("PriceEdited Error: " + JSON.stringify(error));
 			} else {
@@ -92,18 +92,18 @@ function blotterdataService() {
 		setInterval(() => {
 			let newTrade = tradesDG.createTrade(trades.length + 1);
 			trades.push(newTrade);
-			FSBL.Clients.RouterClient.transmit("NewTrade", newTrade);
+			Finsemble.Clients.RouterClient.transmit("NewTrade", newTrade);
 			//we update position
 			let newPos = positionsDG.updatePositionWithTradesAndInstrumentId(positions,
 				trades,
 				newTrade.instrumentId);
 			//we send the updated position
-			FSBL.Clients.RouterClient.transmit("UpdatePosition", newPos);
+			Finsemble.Clients.RouterClient.transmit("UpdatePosition", newPos);
 		}, 5000);
 		//every sec we update the consensus price to make some flashing cool stuff on screen
 		setInterval(() => {
 			let updatedPrice = pricesDG.makeARandomPriceTick(prices);
-			FSBL.Clients.RouterClient.transmit("UpdatePrice", updatedPrice);
+			Finsemble.Clients.RouterClient.transmit("UpdatePrice", updatedPrice);
 		}, 1000);
 	};
 
