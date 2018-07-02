@@ -1,8 +1,4 @@
 {
-    "iPushPull-iFrame": {
-        "output": "components\\iPushPull\\iPushPull-iFrame\\iPushPull-iFrame",
-        "entry": ".\\src\\components\\iPushPull\\iPushPull-iFrame\\iPushPull-iFrame.js"
-    },
     "iPushPull": {
         "output": "components\\mindcontrol\\iPushPull",
         "entry": ".\\src\\components\\iPushPull\\iPushPull\\iPushPull.js"
