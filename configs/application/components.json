@@ -166,11 +166,83 @@
 				}
 			}
 		},
+		"WPFDebug": {
+			"window": {
+				"id": "WPFDebug",
+				"windowType": "FinsembleNativeWindow",
+				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WPFDebug\\FinsembleWPFDemo.exe",
+				"arguments": "arg1 arg2 arg3",
+				"autoShow": true,
+				"alwaysOnTop": false,
+				"resizable": true,
+				"showTaskbarIcon": true,
+				"contextMenu": true,
+				"addToWorkspace": true
+			},
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "showLinker": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
+                    }
+                }
+			}
+		},
+		"WPFDebugNoShutdown": {
+			"window": {
+				"id": "WPFDebugNoShutdown",
+				"windowType": "FinsembleNativeWindow",
+				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WPFDebugNoShutdown\\FinsembleWPFDemo.exe",
+				"arguments": "arg1 arg2 arg3",
+				"autoShow": true,
+				"alwaysOnTop": false,
+				"resizable": true,
+				"showTaskbarIcon": true,
+				"contextMenu": true,
+				"addToWorkspace": true
+			},
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "showLinker": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
+                    }
+                }
+			}
+		},
 		"WPFExample": {
 			"window": {
-				"id": "WPFExample",
+				"id": "WPFRelease",
 				"windowType": "FinsembleNativeWindow",
-				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WPFExample\\FinsembleWPFDemo.exe",
+				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WPFRelease\\FinsembleWPFDemo.exe",
 				"arguments": "arg1 arg2 arg3",
 				"autoShow": true,
 				"alwaysOnTop": false,
