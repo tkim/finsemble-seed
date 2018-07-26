@@ -124,16 +124,18 @@ function replacer(a, b, c) {
 }
 
 function initAdaptableBlotter(grid, blotterId, primaryKey) {
-    var container = document.getElementById('adaptableblottercontainer');
-    let adaptableblotter = new adaptableblotterhypergrid.AdaptableBlotter(grid, container, {
+    let adaptableblotter = new adaptableblotterhypergrid.AdaptableBlotter({
         blotterId: blotterId,
         primaryKey: primaryKey,
+        vendorGrid: grid,
         userName: "Jonathan",
         enableAuditLog: false,
         enableRemoteConfigServer: false,
-        predefinedConfigUrl: "defaultConfig.json"
+        predefinedConfig: "defaultConfig.json",
+        adaptableBlotterContainer: "adaptableblottercontainer"
     });
-    var origgetCell = grid.behavior.dataModel.getCell;
+
+    let origgetCell = grid.behavior.dataModel.getCell;
     grid.behavior.dataModel.getCell = (config, declaredRendererName) => {
         if (config.isDataRow) {
             var y = config.dataCell.y;
