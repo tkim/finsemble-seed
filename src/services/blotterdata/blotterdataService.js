@@ -92,7 +92,7 @@ function blotterdataService() {
 				trades,
 				newTrade.instrumentId);
 			//we send the updated position
-			FRouterClient.transmit("UpdatePosition", newPos);
+			RouterClient.transmit("UpdatePosition", newPos);
 		}, 5000);
 		//every sec we update the consensus price to make some flashing cool stuff on screen
 		setInterval(() => {
