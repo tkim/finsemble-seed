@@ -1,15 +1,9 @@
-"use strict";
-//replace with import when ready
-require('@chartiq/finsemble')
-//var FSBL = require("@chartiq/finsemble");
-
 const Finsemble = require("@chartiq/finsemble");
-
-
 const RouterClient = Finsemble.Clients.RouterClient;
-const baseService = Finsemble.baseService;
 const Logger = Finsemble.Clients.Logger;
 Logger.start();
+Logger.log("blotterdata Service starting up");
+
 const tradesModule = require('../../tradesdatagenerator');
 const positionsModule = require('../../positiondatagenerator');
 const pricesModule = require('../../pricedatagenerator');
@@ -22,37 +16,37 @@ const pricesDG = new pricesModule.PricesDataGenerator();
  * @constructor
  */
 function blotterdataService() {
+	const self = this;
 
-	var self = this;
-	var trades = tradesDG.getTrades();
+	let trades = tradesDG.getTrades();
 	let instruments = tradesDG.getInstrumentId();
-	var prices = pricesDG.getPrices(instruments);
-	var positions = positionsDG.getPositions(instruments, trades, prices);
+	let prices = pricesDG.getPrices(instruments);
+	let positions = positionsDG.getPositions(instruments, trades, prices);
 	/**
 	 * Creates router endpoints for all of our client APIs. Add servers or listeners for requests coming from your clients.
 	 * @private
 	 */
 	this.createRouterEndpoints = function () {
 		//Response for when clients requests initial load of trades
-		Finsemble.Clients.RouterClient.addResponder("Trades", function (error, queryMessage) {
+		RouterClient.addResponder("Trades", function (error, queryMessage) {
 			if (!error) {
 				queryMessage.sendQueryResponse(null, trades);
 			}
 		});
 		//Response for when clients requests initial load of positions
-		Finsemble.Clients.RouterClient.addResponder("Positions", function (error, queryMessage) {
+		RouterClient.addResponder("Positions", function (error, queryMessage) {
 			if (!error) {
 				queryMessage.sendQueryResponse(null, positions);
 			}
 		});
 		//Response for when clients requests initial load of prices
-		Finsemble.Clients.RouterClient.addResponder("Prices", function (error, queryMessage) {
+		RouterClient.addResponder("Prices", function (error, queryMessage) {
 			if (!error) {
 				queryMessage.sendQueryResponse(null, prices);
 			}
 		});
 		//we listen for trades that are edited in a client
-		Finsemble.Clients.RouterClient.addListener("TradeEdited", function (error, response) {
+		RouterClient.addListener("TradeEdited", function (error, response) {
 			if (error) {
 				Logger.log("TradeEdited Error: " + JSON.stringify(error));
 			} else {
@@ -62,16 +56,16 @@ function blotterdataService() {
 				Logger.log("TradeEdited Response: " + JSON.stringify(response));
 				response.data.lastUpdated = new Date();
 				//we send back the trade on the update trade chanel
-				Finsemble.Clients.RouterClient.transmit("UpdateTrade", response.data);
+				RouterClient.transmit("UpdateTrade", response.data);
 				//we update position
 				let newPos = positionsDG.updatePositionWithTradesAndInstrumentId(positions,
 					trades,
 					response.data.instrumentId);
-				Finsemble.Clients.RouterClient.transmit("UpdatePosition", newPos);
+				RouterClient.transmit("UpdatePosition", newPos);
 			}
 		});
 		//we listen for prices that are edited in a client
-		Finsemble.Clients.RouterClient.addListener("PriceEdited", function (error, response) {
+		RouterClient.addListener("PriceEdited", function (error, response) {
 			if (error) {
 				Logger.log("PriceEdited Error: " + JSON.stringify(error));
 			} else {
@@ -92,35 +86,37 @@ function blotterdataService() {
 		setInterval(() => {
 			let newTrade = tradesDG.createTrade(trades.length + 1);
 			trades.push(newTrade);
-			Finsemble.Clients.RouterClient.transmit("NewTrade", newTrade);
+			RouterClient.transmit("NewTrade", newTrade);
 			//we update position
 			let newPos = positionsDG.updatePositionWithTradesAndInstrumentId(positions,
 				trades,
 				newTrade.instrumentId);
 			//we send the updated position
-			Finsemble.Clients.RouterClient.transmit("UpdatePosition", newPos);
+			FRouterClient.transmit("UpdatePosition", newPos);
 		}, 5000);
 		//every sec we update the consensus price to make some flashing cool stuff on screen
 		setInterval(() => {
 			let updatedPrice = pricesDG.makeARandomPriceTick(prices);
-			Finsemble.Clients.RouterClient.transmit("UpdatePrice", updatedPrice);
+			RouterClient.transmit("UpdatePrice", updatedPrice);
 		}, 1000);
 	};
 
 	return this;
 }
-blotterdataService.prototype = new baseService();
-var serviceInstance = new blotterdataService('blotterdataService');
-serviceInstance.addNeededServices(["authenticationService"]);
+blotterdataService.prototype = new Finsemble.baseService({
+	startupDependencies: {
+		// add any services or clients that should be started before your service
+		services: ["dockingService", "authenticationService"],
+		clients: [/* "storageClient" */]
+	}
+});
+const serviceInstance = new blotterdataService('blotterdataService');
 
-fin.desktop.main(function () {
-	serviceInstance.setOnConnectionComplete(function (callback) {
-		Logger.debug("onConnectionCompleteCalled");
-		serviceInstance.createRouterEndpoints();
-		callback();
-	});
-})
-
+serviceInstance.onBaseServiceReady(function (callback) {
+	serviceInstance.createRouterEndpoints();
+	Logger.log("blotterdata Service ready");
+	callback();
+});
 
 serviceInstance.start();
 module.exports = serviceInstance;
