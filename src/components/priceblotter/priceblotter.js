@@ -47,7 +47,8 @@ FSBL.addEventListener('onReady', function () {
 			// 		});
 			// 	}
 			// });
-			//we want to ignore the first triggers from other components... cant be bothered to do it properly so just subscribing to the topic after 5 sec
+			
+			//TODO: we want to ignore the first triggers from other components... cant be bothered to do it properly so just subscribing to the topic after 5 sec
 			setTimeout(() => {
 				FSBL.Clients.LinkerClient.subscribe("quickSearch", function (quickSearch) {
 					if (demoDataObject.currentQuickSearch !== quickSearch) {

@@ -197,7 +197,8 @@
                     },
                     "Window Manager": {
                         "FSBLHeader": true,
-                        "persistWindowState": true
+                        "persistWindowState": true,
+                        "showLinker": true
                     },
                     "Toolbar": {
                         "iconClass": "blotterreceiver"
@@ -232,7 +233,8 @@
                     },
                     "Window Manager": {
                         "FSBLHeader": true,
-                        "persistWindowState": true
+                        "persistWindowState": true,
+                        "showLinker": true
                     },
                     "Toolbar": {
                         "iconClass": "positionblotter"
@@ -267,7 +269,8 @@
                     },
                     "Window Manager": {
                         "FSBLHeader": true,
-                        "persistWindowState": true
+                        "persistWindowState": true,
+                        "showLinker": true
                     },
                     "Toolbar": {
                         "iconClass": "priceblotter"
@@ -302,7 +305,8 @@
                     },
                     "Window Manager": {
                         "FSBLHeader": true,
-                        "persistWindowState": true
+                        "persistWindowState": true,
+                        "showLinker": true
                     },
                     "Toolbar": {
                         "iconClass": "tradeblotter"

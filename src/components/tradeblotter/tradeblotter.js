@@ -51,6 +51,7 @@ FSBL.addEventListener('onReady', function () {
 				// FSBL.Clients.RouterClient.transmit("TradeEdited", row);
 				FSBL.Clients.RouterClient.transmit("TradeEdited", e.detail.input.event.dataRow);
 			});
+			
 			//we update our filters when some other blotter publish a new Filter Expression on instrumentId
 			// FSBL.Clients.LinkerClient.subscribe("instrumentExpression", function (obj) {
 			// 	if (obj) {
@@ -68,12 +69,15 @@ FSBL.addEventListener('onReady', function () {
 			// 		});
 			// 	}
 			// });
-			setTimeout(() => {
-				//decending sort on trade ID
-				adaptableBlotter.toggleSort(0);
-				adaptableBlotter.toggleSort(0);
-			}, 1000);
-			//we want to ignore the first triggers from other components... cant be bothered to do it properly so just subscribing to the topic after 5 sec
+
+			//toggleSort method doesn't exist anymore
+			// setTimeout(() => {
+			// 	//decending sort on trade ID
+			// 	adaptableBlotter.toggleSort(0);
+			// 	adaptableBlotter.toggleSort(0);
+			// }, 1000);
+
+			//TODO: we want to ignore the first triggers from other components... cant be bothered to do it properly so just subscribing to the topic after 5 sec
 			setTimeout(() => {
 				FSBL.Clients.LinkerClient.subscribe("quickSearch", function (quickSearch) {
 					if (demoDataObject.currentQuickSearch !== quickSearch) {
