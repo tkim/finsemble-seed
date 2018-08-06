@@ -323,7 +323,47 @@
                 "id": "Windowless",
                 "name": "winless",
                 "windowType": "FinsembleNativeWindow",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\Windowless\\WindowlessExample.exe",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WindowlessDLL\\WindowlessExample.exe",
+                "arguments": "arg1 arg2 arg3",
+                "autoShow": false,
+                "alwaysOnTop": false,
+                "resizable": false,
+                "showTaskbarIcon": false,
+                "contextMenu": false,
+                "addToWorkspace": false
+            },
+            "component": {
+                "inject": false,
+                "spawnOnStartup": true
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": false
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": false,
+                        "showLinker": false
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
+                    }
+                }
+            }
+        },
+        "WindowlessExampleSeed": {
+            "window": {
+                "id": "Windowless",
+                "name": "winlessSeed",
+                "windowType": "FinsembleNativeWindow",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WindowlessSeed\\WindowlessExample.exe",
                 "arguments": "arg1 arg2 arg3",
                 "autoShow": false,
                 "alwaysOnTop": false,
