@@ -18,7 +18,7 @@
 			}
 		}
 	},
-	"shutdownTimeout": 180000,
+	"shutdownTimeout": 30000,
 	"systemTrayIcon": "$applicationRoot/components/assets/img/Finsemble_Taskbar_Icon.png",
 	"systemTrayComponent": "File Menu",
 	"debugServiceDelay": 0,
@@ -33,7 +33,7 @@
 	},
 	"betaFeatures": {
 		"assimilation": {
-			"enabled": true,
+			"enabled": false,
 			"blacklist": [],
 			"whitelist": [],
 			"onlySpawned": true,
