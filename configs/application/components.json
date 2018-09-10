@@ -198,7 +198,8 @@
                         "launchableByUser": true
                     },
                     "Window Manager": {
-                        "showLinker": false,
+                        "showLinker": true,
+                        "alwaysOnTopIcon": true,
                         "FSBLHeader": true,
                         "persistWindowState": true
                     },
@@ -234,48 +235,13 @@
                         "launchableByUser": true
                     },
                     "Window Manager": {
-                        "showLinker": false,
+                        "showLinker": true,
+                        "alwaysOnTopIcon": true,
                         "FSBLHeader": true,
                         "persistWindowState": true
                     },
                     "Toolbar": {
                         "iconURL": "https://beta-app.marketearlybird.com/img/Earlybird_icon_up.png"
-                    }
-                }
-            }
-        },
-        "test": {
-            "window": {
-                "url": "$applicationRoot/components/test/test.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 800,
-                "height": 600
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "title": "test",
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "test"
                     }
                 }
             }
