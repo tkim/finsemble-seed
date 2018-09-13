@@ -10,6 +10,8 @@
 	 * The dataType element
 	 */
 	let dataType;
+
+	/**
 	 * The data element
 	 */
 	let data;
