@@ -1,1 +1,7 @@
-{}
+
+{
+    "linkerTester": {
+        "output": "components/linkerTester/linkerTester",
+        "entry": "./src/components/linkerTester/linkerTester.js"
+    }
+}
