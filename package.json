@@ -1,5 +1,5 @@
 {
-    "name": "FinsembleSeed",
+    "name": "finsemble-seed",
     "version": "2.6.11",
     "description": "",
     "main": "index.js",
@@ -18,7 +18,8 @@
         "clean": "gulp clean --gulpfile=./gulpfile.js",
         "update-finsemble": "npm update @chartiq/finsemble && npm update -g @chartiq/finsemble-cli",
         "finsemble-cli": "finsemble-cli",
-        "migrate": "node migration/2.3/migrationScripts/migrate.js"
+        "migrate": "node migration/2.3/migrationScripts/migrate.js",
+        "lint": "eslint ./src-built-in/&& eslint ./src/"
     },
     "author": "",
     "license": "ISC",
@@ -52,6 +53,8 @@
         "css-loader": "^0.28.7",
         "death": "^1.1.0",
         "del": "^2.2.2",
+        "eslint": "^5.6.1",
+        "eslint-plugin-react": "^7.11.1",
         "express": "^4.16.2",
         "flux": "^3.1.2",
         "glob": "^7.1.2",
