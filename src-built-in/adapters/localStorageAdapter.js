@@ -13,7 +13,7 @@ var Logger = require("@chartiq/finsemble").Clients.Logger;
 //Because calls to this storage adapter will likely come from many different windows, we will log successes and failures in the central logger.
 Logger.start();
 
-var LocalStorageAdapter = function (uuid) {
+var LocalStorageAdapter = function () {
 	BaseStorage.call(this, arguments);
 	/**
 	 * Save method.
@@ -24,7 +24,7 @@ var LocalStorageAdapter = function (uuid) {
 	 * @param {function} cb callback to be invoked upon save completion
 	 */
 	this.save = function (params, cb) {
-		Logger.system.debug("savingggg", params);
+		Logger.system.debug("Saving", params);
 		var combinedKey = this.getCombinedKey(this, params);
 		try {
 			localStorage.setItem(combinedKey, JSON.stringify(params.value));
@@ -63,7 +63,7 @@ var LocalStorageAdapter = function (uuid) {
 	};
 
 	/**
-	 * Returns all keys stored in localstorage.
+	 * Returns all keys stored in localStorage.
 	 * @param {*} params
 	 * @param {*} cb
 	 */
@@ -72,8 +72,8 @@ var LocalStorageAdapter = function (uuid) {
 		var keyPreface = this.getKeyPreface(this, params);
 		var keysRegExp = new RegExp(keyPreface + ".*"); // regex to find all keys for this topic
 
-		for (var i = 0, len = localStorage.length; i < len; ++i ) {
-  			var oneKey = localStorage.key(i);
+		for (var i = 0, len = localStorage.length; i < len; ++i) {
+			var oneKey = localStorage.key(i);
 			if (keysRegExp.test(oneKey)) { // if key is for this topic then save it
 				keys.push(oneKey);
 			}
@@ -101,19 +101,19 @@ var LocalStorageAdapter = function (uuid) {
 	 * This method should be used very, very judiciously. It's essentially a method designed to wipe the database for a particular user.
 	 */
 	this.clearCache = function (params, cb) {
-	//console.log("clear local cache");
+		//console.log("clear local cache");
 		var arr = []; // Array to hold the keys
 		// Iterate over localStorage and insert data related to the user into an array.
-		for (var i = 0; i < localStorage.length; i++) {
-		//console.log("localStorage.key(i):::", localStorage.key(i).substring(0, (this.baseName + ":" + this.userName).length));
+		for (let i = 0; i < localStorage.length; i++) {
+			//console.log("localStorage.key(i):::", localStorage.key(i).substring(0, (this.baseName + ":" + this.userName).length));
 			if (localStorage.key(i).substring(0, (this.baseName + ":" + this.userName).length) === this.baseName + ":" + this.userName) {
 				arr.push(localStorage.key(i));
 			}
 		}
 
 		// Iterate over arr and remove the items by key
-		for (var i = 0; i < arr.length; i++) {
-		//console.log("remove Iem", arr[i]);
+		for (let i = 0; i < arr.length; i++) {
+			//console.log("remove Iem", arr[i]);
 			localStorage.removeItem(arr[i]);
 		}
 		return cb();
@@ -135,4 +135,4 @@ var LocalStorageAdapter = function (uuid) {
 LocalStorageAdapter.prototype = new BaseStorage();
 new LocalStorageAdapter("LocalStorageAdapter");
 
-module.exports = LocalStorageAdapter;//Allows us to get access to the unintialized object
+module.exports = LocalStorageAdapter;//Allows us to get access to the uninitialized object

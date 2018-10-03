@@ -1,4 +1,4 @@
-import finsemble from "@chartiq/finsemble";
+const finsemble = require("@chartiq/finsemble");
 
 const BaseStorage = finsemble.models.baseStorage;
 const Logger = finsemble.Clients.Logger;
@@ -24,6 +24,14 @@ const SCHEMA_VERSION = 1;
  * @param prefix The string by which to filter the primary keys.
  */
 IDBKeyRange.forPrefix = (prefix) => {
+	const MAX_DATE_VALUE = 8640000000000000;
+	const UPPER_BOUND = {
+		NUMBER: new Date(-MAX_DATE_VALUE),
+		DATE: "",
+		STRING: [],
+		ARRAY: undefined
+	};
+
 	/** 
 	 * Determines the string that would sort immediately after all strings with the specified prefix and hence can be 
 	 * used as the upper bound for an IDBKeyRange to retrieve all keys with a specified prefix (where the lower bound is 
@@ -46,7 +54,7 @@ IDBKeyRange.forPrefix = (prefix) => {
 		}
 
 		return UPPER_BOUND.STRING;
-	}
+	};
 
 	const upperKey = successor(prefix);
 	if (upperKey === undefined) {
@@ -131,7 +139,7 @@ const IndexedDBAdapter = function () {
 		const preface = `${this.getUserPreface()}:${params.topic}:${keyPrefix}`;
 
 		return preface;
-	}
+	};
 
 	/**
 	 * Get prefix for all the users stored data.
@@ -140,7 +148,7 @@ const IndexedDBAdapter = function () {
 	this.getUserPreface = () => {
 		const preface = `${this.baseName}:${this.userName}`;
 		return preface;
-	}
+	};
 
 	/**
 	 * Process the commands queued for execution after the IndexedDB connection is established.
@@ -154,7 +162,7 @@ const IndexedDBAdapter = function () {
 			const action = this.queue.shift();
 			this[action.method].apply(this, action.args);
 		}
-	}
+	};
 	// #region Interface Methods
 	/**
 	 * This method should be used very, very judiciously. It's essentially a method designed to wipe the database for a 
@@ -190,7 +198,7 @@ const IndexedDBAdapter = function () {
 
 			return cb(err, { status: "failed" });
 		};
-	}
+	};
 
 	/**
 	 * Delete method.
@@ -229,7 +237,7 @@ const IndexedDBAdapter = function () {
 
 			return cb(err, { status: "failed" });
 		};
-	}
+	};
 
 	/**
 	 * Wipes the storage container.
@@ -262,7 +270,7 @@ const IndexedDBAdapter = function () {
 
 			cb();
 		};
-	}
+	};
 
 	/**
 	 * Get method.
@@ -302,7 +310,7 @@ const IndexedDBAdapter = function () {
 
 			cb(err, { status: "failed" });
 		};
-	}
+	};
 
 	/**
 	 * Returns all keys stored in IndexDB.
@@ -338,7 +346,7 @@ const IndexedDBAdapter = function () {
 
 			return cb(err, { status: "failed" });
 		};
-	}
+	};
 
 	/**
 	 * Save method.
@@ -377,9 +385,9 @@ const IndexedDBAdapter = function () {
 
 			cb(err, { status: "failed" });
 		};
-	}
+	};
 	// #endregion
-}
+};
 
 IndexedDBAdapter.prototype = new BaseStorage();
 new IndexedDBAdapter("IndexedDBAdapter");
