@@ -1,5 +1,5 @@
 /*!
-* The adhoc component is a form that will create ta new adhoc component that the user can spawn from the app launcher.
+* The ad hoc component is a form that will create ta new ad hoc component that the user can spawn from the app launcher.
 * Copyright 2017 by ChartIQ, Inc.
 * All rights reserved.
 */
@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
 //Finsemble font-icons, general styling, and specific styling.
 import "./adhoc.css";
 import "../../../assets/css/finsemble.css";
-import { FinsembleDialog, FinsembleDialogTextInput, FinsembleDialogQuestion, FinsembleDialogButton } from "@chartiq/finsemble-react-controls";
+import { FinsembleDialog, FinsembleDialogTextInput, FinsembleDialogButton } from "@chartiq/finsemble-react-controls";
 
 class AdHocComponentForm extends React.Component {
 	constructor(props) {
@@ -45,7 +45,7 @@ class AdHocComponentForm extends React.Component {
 	 * @memberof AdHoc
 	 */
 	hideWindow() {
-		fin.desktop.Window.getCurrent().hide();
+		FSBL.Clients.WindowClient.getCurrentWindow().hide();
 	}
 	/**
 	 * Persists the adHoc component to storage.
@@ -75,7 +75,7 @@ class AdHocComponentForm extends React.Component {
 		FSBL.Clients.LauncherClient.addUserDefinedComponent({
 			name: name,
 			url: url
-		}, function (err, response) {
+		}, function (err) {
 			if (err) {
 				console.error(err);
 			}
@@ -112,7 +112,6 @@ class AdHocComponentForm extends React.Component {
 	}
 
 	render() {
-		var self = this;
 		return (<FinsembleDialog
 			behaviorOnResponse="hide"
 			onShowRequested={() => {
@@ -122,8 +121,8 @@ class AdHocComponentForm extends React.Component {
 			}}
 			isModal={true}>
 			<div className="dialog-title">Enter a name and URL for your app.</div>
-				<FinsembleDialogTextInput onInputChange={this.setName} placeholder="Name" autofocus value={this.name} />
-				<FinsembleDialogTextInput onInputChange={this.setURL} placeholder="URL" value={this.URL} />
+			<FinsembleDialogTextInput onInputChange={this.setName} placeholder="Name" autofocus value={this.name} />
+			<FinsembleDialogTextInput onInputChange={this.setURL} placeholder="URL" value={this.URL} />
 			<div className="button-wrapper">
 
 				<FinsembleDialogButton show={true} className="fsbl-button-neutral" onClick={this.cancel}>
@@ -145,7 +144,7 @@ class AdHocComponentForm extends React.Component {
 
 
 FSBL.addEventListener("onReady", function () {
-	console.debug("AdhocComponentForm onready");
+	console.debug("AdHocComponentForm onReady");
 	ReactDOM.render(
 		<AdHocComponentForm />
 		, document.getElementById("bodyHere"));
