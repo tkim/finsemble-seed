@@ -33,5 +33,8 @@
             "always"
         ],
         "no-console": "off"
+    },
+    "globals": {
+        "FSBL": true
     }
 }
