@@ -20,24 +20,29 @@
     ],
     "rules": {
         "indent": [
-            "warn",
+            "off",
             "tab"
         ],
         "linebreak-style": [
-            "warn",
+            "off",
             "unix"
         ],
         "quotes": [
-            "warn",
+            "off",
             "double"
         ],
         "semi": [
-            "warn",
+            "off",
             "always"
         ],
+        "no-unused-vars": "off",
+        "no-case-declarations": "off",
+        "no-extra-semi": "off",
+        "no-inner-declarations": "off",
         "no-console": "off"
     },
     "globals": {
-        "FSBL": true
+        "FSBL": true,
+        "fin": true
     }
 }
