@@ -1,4 +1,22 @@
 {
     "comment": "Houses config for any custom services that you'd like to import into Finsemble.",
-    "services": {}
+    "services": {
+        "yellowfinService": {
+            "visible": false,
+            "showDevConsoleOnVisible": true,
+            "active": true,
+            "name": "yellowfinService",
+            "html": "/services/yellowfin/yellowfin.html",
+            "file": "/services/yellowfin/yellowfinService.js",
+            "yellowfinProtocol": "http://",
+            "yellowfinHost": "18.130.26.97",
+            "yellowfinPort": "80",
+            "yellowfinPath": "/JsAPI",
+            "yellowfinReportPath": "/JsAPI?api=reports",
+            "yellowfinAdminUser": "admin@yellowfin.com.au",
+            "yellowfinAdminPass": "test",
+            "yellowfinUser": "consumer@yellowfin.bi",
+            "yellowfinPass": "test"
+        }
+    }
 }
