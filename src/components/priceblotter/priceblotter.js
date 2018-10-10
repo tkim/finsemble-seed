@@ -51,13 +51,15 @@ FSBL.addEventListener('onReady', function () {
 			//TODO: we want to ignore the first triggers from other components... cant be bothered to do it properly so just subscribing to the topic after 5 sec
 			setTimeout(() => {
 				FSBL.Clients.LinkerClient.subscribe("quickSearch", function (quickSearch) {
+					console.log("demoDataObject.currentQuickSearch", demoDataObject.currentQuickSearch);
+					console.log("quickSearch", quickSearch);
 					if (demoDataObject.currentQuickSearch !== quickSearch) {
-						adaptableBlotter.AdaptableBlotterStore.TheStore.dispatch({ type: 'QUICK_SEARCH_RUN', quickSearchText: quickSearch });
+						adaptableBlotter.AdaptableBlotterStore.TheStore.dispatch({ type: 'QUICK_SEARCH_APPLY', quickSearchText: quickSearch });
 					}
 				});
 				FSBL.Clients.LinkerClient.subscribe("symbol", function (symbol) {
 					if (demoDataObject.currentSelectedSymbol !== symbol) {
-						adaptableBlotter.AdaptableBlotterStore.TheStore.dispatch({ type: 'QUICK_SEARCH_RUN', quickSearchText: symbol });
+						adaptableBlotter.AdaptableBlotterStore.TheStore.dispatch({ type: 'QUICK_SEARCH_APPLY', quickSearchText: symbol });
 					}
 				});
 			}, 5000);
