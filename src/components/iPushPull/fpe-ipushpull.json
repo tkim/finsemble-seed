@@ -1,0 +1,145 @@
+{        
+    "comment": "Sample component configuration",
+    "components": {       
+        "iPushPull": {
+            "window": {
+                "url": "https://www.ipushpull.com/embedapp/?contrast=dark",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 650,
+                "height": 600
+            },
+            "component": {
+                "inject": "iPushPull.js"
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "iPushPull"
+                    }
+                }
+            }
+        },
+        "iPushPullTest": {
+            "window": {
+                "url": "https://test.ipushpull.com/embedded/?contrast=dark",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 650,
+                "height": 600
+            },
+            "component": {
+                "inject": "iPushPullTest.js"
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "iPushPullTest"
+                    }
+                }
+            }
+        },
+        "iPushPull Launcher": {
+            "window": {
+                "url": "$applicationRoot/components/iPushPull/launcher/launcher.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "0",
+                "width": 300,
+                "height": 400
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "iPushPullLauncher"
+                    }
+                }
+            }
+        },
+        "iPushPull Test Launcher": {
+            "window": {
+                "url": "$applicationRoot/components/iPushPull/launcherTest/launcher.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "0",
+                "width": 300,
+                "height": 400
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "iPushPullLauncher"
+                    }
+                }
+            }
+        }
+    }
+}

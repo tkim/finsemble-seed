@@ -10,5 +10,36 @@
     "linkerTester": {
         "output": "components/linkerTester/linkerTester",
         "entry": "./src/components/linkerTester/linkerTester.js"
+    },
+    "yellowfinJSComponent": {
+        "output": "components/yellowfin/jsComponent/jsComponent",
+        "entry": "./src/components/yellowfin/jsComponent/jsComponent.js"
+    },
+    "yellowfinFilterComponent": {
+        "output": "components/yellowfin/filterComponent/filterComponent",
+        "entry": "./src/components/yellowfin/filterComponent/filterComponent.js"
+    },
+    "yellowfin": {
+        "output": "components/yellowfin/yellowfin/yellowfin",
+        "entry": "./src/components/yellowfin/yellowfin/yellowfin.js"
+    },
+    "yellowfinLauncher": {
+        "output": "components/yellowfin/launcher/launcher",
+    },
+    "yellowfinLauncherLocal": {
+        "output": "components/yellowfin/launcherLocal/launcherLocal",
+        "entry": "./src/components/yellowfin/launcherLocal/launcherLocal.js"
+    },
+    "yellowfinFilterStatus": {
+        "output": "components/yellowfin/filterStatus/filterStatus",
+        "entry": "./src/components/yellowfin/filterStatus/filterStatus.js"
+    },
+    "iPushPull": {
+        "output": "components\\mindcontrol\\iPushPull",
+        "entry": ".\\src\\components\\iPushPull\\iPushPull\\iPushPull.js"
+    },
+    "iPushPullLauncher": {
+        "output": "components\\iPushPull\\launcher\\launcher",
+        "entry": ".\\src\\components\\iPushPull\\launcher\\launcher.js"
     }
 }

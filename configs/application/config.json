@@ -109,6 +109,10 @@
 		"$applicationRoot/configs/application/services.json",
 		"$applicationRoot/components/news/news.json",
 		"$applicationRoot/components/chart/chart.json",
-		"$applicationRoot/components/marketearlybird/fpe-marketearlybird.json"
+		"$applicationRoot/components/marketearlybird/fpe-marketearlybird.json",
+		"$applicationRoot/services/yellowfin/fpe-yellowfin-services.json",
+		"$applicationRoot/components/yellowfin/fpe-yellowfin.json",
+		"$applicationRoot/components/iPushPull/fpe-ipushpull.json",
+		"$applicationRoot/services/ipushpull/fpe-ipushpull-services.json"
 	]
 }
