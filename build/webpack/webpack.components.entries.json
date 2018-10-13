@@ -25,6 +25,7 @@
     },
     "yellowfinLauncher": {
         "output": "components/yellowfin/launcher/launcher",
+        "entry": "./src/components/yellowfin/launcher/launcher.js"
     },
     "yellowfinLauncherLocal": {
         "output": "components/yellowfin/launcherLocal/launcherLocal",
