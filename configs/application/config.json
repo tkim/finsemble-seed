@@ -113,6 +113,7 @@
 		"$applicationRoot/services/yellowfin/fpe-yellowfin-services.json",
 		"$applicationRoot/components/yellowfin/fpe-yellowfin.json",
 		"$applicationRoot/components/iPushPull/fpe-ipushpull.json",
-		"$applicationRoot/services/ipushpull/fpe-ipushpull-services.json"
+		"$applicationRoot/services/ipushpull/fpe-ipushpull-services.json",
+		"$applicationRoot/components/bbcNews/bbc-news.json"
 	]
 }
