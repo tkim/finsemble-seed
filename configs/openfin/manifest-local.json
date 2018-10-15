@@ -68,8 +68,10 @@
         "moduleRoot": "http://localhost:3375/finsemble",
         "servicesRoot": "http://localhost:3375/finsemble/services",
         "notificationURL": "http://localhost:3375/components/notification/notification.html",
+        "chartRoot": "https://fpe.finsemble.com/elasticSearchChart",
         "importConfig": [
-            "$applicationRoot/configs/application/config.json"
+            "$applicationRoot/configs/application/config.json",
+            "$chartRoot/config.json"
         ]
     }
 }

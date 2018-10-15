@@ -49,6 +49,7 @@
         "chalk": "^2.3.2",
         "cookie-parser": "1.4.3",
         "copy-webpack-plugin": "^4.5.1",
+        "cors": "^2.8.4",
         "css-loader": "^0.28.7",
         "death": "^1.1.0",
         "del": "^2.2.2",

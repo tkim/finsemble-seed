@@ -22,6 +22,7 @@
 	const fs = require("fs");
 	const path = require("path");
 	const compression = require("compression");
+	const cors = require("cors");
 	// Local
 
 	const handleError = e => {
@@ -109,6 +110,7 @@
 
 	// #region Constants
 	const app = express();
+	app.use(cors({ credentials: true, origin: "http://fpe.finsemble.com" }));
 	const rootDir = path.join(__dirname, "..", "dist");
 	const moduleDirectory = path.join(__dirname, "..", "finsemble");
 	const ONE_DAY = 24 * 3600 * 1000;
