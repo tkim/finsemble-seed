@@ -1,0 +1,26 @@
+body {
+	margin: 0px;
+}
+
+.resize {
+	border: 1px solid black;
+	overflow: auto;
+}
+
+.resize.horizontal {
+	resize: horizontal;
+}
+
+.resize.vertical {
+	resize: vertical;
+}
+
+.resize.both {
+	resize: both;
+	width: 50%;
+	max-height: 100%
+}
+
+.wrap {
+	max-width: 50%;
+}
