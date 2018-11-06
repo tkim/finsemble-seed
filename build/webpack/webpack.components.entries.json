@@ -1,10 +1,10 @@
 {
     "dashboardBuilder": {
         "output": "components/dashboardBuilder/dashboardBuilder",
-        "entry": "./src\\components\\dashboardBuilder\\dashboardBuilder.js"
+        "entry": "./src/components/dashboardBuilder/dashboardBuilder.js"
     },
     "dashboardCanvas": {
         "output": "components/dashboardCanvas/dashboardCanvas",
-        "entry": "./src\\components\\dashboardCanvas\\dashboardCanvas.js"
+        "entry": "./src/components/dashboardCanvas/dashboardCanvas.js"
     }
 }
