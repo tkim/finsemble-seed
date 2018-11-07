@@ -1,7 +1,7 @@
 {
     "dashboardBuilder": {
         "output": "components/dashboardBuilder/dashboardBuilder",
-        "entry": "./src/components/dashboardBuilder/dashboardBuilder.js"
+        "entry": "./src/components/dashboardBuilder/index.jsx"
     },
     "dashboardCanvas": {
         "output": "components/dashboardCanvas/dashboardCanvas",
