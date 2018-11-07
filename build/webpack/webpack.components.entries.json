@@ -6,5 +6,9 @@
     "dashboardCanvas": {
         "output": "components/dashboardCanvas/dashboardCanvas",
         "entry": "./src/components/dashboardCanvas/dashboardCanvas.js"
+    },
+    "dragDrop": {
+        "output": "components/dragDrop/dragDrop",
+        "entry": "./src\\components\\dragDrop\\dragDrop.js"
     }
 }
