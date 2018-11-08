@@ -1,26 +1,10 @@
-body {
-	margin: 0px;
-}
-
-.resize {
-	border: 1px solid black;
-	overflow: auto;
-}
-
-.resize.horizontal {
-	resize: horizontal;
-}
-
-.resize.vertical {
-	resize: vertical;
-}
-
-.resize.both {
-	resize: both;
-	width: 50%;
-	max-height: 100%
-}
-
-.wrap {
-	max-width: 50%;
+html,
+body,
+#root,
+#root>div {
+	height: 100%;
+	margin: 0;
+	box-sizing: border-box;
+	background: url('bg.png');
+	background-repeat: repeat;
 }
