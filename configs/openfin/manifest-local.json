@@ -22,7 +22,7 @@
     },
     "splashScreenImage": "http://localhost:3375/assets/img/FinsembleSplash.png",
     "runtime": {
-        "arguments": "--noerrdialogs --v=4 --no-sandbox --enable-crash-reporting",
+        "arguments": "--noerrdialogs --v=4 --no-sandbox --enable-crash-reporting --framestrategy=frames --winhttp-proxy-resolver",
         "version": "stable",
         "//": "Add these arguments when diagnosing issues",
         "--diagnostics": "Adding this to the runtimeArguments activates verbose logging and crash reporting.",
