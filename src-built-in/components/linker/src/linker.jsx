@@ -96,7 +96,7 @@ class Linker extends React.Component {
 			return (<div key={item.name + index} className={groupClass} style={style} onClick={function () {
 				self.channelClicked(item, activeChannel);
 			}}>
-				{activeChannel ? activeChannelIndicator : null}
+				{activeChannel ? activeChannelIndicator : null}#{index+1}
 			</div>);
 		});
 

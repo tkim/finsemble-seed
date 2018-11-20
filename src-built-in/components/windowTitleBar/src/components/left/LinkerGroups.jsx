@@ -15,7 +15,8 @@ export default class LinkerGroups extends React.Component {
 		 */
 		windowTitleBarStore = getStore();
         this.bindCorrectContext();
-		this.state = {
+        this.state = {
+            channelList: FSBL.Clients.LinkerClient.getAllChannels(),
 			channels: FSBL.Clients.LinkerClient.getState().channels
 		};
 	}
@@ -98,9 +99,19 @@ export default class LinkerGroups extends React.Component {
         /**
          * Iterate through the channels that the window belongs to, render a colored bar to denote channel membership.
          */
-		let channels = self.state.channels.map(function (channel, index) {
+        // console.log('state.channels: ', this.state.channelList);
+        let channels = self.state.channels.map(function (channel, index) {
+            console.log('channel: ', channel);
+            let channelIndex = -1;
+            for (let j = 0; j < self.state.channelList.length; j++) {
+                let channelFromList = self.state.channelList[j];
+                console.log('channelFromList: ', channelFromList);
+                if (channelFromList.color === channel.color) {
+                    channelIndex = j;
+                }
+            }
 			let classNames = `linker-group linker-${channel.label}`;
-            return (<div key={channel.name} className={classNames} style={{ background: channel.color }} onMouseUp={function (e) { self.onClick(e, channel.name) }}></div>);
+            return (<div key={channel.name} style={{ color: channel.color }} onMouseUp={function (e) { self.onClick(e, channel.name) }}>{channelIndex + 1}</div>);
 		});
 		return (<div className="linker-groups">
             {channels}
