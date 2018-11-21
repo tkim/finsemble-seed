@@ -149,16 +149,18 @@ var Actions = {
 		FSBL.Clients.RouterClient.subscribe("Finsemble.WorkspaceService.groupUpdate", onDockingGroupUpdate);
 
 		/**
-		 * Catches a double-click on the title bar. If you don't catch this, openfin will invoke the OS-level maximize, which will put the window on top of the toolbar. `clickMaximize` will fill all of the space that finsemble allows.
+		 * Set the local store value for the maximize button's display state.
 		 */
 		finsembleWindow.addEventListener("maximized", function () {
 			windowTitleBarStore.setValue({ field: "Maximize.maximized", value: true });
 		});
 
+		/**
+		 * Set the local store value for the maximize button's display state.
+		 */
 		finsembleWindow.addEventListener("restored", function () {
 			windowTitleBarStore.setValue({ field: "Maximize.maximized", value: false });
 		});
-
 
 		//default title.
 		windowTitleBarStore.setValue({ field: "Main.windowTitle ", value: FSBL.Clients.WindowClient.getWindowTitle() });
@@ -387,14 +389,15 @@ var Actions = {
 		}
 	},
 	/**
-	 * Maximizes the window.
+	 * Toggles the maximize state. This is called when the user clicks on the maximize button.
 	 */
-	clickMaximize: function () {
-		var maxField = windowTitleBarStore.getValue({ field: "Maximize" });
-		if (finsembleWindow.windowState !== finsembleWindow.WINDOWSTATE.MAXIMIZED)
+	toggleMaximize: function () {
+		let isMaximized = windowTitleBarStore.getValue({ field: "Maximize.maximized" });
+		if (isMaximized) {
+			return FSBL.Clients.WindowClient.restore();
+		} else {
 			return FSBL.Clients.WindowClient.maximize();
-
-		return FSBL.Clients.WindowClient.restore();
+		}
 	},
 
 	getTabs() {

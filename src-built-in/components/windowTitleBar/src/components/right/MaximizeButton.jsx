@@ -54,7 +54,7 @@ export default class MaximizeButton extends React.Component {
 	 * @memberof MaximizeButton
 	 */
 	onClick() {
-		HeaderActions.clickMaximize();
+		HeaderActions.toggleMaximize();
 	}
 
 	/**
@@ -63,6 +63,7 @@ export default class MaximizeButton extends React.Component {
 	 * @memberof MaximizeButton
 	 */
 	componentWillMount() {
+		// Terry, this should go back to being store driven via props?
 		//console.log("componentWillMount")
 		FSBL.Clients.WindowClient.finsembleWindow.addListener("maximized", this.onMaximized)
 		FSBL.Clients.WindowClient.finsembleWindow.addListener("restored", this.onRestored);
@@ -76,6 +77,7 @@ export default class MaximizeButton extends React.Component {
 	 * @memberof MaximizeButton
 	 */
 	componentWillUnmount() {
+		// Terry, this should go back to being store driven via props?
 		//console.log("unmount this")
 		FSBL.Clients.WindowClient.finsembleWindow.removeListener("maximized", this.onMaximized)
 		FSBL.Clients.WindowClient.finsembleWindow.removeListener("restored", this.onRestored)
