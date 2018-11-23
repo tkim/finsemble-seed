@@ -174,7 +174,7 @@
             "window": {
                 "id": "WPFDebug",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\temp\\finsemble-seed\\hosted\\WPFDebug\\FinsembleWPFDemo.exe",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFDebug\\FinsembleWPFDemo.exe",
                 "arguments": "arg1 arg2 arg3",
                 "autoShow": true,
                 "alwaysOnTop": false,
@@ -210,7 +210,7 @@
             "window": {
                 "id": "WPFDebugNoShutdown",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WPFDebugNoShutdown\\FinsembleWPFDemo.exe",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFDebugNoShutdown\\FinsembleWPFDemo.exe",
                 "arguments": "arg1 arg2 arg3",
                 "autoShow": true,
                 "alwaysOnTop": false,
@@ -246,7 +246,7 @@
             "window": {
                 "id": "WPFRelease",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WPFRelease\\FinsembleWPFDemo.exe",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFRelease\\FinsembleWPFDemo.exe",
                 "arguments": "arg1 arg2 arg3",
                 "autoShow": true,
                 "alwaysOnTop": false,
@@ -284,7 +284,7 @@
             "window": {
                 "id": "test args",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\test_args.bat",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\test_args.bat",
                 "arguments": "arg1 arg2 arg3",
                 "autoShow": true,
                 "alwaysOnTop": false,
@@ -323,7 +323,7 @@
                 "id": "Windowless",
                 "name": "winless",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WindowlessDLL\\WindowlessExample.exe",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WindowlessDLL\\WindowlessExample.exe",
                 "arguments": "arg1 arg2 arg3",
                 "autoShow": false,
                 "alwaysOnTop": false,
@@ -363,7 +363,7 @@
                 "id": "dotNetServiceExample-ID",
                 "name": "dotNetServiceExample-name",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed-wpf\\hosted\\WindowlessSeed\\WindowlessExample.exe",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WindowlessSeed\\WindowlessExample.exe",
                 "arguments": "arg1 arg2 arg3",
                 "autoShow": false,
                 "addToWorkspace": false
