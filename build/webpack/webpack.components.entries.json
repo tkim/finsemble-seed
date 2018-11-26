@@ -1,1 +1,22 @@
-{}
+{
+    "InFrontMyLists": {
+        "output": "components/InFront/InFrontMyLists",
+        "entry": "./src\\components\\InFront\\InFrontMyLists.js"
+    },
+    "InFronFocus": {
+        "output": "components/InFront/InFrontFocus",
+        "entry": "./src\\components\\InFront\\InFrontFocus.js"
+    },
+    "InFrontIndex": {
+        "output": "components/InFront/InFrontIndex",
+        "entry": "./src\\components\\InFront\\InFrontIndex.js"
+    },
+    "InFrontOrderbook": {
+        "output": "components/InFront/InFrontOrderbook",
+        "entry": "./src\\components\\InFront\\InFrontOrderbook.js"
+    },
+    "InFrontMultiExample": {
+        "output": "components/InFront/InFrontMultiExample",
+        "entry": "./src\\components\\InFront\\InFrontMultiExample.js"
+    }
+}
