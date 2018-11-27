@@ -1,5 +1,3 @@
-
-
 export function inFrontInit(widgetInitFunctions) {
 	let infront = new Infront.UI({
 		"user_id": "chartiq",
