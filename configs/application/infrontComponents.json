@@ -1,0 +1,1189 @@
+{
+    "comment": "Sample component configuration",
+    "components": {
+        "InFront Alert": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "alertWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Alert List": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "alertListWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Broker Stats": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "brokerstatsWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Chart": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "chartWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Financial Calendar": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "financialCalendarWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Focus": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "focusWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Fund Allocation": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "fundAllocationWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Fund Allocation Pie Chart": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "fundAllocationPieChartWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Morningstar Rating": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "fundMorningstarRatingWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Fund Risk Level": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "fundRiskLevelWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Fund Stylemap": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "fundStylemapWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Fund Top Holdings": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "fundTopHoldingsWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Historical Overview": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "historicalOverviewWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront History": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "historyWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Index overview": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "indexOverviewWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Intra-day Trades": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "intradayTradesWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Intra-day Trades mini": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "intradayTradesMiniWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Instrument Values": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "instrumentValuesWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront My Lists": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "myListsWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront News List": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "newsListWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront News Reader": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "newsReaderWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Orderbook": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "orderbookWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Quote List": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "quoteListWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Ranking": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "rankingWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Screener": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "screenerWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Screener Active Filters": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "screenerActiveFiltersWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Simple Chart Overview": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "simpleChartOverviewWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Value Pair": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "valuePairWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Multi-widget Example": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontMultiExample.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 800,
+                "height": 600
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront - Multi Widget Example",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconUrl": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        }
+    }
+}
