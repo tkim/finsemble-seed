@@ -502,6 +502,12 @@ export function newsListWidget(infront, elementSelector, widgetOptions) {
 
 		opts.columns = ["TIME", "HEADLINE","SHORT_SOURCE"];
 		opts.preSelectedRegions = ["FRANCE"];
+
+		opts.enableRegionSelector = true;
+		opts.enableQuickFilter = true;
+		opts.enableSourceSelector = true;
+
+
 		opts.streaming = true;
 		opts.paging = true;
 		opts.pageItems = 12;

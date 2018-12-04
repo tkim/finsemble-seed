@@ -776,47 +776,6 @@
                 }
             }
         },
-        "InFront News Reader": {
-            "window": {
-                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 600,
-                "height": 400,
-                "addToWorkspace": true,
-                "data" : {
-                    "widget": "newsReaderWidget",
-                    "options": {}
-                }
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "title": "InFront",
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
-                    }
-                }
-            }
-        },
         "InFront Orderbook": {
             "window": {
                 "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
