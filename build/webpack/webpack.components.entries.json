@@ -7,6 +7,10 @@
         "output": "components/InFront/InFrontSingleWidget",
         "entry": "./src/components/InFront/InFrontSingleWidget.js"
     },
+    "InFrontMultiWidget": {
+        "output": "components/InFront/InFrontMultiWidget",
+        "entry": "./src/components/InFront/InFrontMultiWidget.js"
+    },
     "InFrontAlerts": {
         "output": "components/InFront/InFrontAlerts",
         "entry": "./src/components/InFront/InFrontAlerts.js"

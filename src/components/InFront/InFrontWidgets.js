@@ -734,8 +734,8 @@ export function screenerWidget(infront, elementSelector, widgetOptions) {
 	];
 	
 	
-	var quotelist;
-	var qopts = new Infront.QuoteListWidgetOptions();
+	let quotelist;
+	let qopts = new Infront.QuoteListWidgetOptions();
 	qopts.linkChannels = [4555];
 	qopts.linkAction = Infront.LinkAction.Append;
 	qopts.sortable = true;
@@ -756,8 +756,8 @@ export function screenerWidget(infront, elementSelector, widgetOptions) {
 		"RISK_LEVEL",
 		"STAR_RATING"
 	];
-	quoteList = infront.quoteList("quotelist", qopts);
-	infront.ScreenerWidget(elementSelector, opts);
+	quotelist = infront.quoteList("quotelist", qopts);
+	infront.screenerWidget(elementSelector, opts);
 }
 
 /** 
@@ -809,7 +809,7 @@ export function screenerActiveFiltersWidget(infront, elementSelector, widgetOpti
 	activeOpts.linkAction = Infront.LinkAction.Append;
 	infront.activeFiltersWidget("activeFilters", activeOpts);
 
-	infront.ScreenerWidget(elementSelector, opts);
+	infront.screenerWidget(elementSelector, opts);
 }
 
 /** 

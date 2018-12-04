@@ -1154,7 +1154,8 @@
                 "top": "center",
                 "left": "center",
                 "width": 800,
-                "height": 600
+                "height": 600,
+                "addToWorkspace": true
             },
             "component": {
                 "inject": false
@@ -1176,10 +1177,80 @@
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconUrl": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Multi-widget Example (config driven)": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontMultiWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 800,
+                "height": 600,
+                "addToWorkspace": true,
+                "data" : {
+                    "title": "Config-driven multi-widget example",
+                    "widgetCells": [
+                        [
+                            {
+                                "id": "index",
+                                "type": "indexOverviewWidget",
+                                "config": null, 
+                                "cell_class": "cell--w4"
+                            },
+                            {
+                                "id": "my-list",
+                                "type": "myListsWidget",
+                                "config": null,
+                                "cell_class": "cell--w8"
+                            }
+                        ], [
+                            {
+                                "id": "focus",
+                                "type": "focusWidget",
+                                "config": null,
+                                "cell_class": "cell--w4"
+                            },
+                            {
+                                "id": "orderbook1",
+                                "type": "orderbookWidget",
+                                "config": null,
+                                "cell_class": "cell--w8"
+                            }
+                        ]
+                    ]
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront - Multi Widget Example (config driven)",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
                     }
                 }
             }
         }
+
     }
 }

@@ -9,11 +9,14 @@ FSBL.addEventListener('onReady', function () {
 
 	if(typeof widgets[widgetType] === 'function') {
 		FSBL.Clients.Logger.log(`Rendering InFront widgetType: ${widgetType} in element: "#widget"`);
-		FSBL.Clients.WindowClient.setWindowTitle(`InFront -  ${widgetType}`)
+		let title = `InFront -  ${widgetType}`;
+		FSBL.Clients.WindowClient.setWindowTitle(title)
+		document.title = title;
 		infront = widgets.inFrontInit([widgets[widgetType]],["#widget"]);
-
 	} else{
 		FSBL.Clients.Logger.error(`InFront widgetType: ${widgetType} not found...`);
-		FSBL.Clients.WindowClient.setWindowTitle(`InFront -  Unknown widget type: ${widgetType}`)
+		let title = `InFront -  Unknown widget type: ${widgetType}`;
+		FSBL.Clients.WindowClient.setWindowTitle(title);
+		document.title = title;
 	}
 });
