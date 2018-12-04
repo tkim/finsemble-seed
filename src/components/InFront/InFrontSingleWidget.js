@@ -14,6 +14,6 @@ FSBL.addEventListener('onReady', function () {
 
 	} else{
 		FSBL.Clients.Logger.error(`InFront widgetType: ${widgetType} not found...`);
-		FSBL.Clients.WindowClient.setWindowTitle(`InFront -  Unkown widget type: ${widgetType}`)
+		FSBL.Clients.WindowClient.setWindowTitle(`InFront -  Unknown widget type: ${widgetType}`)
 	}
 });

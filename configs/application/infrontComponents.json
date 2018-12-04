@@ -1,9 +1,9 @@
 {
     "comment": "Sample component configuration",
     "components": {
-        "InFront Alert": {
+        "InFront Alerts": {
             "window": {
-                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "url": "$applicationRoot/components/InFront/InFrontAlerts.html",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -11,52 +11,7 @@
                 "left": "center",
                 "width": 600,
                 "height": 400,
-                "addToWorkspace": true,
-                "data" : {
-                    "widget": "alertWidget",
-                    "options": {}
-                }
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "title": "InFront",
-                        "FSBLHeader": true,
-                        "persistWindowState": true
-                    },
-                    "Toolbar": {
-                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
-                    }
-                }
-            }
-        },
-        "InFront Alert List": {
-            "window": {
-                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
-                "frame": false,
-                "resizable": true,
-                "autoShow": true,
-                "top": "center",
-                "left": "center",
-                "width": 600,
-                "height": 400,
-                "addToWorkspace": true,
-                "data" : {
-                    "widget": "alertListWidget",
-                    "options": {}
-                }
+                "addToWorkspace": true
             },
             "component": {
                 "inject": false
@@ -903,7 +858,7 @@
                 }
             }
         },
-        "InFront Quote List": {
+        "InFront Quote List Flex": {
             "window": {
                 "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
                 "frame": false,
@@ -915,7 +870,48 @@
                 "height": 400,
                 "addToWorkspace": true,
                 "data" : {
-                    "widget": "quoteListWidget",
+                    "widget": "quoteListFlexWidget",
+                    "options": {}
+                }
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "title": "InFront",
+                        "FSBLHeader": true,
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "https://www.infrontfinance.com/gfx/favicons/android-chrome-192x192.png"
+                    }
+                }
+            }
+        },
+        "InFront Quote List Table": {
+            "window": {
+                "url": "$applicationRoot/components/InFront/InFrontSingleWidget.html",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 600,
+                "height": 400,
+                "addToWorkspace": true,
+                "data" : {
+                    "widget": "quoteListTableWidget",
                     "options": {}
                 }
             },

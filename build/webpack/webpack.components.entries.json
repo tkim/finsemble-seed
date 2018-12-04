@@ -6,5 +6,9 @@
     "InFrontSingleWidget": {
         "output": "components/InFront/InFrontSingleWidget",
         "entry": "./src/components/InFront/InFrontSingleWidget.js"
+    },
+    "InFrontAlerts": {
+        "output": "components/InFront/InFrontAlerts",
+        "entry": "./src/components/InFront/InFrontAlerts.js"
     }
 }
