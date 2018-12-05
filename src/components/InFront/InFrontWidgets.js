@@ -25,7 +25,7 @@ export function inFrontInit(widgetInitFunctions, widgetSelectors, widgetOptions)
 	let initialized = false;
 
 	let widgetInitFns = function() {
-		if (!initialized) {
+		if (!initialized) { // prevent double injection on re-connection - n.b. data updates may have been missed...
 			initialized = true;
 			if (Array.isArray(widgetInitFunctions)) {
 				if (widgetInitFunctions.length !== widgetSelectors.length) {
@@ -506,7 +506,6 @@ export function newsListWidget(infront, elementSelector, widgetOptions) {
 		opts.enableRegionSelector = true;
 		opts.enableQuickFilter = true;
 		opts.enableSourceSelector = true;
-
 
 		opts.streaming = true;
 		opts.paging = true;

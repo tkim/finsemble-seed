@@ -51,7 +51,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "brokerstatsWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -92,7 +92,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "chartWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -133,7 +133,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "financialCalendarWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -174,7 +174,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "focusWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -215,7 +215,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "fundAllocationWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -256,7 +256,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "fundAllocationPieChartWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -297,7 +297,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "fundMorningstarRatingWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -338,7 +338,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "fundRiskLevelWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -379,7 +379,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "fundStylemapWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -420,7 +420,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "fundTopHoldingsWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -461,7 +461,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "historicalOverviewWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -502,7 +502,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "historyWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -543,7 +543,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "indexOverviewWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -584,7 +584,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "intradayTradesWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -625,7 +625,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "intradayTradesMiniWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -666,7 +666,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "instrumentValuesWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -707,7 +707,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "myListsWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -748,7 +748,16 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "newsListWidget",
-                    "options": {}
+                    "config": {
+                        "columns": ["TIME", "HEADLINE","SHORT_SOURCE"],
+                        "preSelectedRegions": ["FRANCE"],
+                        "enableRegionSelector": true,
+                        "enableQuickFilter": true,
+                        "enableSourceSelector": true,
+                        "streaming": true,
+                        "paging": true,
+                        "pageItems": 10
+                    }
                 }
             },
             "component": {
@@ -789,7 +798,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "orderbookWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -830,7 +839,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "quoteListFlexWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -871,7 +880,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "quoteListTableWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -912,7 +921,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "rankingWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -953,7 +962,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "screenerWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -994,7 +1003,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "screenerActiveFiltersWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -1035,7 +1044,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "simpleChartOverviewWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
@@ -1076,7 +1085,7 @@
                 "addToWorkspace": true,
                 "data" : {
                     "widget": "valuePairWidget",
-                    "options": {}
+                    "config": {}
                 }
             },
             "component": {
