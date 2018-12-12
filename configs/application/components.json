@@ -279,12 +279,12 @@
                     }
                 }
             }
-        },
-        "testArgs": {
+		},
+		"WPFReleaseAssim": {
             "window": {
-                "id": "test args",
+                "id": "WPFReleaseAssim",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\test_args.bat",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFReleaseAssim\\FinsembleWPFDemo.exe",
                 "arguments": "arg1 arg2 arg3",
                 "autoShow": true,
                 "alwaysOnTop": false,
@@ -318,23 +318,21 @@
                 }
             }
         },
-        "WindowlessExample": {
+        "testArgs": {
             "window": {
-                "id": "Windowless",
-                "name": "winless",
-                "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WindowlessDLL\\WindowlessExample.exe",
+                "id": "test args",
+                "windowType": "assimilation",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\test_args.bat",
                 "arguments": "arg1 arg2 arg3",
-                "autoShow": false,
+                "autoShow": true,
                 "alwaysOnTop": false,
-                "resizable": false,
-                "showTaskbarIcon": false,
-                "contextMenu": false,
-                "addToWorkspace": false
+                "resizable": true,
+                "showTaskbarIcon": true,
+                "contextMenu": true,
+                "addToWorkspace": true
             },
             "component": {
-                "inject": false,
-                "spawnOnStartup": true
+                "inject": false
             },
             "foreign": {
                 "services": {
@@ -345,12 +343,12 @@
                 },
                 "components": {
                     "App Launcher": {
-                        "launchableByUser": false
+                        "launchableByUser": true
                     },
                     "Window Manager": {
                         "persistWindowState": false,
-                        "FSBLHeader": false,
-                        "showLinker": false
+                        "FSBLHeader": true,
+                        "showLinker": true
                     },
                     "Toolbar": {
                         "iconURL": "$applicationRoot/components/assets/img/notepad.png"
