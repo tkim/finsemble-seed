@@ -65,7 +65,7 @@ function completeAuth(){
             var credentials =  { username: username, password: password };
             debugger;
             FSBL.Clients.AuthenticationClient.publishAuthorization(credentials.username, credentials);
-            fin.desktop.Window.getCurrent().close(true);
+            // fin.desktop.Window.getCurrent().close(true);
         });
 
     }catch(e){
@@ -74,16 +74,19 @@ function completeAuth(){
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	console.log("Mark Content Loaded");
-    console.log("Mark, Location: ", window.location.href);
-    console.log("Mark CHeck Status, idp_SignInThisSiteStatusLabel: ", document.getElementById("idp_SignInThisSiteStatusLabel").lastElementChild.innerHTML);
-    // var loginSuccessful = document.getElementById("idp_SignInThisSiteStatusLabel");
+    FSBL.Clients.RouterClient.onReady(() => {
+        console.log("Mark Content Loaded");
+        console.log("Mark, Location: ", window.location.href);
+        //console.log("Mark CHeck Status, idp_SignInThisSiteStatusLabel: ", document.getElementById("idp_SignInThisSiteStatusLabel").lastElementChild.innerHTML);
+        console.log("Mark CHeck Status, idp_SignInThisSiteStatusLabel: ");
+        // var loginSuccessful = document.getElementById("idp_SignInThisSiteStatusLabel");
 
-    if(document.getElementById("idp_SignInThisSiteStatusLabel")){
-        if(document.getElementById("idp_SignInThisSiteStatusLabel").lastElementChild.innerHTML==="You are signed in."){
-            console.log("Mark Contains Passed");
-            completeAuth();
+        if(document.getElementById("idp_SignInThisSiteStatusLabel")){
+            if(document.getElementById("idp_SignInThisSiteStatusLabel").lastElementChild.innerHTML==="You are signed in."){
+                console.log("Mark Contains Passed");
+                completeAuth();
 
+            }
         }
-    }
+    })
 })
