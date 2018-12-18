@@ -2,7 +2,12 @@
 	"comment": "Top-level application config for development, adding on top of the core config",
 	"authentication":{
 		"startup":{
-			"adapter": "PASSWORD",
+			"adapter": "OAUTH2",
+			"scope": "openid",
+			"client_id": "168f3ee4-63fc-4723-a61a-6473f6cb515c",
+			"authorization_endpoint": "https://fs.chartiq.com/adfs/ls/idpinitiatedsignon",
+			"backchannel_endpoint": "http://fs.chartiq.com/adfs/services/trust",
+			"redirect_uri": "$applicationRoot/components/authentication/oauthResponse.html",
 			"component": "defaultAuthentication"
 		}
 	},
@@ -60,7 +65,7 @@
 	"betaFeatures": {
 		"assimilation": {
 			"useOpenFinSpawn": false,
-			"enabled": false,
+			"enabled": true,
 			"blacklist": [],
 			"whitelist": [],
 			"onlySpawned": true,

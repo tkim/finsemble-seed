@@ -1,0 +1,93 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "symphony-api",
+        "scope": null,
+        "escapedName": "symphony-api",
+        "name": "symphony-api",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Users\\Sidd\\Documents\\GitHub\\symphony-api"
+    ]
+  ],
+  "_from": "symphony-api@latest",
+  "_id": "symphony-api@0.1.4",
+  "_inCache": true,
+  "_location": "/symphony-api",
+  "_nodeVersion": "6.10.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/symphony-api-0.1.4.tgz_1504105012966_0.5119187543168664"
+  },
+  "_npmUser": {
+    "name": "ondoher",
+    "email": "ganderson@ondoher.com"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "symphony-api",
+    "scope": null,
+    "escapedName": "symphony-api",
+    "name": "symphony-api",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/symphony-api/-/symphony-api-0.1.4.tgz",
+  "_shasum": "189d4bb6e8870c3f15afcd7ea2942974f35f3b95",
+  "_shrinkwrap": null,
+  "_spec": "symphony-api",
+  "_where": "C:\\Users\\Sidd\\Documents\\GitHub\\symphony-api",
+  "author": {
+    "name": "Glenn Anderson"
+  },
+  "bugs": {
+    "url": "https://github.com/Ondoher/symphony-api/issues"
+  },
+  "dependencies": {
+    "q": "^1.4.1",
+    "request": "^2.80.0",
+    "url-join": "^1.1.0"
+  },
+  "description": "node implementation of the symphony api",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "189d4bb6e8870c3f15afcd7ea2942974f35f3b95",
+    "tarball": "https://registry.npmjs.org/symphony-api/-/symphony-api-0.1.4.tgz"
+  },
+  "gitHead": "02c275edc5366ad24dbd3fca440f56484ffeebeb",
+  "homepage": "https://github.com/Ondoher/symphony-api#readme",
+  "keywords": [
+    "symphony",
+    "node",
+    "api"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "ondoher",
+      "email": "ganderson@ondoher.com"
+    }
+  ],
+  "name": "symphony-api",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ondoher/symphony-api.git"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "version": "0.1.4"
+}

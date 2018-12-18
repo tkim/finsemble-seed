@@ -14,6 +14,11 @@
         "maximizable": false,
         "delay_connection": true,
         "contextMenu": true,
+        "licenseKey": "valid_license_key",
+        "enableAppLogging": true,
+        "logManagement": {
+            "enabled": true
+        },
         "cornerRounding": {
             "width": 4,
             "height": 4

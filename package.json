@@ -18,12 +18,14 @@
         "clean": "gulp clean --gulpfile=./gulpfile.js",
         "update-finsemble": "npm update @chartiq/finsemble && npm update -g @chartiq/finsemble-cli",
         "finsemble-cli": "finsemble-cli",
-        "migrate": "node migration/2.3/migrationScripts/migrate.js"
+        "migrate": "node migration/2.3/migrationScripts/migrate.js",
+        "startServer": "cd server-symphony&& npm start",
+        "buildserver:dev": "webpack --mode=development --watch",
+        "start:dev": "concurrently \"npm run buildserver:dev\" \"npm run startServer\" \"webpack-dev-server --mode=development\""
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@chartiq/finsemble": "3.2.*",
         "@chartiq/finsemble-cli": "2.*",
         "@chartiq/finsemble-react-controls": "^3.1.2",
         "async": "^2.6.0",

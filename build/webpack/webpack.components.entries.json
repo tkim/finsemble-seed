@@ -1,1 +1,14 @@
-{}
+{
+    "jQuery": {
+        "output": "components/fpe-symphony/jQuery",
+        "entry": "./src/components/fpe-symphony/jQuery.js"
+    },
+    "symphony": {
+        "output": "components/fpe-symphony/symphony",
+        "entry": "./src/components/fpe-symphony/symphony.js"
+    },
+    "symphonyembeddedchat": {
+        "output": "components/fpe-symphony/symphonyembeddedchat",
+        "entry": "./src/components/fpe-symphony/symphonyembeddedchat.js"
+    }
+}

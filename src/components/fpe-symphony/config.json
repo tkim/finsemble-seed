@@ -1,0 +1,159 @@
+{
+		"comment": "**** For development, eliminate '[take this part out]' and put your user/pw in. You won't have to log in every time.",
+		"components": {
+			"Symphony": {
+				"window": {
+					"comment": "***** Point this url at your pod",
+					"url": "https://chartiq.symphony.com/",
+					"width": 315,
+					"height": "50%",
+					"addToWorkspace": true,
+					"backgroundColor": "#000"
+				},
+				"component": {
+					"lightTheme": false,
+					"singleton": false,
+					"inject": "$applicationRoot/components/fpe-symphony/symphony.js"
+				},
+				"foreign": {
+					"services": {
+						"dockingService": {
+							"isArrangable": true
+						},
+						"launcherService": {
+							"inject": true
+						}
+					},
+					"components": {
+						"App Launcher": {
+							"launchableByUser": true
+						},
+						"Window Manager": {
+							"FSBLHeader": true,
+							"persistWindowState": true,
+							"showLinker": true
+						},
+						"Toolbar": {
+							"iconURL": "$applicationRoot/components/fpe-symphony/symphony.png"
+						}
+					}
+				}
+			},
+			"Symphony Chat": {
+				"window": {
+					"url": "$applicationRoot/components/fpe-symphony/blank.html",
+					"width": 400,
+					"height": 600,
+					"addToWorkspace": true,
+					"backgroundColor": "#000",
+					"frameConnect": "all"
+				},
+				"component": {
+					"preload": "$applicationRoot/components/fpe-symphony/loadingscrim.js",
+					"inject": "$applicationRoot/components/fpe-symphony/symphonyembeddedchat.js",
+					"advertiseReceivers": [
+						"symphony.chat",
+						"contact"
+					],
+					"comment": "Point podURL at your pod. Change the queryStringParams for styling.",
+					"podURL": "https://chartiq.symphony.com/",
+					"queryStringParams": "contrast=true&condensed=true&showTitle=true&showInfo=true&showXPod=true&showEmoji=true&showAttach=true&showDisableInput=false&showCompose=true&showSystemMessages=true",
+					"comment": "Point this at where you host your server.js",
+					"restURL": "http://localhost:3377"
+				},
+				"foreign": {
+					"services": {
+						"dockingService": {
+							"isArrangable": true
+						},
+						"launcherService": {
+							"inject": true
+						}
+					},
+					"components": {
+						"App Launcher": {
+							"launchableByUser": false
+						},
+						"Window Manager": {
+							"FSBLHeader": false,
+							"persistWindowState": true,
+							"showLinker": true
+						},
+						"Toolbar": {
+							"iconURL": "$applicationRoot/components/fpe-symphony/symphony.png"
+						}
+					}
+				}
+			},
+			"dialogSignOn": {
+				"window": {
+					"comment": "Make sure this points to where you've put your dialogSignOn.html file",
+					"url": "$applicationRoot/components/fpe-symphony/dialogSignOn.html",
+					"top": "center",
+					"left": "center",
+					"width": 358,
+					"height": 458,
+					"ephemeral": true
+				},
+				"component": {
+					"neededClients": [
+						"LauncherClient",
+						"AuthenticationClient",
+						"StorageClient"
+					],
+					"category": "system"
+				},
+				"foreign": {
+					"services": {
+						"dockingService": {
+							"isArrangable": false
+						}
+					},
+					"components": {
+						"App Launcher": {
+							"launchableByUser": false
+						},
+						"Window Manager": {
+							"FSBLHeader": false,
+							"persistWindowState": false
+						}
+					}
+				}
+			},
+			"Blank": {
+				"window": {
+					"comment": "Make sure this points to where you've put your dialogSignOn.html file",
+					"url": "$applicationRoot/components/authentication/oauthResponse.html",
+					"top": "center",
+					"left": "center",
+					"width": 358,
+					"height": 458,
+					"ephemeral": true
+				},
+				"component": {
+					"neededClients": [
+						"LauncherClient",
+						"AuthenticationClient",
+						"StorageClient"
+					],
+					"category": "system"
+				},
+				"foreign": {
+					"services": {
+						"dockingService": {
+							"isArrangable": false
+						}
+					},
+					"components": {
+						"App Launcher": {
+							"launchableByUser": false
+						},
+						"Window Manager": {
+							"FSBLHeader": false,
+							"persistWindowState": false
+						}
+					}
+				}
+			}
+	}
+}
