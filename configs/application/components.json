@@ -209,78 +209,6 @@
                 }
             }
         },
-        "WPFDebug": {
-            "window": {
-                "id": "WPFDebug",
-                "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFDebug\\FinsembleWPFDemo.exe",
-                "arguments": "arg1 arg2 arg3",
-                "autoShow": true,
-                "alwaysOnTop": false,
-                "resizable": true,
-                "showTaskbarIcon": true,
-                "contextMenu": true,
-                "addToWorkspace": true
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "workspaceService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
-                    }
-                }
-            }
-        },
-        "WPFDebugNoShutdown": {
-            "window": {
-                "id": "WPFDebugNoShutdown",
-                "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFDebugNoShutdown\\FinsembleWPFDemo.exe",
-                "arguments": "arg1 arg2 arg3",
-                "autoShow": true,
-                "alwaysOnTop": false,
-                "resizable": true,
-                "showTaskbarIcon": true,
-                "contextMenu": true,
-                "addToWorkspace": true
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "workspaceService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
-                    }
-                }
-            }
-        },
         "WPFExample": {
             "window": {
                 "id": "WPFRelease",
@@ -314,7 +242,83 @@
                         "showLinker": true
                     },
                     "Toolbar": {
-                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
+                        "iconClass": "ff-component"
+                    }
+                }
+            }
+        },
+        "AuthenticationDebug": {
+            "window": {
+                "id": "AuthenticationDebug",
+                "windowType": "native",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\AuthenticationDebug\\AuthenticationExample.exe",
+                "arguments": "arg1 arg2 arg3",
+                "autoShow": true,
+                "alwaysOnTop": false,
+                "resizable": true,
+                "showTaskbarIcon": true,
+                "contextMenu": true,
+                "addToWorkspace": true
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true,
+                        "showLinker": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "ff-component"
+                    }
+                }
+            }
+        },
+        "AuthenticationDLLDebug": {
+            "window": {
+                "id": "AuthenticationDLLDebug",
+                "windowType": "native",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\AuthenticationDLLDebug\\AuthenticationExample.exe",
+                "arguments": "arg1 arg2 arg3",
+                "autoShow": true,
+                "alwaysOnTop": false,
+                "resizable": true,
+                "showTaskbarIcon": true,
+                "contextMenu": true,
+                "addToWorkspace": true
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true,
+                        "showLinker": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "ff-component"
                     }
                 }
             }
@@ -352,7 +356,7 @@
                         "showLinker": true
                     },
                     "Toolbar": {
-                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
+                        "iconClass": "ff-component"
                     }
                 }
             }
@@ -390,7 +394,7 @@
                         "showLinker": true
                     },
                     "Toolbar": {
-                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
+                        "iconClass": "ff-component"
                     }
                 }
             }
@@ -414,7 +418,7 @@
                         "launchableByUser": false
                     },
                     "Toolbar": {
-                        "iconURL": "$applicationRoot/components/assets/img/notepad.png"
+                        "iconClass": "ff-component"
                     }
                 }
             }

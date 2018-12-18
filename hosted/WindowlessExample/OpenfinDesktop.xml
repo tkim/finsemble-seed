@@ -4281,9 +4281,9 @@
             <param name="desktopPath">The file path that the AppDesktop executable is located in.</param>
             <param name="commandLine">Command line arguments to start the AppDesktop with.</param>
         </member>
-        <member name="M:Openfin.Desktop.DesktopConnectionInternal.ConnectionMainThread">
+        <member name="M:Openfin.Desktop.DesktopConnectionInternal.webSocketThreadMain">
                      * 
-                     * ThreadStart for main Connection Monitor thread
+                     * ThreadStart for Websocket thread
                      * 
                     *
         </member>
@@ -4427,11 +4427,6 @@
         <member name="P:Openfin.Desktop.DesktopConnection.MessageTrace">
             <summary>
             Gets or sets a value indicating whether or not all incoming and outgoing messages should be trace logged.
-            </summary>
-        </member>
-        <member name="P:Openfin.Desktop.DesktopConnection.ExternalWindow">
-            <summary>
-            Gets or sets an ExternalWindow which responds to Runtime external windowing events.
             </summary>
         </member>
         <member name="P:Openfin.Desktop.DesktopConnection.Port">
