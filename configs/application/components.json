@@ -361,6 +361,37 @@
                 }
             }
         },
+        "WPFAssimControl": {
+            "window": {
+                "id": "WPFAssimControl",
+                "windowType": "native",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFAssimControl\\WPFExample.exe",
+                "autoShow": true,
+                "alwaysOnTop": false,
+                "resizable": true,
+                "showTaskbarIcon": true,
+                "contextMenu": true,
+                "addToWorkspace": true
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "showLinker": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "ff-component"
+                    }
+                }
+            }
+        },
         "testArgs": {
             "window": {
                 "id": "test args",
@@ -392,30 +423,6 @@
                         "persistWindowState": false,
                         "FSBLHeader": true,
                         "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "ff-component"
-                    }
-                }
-            }
-        },
-        "dotNetServiceExample-config": {
-            "window": {
-                "id": "dotNetServiceExample-ID",
-                "name": "dotNetServiceExample-name",
-                "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WindowlessSeed\\WindowlessExample.exe",
-                "arguments": "arg1 arg2 arg3",
-                "autoShow": false,
-                "addToWorkspace": false
-            },
-            "component": {
-                "spawnOnStartup": true
-            },
-            "foreign": {
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": false
                     },
                     "Toolbar": {
                         "iconClass": "ff-component"
