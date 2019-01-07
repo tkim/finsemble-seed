@@ -209,7 +209,7 @@
                 }
             }
         },
-        "WPFExample": {
+        "WPFRelease": {
             "window": {
                 "id": "WPFRelease",
                 "windowType": "native",
