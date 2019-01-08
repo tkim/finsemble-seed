@@ -21,8 +21,8 @@
 			"useOpenFinSpawn": false,
 			"enabled": true,
 			"blacklist": [],
-			"whitelist": ["GitHub Desktop"],
-			"onlySpawned": false,
+			"whitelist": [],
+			"onlySpawned": true,
 			"throttle": 10,
 			"focusDelay": 30,
 			"eventIgnore": 50
