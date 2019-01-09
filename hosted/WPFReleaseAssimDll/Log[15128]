@@ -1,0 +1,27 @@
+2019-01-08 17:35:33,714 [1] DEBUG WPFExample.App - OnStartup
+2019-01-08 17:35:33,730 [1] DEBUG ChartIQ.Finsemble.Finsemble - Initializing new instance of FinsembleBridge:
+	Version: 8.56.28.36
+
+2019-01-08 17:35:33,733 [1] DEBUG ChartIQ.Finsemble.Finsemble - Connect called
+2019-01-08 17:35:34,932 [DesktopConnectionInternal:DesktopStateDispatcher] INFO ChartIQ.Finsemble.Finsemble - Connected to OpenFin Runtime.
+2019-01-08 17:35:35,363 [1] DEBUG ChartIQ.Finsemble.Finsemble - Sending RPC command:
+	topic: "NativeWindow"
+	parameter: "{
+  "windowName": "WPFReleaseAssimDll-7-7228-Finsemble",
+  "top": 89.0,
+  "left": 222.0,
+  "width": 800.0,
+  "height": 600.0,
+  "windowHandle": "330504",
+  "windowAction": "open"
+}"
+	callbackChannel: WPFReleaseAssimDll-7-7228-Finsemble-channel
+2019-01-08 17:35:35,364 [1] DEBUG ChartIQ.Finsemble.Finsemble - Adding callback channel: WPFReleaseAssimDll-7-7228-Finsemble-channel
+2019-01-08 17:40:22,044 [1] DEBUG ChartIQ.Finsemble.Finsemble - Sending RPC command:
+	topic: "NativeWindow"
+	parameter: "{
+  "windowName": "WPFReleaseAssimDll-7-7228-Finsemble",
+  "windowAction": "close"
+}"
+	callbackChannel: WPFReleaseAssimDll-7-7228-Finsemble-channel
+2019-01-08 17:40:22,044 [1] DEBUG ChartIQ.Finsemble.Finsemble - Adding callback channel: WPFReleaseAssimDll-7-7228-Finsemble-channel
