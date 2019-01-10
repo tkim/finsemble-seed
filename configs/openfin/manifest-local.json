@@ -75,6 +75,17 @@
         ],
         "IAC": {
             "serverAddress" : "wss://127.0.0.1:3376"
+        },
+        "servicesConfig": {
+            "router": {
+                "spawnAs": "script"
+            },
+            "config": {
+                "spawnAs": "script"
+            },
+            "dataStore": {
+                "spawnAs": "script"
+            }
         }
     }
 }

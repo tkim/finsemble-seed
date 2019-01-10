@@ -17,7 +17,35 @@
 			"staggerPixels": 40,
 			"unknownComponent": "nonConfiguredComponent"
 		},
+		"startupLauncher": {
+			"spawnAs": "window"
+		},
+		"window": {
+			"spawnAs": "window"
+		},
+		"storage": {
+			"spawnAs": "window"
+		},
+		"workspace": {
+			"spawnAs": "script"
+		},
+		"linker": {
+			"spawnAs": "script"
+		},
+		"search": {
+			"spawnAs": "script"
+		},
+		"authentication": {
+			"spawnAs": "script"
+		},
+		"finsembleNative": {
+			"spawnAs": "script"
+		},
+		"hotkeys": {
+			"spawnAs": "script"
+		},
 		"assimilation": {
+			"spawnAs": "script",
 			"useOpenFinSpawn": false,
 			"enabled": true,
 			"blacklist": [],
@@ -70,39 +98,6 @@
 		"comment": "A SplinterAgent is just an openfin application that is capable of spawning specific components/services. If you try to spawn a component/service that one of these agents does not cover, it will be spawned by the defaultAgent. You can also specify maxWindowsPerAgent if you would like to limit your agents to some ceiling. This is useful when you have a particularly heavy component.",
 		"enabled": true,
 		"splinterAgents": [
-			{
-				"agentLabel": "systemComponents",
-				"components": [
-					"Toolbar",
-					"App Launcher",
-					"Workspace Management Menu",
-					"linkerWindow",
-					"defaultAuthentication",
-					"dialogSignOn",
-					"dialogTemplate",
-					"dialogTest",
-					"File Menu",
-					"AdhocComponentForm",
-					"Process Monitor",
-					"Docking Move Mask",
-					"yesNo",
-					"singleInput",
-					"dialogModal",
-					"UserPreferences",
-					"App Catalog",
-					"searchMenu"
-				]
-			},
-			{
-				"agentLabel": "Tier2",
-				"services": [
-					"launcherService",
-					"authenticationService",
-					"workspaceService",
-					"storageService",
-					"searchService"
-				]
-			}
 		]
 	},
 	"globalHotkeys": {},
