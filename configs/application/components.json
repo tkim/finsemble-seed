@@ -171,7 +171,7 @@
         },
         "iPushPull": {
             "window": {
-                "url": "https://www.ipushpull.com/embedapp/?contrast=dark",
+                "url": "https://www.ipushpull.com/syapp/?contrast=dark",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,
@@ -206,7 +206,7 @@
         },
         "iPushPullTest": {
             "window": {
-                "url": "https://test.ipushpull.com/embedded/?contrast=dark",
+                "url": "https://test.ipushpull.com/syapp/?contrast=dark",
                 "frame": false,
                 "resizable": true,
                 "autoShow": true,

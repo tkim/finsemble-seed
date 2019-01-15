@@ -1,7 +1,7 @@
 //JQuery (can't get ES6 import to work for this yet)
 const $ = require("jquery");
 const Logger = FSBL.Clients.Logger;
-import {getUserDetails, getUserDocs} from '../../../services/ipushpullTest/ipushpullTestClient';
+import {getUserDetails, getUserDocs} from '../ipushpullClient';
 
 //let ipp_domains = [];
 

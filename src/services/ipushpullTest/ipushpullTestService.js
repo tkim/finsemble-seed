@@ -20,7 +20,7 @@ let user_pass = 'abc123';
  * @constructor
  */
 function ipushpullTestService() {
-
+	debugger;
 	let self = this;
 	
 	this.ipp = ipushpull.create({

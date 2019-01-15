@@ -1,8 +1,8 @@
 import $ from "jquery";
 import Cookies from 'js-cookie';
-import {getUserDetails, getUserDocs, getLoginToken}  from '../../../services/ipushpull/ipushpullClient';
+import {getUserDetails, getUserDocs, getLoginToken}  from '../ipushpullClient';
 const Logger = FSBL.Clients.Logger;
-const cookie_prefix = 'ipp';
+const cookie_prefix = 'ipp_symphony';
 
 //check for ipp cookie, if not present set it and refresh
 let access_token = Cookies.get(cookie_prefix + "_access_token");
