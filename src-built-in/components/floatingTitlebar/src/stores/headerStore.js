@@ -64,6 +64,7 @@ var Actions = {
 		FSBL.FinsembleWindow.getInstance(spData.parent, function (err, wrappedWindow) {
 			HeaderStore.setCompanionWindow(wrappedWindow);
 			var onParentSet = async (e) => {
+				
 				let { data } = e;
 				console.log(data);
 				if (!localParent && data.parentName) {
@@ -113,6 +114,7 @@ var Actions = {
 			wrappedWindow.addListener("clearParent", onParentCleared);
 			wrappedWindow.listenForBoundsSet();
 			wrappedWindow.addListener("bounds-set", Actions.onBoundsChanged);
+			console.log("ON PARENT SET");
 			wrappedWindow.addListener("closed", Actions.onCompanionClosed);
 			wrappedWindow.addListener("hidden", Actions.onCompanionHidden);
 			wrappedWindow.addListener("shown", Actions.onCompanionShown);
@@ -283,6 +285,8 @@ var Actions = {
 
 	},
 	onCompanionClosed() {
+		let wrappedWindow = HeaderStore.getCompanionWindow();
+		//wrappedWindow.removeEventListener("closed", Actions.onCompanionClosed);
 		Logger.system.debug("Companion window closed");
 		FSBL.Clients.WindowClient.finsembleWindow.close({});
 	},
