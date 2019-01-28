@@ -13,7 +13,7 @@ const $ = require("jquery");
 let ipp_id = '4I4cEwF0fF0hvXOPrXkf5c0BhJhScUgI6qpubEqa';
 let ipp_secret = 'h3FBgcN75mMJq2lSUCWvBTgu6uesAhgxZzVe6d5T4KuGNImx6hd4jPKIXWG1SG7ALhnjlJtvUKyDh5q2XbKWNiTFlfeL4toE2pZoVBQLOUgSvRk6bMNvyGNpR4UwbqW5';
 let user_email = 'kris@chartiq.com';
-let user_pass = 'abc123';
+let user_pass = '83ipushpullNumbers!';
 
 /**
  * The ipushpull Service receives calls from the ipushpullClient.
