@@ -160,7 +160,7 @@ function ipushpullService() {
 ipushpullService.prototype = new baseService({
 	startupDependencies: {
 		clients: ["searchClient", "launcherClient"],
-		services: ["authenticationService", "routerService"]
+		services: ["authenticationService"]
 	}
 });
 let serviceInstance = new ipushpullService('ipushpullService');

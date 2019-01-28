@@ -76,7 +76,7 @@ function ipushpullTestService() {
 
 ipushpullTestService.prototype = new baseService({
 	startupDependencies: {
-		services: ["authenticationService", "routerService"]
+		services: ["authenticationService"]
 	}
 });
 let serviceInstance = new ipushpullTestService('ipushpullService');
