@@ -14,36 +14,6 @@ function readyFn () {
 		}
 	}, function (err, globalStore) {
 
-	
-
-		// 				FSBL.Clients.WindowClient.getComponentState({ field: 'loginRequested' }, function (err, state) {
-		// 					// bad password
-		// 					if (FSBL.$('.fail.show').text().includes('Invalid username or password')) {
-
-		// 						FSBL.Clients.WindowClient.getComponentState({ field: 'loginRequested' }, function (err, state) {
-		// 							if (state.validationRequired) {
-		// 								console.log("failed login: ", FSBL.$('.fail.show').text());
-		// 								FSBL.Clients.AuthenticationClient.appRejectAndRetrySignOn(signOnKey, { userMsg: FSBL.$('.fail.show').text() }, function (err, signOnData) {
-		// 									signon(signOnData);
-		// 								});
-		// 							} else {
-		// 								let forceParams = Object.assign({}, params); //clone
-		// 								forceParams.force = true;
-		// 								// force a signon problem because previously accepted data wasn't successful
-		// 								FSBL.Clients.AuthenticationClient.appSignOn(signOnKey, forceParams, function (err, signOnData) {
-		// 									signon(signOnData);
-		// 								});
-		// 							}
-		// 						});
-		// 					} else {
-		// 						FSBL.Clients.AuthenticationClient.appSignOn(signOnKey, params, function (err, signOnData) {
-		// 							signon(signOnData);
-		// 						});
-		// 					}
-		// 				});
-
-
-
 		function launchIfNeeded(chatDescriptor) {
 			chatDescriptor.fromUser = Symphony.Application.getDataStore()["resources"].users.models[0].attributes
 			chatDescriptor.chatId = chatDescriptor.userID ? chatDescriptor.userID : chatDescriptor.viewID;
@@ -83,7 +53,7 @@ function readyFn () {
 				var chatLoaded = false;
 				var chatTitles = FSBL.$('.truncate-text');
 				if (!chatTitles.length) chatTitles = FSBL.$('.chat-room-header__name');
-				//debugger;
+
 				console.log("CHAT TITLES", chatTitles);
 				chatTitles.each(function (key, value) {
 					var chatHeader = FSBL.$(value);
@@ -122,11 +92,7 @@ function readyFn () {
 }
 
 FSBL.addEventListener('onReady', function () {
-	console.log("Mark Begin Authentication");
-	console.log("Test site locale", FSBL.Clients.ConfigClient.get(null, function () {
-		return;
-	}));
-	FSBL.Clients.AuthenticationClient.beginAuthentication({profile: "symphony"}, function() {
+
 		console.log("Mark Force Day Theme");
 		// Force light/day theme
 		const themeWatcher = setInterval(() => {
@@ -136,7 +102,6 @@ FSBL.addEventListener('onReady', function () {
 				clearInterval(themeWatcher)
 			}
 		}, 1000)
-		console.log("Mark Force Day Theme End");
 
 		if (window.mindControl) {
 			console.warn('Duplicate Injection');
@@ -152,5 +117,4 @@ FSBL.addEventListener('onReady', function () {
 		};
 		window.mindControl = true;
 		readyFn();
-	});
 });

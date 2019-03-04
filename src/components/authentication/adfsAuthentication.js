@@ -65,7 +65,7 @@ function completeAuth(){
             var credentials =  { username: username, password: password };
             debugger;
             FSBL.Clients.AuthenticationClient.publishAuthorization(credentials.username, credentials);
-            // fin.desktop.Window.getCurrent().close(true);
+            fin.desktop.Window.getCurrent().close(true);
         });
 
     }catch(e){

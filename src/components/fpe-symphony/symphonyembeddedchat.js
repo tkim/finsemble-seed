@@ -65,41 +65,6 @@ FSBL.addEventListener('onReady', function (event) {
 		}
 		</style>`);
 
-		// Sign On
-		var signOnKey = 'symphony';
-		function signon(signOnData) {
-			console.log("signonData", signOnData);
-			if (signOnData) {
-
-				FSBL.$("input[name='signin-email']").val(signOnData.username);
-				FSBL.$("input[name='signin-password']").val(signOnData.password);
-				FSBL.Clients.WindowClient.setComponentState({ field: 'loginRequested', value: { activeLogin: true, validationRequired: signOnData.validationRequired } }, function () {
-					FSBL.$("button[name='signin-submit']").trigger('click');
-					setTimeout(checkIfSignonNeeded(function (signOnNeeded) {
-
-					}), 1000);
-				});
-			} else { // what to do if they close the sign on box?
-				FSBL.Clients.Logger.error("Symphony unexpected condition. No signonData!");
-				globalStore.getValue({ field: "primarySymphonyWindow" }, function (err, value) {
-					if (value == FSBL.Clients.WindowClient.windowName) {
-						FSBL.Clients.Logger.log("I'm a dead bug. Releasing myself from being primarySymphonyWindow");
-						globalStore.setValue({ field: "primarySymphonyWindow", value: null }, function (err, value) {
-							//FSBL.Clients.WindowClient.close();
-						});
-					}
-				});
-			}
-		}
-
-		function amSignedOn() {
-			FSBL.Clients.WindowClient.getComponentState({ field: 'loginRequested' }, function (err, state) {
-				if (state) {
-					FSBL.Clients.AuthenticationClient.appAcceptSignOn(signOnKey);
-					FSBL.Clients.WindowClient.setComponentState({ field: 'loginRequested', value: false });
-				}
-			});
-		}
 
 		function processSharedData(sharedData) {
 			FSBL.Clients.DragAndDropClient.openSharedData({ data: sharedData });
@@ -133,139 +98,14 @@ FSBL.addEventListener('onReady', function (event) {
 
 		}
 
-		// am I on a login page?
-		function checkIfSignonNeeded(cb) {
-			console.log('check if signon needed');
-			FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:checkIfSignonNeeded`);
-			function doStuffAfterLoggingIn(cb) {
-				// Force light/day theme
-				document.body.className = document.body.className.replace('dark', 'light');
-				hijackEventDispatcher();
+		// function doStuffAfterLoggingIn(cb) {
+		// 		// Force light/day theme
+		// 		document.body.className = document.body.className.replace('dark', 'light');
+		// 		hijackEventDispatcher();
 
-				var removeScrim = function () {
-					console.log('trying to remove scrim')
-					if (window.removeFinsembleLoadingScrim) {
-						FSBL.$('.spinnerContainer').remove();
-						setTimeout(window.removeFinsembleLoadingScrim, 250);
-					} else {
-						setTimeout(removeScrim, 250);
-					}
-				}
-				removeScrim();
+		// 		return cb(false);
+		// }
 
-				return cb(false);
-			}
-
-			// check if we are the primary window
-			globalStore.getValue({ field: 'primarySymphonyWindow' }, function (err, value) {
-				FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:globalStore.getValue primarySymphonyWindow`, (err, value));
-				if (value == FSBL.Clients.WindowClient.windowName) { //If we are the main Window then login
-					var buttonToClick;
-
-					if (FSBL.$('.undefined.tempo-btn.tempo-btn--primary').text() === 'Login') {
-						buttonToClick = FSBL.$('.undefined.tempo-btn.tempo-btn--primary');
-					}
-
-					if (FSBL.$('.tempo-btn.tempo-btn--flat').text() === 'Sign in to chat') {
-						buttonToClick = FSBL.$('.tempo-btn.tempo-btn--flat');
-					}
-
-					// If we are at one of the useless button pages, click to continue
-					if (buttonToClick) {
-						buttonToClick.trigger('click');
-						return cb(true);
-					}
-
-					// Has symphony loaded anything? If not, wait
-					if (!FSBL.$('#root').length && !FSBL.$('#authentication').length) {
-						setTimeout(function () {
-							checkIfSignonNeeded(cb);
-						}, 150);
-						return;
-					}
-
-					// Do we need to login?
-					if (FSBL.$('#authentication').length) {
-						params = {
-							icon: podURL + '/images/svg/logo.svg',
-							prompt: 'Symphony Login'
-						};
-
-						FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:getComponentState 1`);
-						FSBL.Clients.WindowClient.getComponentState({ field: 'loginRequested' }, function (err, state) {
-							FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:getComponentState response 1`, err, state);
-							// bad password
-							if (FSBL.$('.fail.show').text().includes('Invalid username or password')) {
-
-								FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:getComponentState 2`);
-								FSBL.Clients.WindowClient.getComponentState({ field: 'loginRequested' }, function (err, state) {
-									FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:getComponentState response 2`, err, state);
-									if (state.validationRequired) {
-										console.log("failed login: ", FSBL.$('.fail.show').text());
-										FSBL.Clients.AuthenticationClient.appRejectAndRetrySignOn(signOnKey, { userMsg: FSBL.$('.fail.show').text() }, function (err, signOnData) {
-											FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:signon response 1`, error, signOnData);
-											signon(signOnData);
-										});
-									} else {
-										let forceParams = Object.assign({}, params); //clone
-										forceParams.force = true;
-										// force a signon problem because previously accepted data wasn't successful
-										FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:signon 1`, signOnKey);
-										FSBL.Clients.AuthenticationClient.appSignOn(signOnKey, forceParams, function (err, signOnData) {
-											FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:signon response 2`, error, signOnData);
-											signon(signOnData);
-										});
-									}
-								});
-							} else {
-								FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:signon 2`, signOnKey);
-								FSBL.Clients.AuthenticationClient.appSignOn(signOnKey, params, function (err, signOnData) {
-									FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:signon response 3`, err, signOnData);
-									signon(signOnData);
-								});
-							}
-						});
-
-						return cb(true);
-					} else {
-						// we are signed on, hurray
-						FSBL.Clients.RouterClient.publish('Finsemble.SymphonySignedOn', true);
-						doStuffAfterLoggingIn(cb);
-
-					}
-
-				} else { //otherwise just wait for the main window and reload
-					FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl:wait for login notification on SymphonySignedOn`);
-					FSBL.Clients.RouterClient.subscribe('Finsemble.SymphonySignedOn', function (err, response) {
-						if (err) {
-							FSBL.Clients.Logger.system.error(`SymphonyChat SymphonySignedOn: login error notification`, (err, response));
-						} else if (response.data === true) {
-							FSBL.Clients.Logger.system.debug(`SymphonyChat SymphonySignedOn: successful login notify received`, (err, response));
-							if (FSBL.$('.undefined.tempo-btn.tempo-btn--primary').text() === 'Login') {
-								buttonToClick = FSBL.$('.undefined.tempo-btn.tempo-btn--primary');
-							}
-
-							if (FSBL.$('.tempo-btn.tempo-btn--flat').text() === 'Sign in to chat') {
-								buttonToClick = FSBL.$('.tempo-btn.tempo-btn--flat')
-							}
-
-							// If we are at one of the useless button pages, click to continue
-							if (buttonToClick) {
-								FSBL.Clients.Logger.system.debug(`Finsemble.SymphonySignedOn:buttonToClick`);
-								buttonToClick.trigger('click')
-								return cb(true);
-							} else if (FSBL.$('#authentication').length) {
-								changeChatLocation(FSBL.Clients.WindowClient.options.customData.chatInfo);
-							} else {
-								FSBL.Clients.Logger.system.debug(`Finsemble.SymphonySignedOn: all options skipped`);
-							}
-
-							doStuffAfterLoggingIn(cb);
-						}
-					});
-				}
-			})
-		}
 
 		/**
 		 * Make a url safe streamID according to https://rest-api.symphony.com/docs/room-id
@@ -294,7 +134,7 @@ FSBL.addEventListener('onReady', function (event) {
 		}
 
 		FSBL.$(document.body).append('<style>'+require('./symphonyembeddedchat.css')+'</style>');
-
+		// doStuffAfterLoggingIn(cb);
 
 		// Get state at load time
 
@@ -315,16 +155,14 @@ FSBL.addEventListener('onReady', function (event) {
 				if (chatDescriptor.header) {
 					FSBL.Clients.WindowClient.setWindowTitle(chatDescriptor.header + " | Symphony");
 				}
-				if (location.href.includes(podURL)) {
-					FSBL.Clients.Logger.system.debug(`SymphonyChat MindControl X: before checkIfSignonNeeded`);
-					checkIfSignonNeeded(function (signOnNeeded) { });
-				} else {
-					changeChatLocation(chatDescriptor);
-				}
+
+				changeChatLocation(chatDescriptor);
 			}
 
 			// Hijack the event dispatcher to catch finsemble// links
-
+			// doStuffAfterLoggingIn(cb);
+			hijackEventDispatcher();
+			
 			function sendData(err, response) {
 				if (response.shareMethod != FSBL.Clients.DragAndDropClient.SHARE_METHOD.DROP) {
 					return;
@@ -363,15 +201,7 @@ FSBL.addEventListener('onReady', function (event) {
 			function _openChat(chatInfo) {
 				FSBL.Clients.WindowClient.options.customData.chatInfo = chatInfo; // replace same window with a new user
 				FSBL.Clients.WindowClient.setComponentState({ field: 'chatInfo', value: chatInfo }, function () {
-					if (location.href.includes(podURL)) {
-						checkIfSignonNeeded(function (signOnNeeded) {
-							if (!signOnNeeded) {
-								changeChatLocation(chatInfo);
-							}
-						})
-					} else {
-						changeChatLocation(chatInfo);
-					}
+					changeChatLocation(chatInfo);
 				});
 			}
 

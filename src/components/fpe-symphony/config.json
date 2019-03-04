@@ -49,7 +49,6 @@
 					"frameConnect": "all"
 				},
 				"component": {
-					"preload": "$applicationRoot/components/fpe-symphony/loadingscrim.js",
 					"inject": "$applicationRoot/components/fpe-symphony/symphonyembeddedchat.js",
 					"advertiseReceivers": [
 						"symphony.chat",
@@ -72,7 +71,7 @@
 					},
 					"components": {
 						"App Launcher": {
-							"launchableByUser": false
+							"launchableByUser": true
 						},
 						"Window Manager": {
 							"FSBLHeader": false,

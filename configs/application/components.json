@@ -159,7 +159,7 @@
 			"foreign": {
 				"services": {
 					"dockingService": {
-						"isArrangable": true
+						"isArrangable": false
 					}
 				},
 				"components": {
@@ -167,7 +167,7 @@
 						"launchableByUser": false
 					},
 					"Window Manager": {
-						"FSBLHeader": true,
+						"FSBLHeader": false,
 						"persistWindowState": false
 					}
 				}
