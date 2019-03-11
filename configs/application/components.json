@@ -209,127 +209,12 @@
                 }
             }
         },
-        "WPFRelease": {
-            "window": {
-                "id": "WPFRelease",
-                "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFRelease\\FinsembleWPFDemo.exe",
-                "arguments": "",
-                "autoShow": true,
-                "alwaysOnTop": false,
-                "resizable": true,
-                "showTaskbarIcon": true,
-                "contextMenu": true,
-                "addToWorkspace": true
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "workspaceService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "persistWindowState": false,
-                        "FSBLHeader": true,
-                        "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "ff-component"
-                    }
-                }
-            }
-        },
         "WPFExampleDebug": {
             "window": {
                 "id": "WPFExampleDebug",
                 "windowType": "native",
                 "path": "C:\\Users\\admin\\Documents\\code\\temp\\finsemble-seed\\hosted\\WPFExampleDebug\\FinsembleWPFDemo.exe",
                 "arguments": "",
-                "autoShow": true,
-                "alwaysOnTop": false,
-                "resizable": true,
-                "showTaskbarIcon": true,
-                "contextMenu": true,
-                "addToWorkspace": true
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "workspaceService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "persistWindowState": false,
-                        "FSBLHeader": true,
-                        "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "ff-component"
-                    }
-                }
-            }
-        },
-        "WindowlessExampleRelease": {
-            "window": {
-                "id": "WindowlessExampleRelease",
-                "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WindowlessExampleRelease\\WindowlessExample.exe",
-                "arguments": "arg1 arg2 arg3",
-                "autoShow": true,
-                "alwaysOnTop": false,
-                "resizable": true,
-                "showTaskbarIcon": true,
-                "contextMenu": true,
-                "addToWorkspace": true
-            },
-            "component": {
-                "inject": false,
-                "spawnOnStartup": true
-            },
-            "foreign": {
-                "services": {
-                    "workspaceService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": false
-                    },
-                    "Window Manager": {
-                        "persistWindowState": false,
-                        "FSBLHeader": true,
-                        "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "ff-component"
-                    }
-                }
-            }
-        },
-        "AuthenticationExampleRelease": {
-            "window": {
-                "id": "AuthenticationExampleRelease",
-                "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\AuthenticationExampleRelease\\AuthenticationExample.exe",
-                "arguments": "arg1 arg2 arg3",
                 "autoShow": true,
                 "alwaysOnTop": false,
                 "resizable": true,
