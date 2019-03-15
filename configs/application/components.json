@@ -213,7 +213,7 @@
             "window": {
                 "id": "WPFExampleDebug",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\temp\\finsemble-seed\\hosted\\WPFExampleDebug\\FinsembleWPFDemo.exe",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFExampleDebug\\FinsembleWPFDemo.exe",
                 "arguments": "",
                 "autoShow": true,
                 "alwaysOnTop": false,
