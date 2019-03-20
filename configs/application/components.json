@@ -284,6 +284,27 @@
                     }
                 }
             }
+        },
+        "WindowlessExample": {
+            "window": {
+                "id": "Windowless",
+                "name": "winlessSeed",
+                "windowType": "FinsembleNativeWindow",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\windowlessExampleDebug\\WindowlessExample.exe",
+                "arguments": "arg1 arg2 arg3",
+                "autoShow": false,
+                "addToWorkspace": false
+            },
+            "component": {
+                "spawnOnStartup": true
+            },
+            "foreign": {
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": false
+                    }
+                }
+            }
         }
     }
 }

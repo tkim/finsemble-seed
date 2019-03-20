@@ -52,6 +52,8 @@ var Actions = {
 		if (bool) {
 			if (window.outerWidth < 400) {
 				finsembleWindow.getBounds((err, bounds) => {
+					if (err) { FSBL.Clients.Logger.error(`finsembleWindow.getBounds failed, error:`, err); }
+			
 					cachedBounds = bounds;
 					finsembleWindow.animate({ transitions: { size: { duration: 150, width: 400 } } }, Function.prototype);
 				})
@@ -65,6 +67,7 @@ var Actions = {
 			}
 			if (!menuWindow) return;
 			return menuWindow.isShowing((err, showing) => {
+				if (err) { FSBL.Clients.Logger.error(`menuWindow.isShowing failed, error:`, err); }
 				//Gets the input text that is in the current search box.
 				//If the text is empty or the search is not showing, no need to position search results
 				let inputText = searchInputHandler();
@@ -78,9 +81,10 @@ var Actions = {
 			return Actions.handleClose();
 		}
 		menuWindow.isShowing(function (err, showing) {
+			if (err) { FSBL.Clients.Logger.error(`menuWindow.isShowing failed, error:`, err); }
 			//if (!showing) return//console.log("not showing")
 			mouseInWindow(menuWindow, function (err, inBounds) {
-
+				if (err) { FSBL.Clients.Logger.error(`mouseInWindow failed, error:`, err); }
 				if (!inBounds) {
 					Actions.handleClose();
 				}
@@ -175,6 +179,7 @@ var Actions = {
 	 */
 	handleClose(e) {
 		menuWindow.isShowing(function (err, showing) {
+			if (err) { FSBL.Clients.Logger.error(`menuWindow.isShowing failed, error:`, err); }
 			if (showing) {
 				console.log("close a window")
 				if (!e && cachedBounds) {
@@ -198,6 +203,7 @@ var Actions = {
 		console.log("SETUP WINDOW!", menuReference.name);
 		//menuWindow = fin.desktop.Window.wrap(menuReference.finWindow.app_uuid, menuReference.finWindow.name);
 		FSBL.FinsembleWindow.getInstance({ windowName: menuReference.name }, (err, wrap) => {
+			if (err) { FSBL.Clients.Logger.error(`Failed to retrieve reference to search results menu: ${menuReference.name}, error:`, err); }
 			menuWindow = wrap;
 			cb();
 		});
@@ -207,6 +213,7 @@ var Actions = {
 	},
 	actionPress(action) {
 		menuStore.getValue("list", function (err, list) {
+			if (err) { FSBL.Clients.Logger.error(`menuStore.getValue failed, error:`, err); }
 			if (!list) return;
 			if (list.length > 1) {
 				FSBL.Clients.RouterClient.transmit("SearchMenu." + menuWindow.name + ".actionpress", action);
@@ -244,6 +251,7 @@ var Actions = {
 			return;
 		}
 		FSBL.Clients.SearchClient.search({ text: text }, function (err, response) {
+			if (err) { FSBL.Clients.Logger.error(`SearchClient.search failed, error:`, err); }
 			var updatedResults = [].concat.apply([], response)
 			Actions.setList(updatedResults);
 			setTimeout(() => {
@@ -278,6 +286,8 @@ function createStore(done) {
 	};
 //console.log("CreateStore", "Finsemble-SearchStore-" + finWindow.name)
 	FSBL.Clients.DistributedStoreClient.createStore({ store: "Finsemble-SearchStore-" + finWindow.name, values: defaultData, global: true }, function (err, store) {
+		if (err) { FSBL.Clients.Logger.error(`DistributedStoreClient.createStore failed for store "Finsemble-SearchStore-${finWindow.name}, error:`, err); }
+
 		menuStore = store;
 
 		store.getValues(["owner", "menuSpawned"], function (err, data) {
@@ -292,6 +302,8 @@ function createStore(done) {
 
 			if (!data.menuSpawned) {
 				FSBL.Clients.LauncherClient.spawn("searchMenu", { name: "searchMenu." + finWindow.name, data: { owner: finWindow.name } }, function (err, data) {
+					if (err) { FSBL.Clients.Logger.error(`LauncherClient.spawn failed for searchMenu.${finWindow.name}, error:`, err); }
+
 					//console.log("Err", err, data)
 					menuStore.setValue({ field: "menuIdentifier", value: data.windowIdentifier })
 					Actions.setupWindow(() => {
@@ -301,6 +313,8 @@ function createStore(done) {
 				});
 			} else {
 				menuStore.getValue("menuIdentifier", function (err, menuIdentifier) {
+					if (err) { FSBL.Clients.Logger.error(`menuStore.getValue failed for menuIdentifier, error:`, err); }
+
 					menuReference = menuIdentifier;
 					Actions.setupWindow(done);
 				})
