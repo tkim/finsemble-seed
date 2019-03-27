@@ -290,7 +290,7 @@
                 "id": "WindowlessExampleRelease",
                 "name": "WindowlessExampleRelease",
                 "windowType": "FinsembleNativeWindow",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\windowlessExampleRelease\\WindowlessExample.exe",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WindowlessExampleRelease\\WindowlessExample.exe",
                 "arguments": "arg1 arg2 arg3",
                 "autoShow": false,
                 "addToWorkspace": false
@@ -310,7 +310,7 @@
             "window": {
                 "id": "WPFExampleRelease",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFExampleRelease\\WPFExample.exe",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFExampleRelease\\FinsembleWPFDemo.exe",
                 "arguments": "",
                 "autoShow": true,
                 "alwaysOnTop": false,
