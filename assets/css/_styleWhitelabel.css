@@ -79,6 +79,18 @@ html.desktop-active .fsbl-linker[hover=true] {
   border-radius: 30px;
 }
 
+.finsemble-toolbar-drag-handle > svg {
+  width: 23px;
+  margin-top: -7px;
+}
+
+.finsemble-toolbar-drag-handle {
+  padding-left: 5px;
+  padding-right: 0px;
+  padding-top: 0px;
+}
+
+
 /* finsemble titlebar */
 
 .fsbl-header-right > .fsbl-icon {
