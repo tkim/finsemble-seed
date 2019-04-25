@@ -14,6 +14,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"allowAdhoc": "@TODO",
 				"spawnOnStartup": false,
 				"category": "system"
@@ -46,6 +49,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"allowAdhoc": "@TODO",
 				"spawnOnStartup": false,
 				"category": "system"
@@ -79,6 +85,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"allowAdhoc": "@TODO",
 				"spawnOnStartup": false,
 				"category": "system"
@@ -111,6 +120,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"allowAdhoc": "@TODO",
 				"spawnOnStartup": false,
 				"category": "system"
@@ -143,6 +155,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"spawnOnStartup": false,
 				"category": "system"
 			},
@@ -176,6 +191,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"spawnOnStartup": true,
 				"category": "system"
 			},
@@ -210,6 +228,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"title": "@TODO",
 				"menuItems": [
 					"@TODO config not yet implemented",
@@ -256,6 +277,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"spawnOnStartup": false,
 				"category": "system"
 			},
@@ -290,6 +314,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system"
 			},
 			"foreign": {
@@ -322,6 +349,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system"
 			},
 			"foreign": {
@@ -357,6 +387,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system",
 				"spawnOnStartup": true
 			},
@@ -398,6 +431,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system",
 				"spawnOnStartup": true
 			},
@@ -439,6 +475,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system",
 				"spawnOnStartup": false
 			},
@@ -481,6 +520,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system"
 			},
 			"foreign": {
@@ -530,6 +572,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system",
 				"spawnOnStartup": true,
 				"spawnOnAllMonitors": false,
@@ -568,6 +613,9 @@
 				"ephemeral": true
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system"
 			},
 			"foreign": {
@@ -602,6 +650,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system",
 				"spawnOnStartup": true
 			},
@@ -648,6 +699,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system"
 			},
 			"foreign": {
@@ -678,6 +732,9 @@
 				"height": 700
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system"
 			},
 			"foreign": {
@@ -713,6 +770,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system"
 			},
 			"foreign": {
@@ -749,6 +809,9 @@
 				}
 			},
 			"component": {
+				"preload": [
+					"$applicationRoot/preloads/logRocket.js"
+				],
 				"category": "system",
 				"spawnOnStartup": false
 			},
