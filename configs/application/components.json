@@ -289,13 +289,13 @@
                 }
             }
         },
-        "WindowlessExampleDebug": {
+        "WindowlessExampleDebugProtocol": {
             "window": {
-                "id": "WindowlessExampleDebug",
-                "name": "WindowlessExampleDebug",
+                "id": "WindowlessExampleDebugProtocol",
+                "name": "WindowlessExampleDebugProtocol",
                 "windowType": "FinsembleNativeWindow",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WindowlessExampleDebug\\WindowlessExample.exe",
-                "arguments": "arg1 arg2 arg3",
+                "path": "testme://some_app/some_path",
+                "arguments": "",
                 "autoShow": false,
                 "addToWorkspace": false
             },
