@@ -70,7 +70,10 @@
   --menu-actions-hover-color:var(--menu-hover);
 
   /* this is the border around all finsemble components - set alpha to remove it */
-  --window-frame-inactive-color:rgba(255, 255, 255, 0)
+  --window-frame-inactive-color:rgba(255, 255, 255, 0);
+
+  /* Preferences */
+  --content-nav-header-background-color:var(--primary-light);
 }
 
 /* Manual overrides */
