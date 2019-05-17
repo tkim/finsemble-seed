@@ -52,6 +52,7 @@
   --toolbar-brand-logo-width: auto;
   --toolbar-brand-logo-height: auto;
   --toolbar-button-hover-color-light:var(--hover-color-light);
+  --toolbar-resize-area-color:var(--primary-light);
 
   /* App Menu */
   --menu-hover:var(--primary-light);
@@ -67,6 +68,9 @@
   --menu-content-hover-color-light: var(--hover-color-dark);
   --menu-content-hover-color:var(--menu-hover);
   --menu-actions-hover-color:var(--menu-hover);
+
+  /* this is the border around all finsemble components - set alpha to remove it */
+  --window-frame-inactive-color:rgba(255, 255, 255, 0)
 }
 
 /* Manual overrides */
@@ -80,6 +84,7 @@
 .finsemble-toolbar-button {
   /* keep your logo positioned in the middle */
   align-items: center;
+  padding: 0 6px;
 }
 .finsemble-toolbar-button[data-hover=true] {
 color: var(--primary-theme-color);
