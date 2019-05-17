@@ -38,8 +38,8 @@ export default class Toolbar extends React.Component {
 	render() {
 		return (<FinsembleToolbar>
 			<FinsembleToolbarSection name="left" className="left">
-				<FinsembleButton preSpawn={true} buttonType={["MenuLauncher", "Toolbar"]} iconClasses="finsemble-toolbar-brand-logo" icon="../../../assets/img/Finsemble_Menu_Icon.png" menuType="File Menu" />
-				<WorkspaceMenuOpener  />
+				<FinsembleButton preSpawn={true} buttonType={["MenuLauncher", "Toolbar"]} iconClasses="finsemble-toolbar-brand-logo" icon="../../../assets/img/Finsemble_Menu_Icon.svg" menuType="File Menu" />
+				<WorkspaceMenuOpener />
 				<FinsembleButton preSpawn={true} buttonType={["MenuLauncher", "Toolbar"]} label="Apps" menuType="App Launcher" />
 				<FinsembleToolbarSeparator />
 			</FinsembleToolbarSection>

@@ -1,4 +1,5 @@
 :root {
+  /* change images */
   /* Theme Variables:  Use these variables to make broad-sweeping changes to the colors and fonts. */
 
   /* Font Settings */
@@ -11,55 +12,57 @@
 
   /* Color Theme */
 
-  --bronze: rgb(223, 174, 114);
-  --bronze-lighter: rgb(238, 172, 92);
-  --bronze-lightest:#ffd199;
-  --brown-shade:#5D4F4C;
-  --orange: rgb(167, 102, 11);
-  --charcoal: #212529;
+
+  --caplin-blue: #2B92B6;
+
+  --primary:white;
+  --primary-light: rgb(82, 188, 226);
+  --primary-shade:rgb(20, 96, 124);
+  --contrast: #47cc66;
+  --secondary:var(--caplin-blue);
 
   /* === highlight / hover colors === */
 
   /* background colors */
-  --hover-color-light:var(--bronze);
-  --hover-color-dark:var(--charcoal);
+  --hover-color-light:var(--primary);
+  --hover-color-dark:var(--secondary);
   /* text color */
-  --hover-text-light: var(--bronze);
-  --hover-text-dark:  var(--charcoal);
+  --hover-text-light: var(--primary);
+  --hover-text-dark:  var(--secondary);
 
-  --primary-theme-color:var(--bronze);
-  --secondary-theme-color:var(--charcoal);
+  --primary-theme-color:var(--primary);
+  --secondary-theme-color:var(--secondary);
 
   --primary-accent-color: var(--primary-theme-color);
-  --secondary-accent-color: var(--brown-shade);
-  --tertiary-accent-color: var(--orange);
+  --secondary-accent-color: var(--primary-shade);
+  --tertiary-accent-color: var(--contrast);
 
   --primary-negative-color: var(--red5);
   --secondary-negative-color: var(--red1);
   --tertiary-negative-color: var(--red7);
 
-  --primary-background-color: var(--charcoal);
-  --secondary-background-color: var(--charcoal);
-  --tertiary-background-color: var(--brown-shade);
+  --primary-background-color: var(--secondary);
+  --secondary-background-color: var(--secondary);
+  --tertiary-background-color: var(--primary-shade);
 
   --scrollbar-color: var(--gray);
 
 /* Toolbar */
-  --toolbar-font-color: var(--bronze);
+  --toolbar-font-color: var(--primary);
   --toolbar-brand-logo-width: auto;
-  --toolbar-brand-logo-height: 25px;
+  --toolbar-brand-logo-height: auto;
   --toolbar-button-hover-color-light:var(--hover-color-light);
 
   /* App Menu */
-  --menu-hover: rgba(223, 174, 114, 0.62);
+  --menu-hover:var(--primary-light);
   --appMenu-leftNav-highlighter-hover: var(--hover-color-light);
   --appMenu-leftNav-highlighter: var(--hover-color-light);
   --appMenu-background-color: var(--secondary-theme-color);
   --appMenu-app-item-hover-background-color: var(--hover-color-light);
-  --appMenu-edit-icon-hover-color-light: var(--orange);
+  --appMenu-edit-icon-hover-color-light: var(--contrast);
 
   /* Menus */
-  --menu-actions-background-color: var(--brown-shade);
+  --menu-actions-background-color: var(--primary-shade);
   --menu-actions-hover-color-light: var(--hover-color-light);
   --menu-content-hover-color-light: var(--hover-color-dark);
   --menu-content-hover-color:var(--menu-hover);
@@ -73,6 +76,10 @@
 }
 .menu{
   background-color: var(--secondary-theme-color);
+}
+.finsemble-toolbar-button {
+  /* keep your logo positioned in the middle */
+  align-items: center;
 }
 .finsemble-toolbar-button[data-hover=true] {
 color: var(--primary-theme-color);
