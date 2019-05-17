@@ -2,7 +2,7 @@
     {
         "align": "left",
         "iconClasses": "finsemble-toolbar-brand-logo",
-        "icon": "../../assets/img/Finsemble_Menu_Icon.png",
+        "icon": "../../assets/img/Finsemble_Menu_Icon.svg",
         "menuType": "File Menu"
     },
     {
