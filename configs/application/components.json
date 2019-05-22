@@ -212,6 +212,64 @@
 					}
 				}
 			}
+		},
+		"Account Detail": {
+			"window": {
+				"url": "https://www.bing.com",
+				"resizable": true,
+				"autoShow": true,
+				"top": "center",
+				"left": "center",
+				"width": 400,
+				"height": 432,
+				"options" : {
+					"securityPolicy": "trusted"
+				}
+			},
+			"component": {
+				"spawnOnStartup": false,
+				"preload": "$applicationRoot/preloads/linkerPreload.js"
+			},
+			"foreign": {
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"FSBLHeader": true,
+						"persistWindowState": false
+					}
+				}
+			}
+		},
+		"Account Statement": {
+			"window": {
+				"url": "https://www.google.com",
+				"resizable": true,
+				"autoShow": true,
+				"top": "center",
+				"left": "center",
+				"width": 400,
+				"height": 432,
+				"options" : {
+					"securityPolicy": "trusted"
+				}
+			},
+			"component": {
+				"spawnOnStartup": false,
+				"preload": "$applicationRoot/preloads/linkerPreload.js"
+			},
+			"foreign": {
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"FSBLHeader": true,
+						"persistWindowState": false
+					}
+				}
+			}
 		}
 	}
 }
