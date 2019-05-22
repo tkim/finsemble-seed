@@ -75,6 +75,6 @@
         "IAC": {
             "serverAddress": "ws://127.0.0.1:3376"
         },
-        "trustedPreloads": ["$applicationRoot/preloads/linkerPreload.js"]
+        "trustedPreloads": ["linkerPreload.js"]
     }
 }

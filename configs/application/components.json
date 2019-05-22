@@ -221,10 +221,7 @@
 				"top": "center",
 				"left": "center",
 				"width": 400,
-				"height": 432,
-				"options" : {
-					"securityPolicy": "trusted"
-				}
+				"height": 432
 			},
 			"component": {
 				"spawnOnStartup": false,
@@ -250,10 +247,7 @@
 				"top": "center",
 				"left": "center",
 				"width": 400,
-				"height": 432,
-				"options" : {
-					"securityPolicy": "trusted"
-				}
+				"height": 432
 			},
 			"component": {
 				"spawnOnStartup": false,
