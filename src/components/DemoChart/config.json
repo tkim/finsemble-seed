@@ -1,0 +1,47 @@
+{
+  "components": {
+    "Chart": {
+      "window": {
+        "url": "https://demo.chartiq.com/",
+        "resizable": true,
+        "autoShow": true,
+        "frame": false,
+        "top": "center",
+        "left": "center",
+        "width": 800,
+        "height": 600,
+        "options": {
+          "securityPolicy": "trusted"
+        }
+      },
+      "component": {
+        "preload": [
+          "$applicationRoot/components/DemoChart/finsembleChartPreload.js",
+          "$applicationRoot/preloads/zoom.js"
+        ]
+      },
+      "foreign": {
+        "services": {
+          "dockingService": {
+            "canGroup": true,
+            "isArrangable": true
+          }
+        },
+        "components": {
+          "App Launcher": {
+            "launchableByUser": true
+          },
+          "Window Manager": {
+            "title": "Chart Demo",
+            "FSBLHeader": true,
+            "persistWindowState": true,
+            "showLinker": true
+          },
+          "Toolbar": {
+            "iconClass": "ff-component"
+          }
+        }
+      }
+    }
+  }
+}
