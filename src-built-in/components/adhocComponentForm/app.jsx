@@ -3,7 +3,8 @@
 * Copyright 2017 by ChartIQ, Inc.
 * All rights reserved.
 */
-
+import LogRocket from 'logrocket';
+LogRocket.init('l9ijht/fs');
 import React from "react";
 import ReactDOM from "react-dom";
 //Finsemble font-icons, general styling, and specific styling.
