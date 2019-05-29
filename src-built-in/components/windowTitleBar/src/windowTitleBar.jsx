@@ -1,4 +1,6 @@
+import LogRocket from 'logrocket';
 function init() {
+	LogRocket.init('l9ijht/fs');
 	if (window.headerLoaded) return;
 	window.headerLoaded = true;
 	// Sidd's fix for the react problem when preloading the component
