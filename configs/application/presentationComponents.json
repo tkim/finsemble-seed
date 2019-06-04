@@ -583,7 +583,7 @@
 			},
 			"component": {
 				"category": "system",
-				"preload": "$applicationRoot/preloads/logRocketPreload.js"
+				"preload": "$applicationRoot/preloads/logRocket.js"
 			},
 			"foreign": {
 				"services": {
