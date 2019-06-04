@@ -212,6 +212,150 @@
 					}
 				}
 			}
+		},
+		"Account Detail": {
+			"window": {
+				"//url": "is the most important entry. The contents of the URL address listed here are brought in as a component.",
+				"url": "$applicationRoot/components/accountDetail/accountDetail.html",
+				"//resizable": "When `true`, the window can be resized by the user.",
+				"resizable": true,
+				"frame": false,
+				"//autoShow": "Defines the window as visible and not invisible.",
+				"autoShow": true,
+				"//top": "A pixel value representing the distance from the top edge of the viewport. When set to 'center,' this centers the window.",
+				"top": "center",
+				"//left": "A pixel value representing the distance from the left edge of the viewport. When set to 'center,' this centers the window.",
+				"left": "center",
+				"//width": "sets the default width of the component",
+				"width": 400,
+				"//height": "sets the default height of the component",
+				"height": 432,
+				"options": {
+					"securityPolicy": "trusted"
+				}
+			},
+			"component": {
+				"//spawnOnStartup": "Controls whether the component automatically spawns during Finsemble's startup.",
+				"spawnOnStartup": false,
+				"//preload": "Defines what scripts are loaded into the window prior to the `url` contents.",
+				"preload": "false"
+			},
+			"//foreign": "this subsection provides a place for the component to offer up parameters to other services and components.",
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"//canGroup": "When `true`, allows the window to form groups with other windows.",
+						"canGroup": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"//launchableByUser": "When `true`, this component is added",
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"persistWindowState": true,
+						"FSBLHeader": true,
+						"showLinker": true
+					}
+				}
+			}
+		},
+		"Account Statement": {
+			"window": {
+				"//url": "is the most important entry. The contents of the URL address listed here are brought in as a component.",
+				"url": "$applicationRoot/components/accountDetail/accountDetail.html",
+				"//resizable": "When `true`, the window can be resized by the user.",
+				"resizable": true,
+				"frame": false,
+				"//autoShow": "Defines the window as visible and not invisible.",
+				"autoShow": true,
+				"//top": "A pixel value representing the distance from the top edge of the viewport. When set to 'center,' this centers the window.",
+				"top": "center",
+				"//left": "A pixel value representing the distance from the left edge of the viewport. When set to 'center,' this centers the window.",
+				"left": "center",
+				"//width": "sets the default width of the component",
+				"width": 400,
+				"//height": "sets the default height of the component",
+				"height": 432,
+				"options": {
+					"securityPolicy": "trusted"
+				}
+			},
+			"component": {
+				"//spawnOnStartup": "Controls whether the component automatically spawns during Finsemble's startup.",
+				"spawnOnStartup": false,
+				"//preload": "Defines what scripts are loaded into the window prior to the `url` contents.",
+				"preload": "false"
+			},
+			"//foreign": "this subsection provides a place for the component to offer up parameters to other services and components.",
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"//canGroup": "When `true`, allows the window to form groups with other windows.",
+						"canGroup": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"//launchableByUser": "When `true`, this component is added",
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"persistWindowState": true,
+						"FSBLHeader": true,
+						"showLinker": true
+					}
+				}
+			}
+		},
+		"Account List": {
+			"window": {
+				"//url": "is the most important entry. The contents of the URL address listed here are brought in as a component.",
+				"url": "$applicationRoot/components/accountList/accountList.html",
+				"//resizable": "When `true`, the window can be resized by the user.",
+				"resizable": true,
+				"frame": false,
+				"//autoShow": "Defines the window as visible and not invisible.",
+				"autoShow": true,
+				"//top": "A pixel value representing the distance from the top edge of the viewport. When set to 'center,' this centers the window.",
+				"top": "center",
+				"//left": "A pixel value representing the distance from the left edge of the viewport. When set to 'center,' this centers the window.",
+				"left": "center",
+				"//width": "sets the default width of the component",
+				"width": 400,
+				"//height": "sets the default height of the component",
+				"height": 432,
+				"options": {
+					"securityPolicy": "trusted"
+				}
+			},
+			"component": {
+				"//spawnOnStartup": "Controls whether the component automatically spawns during Finsemble's startup.",
+				"spawnOnStartup": false,
+				"//preload": "Defines what scripts are loaded into the window prior to the `url` contents.",
+				"preload": "false"
+			},
+			"//foreign": "this subsection provides a place for the component to offer up parameters to other services and components.",
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"//canGroup": "When `true`, allows the window to form groups with other windows.",
+						"canGroup": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"//launchableByUser": "When `true`, this component is added",
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"persistWindowState": true,
+						"FSBLHeader": true,
+						"showLinker": true
+					}
+				}
+			}
 		}
 	}
 }
