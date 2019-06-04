@@ -582,7 +582,8 @@
 				"ephemeral": true
 			},
 			"component": {
-				"category": "system"
+				"category": "system",
+				"preload": "$applicationRoot/preloads/logRocketPreload.js"
 			},
 			"foreign": {
 				"services": {

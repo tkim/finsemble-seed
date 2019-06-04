@@ -10,3 +10,4 @@ if (window.FSBL && FSBL.addEventListener) {
 } else {
 	window.addEventListener("FSBLReady", init);
 }
+
