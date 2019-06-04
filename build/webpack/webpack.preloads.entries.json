@@ -9,6 +9,6 @@
 	},
 	"logRocket": {
 		"output": "preloads/logRocket",
-		"entry": "./src-built-in/preloads/logRocketPreLoad.js"
+		"entry": "./src-built-in/preloads/logRocket.js"
 	}
 }
