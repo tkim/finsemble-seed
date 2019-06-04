@@ -1,14 +1,1 @@
-{
-  "accountStatement": {
-    "output": "components/accountStatement/accountStatement",
-    "entry": "./src/components/accountStatement/accountStatement.js"
-  },
-  "accountDetail": {
-    "output": "components/accountDetail/accountDetail",
-    "entry": "./src/components/accountDetail/accountDetail.js"
-  },
-  "accountList": {
-    "output": "components/accountList/accountList",
-    "entry": "./src/components/accountList/accountList.js"
-  }
-}
+{}
