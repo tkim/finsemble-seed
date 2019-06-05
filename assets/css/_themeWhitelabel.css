@@ -1,0 +1,6 @@
+.random-move-window__button {
+  cursor: pointer;
+}
+.random-move-window__button:hover {
+  transform: rotate(180deg);
+}

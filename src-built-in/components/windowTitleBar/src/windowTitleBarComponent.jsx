@@ -21,6 +21,7 @@ import Maximize from "./components/right/MaximizeButton.jsx";
 import Close from "./components/right/CloseButton.jsx";
 import BringSuiteToFront from "./components/right/BringSuiteToFront.jsx";
 import AlwaysOnTop from "./components/right/AlwaysOnTop.jsx";
+import RandomMoveWindow from "./components/right/RandomMoveWindow.jsx";
 import TabRegion from './components/center/TabRegion'
 import "../../../../assets/css/finsemble.css";
 
@@ -405,8 +406,9 @@ class WindowTitleBar extends React.Component {
 				<div className={rightWrapperClasses} ref={this.setToolbarRight}>
 					{this.state.alwaysOnTopButton && showMinimizeIcon ? <AlwaysOnTop /> : null}
 					<BringSuiteToFront />
-					{this.state.minButton && showMinimizeIcon ? <Minimize /> : null}
+					<RandomMoveWindow docked={this.state.dockingEnabled}></RandomMoveWindow>
 					{showDockingIcon ? <DockingButton /> : null}
+					{this.state.minButton && showMinimizeIcon ? <Minimize /> : null}
 					{this.state.maxButton ? <Maximize /> : null}
 					{this.state.closeButton ? <Close /> : null}
 				</div>
@@ -415,13 +417,13 @@ class WindowTitleBar extends React.Component {
 	}
 }
 
-function init () {
+function init() {
 	// The following line fixes the CSS issues, weird..
 	const css = require("../../../../assets/css/finsemble.css");
 	// Create the header element
 	const template = document.createElement("div");
 	const FSBLHeader = document.createElement('div')
-		  FSBLHeader.setAttribute('id', 'FSBLHeader')
+	FSBLHeader.setAttribute('id', 'FSBLHeader')
 	template.appendChild(FSBLHeader)
 	document.body.insertBefore(template.firstChild, document.body.firstChild);
 	storeExports.initialize(function () {

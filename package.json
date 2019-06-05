@@ -38,12 +38,14 @@
         "@chartiq/finsemble-react-controls": "3.7.*",
         "async": "^2.6.0",
         "babel-minify-webpack-plugin": "^0.3.0",
+        "babel-plugin-add-react-displayname": "0.0.5",
         "compression": "^1.7.2",
         "file-loader": "^1.1.11",
         "lodash.clonedeep": "^4.5.0",
         "lodash.debounce": "^4.0.8",
         "lodash.throttle": "^4.1.1",
         "logrocket": "^1.0.0",
+        "logrocket-react": "^3.0.0",
         "nocache": "^2.0.0"
     },
     "devDependencies": {
