@@ -3,6 +3,11 @@
 * Copyright 2017 by ChartIQ, Inc.
 * All rights reserved.
 */
+import LogRocket from 'logrocket';
+import setupLogRocketReact from 'logrocket-react';
+LogRocket.init('l9ijht/fs');
+setupLogRocketReact(LogRocket);
+
 import React from "react";
 import ReactDOM from "react-dom";
 // const Test from './test';
@@ -25,6 +30,17 @@ import RandomMoveWindow from "./components/right/RandomMoveWindow.jsx";
 import TabRegion from './components/center/TabRegion'
 import "../../../../assets/css/finsemble.css";
 
+
+
+// This is an example script - don't forget to change it!
+LogRocket.identify('l9ijht/fs', {
+	name: 'Watson',
+	email: 'chris.watson@chartiq.com',
+
+	// Add your own custom user variables here, ie:
+	sessionName: 'Lightning Talk Test',
+	FinsembleVersion: "3.8.5"
+});
 /**
  * This is the main window manager component. It's the custom window frame that we add to each window that has useFSBLHeader set to true in its windowDescriptor.
  */

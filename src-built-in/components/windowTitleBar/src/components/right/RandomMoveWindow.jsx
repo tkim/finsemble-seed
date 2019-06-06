@@ -7,9 +7,9 @@ const randomMove = async (docked) => {
 
       console.log(windowIdentifier)
       // uncomment the line below and it will work
-      // const { data: { monitorRect } } = await FSBL.Clients.LauncherClient.getMonitorInfo(windowIdentifier)
+      const { data: { monitorRect } } = await FSBL.Clients.LauncherClient.getMonitorInfo(windowIdentifier)
       // also comment out the one below this
-      const { data: { monitorRect } } = await FSBL.Clients.LauncherClient.getMonitorInfo()
+      // const { data: { monitorRect } } = await FSBL.Clients.LauncherClient.getMonitorInfo()
 
       const { height, width } = monitorRect
 
@@ -21,6 +21,7 @@ const randomMove = async (docked) => {
 
     } catch (error) {
       console.log(error)
+      throw (error)
     }
   }
 }
