@@ -15,15 +15,15 @@ function createLinkage() {
   });
 }
 
-// uncomment the functions below for each section
-function selectedPreload() {
-  // alertMe()
-  // createLinkage()
+// add your code or functions here and it will be executed as soon as the preload is added
+function runPreload() {
+  alertMe()
+  createLinkage()
 }
 
-// make sure that the FSBL library has been initialized
+// this code ensures that the FSBL library has been initialized
 if (window.FSBL && FSBL.addEventListener) {
-  FSBL.addEventListener("onReady", selectedPreload);
+  FSBL.addEventListener("onReady", runPreload);
 } else {
-  window.addEventListener("FSBLReady", selectedPreload);
+  window.addEventListener("FSBLReady", runPreload);
 }
