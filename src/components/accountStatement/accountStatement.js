@@ -28,14 +28,14 @@ function displayAccount(accountNumber) {
 	saveState(accountNumber);
 }
 
-function createLinkage() {
-	FSBL.Clients.LinkerClient.subscribe("account", function (obj) {
-		displayAccount(obj);
-	});
-}
+// function createLinkage() {
+// 	FSBL.Clients.LinkerClient.subscribe("account", function (obj) {
+// 		displayAccount(obj);
+// 	});
+// }
 
 if (window.FSBL && FSBL.addEventListener) { FSBL.addEventListener("onReady", FSBLReady); } else { window.addEventListener("FSBLReady", FSBLReady) }
 function FSBLReady() {
-	createLinkage();
+	// createLinkage();
 	getState();
 }

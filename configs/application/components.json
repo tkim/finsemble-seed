@@ -186,7 +186,7 @@
 				}
 			}
 		},
-		"Account Detail": {
+		"accountDetail": {
 			"window": {
 				"url": "$applicationRoot/components/accountDetail/accountDetail.html",
 				"resizable": true,
@@ -201,6 +201,42 @@
 				}
 			},
 			"component": {
+				"spawnOnStartup": false
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"canGroup": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"persistWindowState": true,
+						"FSBLHeader": true,
+						"showLinker": true
+					}
+				}
+			}
+		},
+		"accountStatement": {
+			"window": {
+				"url": "$applicationRoot/components/accountStatement/accountStatement.html",
+				"resizable": true,
+				"frame": false,
+				"autoShow": true,
+				"top": "center",
+				"left": "center",
+				"width": 400,
+				"height": 432,
+				"options": {
+					"securityPolicy": "trusted"
+				}
+			},
+			"component": {
+				"inject": false,
 				"spawnOnStartup": false,
 				"preload": "http://localhost:3375/preloads/linkerPreload.js"
 			},
@@ -222,44 +258,7 @@
 				}
 			}
 		},
-		"Account Statement": {
-			"window": {
-				"url": "$applicationRoot/components/accountStatement/accountStatement.html",
-				"resizable": true,
-				"frame": false,
-				"autoShow": true,
-				"top": "center",
-				"left": "center",
-				"width": 400,
-				"height": 432,
-				"options": {
-					"securityPolicy": "trusted"
-				}
-			},
-			"component": {
-				"inject": false,
-				"spawnOnStartup": false,
-				"preload": false
-			},
-			"foreign": {
-				"services": {
-					"dockingService": {
-						"canGroup": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"persistWindowState": true,
-						"FSBLHeader": true,
-						"showLinker": true
-					}
-				}
-			}
-		},
-		"Account List": {
+		"accountList": {
 			"window": {
 				"url": "$applicationRoot/components/accountList/accountList.html",
 				"frame": false,

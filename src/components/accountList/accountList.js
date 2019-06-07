@@ -1,5 +1,5 @@
 /* List of Customers */
-const customers = [
+customers = [
 	{ acc: "12345678", name: "Sam Smith", phone: "555-555-5555" },
 	{ acc: "23456789", name: "Bill Branson", phone: "555-555-5556" },
 	{ acc: "34567890", name: "Tom Thomson", phone: "555-555-5557" },
@@ -47,25 +47,25 @@ var accountDetailSpawnResponse = null;
 function clickCustomer(event) {
 
 	launchAccountDetailAdvanced(event.data); // --> Step 2.2.7
-	launchAccountDetail(event.data); // --> Step 2.2.2
+	// launchAccountDetail(event.data); // --> Step 2.2.2
 }
 
 // STEP 2.2.2
-function launchAccountDetail(selectedAccountNumber) {
-	if (advancedIsRunning) return;
-	setCustomer(selectedAccountNumber);
+// function launchAccountDetail(selectedAccountNumber) {
+// 	if (advancedIsRunning) return;
+// 	setCustomer(selectedAccountNumber);
 
-	FSBL.Clients.LauncherClient.spawn("accountDetail",
-		{
-			addToWorkspace: true,
-			left: "adjacent",
-			data: { customer: customers[customerIndex] }
-		}, function (err, response) {
-			console.log("spawn() returns information about the new component", response);
-			accountDetailSpawnResponse = response;
-		}
-	);
-}
+// FSBL.Clients.LauncherClient.spawn("accountDetail",
+// 	{
+// 		addToWorkspace: true,
+// 		left: "adjacent",
+// 		data: {customer: customers[customerIndex]}
+// 	}, function(err, response){
+// 		console.log("spawn() returns information about the new component", response);
+// 		accountDetailSpawnResponse=response;
+// 	}
+// );
+// }
 
 // STEP 2.2.7
 function launchAccountDetailAdvanced(selectedAccountNumber) {
@@ -138,7 +138,7 @@ function communicateBetweenComponents() {
 
 if (window.FSBL && FSBL.addEventListener) { FSBL.addEventListener("onReady", FSBLReady); } else { window.addEventListener("FSBLReady", FSBLReady) }
 function FSBLReady() {
-	alert(FSBL.Clients.WindowClient.options.customData.component["account-type"]); // --> Step 1.4
+	//alert(FSBL.Clients.WindowClient.options.customData.component["account-type"]); // --> Step 1.4
 
 	FSBL.Clients.WindowClient.setWindowTitle("Account List");
 	renderPage();
