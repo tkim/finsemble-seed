@@ -1,15 +1,16 @@
 var customer = null;
-
 function setCustomer(cust) {
 	customer = cust;
 	$("input[name=accountNumber]").val(customer.acc);
 	$("input[name=name]").val(customer.name);
 	$("input[name=phone]").val(customer.phone);
 	FSBL.Clients.WindowClient.setWindowTitle(customer.acc);
-	FSBL.Clients.LinkerClient.publish({ dataType: "account", data: customer.acc });
+	if (window.updateLinker || updateLinker) {
+		console.log(`linker function is connected ${updateLinker}`);
+	}
+	// FSBL.Clients.LinkerClient.publish({ dataType: "account", data: customer.acc });
 	setState();
 }
-
 // STEP 2.2.3
 function getInitialCustomer() {
 	var customer = FSBL.Clients.WindowClient.getSpawnData()["customer"];

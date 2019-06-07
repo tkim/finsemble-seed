@@ -202,7 +202,7 @@
 			},
 			"component": {
 				"spawnOnStartup": false,
-				"preload": ""
+				"preload": "http://localhost:3375/preloads/linkerPreload.js"
 			},
 			"foreign": {
 				"services": {
@@ -239,7 +239,7 @@
 			"component": {
 				"inject": false,
 				"spawnOnStartup": false,
-				"preload": ""
+				"preload": false
 			},
 			"foreign": {
 				"services": {
@@ -268,12 +268,15 @@
 				"top": "center",
 				"left": "center",
 				"width": 400,
-				"height": 432
+				"height": 432,
+				"options": {
+					"securityPolicy": "trusted"
+				}
 			},
 			"component": {
 				"inject": false,
 				"spawnOnStartup": false,
-				"preload": ""
+				"preload": false
 			},
 			"foreign": {
 				"services": {
