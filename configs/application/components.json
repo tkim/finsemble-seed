@@ -213,11 +213,11 @@
 				}
 			}
         },
-        "WPFExampleDebug": {
+        "WPFExampleRelease_3_8_3": {
             "window": {
-                "id": "WPFExampleDebug",
+                "id": "WPFExampleRelease_3_8_3",
                 "windowType": "native",
-                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFExampleDebug\\FinsembleWPFDemo.exe",
+                "alias": "WPFExampleRelease_3_8_3",
                 "arguments": "",
                 "autoShow": true,
                 "alwaysOnTop": false,
@@ -300,12 +300,12 @@
                 "addToWorkspace": false
             },
             "component": {
-                "spawnOnStartup": true
+                "spawnOnStartup": false
             },
             "foreign": {
                 "components": {
                     "App Launcher": {
-                        "launchableByUser": false
+                        "launchableByUser": true
                     }
                 }
             }
