@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <!--
+        Small client script to create load over websockets.
+        It sends a number or requests and the server send back json data.
+        Store this file in /src/component of finsemble-seed and make a configuration entry
+        for it. Use the tuturial as a reference for adding a new app.
+    -->
+    <head>
+        <meta charset="utf-8" />
+        <title>Socket.io</title>
+    </head>
+
+    <body>
+        <h2>Test requesting data over socket</h2>
+
+        <!--TODO: Add input box to choose number of times to run-->
+        <!--TODO: Add choice of small or large file-->
+        <p>Request data:</p>
+        <p><input type="button" value="Once" id="request-once" /></p>
+        <p><input type="button" value="1000 times" id="request-1000" /></p>
+        <hr>
+        <p><input type="button" value="Forever" id="request-forever" />&nbsp;<input type="button" value="Stop" id="request-stop" /></p>
+        <p><i>Not working yet</i></p>
+        <br>
+        <p><input type="button" value="Block Event loop" id="request-break" /></p>
+        <hr>
+        <p><input type="button" value="Reset Counter" id="reset-counter" /></p>
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://127.0.0.1:8080');
+            var counter = 0;
+
+            let sendRequest = async function(callback=Function.prototype) {
+                setTimeout(() => {socket.emit('request_data', 'Send the json object');}, 100);
+                callback();
+            }
+
+            // receiving the requested data
+            socket.on('message', function(data) {
+                ++counter;
+                if (typeof data === 'object') {
+                   //console.log('Data: ' + JSON.stringify(data));
+                   console.log("received data, count: " + counter);
+                } else {
+                console.log('The server has a message for you: ' + data);}
+            })
+
+
+            $('#request-once').click( async function () {
+                sendRequest();
+            })
+            $('#request-1000').click(async function () {
+                for (i = 0; i < 500; i++) {
+                    sendRequest();
+                }
+            })
+
+            $('#request-forever').click(async function () {
+				//untested, server memory problems will likely keep this from working
+				while(true) {
+					let i = 1;
+				}
+                var foreverInterval = setInterval(sendRequest(repeat), 1);
+            })
+            $('#request-stop').click(function () {
+                clearInterval(foreverInterval);
+            })
+            $('#reset-counter').click(function () {
+                counter = 0;
+            })
+            //Purposely creates a bad state by locking up the
+            //event loop
+            $('#request-break').click(function () {
+                while(true) {
+                    sendRequest();
+                }
+            })
+        </script>
+    </body>
+</html>
