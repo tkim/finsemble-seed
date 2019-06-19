@@ -6,6 +6,42 @@
             "name": "heartbeatListenerService",
             "showDevConsoleOnVisible": true,
             "html": "$applicationRoot/services/heartbeatListener/heartbeatListener.html"
-        }
+		},
+		"windowService": {
+			"spawnAs": "window",
+			"name": "windowService",
+			"html": "$servicesRoot/window/windowService.html",
+			"file": "$servicesRoot/window/windowService.js",
+			"config": {
+				"BUFFER_SIZE": 20,
+				"RESIZE_EVENT_THROTTLE_PERIOD": 0,
+				"MINIMUM_WIDTH": 98,
+				"MINIMUM_HEIGHT": 28,
+				"GROUP_MODE": {
+					"enabled": true,
+					"behavior": "explicit"
+				},
+				"DEBUG": true,
+				"ALLOW_GROUPS_TO_SNAP": true,
+				"SNAPPING_OPACITY": 0.8,
+				"groupTileBuffer": 30,
+				"headerHeight": 32,
+				"heartbeatResponseTimeoutDefaults": {
+					"min": 4000,
+					"max": 1800000,
+					"crashed": 150000,
+					"possiblyCrashed": 8000,
+					"notResponding": 4000
+				},
+				"enableWindowsAeroSnap": false,
+				"tabbing": {
+					"enabled": true
+				},
+				"tiling": {
+					"enabled": true
+				}
+			},
+			"category": "system"
+		}
 	}
 }
