@@ -202,7 +202,7 @@
 				//width: Sets the default width of the component.
 				"width": 400,
 				//height: "Sets the default height of the component.
-				"height": 432,
+				"height": 432
 				}
 			},
 			"component": {
@@ -246,12 +246,12 @@
 				"top": "center",
 				"left": "center",
 				"width": 400,
-				"height": 432,
+				"height": 432
 			},
 			"component": {
 				"inject": false,
 				"spawnOnStartup": false,
-				"preload": "http://localhost:3375/preloads/linkerPreload.js"
+				"preload": false
 			},
 			"foreign": {
 				"services": {
