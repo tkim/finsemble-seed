@@ -30,7 +30,7 @@
 					"min": 4000,
 					"max": 1800000,
 					"crashed": 150000,
-					"possiblyCrashed": 8000,
+					"possiblyCrashed": 7000,
 					"notResponding": 4000
 				},
 				"enableWindowsAeroSnap": false,
