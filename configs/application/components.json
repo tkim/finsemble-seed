@@ -189,7 +189,7 @@
 		"accountDetail": {
 			"window": {
 				//url: This is the most important entry. The contents of the URL address listed here are brought in as a component.
-				"url": "$applicationRoot/components/accountDetail/accountDetail.html",
+				"url": "https://documentation.chartiq.com/finsemble/tutorials/components/accountDetail/accountDetail.html",
 				//resizable: When `true`, the window can be resized by the user.
 				"resizable": true,
 				"frame": false,
@@ -239,7 +239,7 @@
 		},
 		"accountStatement": {
 			"window": {
-				"url": "$applicationRoot/components/accountStatement/accountStatement.html",
+				"url": "https://documentation.chartiq.com/finsemble/tutorials/components/accountStatement/accountStatement.html",
 				"resizable": true,
 				"frame": false,
 				"autoShow": true,
