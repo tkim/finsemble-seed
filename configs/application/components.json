@@ -212,6 +212,82 @@
 					}
 				}
 			}
+		},
+		"WPFExampleDllDebug": {
+            "window": {
+                "id": "WPFExampleDllDebug",
+                "windowType": "native",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFExampleDllDebug\\WPFExample.exe",
+                "arguments": "",
+                "autoShow": true,
+                "alwaysOnTop": false,
+                "resizable": true,
+                "showTaskbarIcon": true,
+                "contextMenu": true,
+                "addToWorkspace": true
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true,
+                        "showLinker": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "ff-component"
+                    }
+                }
+            }
+        },
+		"WPFExampleDebug": {
+            "window": {
+                "id": "WPFExampleDebug",
+                "windowType": "native",
+                "path": "C:\\Users\\admin\\Documents\\code\\finsemble-seed\\hosted\\WPFExampleDebug\\FinsembleWPFDemo.exe",
+                "arguments": "",
+                "autoShow": true,
+                "alwaysOnTop": false,
+                "resizable": true,
+                "showTaskbarIcon": true,
+                "contextMenu": true,
+                "addToWorkspace": true
+            },
+            "component": {
+                "inject": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true,
+                        "showLinker": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "ff-component"
+                    }
+                }
+            }
         },
         "WPFExampleRelease_3_8_3": {
             "window": {

@@ -1,0 +1,33 @@
+2019-07-08 11:05:47,059 [1] DEBUG WPFExample.App - OnStartup
+2019-07-08 11:06:07,541 [1] DEBUG ChartIQ.Finsemble.Finsemble - Initializing new instance of FinsembleBridge:
+	top: 115
+	left: 782
+	width: 483
+	height: 524
+	windowName: WPFExampleDllDebug-55-2900-Finsemble
+	componentType: WPFExampleDllDebug
+	UUID: uuid1562580345436_5801
+	openFinVersion: 9.61.36.36
+
+2019-07-08 11:06:07,589 [1] DEBUG ChartIQ.Finsemble.Finsemble - Connect called
+2019-07-08 11:06:09,588 [DesktopConnectionInternal:DesktopStateDispatcher] INFO ChartIQ.Finsemble.Finsemble - Connected to OpenFin Runtime.
+2019-07-08 11:06:45,706 [DesktopConnectionInternal:MessageBusDispatcher] INFO ChartIQ.Finsemble.Finsemble - Disconnect called
+2019-07-08 11:06:46,005 [DesktopConnectionInternal:DesktopStateDispatcher] INFO ChartIQ.Finsemble.Finsemble - Disconnected from OpenFin runtime.
+2019-07-08 11:06:48,428 [1] ERROR WPFExample.App - An Unhandled Exception has occurred. Please Check your event Logs.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at CallSite.Target(Closure , CallSite , RouterClient , String , Object )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecuteVoid3[T0,T1,T2](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   at ChartIQ.Finsemble.Docking.<Close>b__60_0() in C:\Users\admin\Documents\code\finsemble-wpf\Finsemble\Docking\Docking.cs:line 478
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback, DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout)
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback)
+   at ChartIQ.Finsemble.Docking.Close() in C:\Users\admin\Documents\code\finsemble-wpf\Finsemble\Docking\Docking.cs:line 473
+   at ChartIQ.Finsemble.Docking.Window_Closing(Object sender, CancelEventArgs e) in C:\Users\admin\Documents\code\finsemble-wpf\Finsemble\Docking\Docking.cs:line 712
+   at System.ComponentModel.CancelEventHandler.Invoke(Object sender, CancelEventArgs e)
+   at System.Windows.Window.OnClosing(CancelEventArgs e)
+   at System.Windows.Window.WmClose()
+   at System.Windows.Window.WindowFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.PublicHooksFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)

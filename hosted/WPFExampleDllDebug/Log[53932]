@@ -1,0 +1,13 @@
+2019-07-08 09:50:50,482 [1] DEBUG WPFExample.App - OnStartup
+2019-07-08 09:51:06,149 [1] DEBUG ChartIQ.Finsemble.Finsemble - Initializing new instance of FinsembleBridge:
+	top: 89
+	left: 226
+	width: 800
+	height: 600
+	windowName: WPFExampleDllDebug-55-2900-Finsemble
+	componentType: WPFExampleDllDebug
+	UUID: uuid1562575849259_6384
+	openFinVersion: 9.61.36.36
+
+2019-07-08 09:51:06,181 [1] DEBUG ChartIQ.Finsemble.Finsemble - Connect called
+2019-07-08 09:51:07,980 [DesktopConnectionInternal:DesktopStateDispatcher] INFO ChartIQ.Finsemble.Finsemble - Connected to OpenFin Runtime.
