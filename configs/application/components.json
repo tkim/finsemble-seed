@@ -69,7 +69,11 @@
 				"addToWorkspace": true
 			},
 			"component": {
-				"spawnOnHotkey": ["ctrl", "alt", "n"]
+				"spawnOnHotkey": [
+					"ctrl",
+					"alt",
+					"n"
+				]
 			},
 			"foreign": {
 				"services": {
@@ -216,13 +220,13 @@
 				},
 				"components": {
 					"App Launcher": {
-						"//launchableByUser": "When `true`, this component is added to the My Apps menu.",
+						"//launchableByUser": "When `true`, this component is added to the app launcher menu.",
 						"launchableByUser": true
 					},
 					"Window Manager": {
 						"//persistWindowState": "When `true`, Finsemble will restore this window to the same position when the workspace is reloaded.",
 						"persistWindowState": true,
-						"//FSBLHeader": "FSBLHeader can be true, false or an object. //If true a Finsemble-specific window title bar will be injected into the component and the maximize, minimize, and close buttons will be displayed. //If false, the title bar will not be displayed. //If an object, you can override whether buttons are shown with 'hideMaximize', 'hideMinimize', and 'hideClose.'",
+						"//FSBLHeader": "FSBLHeader can be true, false or an object. If true, a Finsemble-specific window title bar will be injected into the component and the maximize, minimize, and close buttons will be displayed. If false, the title bar will not be displayed. If an object, you can override whether buttons are shown with 'hideMaximize', 'hideMinimize', and 'hideClose.'",
 						"FSBLHeader": true,
 						"showLinker": true
 					}
@@ -238,13 +242,9 @@
 				"top": "center",
 				"left": "center",
 				"width": 400,
-				"height": 432,
-				"options": {
-					"securityPolicy": "trusted"
-				}
+				"height": 432
 			},
 			"component": {
-				"inject": false,
 				"spawnOnStartup": false,
 				"preload": false
 			},
@@ -262,48 +262,6 @@
 						"persistWindowState": true,
 						"FSBLHeader": true,
 						"showLinker": true
-					}
-				}
-			}
-		},
-		"accountList": {
-			"window": {
-				"url": "$applicationRoot/components/accountList/accountList.html",
-				"frame": false,
-				"resizable": true,
-				"autoShow": true,
-				"top": "center",
-				"left": "center",
-				"width": 400,
-				"height": 432,
-				"options": {
-					"securityPolicy": "trusted"
-				}
-			},
-			"component": {
-				"inject": false,
-				"spawnOnStartup": false,
-				"preload": false
-			},
-			"foreign": {
-				"services": {
-					"dockingService": {
-						"canGroup": true,
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"showLinker": true,
-						"FSBLHeader": true,
-						"persistWindowState": true,
-						"title": "Welcome"
-					},
-					"Toolbar": {
-						"iconClass": "ff-component"
 					}
 				}
 			}
