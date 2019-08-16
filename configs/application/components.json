@@ -185,6 +185,92 @@
 					}
 				}
 			}
+		},
+		"senderComponent": {
+			"window": {
+				"url": "$applicationRoot/components/sender/sender.html",
+				"affinity": "workspaceComponents",
+				"frame": false,
+				"resizable": true,
+				"autoShow": true,
+				"top": "center",
+				"left": "center",
+				"width": 400,
+				"height": 432
+			},
+			"component": {
+				"inject": false,
+				"spawnOnStartup": false,
+				"preload": "$applicationRoot/preloads/zoom.js",
+				"category": "system"
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"canGroup": true,
+						"isArrangable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"showLinker": true,
+						"FSBLHeader": true,
+						"persistWindowState": true,
+						"title": "Sender"
+					},
+					"Toolbar": {
+						"iconClass": "ff-component"
+					}
+				}
+			}
+		},
+		"receiverComponent": {
+			"window": {
+				"url": "$applicationRoot/components/receiver/blank.html",
+				"affinity": "workspaceComponents",
+				"frame": false,
+				"resizable": true,
+				"autoShow": true,
+				"top": "center",
+				"left": "center",
+				"width": 400,
+				"height": 432
+			},
+			"component": {
+				"inject": false,
+				"spawnOnStartup": false,
+				"preload": "$applicationRoot/components/receiver/receiver.js",
+				"advertiseReceivers": [
+					"symphony.chat",
+					"sender.receiver"
+				],
+				"category": "system"
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"canGroup": true,
+						"isArrangable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"showLinker": true,
+						"FSBLHeader": true,
+						"persistWindowState": true,
+						"title": "Receiver"
+					},
+					"Toolbar": {
+						"iconClass": "ff-component"
+					}
+				}
+			}
 		}
 	}
 }
