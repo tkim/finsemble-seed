@@ -9,7 +9,12 @@
 <div>
     <h1>Sender</h1>
     I send data to the receiver using all the available methods
-    <input type="text" id="senderValue" placeholder="Set value to send"/>
+		<select id="senderValue">
+			<option value="">Blank no value - no redirect - same domain</option>
+			<option value="welcome">Welcome component url - same domain</option>
+			<option value="google">Google - x-domain</option>
+			<option value="bing">Bing - x-domain</option>
+		</select>
     <button id="shared-data">Open Shared Data And Send Value</button>
 </div>
 
