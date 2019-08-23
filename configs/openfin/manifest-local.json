@@ -56,8 +56,12 @@
         "email": "finsemble@chartiq.com"
     },
     "fileName": "ChartIQ-local-installer",
-    "appAssets": [
-    ],
+	"appAssets": [{
+		"src": "https://s3.amazonaws.com/files.chartiq.com/finsemble/FinsembleRouter_1_0.zip",
+		"version": "1.1.9",
+		"alias": "FinsembleRouter",
+		"target": "FinsembleRouter.exe"
+	}],
     "finsemble": {
         "applicationRoot": "http://localhost:3375",
         "moduleRoot": "$applicationRoot/finsemble",
@@ -68,6 +72,10 @@
         ],
         "IAC": {
             "serverAddress": "ws://127.0.0.1:3376"
-        }
+		},
+		"router" : {
+			"sameDomainTransport": "SharedWorker",
+			"crossDomainTransport": "FinsembleTransport"
+		}
     }
 }
