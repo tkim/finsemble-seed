@@ -17,7 +17,6 @@ export default class Toolbar extends React.Component {
 	/**
 	 * Sets the monitor by calling the setPreferences API. This will override the config for the component.
 	 * Possible values:
-	 * All monitors: "all"
 	 * Previous monitor when floating (defaults to primary): "0"
 	 * @param {event} e
 	 */
@@ -25,7 +24,6 @@ export default class Toolbar extends React.Component {
 		this.setState({
 			monitor: value
 		});
-		// There's no need to override spawnOnAllMonitors. Setting monitor to anything other than undefined will automatically override that value. Setting monitor="all" is equivalent.
 		FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.window.monitor", value: value });
 	}
 
@@ -40,15 +38,17 @@ export default class Toolbar extends React.Component {
 		let toolbarType;
 
 		if (previousState === "Fixed") {
-			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.window.dockable", value: ["top", "bottom"] });
-			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.window.options.resizable", value: true });
 			toolbarType = "Floating";
-			this.setMonitor("0");
+			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.window.dockable", value: ["top", "bottom"] });
+			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.toolbarType", value: toolbarType });
+			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.component.spawnOnAllMonitors", value: false });
+			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.window.options.resizable", value: true });
 		} else if (previousState === "Floating") {
-			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.window.dockable", value: null });
-			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.window.options.resizable", value: false });
 			toolbarType = "Fixed";
-			this.setMonitor("all");
+			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.window.dockable", value: ["top"] });
+			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.toolbarType", value: toolbarType });
+			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.component.spawnOnAllMonitors", value: true });
+			FSBL.Clients.ConfigClient.setPreference({ field: "finsemble.components.Toolbar.window.options.resizable", value: false });
 		}
 
 		this.setState({
@@ -67,24 +67,21 @@ export default class Toolbar extends React.Component {
 	 */
 	componentDidMount() {
 		FSBL.Clients.ConfigClient.getValue("finsemble.components.Toolbar.window.monitor", (err, value) => {
-			if (!value) value = "all";
 			this.setState({
-				monitor: value
+				monitor: value || "0"
 			});
+			FSBL.Clients.Logger.system.log(`"Toolbar monitor=${value}`, value);
 		});
-		//Unless we want to add another config variable tracking dockable state we need to determine state
-		//using the set values.
-		FSBL.Clients.ConfigClient.getValue("finsemble.components.Toolbar.window.dockable", (err, value) => {
-			let toolbarType = "Fixed";
-			if (value) {
+
+		FSBL.Clients.ConfigClient.getValue("finsemble.components.Toolbar.toolbarType", (err, toolbarType) => {
+			// if any value besides "Fixed" then default to floating.
+			if (toolbarType !== "Fixed") {
 				toolbarType = "Floating";
 			}
-			//Only set the state if the expected values were found in the config, otherwise use the default
-			if (toolbarType){
-				this.setState({
-					toolbarType: toolbarType
-				});
-			}
+			this.setState({
+				toolbarType: toolbarType
+			});
+			FSBL.Clients.Logger.system.log("Toolbar type", toolbarType);
 		});
 	}
 
