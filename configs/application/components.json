@@ -185,6 +185,48 @@
 					}
 				}
 			}
+		},
+		"WPFExample": {
+			"window": {
+				"id": "WPFExample",
+				"name": "WPFExample",
+				"windowType": "native",
+				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-dotnet-seed\\WPFExample\\bin\\Release\\FinsembleWPFDemo.exe",
+				"arguments": "",
+				"options": {"autoShow": true},
+				"addToWorkspace": true
+			},
+			"component": {
+				"spawnOnStartup": false
+			},
+			"foreign": {
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					}
+				}
+			}
+		},
+		"WindowlessExample": {
+			"window": {
+				"id": "WindowlessExample",
+				"name": "WindowlessExample",
+				"windowType": "native",
+				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-dotnet-seed\\WindowlessExample\\bin\\Release\\WindowlessExample.exe",
+				"arguments": "",
+				"options": {"autoShow": false},
+				"addToWorkspace": false
+			},
+			"component": {
+				"spawnOnStartup": true
+			},
+			"foreign": {
+				"components": {
+					"App Launcher": {
+						"launchableByUser": false
+					}
+				}
+			}
 		}
 	}
 }
