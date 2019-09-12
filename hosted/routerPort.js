@@ -269,7 +269,7 @@ var RouterTransport = {
 
       if (transportConstructor) {
         new transportConstructor(params, incomingMessageHandler, source, destination, function (newTransport) {
-          resolve(newTransport); //Set me to just return the correct transport. 
+          resolve(newTransport); //Set me to just return the correct transport.
         });
       } else {
         reject("unknown router transport name: " + transportName);
@@ -322,7 +322,7 @@ function getDefault(base, path, defaultValue) {
 
 RouterTransportImplementation.FinsembleTransport = function (params, parentMessageHandler, source, destination, callback) {
   /** @TODO - split into two separate vars for clarity. */
-  var serverAddress = getDefault(params, "params.transportSettings.FinsembleTransport.serverAddress", getDefault(params, "params.IAC.serverAddress", "wss://localhost.chartiq.com:3376") //Read from Mark's Config file, take from seed manifest. 
+  var serverAddress = getDefault(params, "params.transportSettings.FinsembleTransport.serverAddress", getDefault(params, "params.IAC.serverAddress", "wss://localhost.chartiq.com:3376") //Read from Mark's Config file, take from seed manifest.
   );
   var SOCKET_SERVER_ADDRESS = serverAddress + "/router"; // "router" is the socket namespace used on server
 
