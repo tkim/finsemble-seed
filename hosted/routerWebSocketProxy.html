@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html>
-	<!--
+  <!--
     /*!
     * Copyright 2019 by ChartIQ, Inc.
     * All rights reserved.
     */
 -->
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<title>RouterClient WebSocket Proxy</title>
-		<meta name="description" content="" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<script type="text/javascript"></script>
-	</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>RouterClient WebSocket Proxy</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript"></script>
+  </head>
 
-	<body class="">
-		<button
-			onclick="window.finsembleActions.transmit('someTopic', 'some data');"
-		>
-			transmit test
-		</button>
-		<button onclick="window.finsembleActions.spawn('Welcome Component', {});">
-			spawn test
-		</button>
-		<button
-			onclick="window.finsembleActions.publish('someTopic', 'some data');"
-		>
-			publish test
-		</button>
+  <body class="">
+    <button onclick="finsembleActions.transmit('someTopic', 'some data');">
+      transmit test
+    </button>
+    <button onclick="finsembleActions.spawn('Welcome Component', {});">
+      spawn test
+    </button>
+    <button onclick="finsembleActions.publish('someTopic', 'some data');">
+      publish test
+    </button>
+    <button
+      onclick="window.finsembleActions.subscribe('someTopic',console.log);"
+    >
+      subscribe test
+    </button>
 
-		<script src="routerPort.js"></script>
-	</body>
+    <script src="routerIndex.js"></script>
+  </body>
 </html>
