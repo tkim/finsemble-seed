@@ -53,7 +53,8 @@
 				"left": "center",
 				"width": 400,
 				"height": 432
-			}
+			},
+			"foreign": {}
 		},
 		"Notepad": {
 			"window": {
@@ -70,11 +71,7 @@
 				"addToWorkspace": true
 			},
 			"component": {
-				"spawnOnHotkey": [
-					"ctrl",
-					"alt",
-					"n"
-				]
+				"spawnOnHotkey": ["ctrl", "alt", "n"]
 			},
 			"foreign": {
 				"services": {
@@ -298,15 +295,8 @@
 			},
 			"component": {
 				"mode": "premium",
-				"advertiseReceivers": [
-					"chartiq.chart",
-					"symbol"
-				],
-				"spawnOnHotkey": [
-					"ctrl",
-					"alt",
-					"a"
-				],
+				"advertiseReceivers": ["chartiq.chart", "symbol"],
+				"spawnOnHotkey": ["ctrl", "alt", "a"],
 				"category": "system",
 				"preload": "$applicationRoot/components/chartiq/chartiq.js"
 			},
