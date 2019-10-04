@@ -189,7 +189,6 @@
 		"WPFExample": {
 			"window": {
 				"id": "WPFExample",
-				"name": "WPFExample",
 				"windowType": "native",
 				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-dotnet-seed\\WPFExample\\bin\\Release\\FinsembleWPFDemo.exe",
 				"arguments": "",
@@ -209,9 +208,29 @@
 		},
 		"WPFExamplePubSub": {
 			"window": {
-				"id": "WPFExample",
+				"id": "WPFExamplePubSub",
 				"windowType": "native",
 				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-wpf\\WPFExample\\bin\\Debug\\WPFExample.exe",
+				"arguments": "",
+				"options": {"autoShow": true},
+				"addToWorkspace": true
+			},
+			"component": {
+				"spawnOnStartup": false
+			},
+			"foreign": {
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					}
+				}
+			}
+		},
+		"WPFExampleDotNetSeed": {
+			"window": {
+				"id": "WPFExampleDotNetSeed",
+				"windowType": "native",
+				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-dotnet-seed\\WPFExample\\bin\\Debug\\FinsembleWPFDemo.exe",
 				"arguments": "",
 				"options": {"autoShow": true},
 				"addToWorkspace": true
