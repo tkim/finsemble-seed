@@ -190,7 +190,11 @@
 			"window": {
 				"id": "WPFExample",
 				"windowType": "native",
-				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-dotnet-seed\\WPFExample\\bin\\Release\\FinsembleWPFDemo.exe",
+				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-wpf\\WPFExample\\bin\\Release\\WPFExample.exe",
+				"top": "center",
+				"left": "center",
+				"width": 600,
+				"height": 600,
 				"arguments": "",
 				"options": {"autoShow": true},
 				"addToWorkspace": true
@@ -206,11 +210,15 @@
 				}
 			}
 		},
-		"WPFExamplePubSub": {
+		"WPFExampleDebug": {
 			"window": {
-				"id": "WPFExamplePubSub",
+				"id": "WPFExampleDebug",
 				"windowType": "native",
 				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-wpf\\WPFExample\\bin\\Debug\\WPFExample.exe",
+				"top": "center",
+				"left": "center",
+				"width": 600,
+				"height": 600,
 				"arguments": "",
 				"options": {"autoShow": true},
 				"addToWorkspace": true
@@ -231,6 +239,10 @@
 				"id": "WPFExampleDotNetSeed",
 				"windowType": "native",
 				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-dotnet-seed\\WPFExample\\bin\\Debug\\FinsembleWPFDemo.exe",
+				"top": "center",
+				"left": "center",
+				"width": 600,
+				"height": 600,
 				"arguments": "",
 				"options": {"autoShow": true},
 				"addToWorkspace": true
