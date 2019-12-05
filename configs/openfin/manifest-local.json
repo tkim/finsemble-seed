@@ -70,6 +70,8 @@
         "moduleRoot": "$applicationRoot/finsemble",
         "servicesRoot": "$applicationRoot/finsemble/services",
         "notificationURL": "$applicationRoot/components/notification/notification.html",
+        "javaExampleJarPath": "C:\\projects\\finsemble\\finsemble-java-example\\target",
+        "tomcatPath":"C:\\apache-tomcat-9.0.27",
         "importConfig": [
             "$applicationRoot/configs/application/config.json"
         ],

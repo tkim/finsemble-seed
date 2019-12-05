@@ -1,1 +1,6 @@
-{}
+{
+    "commerz_poc_html": {
+        "output": "components/commerz_poc_html/commerz_poc_html",
+        "entry": "./src/components/commerz_poc_html/commerz_poc_html.js"
+    }
+}
