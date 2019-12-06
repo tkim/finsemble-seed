@@ -155,248 +155,296 @@
             }
         },
         "commerz_poc_swing": {
-			"window": {
-				"id": "commerz_poc_swing",
-				"windowType": "FinsembleNativeWindow",
-				"path": "$javaExampleJarPath/CommerzPocSwing.jar",
-				"url": "",
-				"arguments": "",
-				"defaultHeight": 600,
-				"autoShow": true,
-				"alwaysOnTop": false,
-				"resizable": true,
-				"showTaskbarIcon": false,
-				"contextMenu": true,
-				"addToWorkspace": true
-			},
-			"component": {
-				"spawnOnStartup": false
-			},
-			"foreign": {
-				"services": {
-					"workspaceService": {
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"persistWindowState": false,
-						"FSBLHeader": true
-					},
-					"Toolbar": {
-						"iconURL": "$applicationRoot/assets/img/notepad.png"
-					}
-				}
-			}
-		},
+            "window": {
+                "id": "commerz_poc_swing",
+                "windowType": "FinsembleNativeWindow",
+                "path": "$javaExampleJarPath/CommerzPocSwing.jar",
+                "url": "",
+                "arguments": "",
+                "defaultHeight": 600,
+                "autoShow": true,
+                "alwaysOnTop": false,
+                "resizable": true,
+                "showTaskbarIcon": false,
+                "contextMenu": true,
+                "addToWorkspace": true
+            },
+            "component": {
+                "spawnOnStartup": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/assets/img/notepad.png"
+                    }
+                }
+            }
+        },
         "commerz_poc_headless": {
-			"window": {
-				"id": "commerz_poc_headless",
-				"windowType": "FinsembleNativeWindow",
-				"path": "$javaExampleJarPath/CommerzPocHeadless.jar",
-				"url": "",
-				"arguments": "",
-				"defaultHeight": 600,
-				"autoShow": true,
-				"alwaysOnTop": false,
-				"resizable": true,
-				"showTaskbarIcon": false,
-				"contextMenu": true,
-				"addToWorkspace": true
-			},
-			"component": {
-				"spawnOnStartup": false
-			},
-			"foreign": {
-				"services": {
-					"workspaceService": {
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"persistWindowState": false,
-						"FSBLHeader": true
-					},
-					"Toolbar": {
-						"iconURL": "$applicationRoot/assets/img/notepad.png"
-					}
-				}
-			}
+            "window": {
+                "id": "commerz_poc_headless",
+                "windowType": "FinsembleNativeWindow",
+                "path": "$javaExampleJarPath/CommerzPocHeadless.jar",
+                "url": "",
+                "arguments": "",
+                "defaultHeight": 600,
+                "autoShow": true,
+                "alwaysOnTop": false,
+                "resizable": true,
+                "showTaskbarIcon": false,
+                "contextMenu": true,
+                "addToWorkspace": true
+            },
+            "component": {
+                "spawnOnStartup": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/assets/img/notepad.png"
+                    }
+                }
+            }
         },
         "Start Tomcat Script": {
-			"window": {
-				"id": "Tomcat",
-				"windowType": "assimilation",
-				"path": "$tomcatPath/bin/catalina.bat",
-				"url": "",
-				"arguments": "start",
-				"addToWorkspace": false
-			},
-			"component": {
-				"spawnOnStartup": false
-			},
-			"foreign": {
-				"services": {
-					"workspaceService": {
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"persistWindowState": false,
-						"FSBLHeader": true
-					},
-					"Toolbar": {
-						"iconURL": "$applicationRoot/assets/img/notepad.png"
-					}
-				}
-			}
-		},
-		"Stop Tomcat Script": {
-			"window": {
-				"id": "Tomcat",
-				"windowType": "assimilation",
-				"path": "$tomcatPath/bin/catalina.bat",
-				"url": "",
-				"arguments": "stop",
-				"addToWorkspace": false
-			},
-			"component": {
-				"spawnOnStartup": false
-			},
-			"foreign": {
-				"services": {
-					"workspaceService": {
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"persistWindowState": false,
-						"FSBLHeader": true
-					},
-					"Toolbar": {
-						"iconURL": "$applicationRoot/assets/img/notepad.png"
-					}
-				}
-			}
-		},
-		"Start Tomcat Service": {
-			"window": {
-				"id": "Tomcat",
-				"windowType": "assimilation",
-				"path": "net",
-				"url": "",
-				"arguments": "start Tomcat9",
-				"addToWorkspace": false
-			},
-			"component": {
-				"spawnOnStartup": false
-			},
-			"foreign": {
-				"services": {
-					"workspaceService": {
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"persistWindowState": false,
-						"FSBLHeader": true
-					},
-					"Toolbar": {
-						"iconURL": "$applicationRoot/assets/img/notepad.png"
-					}
-				}
-			}
-		},
-		"Stop Tomcat Service": {
-			"window": {
-				"id": "Tomcat",
-				"windowType": "assimilation",
-				"path": "net",
-				"url": "",
-				"arguments": "stop Tomcat9",
-				"addToWorkspace": false
-			},
-			"component": {
-				"spawnOnStartup": false
-			},
-			"foreign": {
-				"services": {
-					"workspaceService": {
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"persistWindowState": false,
-						"FSBLHeader": true
-					},
-					"Toolbar": {
-						"iconURL": "$applicationRoot/assets/img/notepad.png"
-					}
-				}
-			}
-		},
-		"commerz_poc_jsp": {
-			"window": {
-				"url": "http://localhost:8080/CommerzPocWebapp/index.jsp",
-				"affinity": "workspaceComponents",
-				"frame": false,
-				"resizable": true,
-				"autoShow": true,
-				"top": "center",
-				"left": "center",
-				"width": 400,
-				"height": 432
-			},
-			"component": {
-				"inject": false,
-				"spawnOnStartup": false,
-				"preload": "$applicationRoot/preloads/zoom.js"
-			},
-			"foreign": {
-				"services": {
-					"dockingService": {
-						"canGroup": true,
-						"isArrangable": true
-					}
-				},
-				"components": {
-					"App Launcher": {
-						"launchableByUser": true
-					},
-					"Window Manager": {
-						"showLinker": true,
-						"FSBLHeader": true,
-						"persistWindowState": true,
-						"title": "commerz_poc_jsp"
-					},
-					"Toolbar": {
-						"iconClass": "ff-component"
-					}
-				}
-			}
-		}
+            "window": {
+                "id": "Tomcat",
+                "windowType": "assimilation",
+                "path": "$tomcatPath/bin/catalina.bat",
+                "url": "",
+                "arguments": "start",
+                "addToWorkspace": false
+            },
+            "component": {
+                "spawnOnStartup": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/assets/img/notepad.png"
+                    }
+                }
+            }
+        },
+        "Stop Tomcat Script": {
+            "window": {
+                "id": "Tomcat",
+                "windowType": "assimilation",
+                "path": "$tomcatPath/bin/catalina.bat",
+                "url": "",
+                "arguments": "stop",
+                "addToWorkspace": false
+            },
+            "component": {
+                "spawnOnStartup": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/assets/img/notepad.png"
+                    }
+                }
+            }
+        },
+        "Start Tomcat Service": {
+            "window": {
+                "id": "Tomcat",
+                "windowType": "assimilation",
+                "path": "net",
+                "url": "",
+                "arguments": "start Tomcat9",
+                "addToWorkspace": false
+            },
+            "component": {
+                "spawnOnStartup": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/assets/img/notepad.png"
+                    }
+                }
+            }
+        },
+        "Stop Tomcat Service": {
+            "window": {
+                "id": "Tomcat",
+                "windowType": "assimilation",
+                "path": "net",
+                "url": "",
+                "arguments": "stop Tomcat9",
+                "addToWorkspace": false
+            },
+            "component": {
+                "spawnOnStartup": false
+            },
+            "foreign": {
+                "services": {
+                    "workspaceService": {
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": true
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/assets/img/notepad.png"
+                    }
+                }
+            }
+        },
+        "commerz_poc_jsp": {
+            "window": {
+                "url": "http://localhost:8080/CommerzPocWebapp/index.jsp",
+                "affinity": "workspaceComponents",
+                "frame": false,
+                "resizable": true,
+                "autoShow": true,
+                "top": "center",
+                "left": "center",
+                "width": 400,
+                "height": 432
+            },
+            "component": {
+                "inject": false,
+                "spawnOnStartup": false,
+                "preload": "$applicationRoot/preloads/zoom.js"
+            },
+            "foreign": {
+                "services": {
+                    "dockingService": {
+                        "canGroup": true,
+                        "isArrangable": true
+                    }
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "showLinker": true,
+                        "FSBLHeader": true,
+                        "persistWindowState": true,
+                        "title": "commerz_poc_jsp"
+                    },
+                    "Toolbar": {
+                        "iconClass": "ff-component"
+                    }
+                }
+            }
+        },
+        "Tomcat Manager": {
+            "window": {
+                "url": "$applicationRoot/components/tomcatManager/tomcatManager.html",
+                "options": {
+                    "resizable": true,
+                    "autoShow": true,
+                    "alwaysOnTop": false
+                },
+                "top": "center",
+                "left": "center",
+                "width": 800,
+                "height": 600
+            },
+            "component": {
+                "preload": false,
+                "spawnOnStartup": false,
+                "singleton": true,
+                "showDevConsoleOnVisible": false
+            },
+            "foreign": {
+                "services": {
+                    "windowService": {
+                        "manageWindowMovement": true,
+                        "allowAutoArrange": true,
+                        "allowSnapping": true,
+                        "allowTabbing": true,
+                        "allowTiling": true,
+                        "allowGrouping": true,
+                        "allowMinimize": true
+                    },
+                    "workspace": {}
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "alwaysOnTopIcon": true,
+                        "title": "Tomcat Manager",
+                        "persistWindowState": true
+                    },
+                    "Toolbar": {
+                        "iconClass": "tomcatManager",
+                        "iconURL": "http://localhost:3375/assets/img/Finsemble_Taskbar_Icon.png"
+                    }
+                }
+            }
+        }
     }
 }
