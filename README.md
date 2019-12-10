@@ -77,6 +77,9 @@ Included components:
     - The **commerz_poc_html** window should open
 1) In one of the **Commerz POC Swing** windows, click the **Change Color** button then click the **Publish Color** button
     - All of the open windows should update with the new color
+1) Click **Default Workspace** on the toolbar, then click **Save As** and give the new workspace a name
+1) Click the Workspace menu and click the name of the newly created workspace
+    - The windows of the workspace should close and reload with the same state (e.g. color)
 1) Close both **Commerz POC Swing** windows, both **commerz_poc_html** windows and the **commerz_poc_jsp** window
 1) Click **Stop Tomcat Script** in the **Tomcat Manager** window
     - The status in the **Tomcat Manager** window should change to "Stopped"
