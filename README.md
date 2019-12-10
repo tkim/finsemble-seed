@@ -29,3 +29,60 @@ The Finsemble seed project provides a basic structure to help developers get up 
 
 ## Upgrading
 If you are moving from a version of the Finsemble seed project older than 2.3, please see the [instructions here](https://github.com/ChartIQ/finsemble-seed/tree/master/migration/2.3).
+
+---
+
+## Java POC
+
+The purpose of this POC is to demonstrate the use of Finsemble's Java API with Java Swing and with a Tomcat server. This project includes a number of Java based components: Java Swing, JSP HTML component (hosted by started Tomcat server), Tomcat menu launchers (start/stop from script and services), and a Tomcat manager component. The project also includes an HTML/JavaScript component. These components are able to share context within Finsemble demonstrated by synchronizing a color between all of the different components. 
+
+Included components:
+- **commerzbank_poc_html** - Standard HTML/JavaScript component listening for color changes
+- **commerzbank_poc_swing** - Java Swing application that can change the selected color, and publish the color to other components
+- **commerzbank_poc_headless** - A small windowless Java application that sends log messages to Finsemble every second
+- **commerzbank_poc_jsp** - JSP application hosted by Tomcat. Can Launch the Java Swing example and the HTML example using either the Java API or the JavaScript API.
+- **Start Tomcat Script** - Starts the Tomcat server via the startup script
+- **Stop Tomcat Script** - Stops the Tomcat server via the shutdown script
+- **Start Tomcat Service** -  Starts the Tomcat service via the command line (requires administrator privileges)
+- **Stop Tomcat Service** -  Stops the Tomcat service via the command line (requires administrator privileges)
+- **Tomcat manager** - Simple component that can start and stop the Tomcat server and track whether it is currently running. 
+
+### Setup
+
+1) Install [Tomcat](https://tomcat.apache.org/download-90.cgi) - Default location is _C:\Program Files\Apache Software Foundation/Tomcat 9.0_. If your install location is different, please update the `tomcatPath` in _configs/openfin/manifest-local.json_.
+1) Check out `master` of [finsemble-jar](https://github.com/ChartIQ/finsemble-jar) project
+1) Run `mvn install` on the project to install it locally
+1) Check out `POC/Commerzbank` of [finsemble-java-example](https://github.com/ChartIQ/finsemble-java-example)
+1) Run `mvn package` to build the JAR and WAR files
+1) Copy the generated _CommerzPOCWebApp.war_ to the Tomcat webapps directory (e.g. _C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps_)
+1) Update the `javaExampleJarPath` in _configs/openfin/manifest-local.json_ to point the _target_ directory of the `finsemble-java-example` project.
+1) Checkout the `POC/Commerzbank` of [finsemble-seed](https://github.com/ChartIQ/finsemble-seed) (this project)
+1) Run `npm install`
+1) Run `npm run dev` to start finsemble
+
+### Walk-through
+
+1) Launch **Tomcat Manager** from the **Apps** menu
+1) Click the **Start Tomcat Script** button to start the Tomcat server
+    - You should see a command window showing that server has started
+    - The status in the Tomcat manager should change from "Stopped" to "Running"
+    - The **commerz_poc_jsp** app should open
+1) Click the **Spawn Swing by Servlet** button in **commerz_poc_jsp** component
+    - The **Commerz POC Swing** window should open
+1) Click the **Spawn HTML by Servlet** button in **commerz_poc_jsp** component
+    - The **commerz_poc_html** window should open
+1) Click the **Spawn Swing by JavaScript** button in **commerz_poc_jsp** component
+    - The **Commerz POC Swing** window should open
+1) Click the **Spawn HTML by JavaScript** button in **commerz_poc_jsp** component
+    - The **commerz_poc_html** window should open
+1) In one of the **Commerz POC Swing** windows, click the **Change Color** button then click the **Publish Color** button
+    - All of the open windows should update with the new color
+1) Close both **Commerz POC Swing** windows, both **commerz_poc_html** windows and the **commerz_poc_jsp** window
+1) Click **Stop Tomcat Script** in the **Tomcat Manager** window
+    - The status in the **Tomcat Manager** window should change to "Stopped"
+1) Launch **commerz_poc_jsp** from the **Apps* menu
+    - The window should be blank because the Tomcat server is stopped
+1) Click on the Finsemble icon at the left of the toolbar, then click **Central Logger** from the menu
+1) Under **Filters**, type "headless" into the first field
+1) Click **commerz_poc_headless** from the **Apps** menu
+    - You should see "Commerz POC headless event was raised" messages in the central logger every five seconds
