@@ -34,7 +34,7 @@
         "openfin-launcher": "1.3.12"
     },
     "dependencies": {
-        "@chartiq/finsemble": "3.13.0",
+        "@chartiq/finsemble": "https://cs-send.finsemble.com/files/chartiq-finsemble-3.13.2.tgz",
         "@chartiq/finsemble-react-controls": "3.12.0",
         "async": "2.6.2",
         "babel-minify-webpack-plugin": "0.3.1",
