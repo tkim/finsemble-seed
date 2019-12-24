@@ -262,7 +262,7 @@
                     },
                     "Window Manager": {
                         "persistWindowState": false,
-                        "FSBLHeader": true
+                        "FSBLHeader": false
                     },
                     "Toolbar": {
                         "iconURL": "$applicationRoot/assets/img/notepad.png"
@@ -354,7 +354,7 @@
                 },
                 "components": {
                     "App Launcher": {
-                        "launchableByUser": true
+                        "launchableByUser": false
                     },
                     "Window Manager": {
                         "persistWindowState": false,
@@ -386,7 +386,7 @@
                 },
                 "components": {
                     "App Launcher": {
-                        "launchableByUser": true
+                        "launchableByUser": false
                     },
                     "Window Manager": {
                         "persistWindowState": false,
@@ -408,7 +408,7 @@
                 "top": "center",
                 "left": "center",
                 "width": 400,
-                "height": 432
+                "height": 440
             },
             "component": {
                 "inject": false,
@@ -448,8 +448,8 @@
                 },
                 "top": "center",
                 "left": "center",
-                "width": 800,
-                "height": 600
+                "width": 455,
+                "height": 300
             },
             "component": {
                 "preload": false,
