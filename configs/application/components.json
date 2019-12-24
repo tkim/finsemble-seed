@@ -252,9 +252,9 @@
             },
             "foreign": {
                 "services": {
-                    "workspaceService": {
-                        "isArrangable": true
-                    }
+                    "windowService": {
+						"manageWindowMovement": false
+					}
                 },
                 "components": {
                     "App Launcher": {
@@ -417,9 +417,14 @@
             },
             "foreign": {
                 "services": {
-                    "dockingService": {
-                        "canGroup": true,
-                        "isArrangable": true
+                    "windowService": {
+                        "manageWindowMovement": true,
+                        "allowAutoArrange": true,
+                        "allowSnapping": true,
+                        "allowTabbing": true,
+                        "allowTiling": true,
+                        "allowGrouping": true,
+                        "allowMinimize": true
                     }
                 },
                 "components": {
