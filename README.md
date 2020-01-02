@@ -55,8 +55,8 @@ Included components:
 1) Check out `POC/Commerzbank` of [finsemble-java-example](https://github.com/ChartIQ/finsemble-java-example)
 1) Run `mvn package` to build the JAR and WAR files
 1) Copy the generated _CommerzPOCWebApp.war_ to the Tomcat webapps directory (e.g. _C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps_)
-1) Update the `javaExampleJarPath` in _configs/openfin/manifest-local.json_ to point the _target_ directory of the `finsemble-java-example` project.
 1) Checkout the `POC/Commerzbank` of [finsemble-seed](https://github.com/ChartIQ/finsemble-seed) (this project)
+1) Update the `javaExampleJarPath` in _configs/openfin/manifest-local.json_ to point the _target_ directory of the `finsemble-java-example` project.
 1) Run `npm install`
 1) Run `npm run dev` to start finsemble
 
