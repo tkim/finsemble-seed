@@ -75,6 +75,15 @@
         ],
         "IAC": {
             "serverAddress": "ws://127.0.0.1:3376"
+		},
+		"router2": {
+            "sameDomainTransport": "OpenFinBus",
+            "crossDomainTransport": "FinsembleTransport",
+            "transportSettings": {
+                "FinsembleTransport": {
+                    "serverAddress": "ws://127.0.0.1:3376"
+                }
+            }
         }
     }
 }

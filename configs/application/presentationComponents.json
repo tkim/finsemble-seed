@@ -690,7 +690,7 @@
 		"Process Monitor": {
 			"window": {
 				"url": "$applicationRoot/components/processMonitor/processMonitor.html",
-				"affinity": "workspaceComponents",
+				"affinity": "Monitor",
 				"width": 600,
 				"height": 700
 			},
