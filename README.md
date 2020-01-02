@@ -63,6 +63,9 @@ Included components:
 ### Walk-through
 
 1) Launch **Tomcat Manager** from the **Apps** menu
+1) Click the **Start Embedded Tomcat** button to start the ebedded Tomcat server
+    - The status in the Tomcat manager should change from "Stopped" to "Running"
+    - The **commerz_poc_jsp** app should open
 1) Click the **Start Tomcat Script** button to start the Tomcat server
     - You should see a command window showing that server has started
     - The status in the Tomcat manager should change from "Stopped" to "Running"
@@ -82,6 +85,8 @@ Included components:
     - The windows of the workspace should close and reload with the same state (e.g. color)
 1) Close both **Commerz POC Swing** windows, both **commerz_poc_html** windows and the **commerz_poc_jsp** window
 1) Click **Stop Tomcat Script** in the **Tomcat Manager** window
+    - The status in the **Tomcat Manager** window should change to "Stopped"
+1) Click **Stop Embedded Tomcat** in the **Tomcat Manager** window
     - The status in the **Tomcat Manager** window should change to "Stopped"
 1) Launch **commerz_poc_jsp** from the **Apps* menu
     - The window should be blank because the Tomcat server is stopped

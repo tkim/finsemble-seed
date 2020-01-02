@@ -5,6 +5,33 @@ const FSBLReady = () => {
 		// ================================
 		// Setup service manager buttons
 
+
+		// --------------------------------
+		// Manage embedded Tomcat
+		const embeddedStartButton = document.createElement("button");
+		embeddedStartButton.className = "button";
+		embeddedStartButton.appendChild(document.createTextNode("Start Embedded Tomcat"));
+		embeddedStartButton.onclick = () => FSBL.Clients.LauncherClient.spawn("Embedded Tomcat");
+		document.body.appendChild(embeddedStartButton);
+
+		const embeddedStopButton = document.createElement("button");
+		embeddedStopButton.className = "button";
+		embeddedStopButton.appendChild(document.createTextNode("Stop Embedded Tomcat"));
+		embeddedStopButton.onclick = () => stopEmbeddedTomcat();
+		document.body.appendChild(embeddedStopButton);
+
+		const embeddedTomcatStatus = document.createElement("div");
+		document.body.appendChild(embeddedTomcatStatus);
+		embeddedTomcatStatus.innerText = "status: unknown";
+
+		setInterval(async () => {
+			const data = (await FSBL.Clients.LauncherClient.getActiveDescriptors()).data;
+			const embeddedTomcat = Object.keys(data).filter(key => key.startsWith("Embedded Tomcat"));
+			const isRunning = embeddedTomcat.length > 0;
+			const status = isRunning ? "Running" : "Stopped";
+			embeddedTomcatStatus.innerText = "status: " + status;
+		}, 1000);
+
 		// --------------------------------
 		// Tomcat managed via start/stop script
 		const startScriptButton = document.createElement("button");
@@ -106,6 +133,10 @@ async function findInstances(componentType){
 		});
 		return Promise.resolve(windowIdentifiers);
 	}
+}
+
+function stopEmbeddedTomcat(){
+	closeComponents("Embedded Tomcat")
 }
 
 if (window.FSBL && FSBL.addEventListener) {

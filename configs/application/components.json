@@ -454,7 +454,7 @@
                 "top": "center",
                 "left": "center",
                 "width": 455,
-                "height": 300
+                "height": 350
             },
             "component": {
                 "preload": false,
@@ -487,6 +487,44 @@
                     "Toolbar": {
                         "iconClass": "tomcatManager",
                         "iconURL": "http://localhost:3375/assets/img/Finsemble_Taskbar_Icon.png"
+                    }
+                }
+            }
+        },
+        "Embedded Tomcat": {
+            "window": {
+                "id": "commerz_poc_embeddedtomcat",
+                "windowType": "FinsembleNativeWindow",
+                "path": "$javaExampleJarPath/CommerzPocEmbeddedTomcat.jar",
+                "url": "",
+                "arguments": "",
+                "defaultHeight": 600,
+                "autoShow": true,
+                "alwaysOnTop": false,
+                "resizable": true,
+                "showTaskbarIcon": false,
+                "contextMenu": true,
+                "addToWorkspace": true
+            },
+            "component": {
+                "spawnOnStartup": false
+            },
+            "foreign": {
+                "services": {
+                    "windowService": {
+						"manageWindowMovement": false
+					}
+                },
+                "components": {
+                    "App Launcher": {
+                        "launchableByUser": true
+                    },
+                    "Window Manager": {
+                        "persistWindowState": false,
+                        "FSBLHeader": false
+                    },
+                    "Toolbar": {
+                        "iconURL": "$applicationRoot/assets/img/notepad.png"
                     }
                 }
             }
