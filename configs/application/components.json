@@ -200,7 +200,7 @@
                 "windowType": "FinsembleNativeWindow",
                 "path": "$javaExampleJarPath/CommerzPocSwing.jar",
                 "url": "",
-                "arguments": "",
+                "arguments": "loggingConfigFile=../logging.properties",
                 "defaultHeight": 600,
                 "autoShow": true,
                 "alwaysOnTop": false,
