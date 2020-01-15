@@ -7,10 +7,7 @@
 					"name": "Finsemble-AppLauncher-Store",
 					"foundation": {
 						"appFolders": {
-							"list": [
-								"My Apps",
-								"Favorites"
-							],
+							"list": ["My Apps", "Favorites"],
 							"folders": {
 								"My Apps": {
 									"icon": "ff-component",
@@ -86,11 +83,7 @@
 			}
 		},
 		"logger": {
-			"hotkeyShowCentralLogger": [
-				"ctrl",
-				"shift",
-				"L"
-			]
+			"hotkeyShowCentralLogger": ["ctrl", "shift", "L"]
 		},
 		"storage": {
 			"defaultStorage": "IndexedDBAdapter",
@@ -167,6 +160,8 @@
 		"$applicationRoot/configs/application/workspaces.json",
 		"$applicationRoot/configs/application/workspaceTemplates.json",
 		"$applicationRoot/configs/application/services.json",
-		"$applicationRoot/configs/application/securityPolicies.json"
+		"$applicationRoot/configs/application/securityPolicies.json",
+		"$applicationRoot/components/finsemble-notifications/config.json",
+		"$applicationRoot/components/finsemble-notifications/sample.config.json"
 	]
 }
