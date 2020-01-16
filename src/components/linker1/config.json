@@ -1,0 +1,42 @@
+{
+	"components": {
+		"linker1": {
+			"window": {
+				"url": "$applicationRoot/components/linker1/linker1.html",
+				"affinity": "systemComponents",
+				"frame": false,
+				"resizable": true,
+				"autoShow": true,
+				"top": "center",
+				"left": "center",
+				"width": 400,
+				"height": 600
+			},
+			"component": {
+				"inject": false,
+				"spawnOnStartup": false,
+				"category": "system",
+				"singleton": true
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"canGroup": true,
+						"isArrangeable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"showLinker": true,
+						"FSBLHeader": true,
+						"persistWindowState": true,
+						"title": "Linker 1"
+					}
+				}
+			}
+		}
+	}
+}

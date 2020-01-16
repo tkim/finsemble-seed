@@ -1,6 +1,47 @@
 {
 	"comment": "Sample component configuration",
 	"components": {
+		"Linker3": {
+			"window": {
+				"url": "https://www.google.com",
+				"affinity": "workspaceComponents",
+				"frame": false,
+				"resizable": true,
+				"autoShow": true,
+				"top": "center",
+				"left": "center",
+				"width": 400,
+				"height": 432
+			},
+			"component": {
+				"inject": false,
+				"spawnOnStartup": false,
+				"preload": "$applicationRoot/components/linker2/preload.js",
+				"category": "system"
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"canGroup": true,
+						"isArrangable": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"showLinker": true,
+						"FSBLHeader": true,
+						"persistWindowState": true,
+						"title": "Sender"
+					},
+					"Toolbar": {
+						"iconClass": "ff-component"
+					}
+				}
+			}
+		},
 		"Welcome Component": {
 			"window": {
 				"url": "$applicationRoot/components/welcome/welcome.html",
@@ -188,5 +229,9 @@
 				}
 			}
 		}
-	}
+	},
+	"importConfig": [
+		"$applicationRoot/components/linker1/config.json",
+		"$applicationRoot/components/linker2/config.json"
+	]
 }
