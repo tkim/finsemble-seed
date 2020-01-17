@@ -17,14 +17,17 @@ if (window.FSBL && FSBL.addEventListener) {
 
 
 function init() {
-	FSBL.Clients.LinkerClient.subscribe("symbol", (data, response) => {
-		if (!response.originatedHere()) {
-			// Use response.originatedHere() if you're trying to prevent the publisher from acting on it's own data.
-		}
-
-		if (response.header.origin === 'Routerclient.specificWindowName') {
-			// response.header.origin has will look like Routerclient.Welcome Component-2343-2-Finemble
-			// You should be able to match the origin to
-		}
+	const subscribedAt = new Date().toISOString();
+	const rand = Math.random();
+	let timesCalled = 0;
+	FSBL.Clients.LinkerClient.subscribe("symbol", (symbol, response) => {
+		// if (!messages.hasOwnProperty(response.data.message_id)) {
+		// 	messages[response.data.message_id] = true;
+			console.log("Subscription handler applied at: " + subscribedAt + 
+				"\nRandom number: " + rand + 
+				"\ntimes called: " + timesCalled++ + 
+				"\n, response:", response);
+			// process message
+		// }
 	});
 }

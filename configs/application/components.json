@@ -14,9 +14,8 @@
 				"height": 432
 			},
 			"component": {
-				"inject": false,
+				"inject": "$applicationRoot/components/linker2/preload.js",
 				"spawnOnStartup": false,
-				"preload": "$applicationRoot/components/linker2/preload.js",
 				"category": "system"
 			},
 			"foreign": {
