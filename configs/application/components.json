@@ -246,7 +246,6 @@
 				"width": 600,
 				"height": 600,
 				"arguments": "",
-				"options": {"autoShow": true},
 				"addToWorkspace": true
 			},
 			"component": {
@@ -270,7 +269,52 @@
 				"width": 600,
 				"height": 600,
 				"arguments": "",
-				"options": {"autoShow": true},
+				"addToWorkspace": true
+			},
+			"component": {
+				"spawnOnStartup": false
+			},
+			"foreign": {
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					}
+				}
+			}
+		},
+		"WinformExampleDotNetSeed": {
+			"window": {
+				"id": "WinformExampleDotNetSeed",
+				"windowType": "native",
+				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-dotnet-seed\\WinformExample\\bin\\Release\\WinformExample.exe",
+				"top": "center",
+				"left": "center",
+				"width": 600,
+				"height": 600,
+				"arguments": "",
+				"addToWorkspace": true
+			},
+			"component": {
+				"spawnOnStartup": false
+			},
+			"foreign": {
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					}
+				}
+			}
+		},
+		"WinformExampleDebugDotNetSeed": {
+			"window": {
+				"id": "WinformExampleDotNetSeed",
+				"windowType": "native",
+				"path": "C:\\Users\\admin\\Documents\\code\\finsemble-dotnet-seed\\WinformExample\\bin\\Debug\\WinformExample.exe",
+				"top": "center",
+				"left": "center",
+				"width": 600,
+				"height": 600,
+				"arguments": "",
 				"addToWorkspace": true
 			},
 			"component": {
