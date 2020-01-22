@@ -4,10 +4,7 @@ import App from "./App";
 
 const FSBLReady = () => {
 	try {
-		// Do things with FSBL in here.
-		ReactDom.render(<App />, document.getElementById("notifications-drawer"));
-		window.onblur = () =>
-			FSBL.Clients.WindowClient.minimize(console.log("blrd"));
+		ReactDom.render(<App />, document.getElementById("notifications-toaster"));
 	} catch (e) {
 		FSBL.Clients.Logger.error(e);
 	}
