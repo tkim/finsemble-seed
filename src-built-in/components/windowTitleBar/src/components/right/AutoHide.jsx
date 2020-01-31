@@ -12,19 +12,19 @@ import { Actions as HeaderActions } from "../../stores/windowTitleBarStore";
 export default class AutoHide extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			autoHide: false,
+			hoverState: false
+		};
 		this.changeAutoHide = this.changeAutoHide.bind(this);
 		this.hoverAction = this.hoverAction.bind(this);
 	}
 
-	componentWillMount() {
-		this.setState({
-			autoHide: false
-		});
-
+	componentDidMount() {
 		FSBL.Clients.WindowClient.getComponentState({
 			field: 'autoHide',
 		}, (err, state) => {
-			let stateToSet = err ? HeaderActions.getDefaultAutoHide() : state;
+			let stateToSet = (err || !state) ? HeaderActions.getDefaultAutoHide() : state;
 			this.setState({
 				autoHide: stateToSet
 			});
@@ -70,7 +70,11 @@ export default class AutoHide extends React.Component {
 		if (this.state && this.state.autoHide) wrapClasses += "fsbl-icon-highlighted ";
 		const tooltip = "Auto-hide window chrome";
 
-		return (<div className={wrapClasses} id="fsbl-window-autohide" title={tooltip} data-hover={this.state.hoverState} onClick={this.changeAutoHide}>
+		return (<div className={wrapClasses} 
+					id="fsbl-window-autohide" title={tooltip} 
+					data-hover={this.state.hoverState} 
+					onClick={this.changeAutoHide} 
+					style={this.props.visible ? {} : { display: "none" }}>
 				<FinsembleHoverDetector edge="top" hoverAction={this.hoverAction} />
 			<i className={iconClasses}></i>
 		</div>);
