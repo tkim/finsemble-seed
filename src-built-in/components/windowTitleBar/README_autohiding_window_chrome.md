@@ -33,8 +33,9 @@ To customize behavior for all windows, use the following form in _/configs/appli
 },
 ...
 ```
+To disable the autohide icon for all components set `autoHideIcon` to `false`.
 
-To customize behavior for a particular component, use the following form in the component configuration (often found in _/configs/application/components.json_):
+To customize behavior for a particular component, use the following form in the component configuration (usually found in _/configs/application/components.json_):
 ```
 "<component name>": {
 	"window": { ... },
@@ -56,3 +57,5 @@ To customize behavior for a particular component, use the following form in the 
 	}
 },
 ```
+
+Again, to disable the autohide icon for a specific component set `autoHideIcon` to `false`.
