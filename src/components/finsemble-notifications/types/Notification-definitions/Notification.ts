@@ -3,22 +3,24 @@ import IPerformedAction from "./IPerformedAction";
 import IAction from "./IAction";
 
 export default class Notification implements INotification {
-	actions: IAction[];
-	actionsHistory: IPerformedAction[];
-	contentLogo: string;
-	details: string;
+	id?: string;
+	issuedAt: string;
+	receivedAt?: string;
+	type?: string;
+	source?: string;
+	title: string;
+	details?: string;
+	headerText?: string;
+	headerLogo?: string;
+	contentLogo?: string;
+	timeout?: number;
+
 	isActionPerformed: boolean;
 	isSnoozed: boolean;
-	receivedAt?: string;
-	headerLogo: string;
-	headerText: string;
-	id: string;
-	issuedAt: string;
-	meta: Map<string, any>;
-	timeout: number;
-	title: string;
-	type: string;
-	source: string;
+
+	actions?: IAction[];
+	meta?: Object;
+	actionsHistory?: IPerformedAction[];
 	stateHistory: INotification[];
 
 	constructor() {
@@ -26,7 +28,7 @@ export default class Notification implements INotification {
 		this.isActionPerformed = false;
 		this.isSnoozed = false;
 		this.actionsHistory = [];
-		this.meta = new Map<string, any>();
+		this.meta = {};
 		this.stateHistory = [];
 	}
 }

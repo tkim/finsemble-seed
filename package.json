@@ -55,7 +55,8 @@
 		"lodash.debounce": "4.0.8",
 		"lodash.get": "^4.4.2",
 		"lodash.throttle": "4.1.1",
-		"nocache": "2.0.0"
+		"nocache": "2.0.0",
+		"searchjs": "^1.0.2"
 	},
 	"devDependencies": {
 		"@chartiq/tslint-config-chartiq-base": "0.1.3",
