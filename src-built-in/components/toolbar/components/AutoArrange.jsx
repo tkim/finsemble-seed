@@ -68,7 +68,7 @@ export default class AutoArrange extends React.Component {
 
 	render() {
 		// To re-enable auto-arrange set AutoArrangeEnabled=true -- this should only be done for in-house testing
-		const AutoArrangeEnabled = false;
+		const AutoArrangeEnabled = true;
 
 		if (AutoArrangeEnabled) {
 			const autoArrangedCss = this.state.isAutoArranged ? "auto-arranged" : "";
