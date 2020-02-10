@@ -1,0 +1,3 @@
+[submodule "src/components/finsemble-notifications"]
+	path = src/components/finsemble-notifications
+	url = git@github.com:ChartIQ/finsemble-notifications.git
