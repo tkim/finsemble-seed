@@ -69,7 +69,7 @@ Actions = {
 		 */
 		FSBL.Clients.RouterClient.subscribe("Finsemble.WorkspaceService.update", function (err, response) {
 			if (response.data && response.data.activeWorkspace) {
-				Logger.system.debug("WorkspaceManagementStore init update", response.data);
+				Logger.system.debug("Finsemble.WorkspaceService.update notification", response.data, response.data.activeWorkspace.isDirty ? "dirty" : "not-dirty");
 				WorkspaceManagementStore.setValue({ field: "activeWorkspace", value: response.data.activeWorkspace });
 				WorkspaceManagementStore.setValue({ field: "WorkspaceList", value: response.data.workspaces });
 			}
