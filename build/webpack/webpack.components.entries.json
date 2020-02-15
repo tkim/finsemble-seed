@@ -1,1 +1,12 @@
-{}
+{
+    "renderer": {
+        "output": "components/renderer/renderer",
+        "entry": "./src/components/renderer/renderer.ts"
+    },
+
+	"ControllerService": {
+		"output": "services/Controller/ControllerService",
+		"entry": "./src/services/Controller/ControllerService.js"
+	}
+
+}
