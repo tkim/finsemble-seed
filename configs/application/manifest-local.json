@@ -65,6 +65,18 @@
             "version": "4.0.0",
             "alias": "assimilation",
             "target": "AssimilationMain.exe"
+        },
+        {
+            "src": "https://assets.finsemble.com/finsembleDLL/dev/WPFExample_4_1_0_rc1.zip",
+            "version": "4.1.0-rc1",
+            "alias": "FinsembleWPFDemo",
+            "target": "WPFExample.exe"
+        },
+        {
+            "src": "https://assets.finsemble.com/finsembleDLL/dev/MultiWindowExample_4_1_0_rc.zip",
+            "version": "4.1.0-rc1",
+            "alias": "MultiWindowExample",
+            "target": "MultiWindowExample.exe"
         }
     ],
     "finsemble": {
@@ -90,6 +102,9 @@
                     "serverAddress": "ws://127.0.0.1:3376"
                 }
             }
-        }
+        },
+        "trustedPreloads": [
+            "zoom.js"
+        ]
     }
 }

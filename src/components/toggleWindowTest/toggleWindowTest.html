@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>toggleWindowTest</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" type="text/css" href="toggleWindowTest.css">
+   <script src="../../vendor.bundle.js"></script>
+   <script src="toggleWindowTest.js"></script>
+   <script>
+			function openTab(evt, tabName) {
+			  var i, tabcontent, tablinks;
+			  tabcontent = document.getElementsByClassName("tabcontent");
+			  for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+			  }
+			  tablinks = document.getElementsByClassName("tablinks");
+			  for (i = 0; i < tablinks.length; i++) {
+				  tablinks[i].className = tablinks[i].className.replace(" active", "");
+			  }
+			  document.getElementById(tabName).style.display = "block";
+			  evt.currentTarget.className += " active";
+			}
+		  </script>
+</head>
+<body>
+  <div id="container">
+    <div class='tab'>
+      <button class="tablinks tablink1 defaultTab" onclick="openTab(event, 'Components_HTML5_Local')">HTML5 (Local)</button>
+      <button class="tablinks tablink2" onclick="openTab(event, 'Components_HTML5_XDomain')">HTML5 (X-Domain)</button>
+      <button class="tablinks tablink3" onclick="openTab(event, 'Components_Native')">Native</button>
+      <button class="tablinks tablink4" onclick="openTab(event, 'Components_Assimilated')">Assimilated</button>
+    </div>
+
+    <h1>toggleWindowOnClick()</h1>
+
+    <div id='Components_HTML5_Local' class='tabcontent tabcontent1'>
+      <div><button class="functionBtn" onclick="showOrSpawn({ name: 'ToggleWindowTest_1' })">Show / Spawn - Welcome Component</button></div>
+      <div><button class="functionBtn" onclick="hide({ name: 'ToggleWindowTest_1' })">Hide Welcome Component</button></div>
+      <div><button class="functionBtn" onclick="toggle(event, { name: 'ToggleWindowTest_1' })">Toggle (Basic)</button></div>
+      <div><button class="functionBtn" onclick="toggle(event, { name: 'ToggleWindowTest_1', params: {position: 'relative', top: 0, left: 0} })">Toggle (Position Relative to Calling Window)</button></div>
+    </div>
+
+    <div id='Components_HTML5_XDomain' class='tabcontent tabcontent2'>
+      <div><button class="functionBtn" onclick="showOrSpawn({ name: 'ToggleWindowTest_2', params: {url: 'https://www.cnn.com'} })">Show / Spawn - X-Domain Component</button></div>
+      <div><button class="functionBtn" onclick="hide({ name: 'ToggleWindowTest_2' })">Hide X-Domain Component</button></div>
+      <div><button class="functionBtn" onclick="toggle(event, { name: 'ToggleWindowTest_2' })">Toggle (Basic)</button></div>
+      <div><button class="functionBtn" onclick="toggle(event, { name: 'ToggleWindowTest_2', params: {position: 'relative', top: 0, left: 0} })">Toggle (Position Relative to Calling Window)</button></div>
+    </div>
+
+    <div id='Components_Native' class='tabcontent tabcontent3'>
+      <div><button class="functionBtn" onclick="showOrSpawn({ name: 'ToggleWindowTest_3', componentType: 'Finsemble WPF Demo' })">Show / Spawn - Native Component</button></div>
+      <div><button class="functionBtn" onclick="hide({ name: 'ToggleWindowTest_3' })">Hide Native Component</button></div>
+      <div><button class="functionBtn" onclick="toggle(event, { name: 'ToggleWindowTest_3' })">Toggle (Basic)</button></div>
+      <div><button class="functionBtn" onclick="toggle(event, { name: 'ToggleWindowTest_3', params: {position: 'relative', top: 0, left: 0} })">Toggle (Position Relative to Calling Window)</button></div>
+    </div>
+
+    <div id='Components_Assimilated' class='tabcontent tabcontent4'>
+      <div><button class="functionBtn" onclick="showOrSpawn({ name: 'ToggleWindowTest_4', componentType: 'Notepad' })">Show / Spawn - Assimilated Component</button></div>
+      <div><button class="functionBtn" onclick="hide({ name: 'ToggleWindowTest_4' })">Hide Assimilated Component</button></div>
+      <div><button class="functionBtn" onclick="toggle(event, { name: 'ToggleWindowTest_4' })">Toggle (Basic)</button></div>
+      <div><button class="functionBtn" onclick="toggle(event, { name: 'ToggleWindowTest_4', params: {position: 'relative', top: 0, left: 0} })">Toggle (Position Relative to Calling Window)</button></div>
+    </div>
+
+  </div>
+</body>
+</html>
