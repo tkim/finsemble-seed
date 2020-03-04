@@ -77,7 +77,7 @@
 			"undockDisbandsEntireGroup": false,
 			"fillHolesOnUndock": true,
 			"tabbing": {
-				"enabled": false
+				"enabled": true
 			},
 			"tiling": {
 				"enabled": false

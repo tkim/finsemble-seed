@@ -133,7 +133,7 @@ export default class TabRegion extends React.Component {
             x: e.nativeEvent.screenX,
             y: e.nativeEvent.screenY
         }
-        
+
         const boundingBox = this.state.boundingBox;
         FSBL.Clients.WindowClient.getBounds(
             (err, bounds) => {
@@ -142,7 +142,7 @@ export default class TabRegion extends React.Component {
                     top: boundingBox.top + bounds.top,
                     bottom: boundingBox.bottom + bounds.top,
                     left: boundingBox.left + bounds.left,
-                    right: boundingBox.right + bounds.left 
+                    right: boundingBox.right + bounds.left
                 };
                 if (!FSBL.Clients.WindowClient.isPointInBox(this.mousePositionOnDragEnd, tabRegion)) {
                     setTimeout(() => {
@@ -572,7 +572,7 @@ function renderTabs() {
     let titleWidth = this.state.tabWidth - ICON_AREA - CLOSE_BUTTON_MARGIN;
     return this.state.tabs.map(tab => {
         return <Tab
-            onClick={() => {
+            setActiveTab={() => {
                 this.setActiveTab(tab);
             }}
             draggable="true"
