@@ -65,14 +65,14 @@ const FSBLReady = () => {
 		const startHeadlessButton = document.createElement("button");
 		startHeadlessButton.className = "button";
 		startHeadlessButton.appendChild(document.createTextNode("Start Headless java script"));
-		startHeadlessButton.onclick = () => FSBL.Clients.LauncherClient.spawn("commerz_poc_headless");
+		startHeadlessButton.onclick = () => FSBL.Clients.LauncherClient.spawn("java_headless");
 		document.body.appendChild(startHeadlessButton);
 
 		const stopHeadlessButton = document.createElement("button");
 		stopHeadlessButton.className = "button";
 		stopHeadlessButton.appendChild(document.createTextNode("Stop all Headless java Scripts"));
 		stopHeadlessButton.onclick = () => {
-			closeComponents("commerz_poc_headless");
+			closeComponents("java_headless");
 		};
 		document.body.appendChild(stopHeadlessButton);
 
@@ -81,7 +81,7 @@ const FSBLReady = () => {
 		headlessStatus.innerText = "status: unknown";
 
 		setInterval(async () => {
-			findInstances("commerz_poc_headless")
+			findInstances("java_headless")
 			.then(function(windowIdentifiers){
 				const numRunning = windowIdentifiers.length;
 				const status = numRunning > 0 ? numRunning + " running" : "Stopped";

@@ -145,9 +145,9 @@
                 }
             }
         },
-        "commerz_poc_html": {
+        "example_html": {
             "window": {
-                "url": "$applicationRoot/components/commerz_poc_html/commerz_poc_html.html",
+                "url": "$applicationRoot/components/example_html/example_html.html",
                 "frame": false,
                 "options": {
                     "resizable": true,
@@ -184,21 +184,21 @@
                     },
                     "Window Manager": {
                         "alwaysOnTopIcon": true,
-                        "title": "commerz_poc_html",
+                        "title": "example_html",
                         "persistWindowState": true
                     },
                     "Toolbar": {
-                        "iconClass": "commerz_poc_html",
+                        "iconClass": "example_html",
                         "iconURL": "http://localhost:3375/assets/img/Finsemble_Taskbar_Icon.png"
                     }
                 }
             }
         },
-        "commerz_poc_swing": {
+        "java_swing": {
             "window": {
-                "id": "commerz_poc_swing",
+                "id": "java_swing",
                 "windowType": "FinsembleNativeWindow",
-                "path": "$javaExampleJarPath/CommerzPocSwing.jar",
+                "path": "$javaExampleJarPath/JavaSwingExample.jar",
                 "url": "",
                 "arguments": "loggingConfigFile=../logging.properties",
                 "defaultHeight": 600,
@@ -232,11 +232,11 @@
                 }
             }
         },
-        "commerz_poc_headless": {
+        "java_headless": {
             "window": {
-                "id": "commerz_poc_headless",
+                "id": "java_headless",
                 "windowType": "FinsembleNativeWindow",
-                "path": "$javaExampleJarPath/CommerzPocHeadless.jar",
+                "path": "$javaExampleJarPath/FinsembleJavaHeadlessExample.jar",
                 "url": "",
                 "arguments": "",
                 "defaultHeight": 600,
@@ -398,9 +398,9 @@
                 }
             }
         },
-        "commerz_poc_jsp": {
+        "example_jsp": {
             "window": {
-                "url": "http://localhost:8080/CommerzPocWebapp/index.jsp",
+                "url": "http://localhost:8080/JavaWebapp/index.jsp",
                 "affinity": "workspaceComponents",
                 "frame": false,
                 "resizable": true,
@@ -435,7 +435,7 @@
                         "showLinker": true,
                         "FSBLHeader": true,
                         "persistWindowState": true,
-                        "title": "commerz_poc_jsp"
+                        "title": "example_jsp"
                     },
                     "Toolbar": {
                         "iconClass": "ff-component"
@@ -493,9 +493,9 @@
         },
         "Embedded Tomcat": {
             "window": {
-                "id": "commerz_poc_embeddedtomcat",
+                "id": "java_embeddedtomcat",
                 "windowType": "FinsembleNativeWindow",
-                "path": "$javaExampleJarPath/CommerzPocEmbeddedTomcat.jar",
+                "path": "$javaExampleJarPath/JavaEmbeddedTomcat.jar",
                 "url": "",
                 "arguments": "",
                 "defaultHeight": 600,

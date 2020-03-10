@@ -1,7 +1,7 @@
 {
-    "commerz_poc_html": {
-        "output": "components/commerz_poc_html/commerz_poc_html",
-        "entry": "./src/components/commerz_poc_html/commerz_poc_html.js"
+    "example_html": {
+        "output": "components/example_html/example_html",
+        "entry": "./src/components/example_html/example_html.js"
     },
     "tomcatManager": {
         "output": "components/tomcatManager/tomcatManager",
