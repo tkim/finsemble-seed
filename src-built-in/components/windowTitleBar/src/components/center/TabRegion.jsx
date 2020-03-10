@@ -550,6 +550,7 @@ export default class TabRegion extends React.Component {
 function renderTitle() {
     return (<div
         draggable="true"
+        onDoubleClick={() => console.log('clickeddddddddd')}
         onDragStart={(e) => {
             FSBL.Clients.Logger.system.debug("Tab drag start - TITLE");
             let activeIdentifier = finsembleWindow.identifier;
