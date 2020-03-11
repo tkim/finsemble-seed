@@ -11,26 +11,16 @@ export default class Tab extends React.Component {
 		super(props);
 		this.onDragOver = this.onDragOver.bind(this);
 		this.onDragLeave = this.onDragLeave.bind(this);
-		this.renameTabInput = React.createRef();
+
 
 		this.state = {
 			hoverState: "false",
 			tabLogo: {},
-			title: "",
-			changeTabTitle: false
+			title: ""
 		};
 		this.tabbingState = false;
 	}
-	componentDidMount() {
-		FSBL.Clients.WindowClient.getComponentState(
-			{ field: "persistedTitle" },
-			(err, title) => {
-				if (title) {
-					FSBL.Clients.WindowClient.setWindowTitle(title);
-				}
-			}
-		);
-	}
+
 	onDragLeave(e) {
 		this.tabbingState = false;
 		FSBL.Clients.RouterClient.publish('Finsemble.AmTabbing', false);
@@ -55,15 +45,6 @@ export default class Tab extends React.Component {
 		this.setState({ hoverState: newHoverState });
 	}
 
-	updateTabTitle = e => {
-		const title = e.target.value;
-		FSBL.Clients.WindowClient.setComponentState({
-			field: "persistedTitle",
-			value: title
-		});
-		FSBL.Clients.WindowClient.setWindowTitle(title);
-		this.setState({ changeTabTitle: false });
-	};
 
 	render() {
 		let style = {
@@ -73,15 +54,11 @@ export default class Tab extends React.Component {
 			<div
 				ref="Me"
 				onDrop={this.props.onDrop}
-				onClick={() => {
-					!this.state.changeTabTitle && this.props.setActiveTab();
-				}}
-				onDoubleClick={async () => {
-					await this.setState({ changeTabTitle: true });
-					this.renameTabInput.current.focus();
-				}}
+				onClick={
+					this.props.onClick
+				}
 				onDragStart={e => {
-					this.props.onDragStart(e, this.props.windowIdentifier);
+					this.props.onDragStart(e, this.props.windowIdentifier)
 				}}
 				onDragEnd={this.props.onDragEnd}
 				draggable={true}
@@ -96,23 +73,10 @@ export default class Tab extends React.Component {
 					></div>
 				}
 				<FinsembleHoverDetector edge="top" hoverAction={this.hoverAction.bind(this)} />
-				{this.state.changeTabTitle ? (
-					<input
-						ref={this.renameTabInput}
-						onBlur={e => this.updateTabTitle(e)}
-						onKeyDown={e => {
-							e.keyCode === 13 && this.updateTabTitle(e);
-						}}
-						type="text"
-						className="tab__input"
-						maxLength={32}
-					/>
-				) : (
-						<Title
-							titleWidth={this.props.titleWidth}
-							windowIdentifier={this.props.windowIdentifier}
-						/>
-					)}
+				<Title
+					titleWidth={this.props.titleWidth}
+					windowIdentifier={this.props.windowIdentifier}
+				/>
 				<div className="fsbl-tab-close" onClick={(e) => {
 					e.preventDefault();
 					e.stopPropagation();

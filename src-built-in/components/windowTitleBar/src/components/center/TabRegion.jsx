@@ -1,6 +1,6 @@
 
 
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Tab from "./tab";
 import { FinsembleHoverDetector } from "@chartiq/finsemble-react-controls";
@@ -548,21 +548,24 @@ export default class TabRegion extends React.Component {
  * Function to render the title. Helps keep the render code clean.
  */
 function renderTitle() {
-    return (<div
-        draggable="true"
-        onDoubleClick={() => console.log('clickeddddddddd')}
-        onDragStart={(e) => {
-            FSBL.Clients.Logger.system.debug("Tab drag start - TITLE");
-            let activeIdentifier = finsembleWindow.identifier;
-            activeIdentifier.title = finsembleWindow.windowOptions.title;
-            this.startDrag(e, activeIdentifier);
-        }}
-        onDragEnd={this.stopDrag}
-        data-hover={this.state.hoverState}
-        className={"fsbl-header-title"}>
-        <FinsembleHoverDetector edge="top" hoverAction={this.hoverAction.bind(this)} />
-        <Title onUpdate={this.props.onTitleUpdated} windowIdentifier={FSBL.Clients.WindowClient.getWindowIdentifier()}></Title>
-    </div>);
+    return (
+        <EditTab>
+            <div
+                draggable="true"
+                onDragStart={(e) => {
+                    FSBL.Clients.Logger.system.debug("Tab drag start - TITLE");
+                    let activeIdentifier = finsembleWindow.identifier;
+                    activeIdentifier.title = finsembleWindow.windowOptions.title;
+                    this.startDrag(e, activeIdentifier);
+                }}
+                onDragEnd={this.stopDrag}
+                data-hover={this.state.hoverState}
+                className={"fsbl-header-title"}>
+                <FinsembleHoverDetector edge="top" hoverAction={this.hoverAction.bind(this)} />
+                <Title onUpdate={this.props.onTitleUpdated} windowIdentifier={FSBL.Clients.WindowClient.getWindowIdentifier()}></Title>
+            </div>
+        </EditTab>
+    )
 }
 
 /**
@@ -572,27 +575,80 @@ function renderTitle() {
 function renderTabs() {
     let titleWidth = this.state.tabWidth - ICON_AREA - CLOSE_BUTTON_MARGIN;
     return this.state.tabs.map(tab => {
-        return <Tab
-            setActiveTab={() => {
-                this.setActiveTab(tab);
-            }}
-            draggable="true"
-            key={tab.windowName} //this is a unique identifier for React so it knows when to update the DOM
-            className={this.getTabClasses(tab)}
-            onDragStart={(e, identifier) => {
-                FSBL.Clients.Logger.system.debug("Tab drag - TAB", identifier.windowName);
-                this.startDrag(e, identifier);
-            }}
-            onDrop={this.drop}
-            onDragEnd={this.stopDrag}
-            onTabClose={() => {
-                this.onTabClosed(tab)
-            }}
-            onTabDraggedOver={this.onTabDraggedOver}
-            listenForDragOver={this.props.listenForDragOver}
-            tabWidth={this.state.tabWidth}
-            titleWidth={titleWidth}
-            windowIdentifier={tab} />
+        return (
+            <EditTab tabWidth={this.state.tabWidth} >
+                <Tab
+                    onClick={() => {
+                        this.setActiveTab(tab);
+                    }}
+                    draggable="true"
+                    key={tab.windowName} //this is a unique identifier for React so it knows when to update the DOM
+                    className={this.getTabClasses(tab)}
+                    onDragStart={(e, identifier) => {
+                        FSBL.Clients.Logger.system.debug("Tab drag - TAB", identifier.windowName);
+                        this.startDrag(e, identifier);
+                    }}
+                    onDrop={this.drop}
+                    onDragEnd={this.stopDrag}
+                    onTabClose={() => {
+                        this.onTabClosed(tab)
+                    }}
+                    onTabDraggedOver={this.onTabDraggedOver}
+                    listenForDragOver={this.props.listenForDragOver}
+                    tabWidth={this.state.tabWidth}
+                    titleWidth={titleWidth}
+                    windowIdentifier={tab} />
+            </EditTab>
+        )
     });
 
 }
+
+function EditTab(props) {
+    const [editingTitle, setEditingTitle] = useState(false)
+    useEffect(() => {
+        FSBL.Clients.WindowClient.getComponentState(
+            { field: "persistedTitle" },
+            (err, title) =>
+                title && FSBL.Clients.WindowClient.setWindowTitle(title)
+        );
+    }, [])
+    const inputEl = useRef(null);
+
+    const updateTabTitle = e => {
+        const title = e.target.value;
+        FSBL.Clients.WindowClient.setComponentState({
+            field: "persistedTitle",
+            value: title
+        });
+        FSBL.Clients.WindowClient.setWindowTitle(title);
+        setEditingTitle(false)
+    };
+    const beginEditing = async () => {
+        await setEditingTitle(true);
+        console.log(inputEl)
+        await inputEl.current.focus();
+    }
+    return (
+        <div id="tab-editor" onDoubleClick={beginEditing}>
+            {editingTitle ? (
+                <div className="fsbl-tab fsbl-active-tab" style={{ width: props.tabWidth || 'auto' }}>
+                    <input
+                        ref={inputEl}
+                        onBlur={e => {
+                            updateTabTitle(e);
+                            setEditingTitle(false);
+                        }}
+                        onKeyDown={e => {
+                            e.keyCode === 13 && updateTabTitle(e);
+                        }}
+                        type="text"
+                        className="tab__input"
+                        maxLength={32}
+
+                    />
+                </div>) : props.children}
+        </div>
+    )
+}
+
