@@ -12,7 +12,6 @@ export default class Tab extends React.Component {
 		this.onDragOver = this.onDragOver.bind(this);
 		this.onDragLeave = this.onDragLeave.bind(this);
 
-
 		this.state = {
 			hoverState: "false",
 			tabLogo: {},
@@ -20,6 +19,7 @@ export default class Tab extends React.Component {
 		};
 		this.tabbingState = false;
 	}
+
 
 	onDragLeave(e) {
 		this.tabbingState = false;
@@ -45,7 +45,6 @@ export default class Tab extends React.Component {
 		this.setState({ hoverState: newHoverState });
 	}
 
-
 	render() {
 		let style = {
 			width: this.props.tabWidth
@@ -54,10 +53,8 @@ export default class Tab extends React.Component {
 			<div
 				ref="Me"
 				onDrop={this.props.onDrop}
-				onClick={
-					this.props.onClick
-				}
-				onDragStart={e => {
+				onClick={this.props.onClick}
+				onDragStart={(e) => {
 					this.props.onDragStart(e, this.props.windowIdentifier)
 				}}
 				onDragEnd={this.props.onDragEnd}
@@ -73,10 +70,7 @@ export default class Tab extends React.Component {
 					></div>
 				}
 				<FinsembleHoverDetector edge="top" hoverAction={this.hoverAction.bind(this)} />
-				<Title
-					titleWidth={this.props.titleWidth}
-					windowIdentifier={this.props.windowIdentifier}
-				/>
+				<Title titleWidth={this.props.titleWidth} windowIdentifier={this.props.windowIdentifier} />
 				<div className="fsbl-tab-close" onClick={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
