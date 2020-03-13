@@ -1,0 +1,56 @@
+{
+	"components": {
+		"notification-drawer": {
+			"window": {
+				"name": "notification-drawer",
+				"url": "$applicationRoot/components/finsemble-notifications/components/notification-drawer/notification-drawer.html",
+				"forceOntoMonitor": true,
+				"top": 0,
+				"right": 0,
+				"width": 320,
+				"height": "100%",
+				"maxHeight": "100%",
+				"position": "available",
+				"monitor": "primary",
+				"options": {
+					"transparent": true,
+					"alwaysOnTop": true,
+					"autoShow": false,
+					"resizable": false,
+					"showTaskbarIcon": false
+				},
+				"data": {
+					"notifications": {
+						"notificationsHistory": true
+					}
+				}
+			},
+			"component": {
+				"preload": false,
+				"spawnOnStartup": true,
+				"singleton": true
+			},
+			"foreign": {
+				"services": {
+					"dockingService": {
+						"canGroup": false,
+						"isArrangable": false
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"title": "notification-drawer",
+						"FSBLHeader": false,
+						"persistWindowState": true
+					},
+					"Toolbar": {
+						"iconClass": "notification-drawer"
+					}
+				}
+			}
+		}
+	}
+}

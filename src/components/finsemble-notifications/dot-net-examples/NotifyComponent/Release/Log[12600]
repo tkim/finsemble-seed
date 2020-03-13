@@ -1,0 +1,13 @@
+2020-02-28 08:59:45,085 [1] DEBUG NotifyComponent.App - OnStartup
+2020-02-28 08:59:45,109 [1] DEBUG ChartIQ.Finsemble.Finsemble - Initializing new instance of FinsembleBridge:
+	top: 0
+	left: 0
+	width: 800
+	height: 600
+	windowName: WPFNotifyComponent_Release-15-696-Finsemble
+	componentType: WPFNotifyComponent_Release
+	UUID: uuid1582880384402_3386
+	useIAC: True
+	serverAddress: ws://127.0.0.1:3376
+
+2020-02-28 08:59:45,188 [4] INFO ChartIQ.Finsemble.Finsemble - Web socket connection opened

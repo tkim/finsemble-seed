@@ -1,0 +1,20 @@
+2020-02-28 09:21:16,917 [1] DEBUG NotifyComponent.App - OnStartup
+2020-02-28 09:21:16,943 [1] DEBUG ChartIQ.Finsemble.Finsemble - Initializing new instance of FinsembleBridge:
+	top: 0
+	left: 0
+	width: 800
+	height: 600
+	windowName: WPFNotifyComponent_Release-85-1385-Finsemble
+	componentType: WPFNotifyComponent_Release
+	UUID: uuid1582881676633_6331
+	useIAC: True
+	serverAddress: ws://127.0.0.1:3376
+
+2020-02-28 09:21:16,984 [5] INFO ChartIQ.Finsemble.Finsemble - Web socket connection opened
+2020-02-28 09:28:00,036 [15] WARN ChartIQ.Finsemble.Finsemble - Multiple attempts to connect web socket
+2020-02-28 09:28:01,035 [10] WARN ChartIQ.Finsemble.Finsemble - Multiple attempts to connect web socket
+2020-02-28 09:28:02,036 [14] WARN ChartIQ.Finsemble.Finsemble - Multiple attempts to connect web socket
+2020-02-28 09:28:03,036 [16] WARN ChartIQ.Finsemble.Finsemble - Multiple attempts to connect web socket
+2020-02-28 09:28:04,037 [12] WARN ChartIQ.Finsemble.Finsemble - Multiple attempts to connect web socket
+2020-02-28 09:28:04,833 [1] WARN ChartIQ.Finsemble.Finsemble - Multiple attempts to connect web socket
+2020-02-28 09:28:04,970 [1] WARN ChartIQ.Finsemble.Finsemble - Multiple attempts to connect web socket
