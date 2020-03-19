@@ -4,12 +4,12 @@ let inLogin = true;
  ************************************************/
 // On ready, check to see if the user has a valid session
 if (window.FSBL && FSBL.addEventListener) {
-	FSBL.addEventListener("onReady", checkAuthorizationStatus);
+    FSBL.addEventListener("onReady", checkAuthorizationStatus);
 } else {
-	window.addEventListener("FSBLReady", checkAuthorizationStatus);
+    window.addEventListener("FSBLReady", checkAuthorizationStatus);
 }
 
-$('#authAction').click( (e) => {
+$('#authAction').click((e) => {
     const text = inLogin ? 'Sign Up' : 'Login';
     const actionLink = inLogin ? 'Login' : 'Sign Up';
     inLogin = !inLogin;
@@ -34,7 +34,11 @@ function handleKeydown(event) {
 }
 
 //Here, you may want to hit a server and request the user's session information. If the session is valid, log them in automatically. This sample code assumes that they are not logged in and just shows the authentication page.
-function checkAuthorizationStatus() {
+async function checkAuthorizationStatus() {
+    const { data: serverURL } = await FSBL.Clients.ConfigClient.getValue('finsemble.applicationRoot')
+    const authURL = `${serverURL}/myAuthEndpoint`
+    FSBL.Clients.Logger(`__authURL__: ${authURL}`)
+
     FSBL.System.Window.getCurrent().show();
     //setTimeout(processAuthInput, 0);
 }

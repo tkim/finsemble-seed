@@ -12,12 +12,12 @@
         "//breakpointOnStart": "Whether to pause finsemble-electron-adapter when it starts. Default: false.",
         "breakpointOnStart": false
     },
-    "production": {
+    "UAT": {
         "//serverPort": "Port number for your server.",
-        "serverPort": 3375,
+        "serverPort": 5000,
         "//serverConfig": "Url for your application's manifest.",
-        "serverConfig": "http://localhost:3375/configs/application/manifest-local.json",
-        "clientRoute": "http://localhost:3375/",
+        "serverConfig": "http://localhost:5000/configs/application/manifest-UAT.json",
+        "clientRoute": "http://localhost:5000/",
         "//container": "Which adapter to use. The finsemble-electron-adapter Adapter or Openfin. Valid values are electron and openfin. Default: electron .",
         "container": "electron",
         "//electronDebug": "Whether to start the finsemble-electron-adapter in debug mode. Default: true.",
