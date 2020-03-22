@@ -43,20 +43,23 @@ const addChildWindow = async () => {
 						stackedWindow = res;
 					}
 				}
-			)
+			);
 			secondChild.finWindow.removeListener("parent-set", onParentSet);
+			stackedWindow.setVisibleWindow({ windowIdentifier: secondChild.windowIdentifier })
 		};
 		secondChild.finWindow.addListener("parent-set", onParentSet);
 
-		FSBL.Clients.WindowClient.getStackedWindow(stackedWindowParams, () => { });
+		FSBL.Clients.WindowClient.getStackedWindow(stackedWindowParams);
     } else {
         console.log("*** Adding to stacked window");
         const spawnParams = {
             top: "adjacent",
             position: "relative"
-        };
+		};
         child = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
-        stackedWindow.addWindow({ windowIdentifier: child.windowIdentifier, position: i })
+		stackedWindow.addWindow({ windowIdentifier: child.windowIdentifier, position: i }, () => {
+			stackedWindow.setVisibleWindow({ windowIdentifier: child.windowIdentifier })
+		});
         console.log("** Window added to stacked window");
     }
     i++;
