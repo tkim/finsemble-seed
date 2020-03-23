@@ -24,7 +24,6 @@ const addChildWindow = async () => {
 		const secondChild = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
 
 		// Create the StackedWindow to contain the windows that are tabbed together.
-		console.log("*** Creating stacked window", stackedWindowParams);
 		const stackedWindowParams = {
 			windowIdentifiers: [
 				firstChild.windowIdentifier,
@@ -33,7 +32,8 @@ const addChildWindow = async () => {
 			visibleWindowIdentifier: secondChild.windowIdentifier,
 			create: true
 		};
-
+		console.log("*** Creating stacked window", stackedWindowParams);
+		
 		// Listen for the "parent-set" event to get a handle to the stacked window.
 		// NOTE: This is only necessary because we are not tabbing windows together with the current window. If you
 		//       tab windows together with the current window, the stacked window is returned by the callback passed to 
