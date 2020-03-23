@@ -82,8 +82,7 @@ const createStackedWindow = async (child) => {
 			visibleWindowIdentifier: child.windowIdentifier,
 			create: true
 		};
-		console.log("*** Creating stacked window", stackedWindowParams);
-		
+
 		// Listen for the "parent-set" event to get a handle to the stacked window.
 		// NOTE: This is only necessary because we are not tabbing windows together with the current window. If you
 		//       tab windows together with the current window, the stacked window is returned by the callback passed to 
@@ -98,16 +97,17 @@ const createStackedWindow = async (child) => {
 					if (err) {
 						reject(err);
 					} else {
-						console.log("*** Stacked window created")
 						resolve(res);
 					}
 				}
 			);
+
 			child.finWindow.removeListener("parent-set", onParentSet);
 
 			// Set the window that is visible in the StackedWindow.
 			stackedWindow.setVisibleWindow({ windowIdentifier: child.windowIdentifier })
 		};
+		
 		child.finWindow.addListener("parent-set", onParentSet);
 
 		FSBL.Clients.WindowClient.getStackedWindow(stackedWindowParams);
@@ -115,24 +115,10 @@ const createStackedWindow = async (child) => {
 }
 
 const addChildWindow = async () => {
-	if (windowsInStack.length === 0) {
-		// Create the first window below the parent window and group the two windows together.
-        console.log("*** Creating first child");
-		await createChildWindow();
-		console.log("*** First child created");
-	} else if (!stackedWindow) {
-		// Create the second window in the same location as the first window so it doesn't spawn in one location then
-		// move to another. 
-        console.log("*** Creating second child");
-		const child = await createChildWindow();
-
+	const child = await createChildWindow();
+	if ((windowsInStack.length > 0) && !stackedWindow) {
 		stackedWindow = await createStackedWindow(child);
 	} else {
-		// Create a child window in the same location as the first window so it doesn't spawn in one location then move 
-		// to another. 
-		console.log("*** Adding to stacked window");
-		const child = await createChildWindow();
-
 		// Add the created child window to the StackedWindow.
 		stackedWindow.addWindow(
 			{
@@ -140,7 +126,6 @@ const addChildWindow = async () => {
 				position: windowsInStack.length - 1
 			}, () => stackedWindow.setVisibleWindow({ windowIdentifier: child.windowIdentifier })
 		);
-		console.log("** Window added to stacked window");
 	}
 }
 
