@@ -25,6 +25,7 @@ To install and run the programmatic tabbing example, please follow the instructi
             "$applicationRoot/components/tabbingWindows/config.json"
         ]
     ```
+1. Enable tabbing by setting `servicesConfig.docking.tabbing.enabled` to true in _configs/application/config.json_
 1. Build and run Finsemble
 1. Launch the **Tabbing Windows Example** component
 1. Click the **Add Child Window** button to spawn child windows
