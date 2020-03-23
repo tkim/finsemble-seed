@@ -1,15 +1,55 @@
+const windowsInStack = [];
 let componentType;
-let firstChild;
 let stackedWindow;
-let i = -1;
 
-const onParentCleared = () => {
-	debugger
-	stackedWindow = null;
+/**
+ * Removes a window from the stack
+ * @param {string} windowName the name of the window to remove
+ */
+const removeWindowFromStack = (windowName) => {
+	let i = -1;
+	windowsInStack.forEach((value, index) => {
+		if (value.windowName === windowName) {
+			i = index;
+		}
+	});
+
+	// Only try to remove the window if it is actually in the stack
+	if (i >= 0) {
+		windowsInStack.splice(i, 1);
+	}
+}
+
+/**
+ * Handler for the parent cleared event.
+ * 
+ * @param {object} evt the event data
+ */
+const onParentCleared = (evt) => {
+	// The when removing windows because of the parent cleared event, the last window should be left in the stack for
+	// creating new stacks
+	if (windowsInStack.length > 1) {
+		removeWindowFromStack(evt.data.name);
+	}
+
+	// If there are fewer than two windows, the stack is destroyed.
+	if (windowsInStack.length < 2) {
+		stackedWindow = null;
+	}
+}
+
+/**
+ * Handler for the closed event.
+ * 
+ * @param {object} evt 
+ */
+const onClosed = (evt) => {
+	// When closing windows, always remove the window from the stack.
+	removeWindowFromStack(evt.data.name);
 }
 
 const addChildWindow = async () => {
-	if (!firstChild) {
+	if (windowsInStack.length === 0) {
 		// Create the first window below the parent window and group the two windows together.
         console.log("*** Creating first child");
         const spawnParams = {
@@ -17,8 +57,12 @@ const addChildWindow = async () => {
             top: "adjacent",
             position: "relative"
         };
-        firstChild = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
-		firstChild.finWindow.addListener("clearParent", onParentCleared);
+		
+		const child = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
+		child.finWindow.addListener("clearParent", onParentCleared);
+		child.finWindow.addListener("closed", onClosed);
+
+		windowsInStack.push(child.windowIdentifier);
 		console.log("*** First child created");
 	} else if (!stackedWindow) {
 		// Create the second window in the same location as the first window so it doesn't spawn in one location then
@@ -28,16 +72,15 @@ const addChildWindow = async () => {
             top: "adjacent",
             position: "relative"
         };
-        const secondChild = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
-		secondChild.finWindow.addListener("clearParent", onParentCleared);
-		
+        const child = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
+		child.finWindow.addListener("clearParent", onParentCleared);
+		child.finWindow.addListener("closed", onClosed);
+		windowsInStack.push(child.windowIdentifier);
+
 		// Create the StackedWindow to contain the windows that are tabbed together.
 		const stackedWindowParams = {
-			windowIdentifiers: [
-				firstChild.windowIdentifier,
-				secondChild.windowIdentifier
-			],
-			visibleWindowIdentifier: secondChild.windowIdentifier,
+			windowIdentifiers: windowsInStack,
+			visibleWindowIdentifier: child.windowIdentifier,
 			create: true
 		};
 		console.log("*** Creating stacked window", stackedWindowParams);
@@ -48,7 +91,7 @@ const addChildWindow = async () => {
 		//       getStackedWindow.
 		const onParentSet = (evt) => {
 			const windowName = evt.data.parentName;
-			secondChild.finWindow.setParent(
+			child.finWindow.setParent(
 				{
 					windowName
 				},
@@ -61,12 +104,12 @@ const addChildWindow = async () => {
 					}
 				}
 			);
-			secondChild.finWindow.removeListener("parent-set", onParentSet);
+			child.finWindow.removeListener("parent-set", onParentSet);
 
 			// Set the window that is visible in the StackedWindow.
-			stackedWindow.setVisibleWindow({ windowIdentifier: secondChild.windowIdentifier })
+			stackedWindow.setVisibleWindow({ windowIdentifier: child.windowIdentifier })
 		};
-		secondChild.finWindow.addListener("parent-set", onParentSet);
+		child.finWindow.addListener("parent-set", onParentSet);
 
 		FSBL.Clients.WindowClient.getStackedWindow(stackedWindowParams);
 	} else {
@@ -77,16 +120,20 @@ const addChildWindow = async () => {
 			top: "adjacent",
 			position: "relative"
 		};
-        child = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
-		secondChild.finWindow.addListener("clearParent", onParentCleared);
-		
+        const child = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
+		child.finWindow.addListener("clearParent", onParentCleared);
+		child.finWindow.addListener("closed", onClosed);
+		windowsInStack.push(child.windowIdentifier);
+
 		// Add the created child window to the StackedWindow.
-		stackedWindow.addWindow({ windowIdentifier: child.windowIdentifier, position: i }, () => {
-			stackedWindow.setVisibleWindow({ windowIdentifier: child.windowIdentifier })
-		});
+		stackedWindow.addWindow(
+			{
+				windowIdentifier: child.windowIdentifier,
+				position: windowsInStack.length - 1
+			}, () => stackedWindow.setVisibleWindow({ windowIdentifier: child.windowIdentifier })
+		);
 		console.log("** Window added to stacked window");
 	}
-	i++;
 }
 
 const FSBLReady = () => {
