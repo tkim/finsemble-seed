@@ -2,27 +2,35 @@ let componentType;
 let firstChild;
 let stackedWindow;
 let i = -1;
+
+const onParentCleared = () => {
+	debugger
+	stackedWindow = null;
+}
+
 const addChildWindow = async () => {
 	if (!firstChild) {
 		// Create the first window below the parent window and group the two windows together.
-		console.log("*** Creating first child");
-		const spawnParams = {
-			groupOnSpawn: true,
-			top: "adjacent",
-			position: "relative"
-		};
-		firstChild = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
+        console.log("*** Creating first child");
+        const spawnParams = {
+            groupOnSpawn: true,
+            top: "adjacent",
+            position: "relative"
+        };
+        firstChild = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
+		firstChild.finWindow.addListener("clearParent", onParentCleared);
 		console.log("*** First child created");
 	} else if (!stackedWindow) {
 		// Create the second window in the same location as the first window so it doesn't spawn in one location then
 		// move to another. 
-		console.log("*** Creating second child");
-		const spawnParams = {
-			top: "adjacent",
-			position: "relative"
-		};
-		const secondChild = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
-
+        console.log("*** Creating second child");
+        const spawnParams = {
+            top: "adjacent",
+            position: "relative"
+        };
+        const secondChild = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
+		secondChild.finWindow.addListener("clearParent", onParentCleared);
+		
 		// Create the StackedWindow to contain the windows that are tabbed together.
 		const stackedWindowParams = {
 			windowIdentifiers: [
@@ -69,8 +77,9 @@ const addChildWindow = async () => {
 			top: "adjacent",
 			position: "relative"
 		};
-		child = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
-
+        child = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
+		secondChild.finWindow.addListener("clearParent", onParentCleared);
+		
 		// Add the created child window to the StackedWindow.
 		stackedWindow.addWindow({ windowIdentifier: child.windowIdentifier, position: i }, () => {
 			stackedWindow.setVisibleWindow({ windowIdentifier: child.windowIdentifier })
