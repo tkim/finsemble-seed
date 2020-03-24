@@ -72,6 +72,7 @@
         "moduleRoot": "$applicationRoot/finsemble",
         "servicesRoot": "$applicationRoot/finsemble/services",
         "notificationURL": "$applicationRoot/components/notification/notification.html",
+        "windowlessRoot": "C:/Users/andy/Documents/SourceCode/finsemble-dotnet-seed/WindowlessExample/bin/Debug",
         "bootConfig": {
             "onErrorMakeSystemManagerVisible": true,
             "defaults": {
@@ -81,7 +82,9 @@
             }
         },
         "importConfig": [
-            "$applicationRoot/configs/application/config.json"
+            "$applicationRoot/configs/application/config.json",
+            "$applicationRoot/components/native/windowlessComponent.json",
+            "$applicationRoot/components/fileBrowser/config.json"
         ],
         "router": {
             "crossDomainTransport": "IPCBus",
