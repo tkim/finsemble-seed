@@ -1,5 +1,5 @@
 const windowsInStack = [];
-let componentType;
+const componentType = "Welcome Component";
 let stackedWindow;
 
 /**
@@ -54,19 +54,29 @@ const onClosed = (evt) => {
  * @returns the created window
  */
 const createChildWindow = async () => {
-	const spawnParams = {
-		groupOnSpawn: windowsInStack.length === 0,
-		top: "adjacent",
-		position: "relative"
-	};
-	
-	const child = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
-	child.finWindow.addListener("clearParent", onParentCleared);
-	child.finWindow.addListener("closed", onClosed);
+	return new Promise((resolve) => {
+		FSBL.Clients.WindowClient.getBounds(async (err, bounds) => {
+			if (err) {
+				alert(err);
+				return;
+			}
+			
+			const spawnParams = {
+				width: bounds.width,
+				groupOnSpawn: windowsInStack.length === 0,
+				top: "adjacent",
+				position: "relative"
+			};
 
-	windowsInStack.push(child.windowIdentifier);
+			const child = (await FSBL.Clients.LauncherClient.spawn(componentType, spawnParams)).response;
+			child.finWindow.addListener("clearParent", onParentCleared);
+			child.finWindow.addListener("closed", onClosed);
 
-	return child;
+			windowsInStack.push(child.windowIdentifier);
+
+			resolve(child);
+		});
+	});
 }
 
 /**
@@ -107,7 +117,7 @@ const createStackedWindow = async (child) => {
 			// Set the window that is visible in the StackedWindow.
 			stackedWindow.setVisibleWindow({ windowIdentifier: child.windowIdentifier })
 		};
-		
+
 		child.finWindow.addListener("parent-set", onParentSet);
 
 		FSBL.Clients.WindowClient.getStackedWindow(stackedWindowParams);
@@ -131,9 +141,6 @@ const addChildWindow = async () => {
 
 const FSBLReady = () => {
 	try {
-		// Get the current windows windowType so the child windows can be spawned as a known type.
-		componentType = FSBL.Clients.WindowClient.getWindowIdentifier().componentType;
-
 		// Add a button to launch child windows to the page.
 		const button = document.createElement("button");
 		const text = document.createTextNode("Add Child Window");
