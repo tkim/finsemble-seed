@@ -31,10 +31,46 @@ const listFolderContents = () => {
 			const fileList = res.data;
 			const folderListing = document.getElementById("folderListing");
 			folderListing.innerHTML = "";
+
+			// Add heading
+			const header = document.createElement("tr");
+			folderListing.appendChild(header);
+
+			const nameHeading = document.createElement("th");
+			nameHeading.appendChild(document.createTextNode("Name"));
+			header.appendChild(nameHeading);
+
+			const modifiedHeading = document.createElement("th");
+			modifiedHeading.appendChild(document.createTextNode("Modified"));
+			header.appendChild(modifiedHeading);
+
+			const typeHeading = document.createElement("th");
+			typeHeading.appendChild(document.createTextNode("Type"));
+			header.appendChild(typeHeading);
+
+			const sizeHeading = document.createElement("th");
+			sizeHeading.appendChild(document.createTextNode("Size"));
+			header.appendChild(sizeHeading);
+
 			fileList.forEach(file => {
-				const item = document.createElement("li");
-				item.appendChild(document.createTextNode(file));
+				const item = document.createElement("tr");
 				folderListing.appendChild(item);
+
+				const name = document.createElement("td");
+				name.appendChild(document.createTextNode(file.name));
+				item.appendChild(name);
+
+				const modified = document.createElement("td");
+				modified.appendChild(document.createTextNode(file.modified));
+				item.appendChild(modified);
+
+				const type = document.createElement("td");
+				type.appendChild(document.createTextNode(file.type));
+				item.appendChild(type);
+				
+				const size = document.createElement("td");
+				size.appendChild(document.createTextNode(file.size ? file.size : ""));
+				item.appendChild(size);
 			});
 		}
 	});
@@ -107,7 +143,7 @@ const FSBLReady = () => {
 		folderListingLabel.appendChild(document.createTextNode("Folder Listing"));
 		container.appendChild(folderListingLabel);
 
-		const folderListing = document.createElement("ul");
+		const folderListing = document.createElement("table");
 		folderListing.id = "folderListing";
 		container.appendChild(folderListing);
 

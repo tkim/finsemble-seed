@@ -22,14 +22,13 @@ input {
     width: 90%
 }
 
-ul {
+table {
     width: 80%;
     background: darkgray;
     padding: 20px;
-    list-style-type: none;
 }
 
-ul li {
+table tr {
     background: lightgray;
     margin: 0px;
     color: black;
