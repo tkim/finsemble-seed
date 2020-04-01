@@ -11,7 +11,7 @@
                 "top": "center",
                 "left": "center",
                 "width": 530,
-                "height": 530
+                "height": 560
             },
             "component": {
                 "preload": false,

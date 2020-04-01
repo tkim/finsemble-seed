@@ -76,6 +76,33 @@ const listFolderContents = () => {
 	});
 };
 
+const readFile = () => {
+	const folder = document.getElementById("selectedFolder");
+	const filename = document.getElementById("filename");
+
+	if (filename.value === "") {
+		alert("Filename must be specified to save a file");
+		return;
+	} else if (folder.value === "") {
+		alert("Selected Folder must be specified to save a file.");
+		return;
+	}
+
+	const filePath = `${folder.value}\\${filename.value}`;
+	const params = {
+		filename: filePath,
+	};
+	FSBL.Clients.RouterClient.query("Windowless.ReadFile", params, (err, res) => {
+		if (err) {
+			alert(err);
+		} else {
+			const str = res.data.contents;
+			const contents = document.getElementById("fileContents");
+			contents.value = str;
+		}
+	});
+}
+
 const writeFile = () => {
 	const folder = document.getElementById("selectedFolder");
 	const filename = document.getElementById("filename");
@@ -158,6 +185,13 @@ const FSBLReady = () => {
 		filenameTextField.id = "filename";
 		filenameTextField.defaultValue = "test.txt";
 		container.appendChild(filenameTextField);
+
+		container.appendChild(document.createElement("br"));
+
+		const readFileButton = document.createElement("button");
+		readFileButton.appendChild(document.createTextNode("Read File"));
+		readFileButton.onclick = readFile;
+		container.appendChild(readFileButton);
 
 		container.appendChild(document.createElement("br"));
 
