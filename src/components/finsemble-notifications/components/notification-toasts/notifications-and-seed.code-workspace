@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "C:\\Users\\CWatson\\CIQDev\\notifications"
+		}
+	],
+	"settings": {
+		"workbench.colorCustomizations": {
+			"titleBar.activeBackground": "#360885",
+			"titleBar.inactiveBackground": "#36088599",
+			"titleBar.activeForeground": "#e7e7e7",
+			"titleBar.inactiveForeground": "#e7e7e799"
+		},
+		"peacock.color": "#360885",
+		"mocha.subdirectory": "..\\..\\..\\..\\c:\\Users\\CWatson\\CIQDev\\notifications\\finsemble-notifications"
+	}
+}
