@@ -250,7 +250,8 @@
 				"width": 600,
 				"height": 600,
 				"arguments": "",
-				"addToWorkspace": true
+				"addToWorkspace": true,
+				"data": {"someKey": "someValue"}
 			},
 			"component": {
 				"spawnOnStartup": false
@@ -273,7 +274,10 @@
 				"width": 600,
 				"height": 600,
 				"arguments": "",
-				"addToWorkspace": true
+				"addToWorkspace": true,
+				"data": {
+					"someKey": "someValue"
+				}
 			},
 			"component": {
 				"spawnOnStartup": false
