@@ -1,7 +1,7 @@
 /*!
- * Copyright 2017 by ChartIQ, Inc.
- * All rights reserved.
- */
+* Copyright 2017 - 2020 by ChartIQ, Inc.
+* All rights reserved.
+*/
 import React from "react";
 import ReactDOM from "react-dom";
 // Toolbar Components

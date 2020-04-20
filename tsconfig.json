@@ -6,8 +6,16 @@
 		"removeComments": true,
 		"preserveConstEnums": true,
 		"sourceMap": true,
+		"allowJs": true,
 		"jsx": "react"
 	},
-	"include": ["src/**/*", "src-built-in/**/*"],
-	"exclude": ["node_modules", "**/*.spec.ts"]
+	"include": [
+		"src/**/*",
+		"src-built-in/**/*",
+		"./finsemble/types/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts"
+	]
 }
