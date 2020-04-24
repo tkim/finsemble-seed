@@ -1,4 +1,19 @@
 {
     "comment": "Houses config for any custom services that you'd like to import into Finsemble.",
-    "services": {}
+    "services": {
+        "notifications-uiService": {
+            "useWindow": true,
+            "active": true,
+            "name": "notifications-uiService",
+            "visible": false,
+            "html": "$applicationRoot/services/notifications-ui/notifications-ui.html"
+        },
+        "notificationsUIService": {
+            "useWindow": true,
+            "active": true,
+            "name": "notificationsUIService",
+            "visible": false,
+            "html": "$applicationRoot/services/notificationsUI/notificationsUI.html"
+        }
+    }
 }

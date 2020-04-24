@@ -23,10 +23,10 @@ const Finsemble = require("@chartiq/finsemble");
 Finsemble.Clients.Logger.start();
 Finsemble.Clients.Logger.log("notification Service starting up");
 
+const NO_SOURCE = "NO_SOURCE_DEFINED";
+
 /**
  * A service used to transport notification data across the system
- * TODO: Decide and set what log levels all this should be at.
- * TODO: use immutable js or lowdash.clonedeep to make sure all state changes happen on separate objects.
  */
 export default class NotificationService extends Finsemble.baseService implements INotificationService {
 	/**
@@ -48,7 +48,7 @@ export default class NotificationService extends Finsemble.baseService implement
 		lastIssued: Map<string, ILastIssued>;
 	};
 
-	private proxyToWebAPiFilter: IFilter | false;
+	private proxyToWebApiFilter: IFilter | false;
 	private routerWrapper: RouterWrapper;
 
 	private config: any = {
@@ -73,7 +73,7 @@ export default class NotificationService extends Finsemble.baseService implement
 			}
 		});
 
-		this.proxyToWebAPiFilter = false;
+		this.proxyToWebApiFilter = false;
 		this.storageAbstraction = {
 			subscriptions: new Map<string, ISubscription>(),
 			snoozeTimers: new Map<string, ISnoozeTimer>(),
@@ -146,8 +146,8 @@ export default class NotificationService extends Finsemble.baseService implement
 			}
 		});
 		if (
-			this.config["service"]["proxyToWebAPiFilter"] &&
-			ServiceHelper.filterMatches(this.config["service"]["proxyToWebAPiFilter"], notification)
+			this.config["service"]["proxyToWebApiFilter"] &&
+			ServiceHelper.filterMatches(this.config["service"]["proxyToWebApiFilter"], notification)
 		) {
 			this.webApiNotify(notification);
 		}
@@ -214,13 +214,6 @@ export default class NotificationService extends Finsemble.baseService implement
 	 * @param {INotification[]} notifications from external source to be created or updated in Finsemble.
 	 */
 	notify(notifications: INotification[]): void {
-		/**
-		 * TODO:
-		 * 1. Copy initial incoming state.
-		 * 2. Set defaults if needed (receivedAt, issuedAt, Id, initial action history)
-		 * 3. Store initial state along with updated state
-		 */
-
 		notifications.forEach(notification => {
 			let processedNotification = this.receiveNotification(notification);
 			this.saveLastIssuedAt(processedNotification.source, processedNotification.issuedAt);
@@ -242,7 +235,6 @@ export default class NotificationService extends Finsemble.baseService implement
 	 */
 	subscribe(subscription: ISubscription): {} {
 		const channel = this.getChannel();
-		// TODO: Set the subscriptionId correctly in accordance with the spec
 		subscription.id = this.getUuid();
 		Finsemble.Clients.Logger.info("Successfully processed subscription: ", subscription);
 		subscription.channel = channel;
@@ -262,7 +254,7 @@ export default class NotificationService extends Finsemble.baseService implement
 	 */
 	saveLastIssuedAt(source: string, issuedAt: string): void {
 		if (!source) {
-			return;
+			source = NO_SOURCE;
 		}
 
 		if (this.storageAbstraction.lastIssued.has(source)) {
@@ -400,7 +392,7 @@ export default class NotificationService extends Finsemble.baseService implement
 	}
 
 	/**
-	 * TODO: Move this function into the Helper
+	 * TODO: Move this function into the Helper and add testing
 	 * @param notification
 	 */
 	private receiveNotification(notification: INotification): INotification {
@@ -580,7 +572,9 @@ export default class NotificationService extends Finsemble.baseService implement
 
 	/**
 	 * Gets the last issued date for the source provided
-	 * If source is not provided it will get the latest issue from the all registered sources
+	 *
+	 * If no source is provided it will get the latest issue date for all notifications
+	 * (I.e the last time any notification was issue to the service)
 	 *
 	 * @param source
 	 */
@@ -607,7 +601,8 @@ export default class NotificationService extends Finsemble.baseService implement
 	}
 
 	/**
-	 * Fetch a list
+	 * Executes the fetch instruction to return notifications stored by the service
+	 *
 	 * If source is not provided it will get the latest issue from the all registered sources
 	 *
 	 * @param message
@@ -648,8 +643,6 @@ export default class NotificationService extends Finsemble.baseService implement
 
 	/**
 	 * Generates a UUID
-	 *
-	 * TODO: Ensure correct usage of UUID library - uniqueness. Are there other concerns?
 	 */
 	private getUuid(): string {
 		return uuidV4();

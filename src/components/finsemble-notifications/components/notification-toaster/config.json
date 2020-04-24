@@ -4,18 +4,23 @@
 			"window": {
 				"name": "notification-toaster",
 				"url": "$applicationRoot/components/finsemble-notifications/components/notification-toaster/notification-toaster.html",
-				"autoShow": true,
 				"forceOntoMonitor": true,
 				"bottom": 0,
-				"right": 0,
-				"height": 120,
-				"width": 240,
+				"left": "50%",
+				"height": 32,
+				"width": 120,
 				"position": "available",
 				"options": {
 					"resizable": false,
 					"transparent": true,
 					"alwaysOnTop": true,
-					"showTaskbarIcon": false
+					"showTaskbarIcon": true,
+					"autoShow": true
+				},
+				"data": {
+					"notifications": {
+						"hotkey": ["ctrl", "alt", "shift", "t"]
+					}
 				}
 			},
 			"component": {
@@ -24,16 +29,9 @@
 				"singleton": true
 			},
 			"foreign": {
-				"services": {
-					"dockingService": {
-						"canGroup": false,
-						"isArrangable": true,
-						"manageWindowMovement": true
-					}
-				},
 				"components": {
 					"App Launcher": {
-						"launchableByUser": true
+						"launchableByUser": false
 					},
 					"Window Manager": {
 						"title": "notification-toaster",

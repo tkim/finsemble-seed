@@ -9,6 +9,8 @@ interface Props {
 	doAction: Function;
 	closeAction?: Function;
 	closeButton?: boolean;
+	onMouseLeave?: Function;
+	onMouseEnter?: Function;
 }
 
 const HeaderArea = (props: Props) => {
@@ -38,7 +40,7 @@ const HeaderArea = (props: Props) => {
 			<div>
 				<img src={notification.headerLogo} />
 			</div>
-			<div className="detail-area_type">{notification.type}</div>
+			<div className="detail-area_type">{notification.headerText}</div>
 			{/* TODO: add a button to toggle actual time / date */}
 			<div className="detail-area_time">{time} ago</div>
 			{closeButton && <img src="../shared/assets/close.svg" id="close-icon" onClick={() => closeAction()} />}
@@ -80,13 +82,12 @@ const Notification = (props: Props) => {
 	const { notification } = props;
 	const { meta } = notification;
 
-	const soundLink =
-		"http://dight310.byu.edu/media/audio/FreeLoops.com/2/2/Cash%20Register%20Sound-9798-Free-Loops.com.mp3";
-
 	return (
-		<div className={`notification ${(meta && meta.cssClassName) || ""}`}>
-			<audio src={soundLink} type="audio/mpeg" autoPlay />
-
+		<div
+			className={`notification ${(meta && meta.cssClassName) || ""}`}
+			onMouseEnter={props.onMouseEnter}
+			onMouseLeave={props.onMouseLeave}
+		>
 			<HeaderArea {...props} />
 			<ContentArea {...props} />
 			<hr />

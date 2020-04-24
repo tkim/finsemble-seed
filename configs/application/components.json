@@ -18,7 +18,10 @@
 			"component": {
 				"displayName": "Welcome Component",
 				"spawnOnStartup": false,
-				"preload": "$applicationRoot/preloads/zoom.js"
+				"preload": [
+					"$applicationRoot/preloads/zoom.js",
+					"$applicationRoot/preloads/nativeOverrides.js"
+				]
 			},
 			"foreign": {
 				"services": {
@@ -73,11 +76,7 @@
 				"addToWorkspace": true
 			},
 			"component": {
-				"spawnOnHotkey": [
-					"ctrl",
-					"alt",
-					"n"
-				]
+				"spawnOnHotkey": ["ctrl", "alt", "n"]
 			},
 			"foreign": {
 				"services": {

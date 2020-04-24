@@ -9,13 +9,12 @@
 				"right": 0,
 				"width": 320,
 				"height": "100%",
-				"maxHeight": "100%",
 				"position": "available",
 				"monitor": "primary",
 				"options": {
 					"transparent": true,
 					"alwaysOnTop": true,
-					"autoShow": false,
+					"autoShow": true,
 					"resizable": false,
 					"showTaskbarIcon": false
 				},
@@ -31,20 +30,13 @@
 				"singleton": true
 			},
 			"foreign": {
-				"services": {
-					"dockingService": {
-						"canGroup": false,
-						"isArrangable": false
-					}
-				},
 				"components": {
 					"App Launcher": {
-						"launchableByUser": true
+						"launchableByUser": false
 					},
 					"Window Manager": {
 						"title": "notification-drawer",
-						"FSBLHeader": false,
-						"persistWindowState": true
+						"FSBLHeader": false
 					},
 					"Toolbar": {
 						"iconClass": "notification-drawer"
