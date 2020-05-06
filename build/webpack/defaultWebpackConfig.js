@@ -90,18 +90,13 @@ module.exports = class WebpackDefaults {
 								presets: [
 									["@babel/preset-env", {
 										targets: {
-											browsers: "Chrome 70"
+											browsers: "Chrome 81"
 										},
 										modules: "commonjs"
 									}],
 									"@babel/preset-react"],
 								plugins: [
-									"babel-plugin-add-module-exports",
-									"@babel/plugin-proposal-export-default-from",
-									"@babel/plugin-transform-modules-commonjs",
-									"@babel/plugin-proposal-class-properties",
-									["@babel/plugin-proposal-decorators", { decoratorsBeforeExport: false }],
-									["@babel/plugin-transform-runtime", { regenerator: true }]
+									"@babel/plugin-proposal-class-properties"
 								]
 							}
 						}
