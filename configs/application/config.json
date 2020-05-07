@@ -161,6 +161,10 @@
 		"$applicationRoot/configs/application/workspaces.json",
 		"$applicationRoot/configs/application/workspaceTemplates.json",
 		"$applicationRoot/configs/application/services.json",
-		"$applicationRoot/configs/application/securityPolicies.json"
+		"$applicationRoot/configs/application/securityPolicies.json",
+		"$applicationRoot/configs/application/multWindowComponents.json",
+		"$applicationRoot/configs/application/wpfExample.json",
+		"$applicationRoot/configs/application/winformExample.json",
+		"$applicationRoot/configs/application/windowlessComponent.json"
 	]
 }

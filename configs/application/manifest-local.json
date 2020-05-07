@@ -90,6 +90,10 @@
                     "serverAddress": "ws://127.0.0.1:3376"
                 }
             }
-        }
+		},
+		"multiWindowRoot": "C:/Users/admin/Documents/code/finsemble-wpf/MultiWindowExample/bin/Debug",
+		"wpfExampleRoot": "C:/Users/admin/Documents/code/finsemble-wpf/WPFExample/bin/Debug",
+		"winformExampleRoot": "C:/Users/admin/Documents/code/finsemble-wpf/WinformExample/bin/Debug",
+		"windowlessRoot": "C:/Users/admin/Documents/code/finsemble-wpf/WindowlessExample/bin/Debug"
     }
 }
