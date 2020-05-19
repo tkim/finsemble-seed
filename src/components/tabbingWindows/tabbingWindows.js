@@ -22,7 +22,7 @@ const removeWindowFromStack = (windowName) => {
 
 /**
  * Handler for the parent cleared event.
- * 
+ *
  * @param {object} evt the event data
  */
 const onParentCleared = (evt) => {
@@ -40,8 +40,8 @@ const onParentCleared = (evt) => {
 
 /**
  * Handler for the closed event.
- * 
- * @param {object} evt 
+ *
+ * @param {object} evt
  */
 const onClosed = (evt) => {
 	// When closing windows, always remove the window from the stack.
@@ -50,7 +50,7 @@ const onClosed = (evt) => {
 
 /**
  * Create a window
- * 
+ *
  * @returns the created window
  */
 const createChildWindow = async () => {
@@ -60,7 +60,7 @@ const createChildWindow = async () => {
 				alert(err);
 				return;
 			}
-			
+
 			const spawnParams = {
 				width: bounds.width,
 				groupOnSpawn: windowsInStack.length === 0,
@@ -81,7 +81,7 @@ const createChildWindow = async () => {
 
 /**
  * Creates a StackedWindow containing the child window.
- * 
+ *
  * @param {*} child The child window to add to the stack
  */
 const createStackedWindow = async (child) => {
@@ -95,7 +95,7 @@ const createStackedWindow = async (child) => {
 
 		// Listen for the "parent-set" event to get a handle to the stacked window.
 		// NOTE: This is only necessary because we are not tabbing windows together with the current window. If you
-		//       tab windows together with the current window, the stacked window is returned by the callback passed to 
+		//       tab windows together with the current window, the stacked window is returned by the callback passed to
 		//       getStackedWindow.
 		const onParentSet = (evt) => {
 			const windowName = evt.data.parentName;
@@ -139,6 +139,40 @@ const addChildWindow = async () => {
 	}
 }
 
+const removeChildWindow = async () => {
+	return new Promise((resolve) => {
+		if(windowsInStack.length > 1) {
+			const identifier = windowsInStack[0];
+			// Remove window from the tabGroup
+			stackedWindow.removeWindow( {"windowIdentifier": identifier})
+
+			// Remove window from the tabGroup and close it
+			// stackedWindow.deleteWindow( {"windowIdentifier": identifier})
+
+			FSBL.Clients.WindowClient.getBounds(async (err, bounds) => {
+				if (err) {
+					alert(err);
+					return;
+				}
+
+				const spawnParams = {
+					width: bounds.width,
+					left: bounds.left + 25,
+					top: bounds.bottom + 25,
+					position: "relative"
+				};
+
+				const child = (await FSBL.Clients.LauncherClient.showWindow(identifier, spawnParams)).response;
+				resolve(child);
+			});
+		} else {
+			resolve();
+		}
+
+	});
+
+}
+
 const FSBLReady = () => {
 	try {
 		// Add a button to launch child windows to the page.
@@ -147,6 +181,12 @@ const FSBLReady = () => {
 		button.appendChild(text);
 		button.onclick = addChildWindow;
 		document.body.appendChild(button);
+
+		// Add a button to launch child windows to the page.
+		const button2 = document.createElement("button");
+		button2.appendChild(document.createTextNode("Remove Child Window"));
+		button2.onclick = removeChildWindow;
+		document.body.appendChild(button2);
 	} catch (e) {
 		FSBL.Clients.Logger.error(e);
 	}
