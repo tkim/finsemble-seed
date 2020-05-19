@@ -1,4 +1,4 @@
-const windowsInStack = [];
+let windowsInStack = [];
 const componentType = "Welcome Component";
 let stackedWindow;
 
@@ -139,32 +139,51 @@ const addChildWindow = async () => {
 	}
 }
 
-const removeChildWindow = async () => {
+getChildWindowIdentifiers = async () => {
+	const children = [];
 	return new Promise((resolve) => {
-		if(windowsInStack.length > 1) {
-			const identifier = windowsInStack[0];
-			// Remove window from the tabGroup
-			stackedWindow.removeWindow( {"windowIdentifier": identifier})
+		if(stackedWindow) {
+			stackedWindow.getStore((store) => {
+				store.getValue( {"field": stackedWindow.identifier.windowName}, (err, data) => {
+					windowsInStack = data.descriptor.childWindowIdentifiers;
+					resolve(windowsInStack);
+				});
+			})
+		} else {
+			resolve(children);
+		}
+	});
+}
 
-			// Remove window from the tabGroup and close it
+const removeChildWindow = async () => {
+	return new Promise(async (resolve) => {
+		let children = await getChildWindowIdentifiers();
+
+		if (children.length > 1) {
+				const identifier = children[0];
+				// Remove window from the tabGroup
+				stackedWindow.removeWindow( {"windowIdentifier": identifier})
+
+				FSBL.Clients.WindowClient.getBounds(async (err, bounds) => {
+					if (err) {
+						alert(err);
+						return;
+					}
+
+					const spawnParams = {
+						width: bounds.width,
+						left: bounds.left + 25,
+						top: bounds.bottom + 25,
+						position: "relative"
+					};
+
+					const child = (await FSBL.Clients.LauncherClient.showWindow(identifier, spawnParams)).response;
+					resolve(child);
+				});
+
+			// It's also possible to remove the and close the window from the tabGroup
 			// stackedWindow.deleteWindow( {"windowIdentifier": identifier})
-
-			FSBL.Clients.WindowClient.getBounds(async (err, bounds) => {
-				if (err) {
-					alert(err);
-					return;
-				}
-
-				const spawnParams = {
-					width: bounds.width,
-					left: bounds.left + 25,
-					top: bounds.bottom + 25,
-					position: "relative"
-				};
-
-				const child = (await FSBL.Clients.LauncherClient.showWindow(identifier, spawnParams)).response;
-				resolve(child);
-			});
+			// resolve()
 		} else {
 			resolve();
 		}
@@ -184,7 +203,7 @@ const FSBLReady = () => {
 
 		// Add a button to launch child windows to the page.
 		const button2 = document.createElement("button");
-		button2.appendChild(document.createTextNode("Remove Child Window"));
+		button2.appendChild(document.createTextNode("Remove Child Window (if 2 or more)"));
 		button2.onclick = removeChildWindow;
 		document.body.appendChild(button2);
 	} catch (e) {
