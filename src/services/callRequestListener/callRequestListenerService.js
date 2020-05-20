@@ -152,6 +152,8 @@ class callRequestListenerService extends Finsemble.baseService {
 			if (windowIdentifiers.length > 0) {
 				//do something with the windowIdentifiers, like bring one to front
 				//await Finsemble.Clients.LauncherClient.showWindow(windowIdentifiers[0], {});
+
+				// Temporary workaround for bug on showWindow from service https://chartiq.kanbanize.com/ctrl_board/106/cards/25979/details/
 				await Finsemble.Clients.RouterClient.query(`WindowService-Request-bringToFront`, {windowIdentifier: windowIdentifiers[0]})
 
 				resolve();
