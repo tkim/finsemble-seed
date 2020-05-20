@@ -1,1 +1,6 @@
-{}
+{
+    "crmExample": {
+        "output": "components/crmExample/crmExample",
+        "entry": "./src/components/crmExample/crmExample.js"
+    }
+}

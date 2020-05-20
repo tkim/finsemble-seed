@@ -19,7 +19,7 @@ Finsemble.Clients.LauncherClient.initialize();
 
 // NOTE: When adding the above clients to a service, be sure to add them to the start up dependencies.
 
-//Ensure an instant of this component has been launched and is brought to front when starting a call 
+//Ensure an instant of this component has been launched and is brought to front when starting a call
 const COMPONENT_TYPE = "Welcome Component";
 //response code indicating call was started successfully
 const RESPONSE_CODE_SUCCESS = 0
@@ -61,7 +61,7 @@ class callRequestListenerService extends Finsemble.baseService {
 	/**
 	 * Ensure a particular component is on the screen, initiate a call and if successful,
 	 * broadcast data about the call for other components to respond to as context.
-	 * @param {*} data 
+	 * @param {*} data
 	 */
 	makeCall(data) {
 		return new Promise(async (resolve) => {
@@ -69,7 +69,7 @@ class callRequestListenerService extends Finsemble.baseService {
 			await this.ensureOpen();
 			//Attempt to initiate the call
 			let responseCode = await this.sendRequest(data);
-			if(responseCode === RESPONSE_CODE_SUCCESS) {
+			if (responseCode === RESPONSE_CODE_SUCCESS) {
 				// Notify other components by broadcasting context data about the call
 				this.broadcastCall(data);
 			}
@@ -79,7 +79,7 @@ class callRequestListenerService extends Finsemble.baseService {
 
 	/**
 	 * Broadcast context data about the call.
-	 * @param {*} data 
+	 * @param {*} data
 	 */
 	broadcastCall(data) {
 		//TODO: Implement your context broadcast here, for example with an FDC3 desktop agent or the Finsemble ROuterClient
@@ -128,7 +128,7 @@ class callRequestListenerService extends Finsemble.baseService {
 
 			try {
 				//TODO: add any data validation here and raise an exception if necessary
-				
+
 				// Data in query message can be passed as parameters to a method in the service.
 				this.makeCall(message.data).then(responseCode => {
 					// Send query response to the function call, with optional data, back to the caller.
@@ -145,23 +145,53 @@ class callRequestListenerService extends Finsemble.baseService {
 	 * Ensure that an instance of nominated component is open, if so bring it to front, or spawn it if not
 	 */
 	ensureOpen() {
-		return new Promise(async (resolve, reject) => {
-			// Show the UI if it's up already or spawn it
-			  //Additional arguments may be added to the second parameter if you also wish to reposition the component
-			let {err, response} = await Finsemble.Clients.LauncherClient.showWindow(
-				{"componentType": COMPONENT_TYPE},
-				{"spawnIfNotFound": true}
-			);
+		return new Promise(async (resolve) => {
 
-			if (err) {
-				reject(err);
-				// Log the error
+			let windowIdentifiers = await findAnInstance(COMPONENT_TYPE);
+			console.log(windowIdentifiers);
+			if (windowIdentifiers.length > 0) {
+				//do something with the windowIdentifiers, like bring one to front
+				//await Finsemble.Clients.LauncherClient.showWindow(windowIdentifiers[0], {});
+				await Finsemble.Clients.RouterClient.query(`WindowService-Request-bringToFront`, {windowIdentifier: windowIdentifiers[0]})
+
+				resolve();
 			} else {
-				resolve()
+				//lets go ahead and spawn one
+				Finsemble.Clients.LauncherClient.spawn(COMPONENT_TYPE, {
+					top: "center",
+					left: "center"
+				}, () => {
+					resolve();
+				});
 			}
-		});
+		})
+			.catch(function (err) {
+				console.error(err)
+			});
 	}
 }
+
+/** Example Function to check if one or more instances of a component currently exist
+    and to return windowIdentifiers to allow you to make calls relating to them. */
+async function findAnInstance(componentType) {
+	let {err, data} = await Finsemble.Clients.LauncherClient.getActiveDescriptors();
+	if (err) {
+		console.error(err);
+		return Promise.reject(err);
+	} else {
+		let windowIdentifiers = [];
+		Object.keys(data).forEach(windowName => {
+			if (data[windowName].componentType == componentType) {
+				windowIdentifiers.push({
+					componentType: componentType,
+					windowName: windowName
+				});
+			}
+		});
+		return Promise.resolve(windowIdentifiers);
+	}
+}
+
 
 const serviceInstance = new callRequestListenerService();
 
