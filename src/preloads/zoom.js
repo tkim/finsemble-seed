@@ -240,7 +240,7 @@ const runZoomHandler = () => {
 	FSBL.Clients.LauncherClient.getComponentDefaultConfig(FSBL.Clients.WindowClient.getWindowIdentifier().componentType, (err, componentConfig) => {
 		// Read component config for zoom
 		try {
-			zoomConfig = componentConfig.foreign.components["Window Manager"].zoom;
+			zoomConfig = componentConfig.foreign.components["WindowManager"].zoom;
 			if (zoomConfig) {
 				return zoomConfigHandler(null, zoomConfig);
 			}
@@ -249,8 +249,8 @@ const runZoomHandler = () => {
 		}
 
 		// If component doesn't have a config, read global config for zoom
-		FSBL.Clients.ConfigClient.getValue({ field: "finsemble.Window Manager.zoom" }, zoomConfigHandler);	
-		
+		FSBL.Clients.ConfigClient.getValue({ field: "finsemble.Window Manager.zoom" }, zoomConfigHandler);
+
 	});
 
 	// Create hot keys for zooming.

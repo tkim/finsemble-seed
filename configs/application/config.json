@@ -9,11 +9,11 @@
 					"foundation": {
 						"appFolders": {
 							"list": [
-								"Advanced App Launcher",
+								"AdvancedAppLauncher",
 								"Favorites"
 							],
 							"folders": {
-								"Advanced App Launcher": {
+								"AdvancedAppLauncher": {
 									"icon": "ff-component",
 									"type": "folder",
 									"disableUserRemove": true,
@@ -27,7 +27,7 @@
 											"appID": "2"
 										},
 										"3": {
-											"name": "Process Monitor",
+											"name": "ProcessMonitor",
 											"appID": "pm"
 										},
 										"4": {
@@ -50,7 +50,7 @@
 						"activeLauncherTags": [],
 						"filterText": "",
 						"filterTags": [],
-						"activeFolder": "Advanced App Launcher",
+						"activeFolder": "AdvancedAppLauncher",
 						"sortBy": "Alphabetical"
 					}
 				}
@@ -113,7 +113,7 @@
 	},
 	"systemTrayIcon": "$applicationRoot/assets/img/Finsemble_Taskbar_Icon.png",
 	"systemTrayComponent": "SystemTrayComponent",
-	"Window Manager": {
+	"WindowManager": {
 		"alwaysOnTopIcon": false,
 		"floatingTitlebarComponent": "Floating Titlebar",
 		"deliveryMechanism": "preload"
@@ -128,21 +128,21 @@
 				"components": [
 					"Toolbar",
 					"App Launcher",
-					"Workspace Management Menu",
+					"WorkspaceManagementMenu",
 					"linkerWindow",
 					"defaultAuthentication",
 					"dialogSignOn",
 					"dialogTemplate",
 					"dialogTest",
-					"File Menu",
+					"FileMenu",
 					"QuickComponentForm",
-					"Process Monitor",
-					"Docking Move Mask",
+					"ProcessMonitor",
+					"DockingMoveMask",
 					"yesNo",
 					"singleInput",
 					"dialogModal",
 					"UserPreferences",
-					"App Catalog"
+					"AppCatalog"
 				]
 			},
 			{

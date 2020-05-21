@@ -27,14 +27,14 @@
 					}
 				},
 				"components": {
-					"Window Manager": {
+					"WindowManager": {
 						"persistWindowState": false,
 						"FSBLHeader": false
 					}
 				}
 			}
 		},
-		"Advanced App Launcher": {
+		"AdvancedAppLauncher": {
 			"window": {
 				"url": "$applicationRoot/components/advancedAppLauncher/index.html",
 				"top": 0,
@@ -59,10 +59,10 @@
 					}
 				},
 				"components": {
-					"Window Manager": {
+					"WindowManager": {
 						"persistWindowState": false,
 						"FSBLHeader": false,
-						"title": "Advanced App Launcher"
+						"title": "AdvancedAppLauncher"
 					}
 				}
 			}
@@ -100,7 +100,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": false
 					}
@@ -134,14 +134,14 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": false
 					}
 				}
 			}
 		},
-		"Docking Move Mask": {
+		"DockingMoveMask": {
 			"window": {
 				"url": "$applicationRoot/components/dockingGroupMask/dockingGroupMask.html",
 				"affinity": "systemComponents",
@@ -167,7 +167,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": false
 					}
@@ -215,7 +215,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": false
 					}
@@ -263,7 +263,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": false
 					}
@@ -300,7 +300,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": false
 					}
@@ -367,7 +367,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"persistWindowState": false,
 						"FSBLHeader": false
 					}
@@ -383,7 +383,7 @@
 				},
 				"foreign": {
 					"components": {
-						"Window Manager": {
+						"WindowManager": {
 							"FSBLHeader": false
 						}
 					},
@@ -421,7 +421,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": false
 					}
@@ -465,7 +465,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": true
 					},
@@ -510,7 +510,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": false
 					},
@@ -520,7 +520,7 @@
 				}
 			}
 		},
-		"Process Monitor": {
+		"ProcessMonitor": {
 			"window": {
 				"url": "$applicationRoot/components/processMonitor/processMonitor.html",
 				"affinity": "workspaceComponents",
@@ -540,15 +540,15 @@
 					"App Launcher": {
 						"launchableByUser": true
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": true,
 						"persistWindowState": true,
-						"title": "Process Monitor"
+						"title": "ProcessMonitor"
 					}
 				}
 			}
 		},
-		"Advanced App Catalog": {
+		"AdvancedAppCatalog": {
 			"window": {
 				"url": "$applicationRoot/components/appCatalog/appCatalog.html",
 				"affinity": "systemComponents",
@@ -577,13 +577,13 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": {
 							"hideMaximize": true
 						},
 						"persistWindowState": true,
 						"showTabs": false,
-						"title": "App Catalog"
+						"title": "AppCatalog"
 					}
 				}
 			}
@@ -623,7 +623,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": true
 					}

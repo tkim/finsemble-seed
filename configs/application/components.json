@@ -33,7 +33,7 @@
 					"App Launcher": {
 						"launchableByUser": true
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"alwaysOnTopIcon": false,
 						"showLinker": true,
 						"FSBLHeader": true,
@@ -48,7 +48,7 @@
 			"childWindowOptions": {
 				"foreign": {
 					"components": {
-						"Window Manager": {
+						"WindowManager": {
 							"FSBLHeader": true,
 							"title": "Welcome Component Child Window"
 						}
@@ -99,7 +99,7 @@
 					"App Launcher": {
 						"launchableByUser": true
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"persistWindowState": false,
 						"FSBLHeader": true
 					},
@@ -128,7 +128,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"showLinker": false,
 						"FSBLHeader": true,
 						"persistWindowState": true,
@@ -156,7 +156,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"showLinker": false,
 						"FSBLHeader": true,
 						"persistWindowState": true,
@@ -195,7 +195,7 @@
 					"App Launcher": {
 						"launchableByUser": false
 					},
-					"Window Manager": {
+					"WindowManager": {
 						"FSBLHeader": false,
 						"persistWindowState": false
 					}
