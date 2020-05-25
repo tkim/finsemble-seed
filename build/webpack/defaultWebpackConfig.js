@@ -115,7 +115,7 @@ module.exports = class WebpackDefaults {
 						}
 					},
 					{
-						test: /\.tsx?$/,
+						test: /\.ts(x)?$/,
 						loader: 'ts-loader',
 						exclude: /node_modules/
 					},
