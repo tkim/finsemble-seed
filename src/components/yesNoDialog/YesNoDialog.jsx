@@ -8,7 +8,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { FinsembleProvider } from "@chartiq/finsemble-ui/react/components";
 import { YesNoDialog } from "@chartiq/finsemble-ui/react/components";
-import "@chartiq/finsemble-ui/react/assets/css/finsemble.css"
-import "../../../assets/css/_themeWhiteLabel.css";
+import "@chartiq/finsemble-ui/react/assets/css/finsemble.css";
+import "../../../assets/css/theme.css";
 
 ReactDOM.render(<FinsembleProvider><YesNoDialog/></FinsembleProvider>, document.getElementById("YesNoDialog-component-wrapper"));

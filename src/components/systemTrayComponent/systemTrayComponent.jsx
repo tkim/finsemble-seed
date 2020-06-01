@@ -6,9 +6,8 @@ import React from "react";
 import ReactDOM from "react-dom"
 import { FinsembleProvider } from "@chartiq/finsemble-ui/react/components";
 import { SystemTrayComponentShell, Preferences, SystemLog, CentralLogger, Documentation, Restart, Reset, Quit } from "@chartiq/finsemble-ui/react/components";
-
 import "@chartiq/finsemble-ui/react/assets/css/finsemble.css";
-import "../../../assets/css/_themeWhitelabel.css";
+import "../../../assets/css/theme.css";
 
 /**
  * This component displays on right-click in your application's system tray icon.
