@@ -1,1 +1,6 @@
-{}
+{
+    "testBloomberg": {
+        "output": "components/testBloomberg/testBloomberg",
+        "entry": "./src/components/testBloomberg/testBloomberg.js"
+    }
+}
