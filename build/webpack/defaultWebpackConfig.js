@@ -46,12 +46,16 @@ module.exports = class WebpackDefaults {
 			module: {
 				rules: [
 					{
-						test: /\.css$/,
-						use: [ 'style-loader', 'css-loader' ]
-					},
-					{
-						test: /\.scss$/,
-						use: ["style-loader", "css-loader", "sass-loader"]
+						test: /\.css$/i,
+						use: [
+							"style-loader",
+							{
+								loader: "css-loader",
+								options: {
+									sourceMap: env!=="production"
+								}
+							}
+						],
 					},
 					{
 						test: /\.png|img$/,

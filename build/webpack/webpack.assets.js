@@ -5,6 +5,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
 
 /**
  * First retrieve the seed project's default webpack configuration. We will use this
@@ -52,14 +53,22 @@ config.entry = {
 config.module.rules.push(
 	{
 		test: /finsemble\.css$/,
-		use: [{
-			loader: MiniCssExtractPlugin.loader,
-			options: {
-				publicPath: (resourcePath, context) => {
-					return path.relative(path.dirname(resourcePath), context) + '/';
+		use: [
+			{
+				loader: MiniCssExtractPlugin.loader,
+				options: {
+					publicPath: (resourcePath, context) => {
+						return path.relative(path.dirname(resourcePath), context) + '/';
+					},
 				},
 			},
-		}, 'css-loader']
+			{
+				loader: 'css-loader',
+				options: {
+				sourceMap: env !== 'production'
+			}
+			}
+		]
 	},
 );
 
