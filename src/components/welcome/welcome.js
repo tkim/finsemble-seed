@@ -1,4 +1,3 @@
-import "./welcome.css";
 
 window.quitFinsemble = function quitFinsemble() {
 	//console.log("Quit button successfully triggered");

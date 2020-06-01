@@ -172,6 +172,11 @@ const { launch, connect } = require('hadouken-js-adapter');
 				(done) => {
 					const webpackConfigs = [
 						{
+							configPath: require.resolve("./build/webpack/webpack.assets"),
+							prettyName: "Assets",
+							watch: watchFiles
+						},
+						{
 							configPath: require.resolve("./build/webpack/webpack.adapters"),
 							prettyName: "Adapters",
 							watch: watchFiles

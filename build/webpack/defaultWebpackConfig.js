@@ -2,7 +2,6 @@ const path = require('path');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { DllReferencePlugin, DefinePlugin } = require("webpack");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
 
@@ -22,13 +21,7 @@ module.exports = class WebpackDefaults {
 						},
 						cacheDirectory: '../.webpack-file-cache/[confighash]',
 					}
-				),
-				new MiniCssExtractPlugin({
-					// Options similar to the same options in webpackOptions.output
-					// both options are optional
-					filename: '[name].css',
-					chunkFilename: '[id].css',
-				 })
+				)
 			]
 
 		try {
@@ -54,14 +47,7 @@ module.exports = class WebpackDefaults {
 				rules: [
 					{
 						test: /\.css$/,
-						use: [ {
-							loader: MiniCssExtractPlugin.loader,
-							options: {
-							  publicPath: (resourcePath, context) => {
-								 return path.relative(path.dirname(resourcePath), context) + '/';
-							  },
-							},
-						 }, 'css-loader' ]
+						use: [ 'style-loader', 'css-loader' ]
 					},
 					{
 						test: /\.scss$/,
