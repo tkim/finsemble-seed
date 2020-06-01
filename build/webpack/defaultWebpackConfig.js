@@ -46,7 +46,7 @@ module.exports = class WebpackDefaults {
 			module: {
 				rules: [
 					{
-						test: /\.css$/i,
+						test: /\.s?css$/i,
 						use: [
 							"style-loader",
 							{
