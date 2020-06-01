@@ -29,7 +29,7 @@
 	},
 	"welcome": {
 		"output": "components/welcome/welcome",
-		"entry": "./src/components/welcome/welcome.js"
+		"entry": "./src/components/welcome/welcome.css"
 	},
 	"appCatalog": {
 		"output": "components/appCatalog/appCatalog",

@@ -2,6 +2,7 @@ const path = require('path');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { DllReferencePlugin, DefinePlugin } = require("webpack");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
 
@@ -21,7 +22,13 @@ module.exports = class WebpackDefaults {
 						},
 						cacheDirectory: '../.webpack-file-cache/[confighash]',
 					}
-				)
+				),
+				new MiniCssExtractPlugin({
+					// Options similar to the same options in webpackOptions.output
+					// both options are optional
+					filename: '[name].css',
+					chunkFilename: '[id].css',
+				 })
 			]
 
 		try {
@@ -47,7 +54,14 @@ module.exports = class WebpackDefaults {
 				rules: [
 					{
 						test: /\.css$/,
-						use: ['style-loader', 'css-loader']
+						use: [ {
+							loader: MiniCssExtractPlugin.loader,
+							options: {
+							  publicPath: (resourcePath, context) => {
+								 return path.relative(path.dirname(resourcePath), context) + '/';
+							  },
+							},
+						 }, 'css-loader' ]
 					},
 					{
 						test: /\.scss$/,
@@ -144,7 +158,7 @@ module.exports = class WebpackDefaults {
 					'@babel/runtime': path.resolve('./node_modules/@babel/runtime'),
 					'async': path.resolve('./node_modules/async')
 				},
-				extensions: ['.tsx', '.ts', '.js', '.jsx', '.json', 'scss', 'html'],
+				extensions: ['.tsx', '.ts', '.js', '.jsx', '.json', '.scss', '.css', '.html'],
 				modules: [
 					'./node_modules'
 				],
