@@ -19,6 +19,8 @@
 	<h1><img src="../../assets/img/finsembleDarkBG_noText.png" id="finsembleLogo" height="25">
 		&nbsp;
 		Bloomberg Bridge Tester</h1>
+		<span id="connectedIndicator" class="hidden">Connected <span class="connectedIcon">✓</span></span>
+		<span id="disconnectedIndicator">Disconnected <span class="disconnectedIcon">X</span></span>
 	<div class="spacer3"></div>
 
 	<div id="headings">
@@ -26,22 +28,18 @@
 			<h2>Run Command</h2>
 		</div>
 
-		<div class="heading" id="createWorksheetHeading" onclick="window.displayCol('createWorksheet');">
-			<h2>Create Worksheet</h2>
+		<div class="heading" id="worksheetsHeading" onclick="window.displayCol('worksheets');">
+			<h2>Worksheets</h2>
 		</div>
 		
-		<div class="heading" id="getUserWorksheetsHeading" onclick="window.displayCol('getUserWorksheets');">
-			<h2>Get User Worksheets</h2>
+		<div class="heading" id="componentsHeading" onclick="window.displayCol('components');">
+			<h2>Components</h2>
 		</div>
 		
-		<div class="heading" id="getSecuritiesFromWorksheetHeading" onclick="window.displayCol('getSecuritiesFromWorksheet');">
-			<h2>Get Worksheet</h2>
+		<div class="heading" id="groupsHeading" onclick="window.displayCol('groups');">
+			<h2>Groups</h2>
 		</div>
 		
-		<div class="heading" id="replaceSecuritiesOnWorksheetHeading" onclick="window.displayCol('replaceSecuritiesOnWorksheet');">
-			<h2>Replace Worksheet</h2>
-		</div>
-
 
 		<!-- <div class="column" id="col3">
         <h2>Pub/Sub</h2>
@@ -51,14 +49,14 @@
 		<div class="column" id="runCommandCol">
 			<!-- mnemonic -->
 			<label class="inputLabel">
-				Bloomberg Mnemonic
+				Bloomberg Mnemonic:
 				<input class="textField" id="mnemonic" value="DES"></input>
 			</label>
 			<label id="mnemonicError" class="errorLabel hidden">Set a Mnemonic (Bloomberg command)</label>
 			
 			<!-- panel -->
 			<label class="inputLabel">
-				Bloomberg Panel
+				Bloomberg Panel:
 				<select id="panel" name="panel" class="textField">
 					<option value=1>1</option>
 					<option value=2>2</option>
@@ -69,46 +67,75 @@
 
 			<!-- securityList -->
 			<label class="inputLabel">
-				Securities
+				Securities:
 				<ul id="securities"></ul>
 			</label>
 			<label id="securityError" class="errorLabel hidden">Add at least one security</label>
 			<label class="inputLabel">
-				Add Security
+				Add Security:
 				<input class="textField" id="securityInput" value=""></input>
 			</label>
 			<button class="button" id="addSecurityButton" onclick="window.addSecurity('securityInput','securities')">Add security</button>
 			
 			<!-- tails -->
 			<label class="inputLabel">
-				Tails (optional)
+				Tails (optional):
 				<input class="textField" id="tails" value=""></input>
 			</label>
 
+			<hr />
 
 			<button class="button" id="runCommandButton" onclick="window.runBBGCommand()">Run command</button>
 
 		</div>
 
-		<div class="column hidden" id="createWorksheetCol">
+		<div class="column hidden" id="worksheetsCol">
+			<label class="inputLabel">
+				All Worksheets:
+				<ul id="allWorksheets"></ul>
+			</label>
+			<button class="button" id="refreshWorksheetsButton" onclick="window.getAllWorksheets()">refresh</button>
+			<hr />
 
+			<!-- Worksheet name -->
+			<label class="inputLabel">
+				Worksheet name:
+				<input class="textField" id="worksheetName" value=""></input>
+			</label>
+			<label id="worksheetNameError" class="errorLabel hidden">Set a name for the worksheet</label>
+			
+			<!-- securityList -->
+			<label class="inputLabel">
+				Securities:
+				<ul id="worksheetSecurities"></ul>
+			</label>
+			<label class="inputLabel">
+				Add Security:
+				<input class="textField" id="createWorksheetSecurityInput" value=""></input>
+			</label>
+			<button class="button" id="cwAddSecurityButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities')">Add
+				security</button>
+			
+			<hr />
+
+			<button class="button" id="createWorksheetButton" onclick="window.createWorksheet()">Create Worksheet</button>
+			Note: There is no visible output for the creation of a worksheet, run the command 'W' command to see all worksheets.
+			<button class="button" id="replaceWorksheetButton" onclick="window.replaceWorksheet()">Save Worksheet</button>
+			<hr />
+
+			
+		</div>
+
+		<div class="column hidden" id="componentsCol">
+			<H3>Not implement yet!</H3>
 			<div class="spacer4"></div>
 		</div>
 
-		<div class="column hidden" id="getUserWorksheetsCol">
-
+		<div class="column hidden" id="groupsCol">
+			<H3>Not implement yet!</H3>
 			<div class="spacer4"></div>
 		</div>
 
-		<div class="column hidden" id="getSecuritiesFromWorksheetCol">
-
-			<div class="spacer4"></div>
-		</div>
-
-		<div class="column hidden" id="replaceSecuritiesOnWorksheet">
-
-			<div class="spacer4"></div>
-		</div>
 
 	</div>
 	
