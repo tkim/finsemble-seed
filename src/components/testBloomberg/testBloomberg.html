@@ -32,14 +32,13 @@
 			<h2>Worksheets</h2>
 		</div>
 		
-		<div class="heading" id="componentsHeading" onclick="window.displayCol('components');">
-			<h2>Components</h2>
-		</div>
-		
 		<div class="heading" id="groupsHeading" onclick="window.displayCol('groups');">
 			<h2>Groups</h2>
 		</div>
 		
+		<div class="heading" id="componentsHeading" onclick="window.displayCol('components');">
+			<h2>Components</h2>
+		</div>
 
 		<!-- <div class="column" id="col3">
         <h2>Pub/Sub</h2>
@@ -121,7 +120,7 @@
 				Worksheet id:
 				<input class="textField" id="worksheetId" value="" disabled></input>
 			</label>
-			<label id="worksheetNameError" class="errorLabel hidden">Set a name for the worksheet</label>
+			<label id="worksheetIdError" class="errorLabel hidden">A worksheet Id is required, please load a worksheet before replacing its securities</label>
 			
 			<!-- securityList -->
 			<label class="inputLabel">
@@ -152,13 +151,10 @@
 			Note: There is no visible output for the creation of a worksheet, run the command 'W' command to see all worksheets.
 			<button class="button" id="replaceWorksheetButton" onclick="window.replaceWorksheet()">Save Worksheet</button>
 			<hr />
-			<label id="worksheetError" class="errorLabel hidden">Function returned an error (see Central logger for details)</label>
-			
-		</div>
-
-		<div class="column hidden" id="componentsCol">
-			<H3>Not implement yet!</H3>
-			<div class="spacer4"></div>
+			<label id="allWorksheetsError" class="errorLabel hidden">Worksheet listing (see Central logger for details)</label>
+			<label id="worksheetError" class="errorLabel hidden">Worksheet load returned an error (see Central logger for details)</label>
+			<label id="worksheetSaveSuccess" class="successLabel hidden">Worksheet saved</label>
+			<label id="worksheetCreateSuccess" class="successLabel hidden">Worksheet created</label>
 		</div>
 
 		<div class="column hidden" id="groupsCol">
@@ -166,7 +162,11 @@
 			<div class="spacer4"></div>
 		</div>
 
-
+		<div class="column hidden" id="componentsCol">
+			<H3>Not implement yet!</H3>
+			<div class="spacer4"></div>
+		</div>
+		
 	</div>
 	
 

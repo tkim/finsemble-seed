@@ -89,6 +89,9 @@ window.apiResponseHandler = (cb) => {
 //-----------------------------------------------------------------------------------------
 //functions related to runCommand
 window.runBBGCommand = () => {
+	hideElements(errorLabel);
+	hideElements(successLabel);
+	
 	let mnemonic = document.getElementById("mnemonic").value;
 	mnemonic = mnemonic ? mnemonic.trim() : null;
 	let securities = getSecurities("securities");
@@ -119,8 +122,6 @@ window.runBBGCommand = () => {
 };
 
 window._runBBGCommand = (mnemonic, securities, panel, tails, cb) => {
-	hideElement("commandError");
-	hideElement("commandSuccess");
 	
 	let message = {
 		function: "RunFunction",
@@ -138,6 +139,9 @@ window._runBBGCommand = (mnemonic, securities, panel, tails, cb) => {
 //functions related to worksheets
 
 window.createWorksheet = () => {
+	hideElements(errorLabel);
+	hideElements(successLabel);
+
 	let worksheetName = document.getElementById("worksheetName").value;
 	worksheetName = worksheetName ? worksheetName.trim() : null;
 	let securities = getSecurities("worksheetSecurities");
@@ -153,7 +157,8 @@ window.createWorksheet = () => {
 			if (err) {
 				showElement("worksheetError");
 			} else {
-				renderWorksheet(worksheetName, data.securities);
+				renderWorksheet(data.worksheet.name, data.worksheet.id, data.worksheet.securities);
+				showElement("worksheetCreateSuccess");
 			}
 			getAllWorksheets();
 		});
@@ -172,7 +177,9 @@ window._runCreateWorksheet = (worksheetName, securities, cb) => {
 };
 
 window.getAllWorksheets = () => {
-	hideElement("worksheetError");
+	hideElements(errorLabel);
+	hideElements(successLabel);
+
 	_runGetAllWorksheets((err, response) => {
 		if (response && response.worksheets && Array.isArray(response.worksheets)) {
 			//clear the list
@@ -195,7 +202,7 @@ window.getAllWorksheets = () => {
 			});
 		} else {
 			console.error("invalid response from _runGetAllWorksheets", response);
-			showElement("worksheetError");
+			showElement("allWorksheetsError");
 		}
 	});
 };
@@ -210,13 +217,16 @@ window._runGetAllWorksheets = (cb) => {
 };
 
 window.loadWorkSheet = (worksheetId) => {
-	//TODO: the worksheet name should be swapped out for the worksheet ID as names are not unique
+	hideElements(errorLabel);
+	hideElements(successLabel);
+	
 	_runGetWorksheet(worksheetId, (err, response) => {
 		//TODO: support other types of worksheet
 		if (response && response.worksheet && Array.isArray(response.worksheet.securities)) {
 			renderWorksheet(response.worksheet.name, response.worksheet.id, response.worksheet.securities);
 		} else {
 			console.error("invalid response from _runGetWorksheet");
+			showElement("worksheetError");
 		}
 	
 	});
@@ -232,41 +242,41 @@ window._runGetWorksheet = (worksheetId, cb) => {
 	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
 };
 
-
-
-
-
-
-
-
-
 window.replaceWorksheet = () => {
-	let worksheetName = document.getElementById("worksheetName").value;
-	worksheetName = worksheetName ? worksheetName.trim() : null;
+	hideElements(errorLabel);
+	hideElements(successLabel);
+
+	let worksheetId = document.getElementById("worksheetId").value;
+	worksheetId = worksheetId ? worksheetId.trim() : null;
 	let securities = getSecurities("worksheetSecurities");
 
 	//validate input
 	let error = false;
-	if (!worksheetName || worksheetName == "") {
-		showElement("worksheetNameError");
+	if (!worksheetId || worksheetId == "") {
+		showElement("worksheetIdError");
 		error = true;
 	}
 	if (!error) {
-		_runReplaceWorksheet(worksheetName, securities);
-
-		//wait a bit then reload worksheets
-		//TODO: fix this when there is a return from _runCreateWorksheet
-		setTimeout(getAllWorksheets, 1000);
+		_runReplaceWorksheet(worksheetId, securities, (err, data) => {
+			if (err) {
+				showElement("worksheetError");
+			} else {
+				renderWorksheet(data.worksheet.name, data.worksheet.id, data.worksheet.securities);
+				showElement("worksheetSaveSuccess");
+			}
+			getAllWorksheets();
+		});
 	}
 };
 
-window._runReplaceWorksheet = (worksheetName, securities) => {
+window._runReplaceWorksheet = (worksheetId, securities, cb) => {
 	let message = {
-		worksheet: worksheetName,
+		function: "ReplaceWorksheet",
+		id: worksheetId,
 		securities: securities
 	};
-	console.log("Transmitting to BBG_symbol_list message:", message);
-	FSBL.Clients.RouterClient.transmit("BBG_symbol_list", message);
+	console.log("BBG_run_terminal_function message:", message);
+	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
 };
 
 
@@ -345,14 +355,20 @@ window.hideElement = (id) => {
 	element.classList.add("hidden");
 };
 
+window.hideElements = (className) => {
+	Array.from(document.getElementsByClassName(className)).forEach((el) => {
+		el.classList.add("hidden");
+	});
+}
+
 window.showConnectedIcon = () => {
-	document.getElementById("connectedIndicator").className = "";
-	document.getElementById("disconnectedIndicator").className = "hidden";
+	document.getElementById("connectedIndicator").classList.remove("hidden");
+	document.getElementById("disconnectedIndicator").classList.add("hidden");
 }
 
 window.showDisconnectedIcon = () => {
-	document.getElementById("connectedIndicator").className = "hidden";
-	document.getElementById("disconnectedIndicator").className = "";
+	document.getElementById("connectedIndicator").classList.remove("hidden");
+	document.getElementById("disconnectedIndicator").classList.add("hidden");
 }
 
 window.clickButtonOnEnter = (fieldId, buttonId) => {
