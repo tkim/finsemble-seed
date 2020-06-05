@@ -195,9 +195,9 @@
                 }
             }
         },
-        "Bloomberg Integration Example Debug": {
+        "Bloomberg Bridge Debug": {
             "window": {
-                "id": "Bloomberg Integration Example Debug",
+                "id": "Bloomberg Bridge Debug",
                 "windowType": "native",
                 "path": "C:/Users/admin/Documents/code/fpe-bloomberg/BloombergBridge/bin/Debug/BloombergBridge.exe",
                 "arguments": "",
@@ -236,9 +236,9 @@
                 }
             }
         },
-        "Bloomberg Integration Example Release": {
+        "Bloomberg Bridge Release": {
             "window": {
-                "id": "Bloomberg Integration Example Release",
+                "id": "Bloomberg Bridge Release",
                 "windowType": "native",
                 "path": "C:/Users/admin/Documents/code/fpe-bloomberg/BloombergBridge/bin/Release/BloombergBridge.exe",
                 "arguments": "",
@@ -313,89 +313,7 @@
                 }
             }
         },
-        "Bloomberg Simple Example Debug": {
-            "window": {
-                "id": "Bloomberg Simple Example Debug",
-                "windowType": "native",
-                "path": "C:/Users/admin/Documents/code/fpe-bloomberg/SimpleWindowExample/bin/Debug/SimpleWindowExample.exe",
-                "arguments": "",
-                "options": {
-                    "autoShow": true,
-                    "alwaysOnTop": false,
-                    "resizable": true,
-                    "showTaskbarIcon": true
-                },
-                "addToWorkspace": true,
-                "height": 250,
-                "width": 300
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "workspaceService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "persistWindowState": false,
-                        "FSBLHeader": true,
-                        "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "ff-component"
-                    }
-                }
-            }
-        },
-        "Bloomberg Simple Example Release": {
-            "window": {
-                "id": "Bloomberg Simple Example Release",
-                "windowType": "native",
-                "path": "C:/Users/admin/Documents/code/fpe-bloomberg/SimpleWindowExample/bin/Release/SimpleWindowExample.exe",
-                "arguments": "",
-                "options": {
-                    "autoShow": true,
-                    "alwaysOnTop": false,
-                    "resizable": true,
-                    "showTaskbarIcon": true
-                },
-                "addToWorkspace": true,
-                "height": 250,
-                "width": 300
-            },
-            "component": {
-                "inject": false
-            },
-            "foreign": {
-                "services": {
-                    "workspaceService": {
-                        "canGroup": true,
-                        "isArrangable": true
-                    }
-                },
-                "components": {
-                    "App Launcher": {
-                        "launchableByUser": true
-                    },
-                    "Window Manager": {
-                        "persistWindowState": false,
-                        "FSBLHeader": true,
-                        "showLinker": true
-                    },
-                    "Toolbar": {
-                        "iconClass": "ff-component"
-                    }
-                }
-            }
-        },
-        "testBloomberg": {
+        "Bloomberg test component": {
             "window": {
                 "url": "$applicationRoot/components/testBloomberg/testBloomberg.html",
                 "options": {

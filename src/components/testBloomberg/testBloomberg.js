@@ -23,7 +23,7 @@ window.setupConnectionLifecycleChecks = () => {
 	_listenForConnectionEvents(checkConnection);
 	//do the initial check
 	checkConnection();
-	//poll as well as the system switches to a query responder when connected
+	//its also possible to poll for connection status, worth doing if the bridge process is killed off
 	setInterval(checkConnection, 30000);
 };
 
@@ -40,20 +40,21 @@ window.checkConnection = () => {
 /** Callback is called only on disconnect to trigger polling. */
 window._listenForConnectionEvents = (cb) => {
 	console.log("Listening for connection events...");
-	FSBL.Clients.RouterClient.addListener("BBG_ready", (err, resp) => {
+	FSBL.Clients.RouterClient.addListener("BBG_connection_status", (err, resp) => {
 		console.log("Received connection event... Response: ", resp);
 		cb(err, resp);
 	});
 };
 window._checkConnection = (cb) => {
-	console.log("Checking connection status");
+	console.log("Checking connection status...");
 
-	FSBL.Clients.RouterClient.query("BBG_ready", {}, (err, resp) => {
+	FSBL.Clients.RouterClient.query("BBG_connection_status", {}, (err, resp) => {
 		if (err) {
 			console.warn("Received error when checking connection status: ", err);
 			cb(err, false);
 		} else {
-			if (resp && resp.data) {
+			if (resp && resp.data && resp.data["loggedIn"]) {
+				console.log("Received status: ", resp.data);
 				cb(null, true);
 			} else {
 				console.log("Received negative or empty response when checking connection status: ", resp);
@@ -64,13 +65,33 @@ window._checkConnection = (cb) => {
 	});
 };
 
+window.apiResponseHandler = (cb) => {
+	return (err, resp) => {
+		if (err) {
+			let errMsg = "Error returned by BBG_run_terminal_function: ";
+			console.error(errMsg, err);
+			FSBL.Clients.Logger.error(errMsg, err);
+			cb(err, resp);
+		} else if (!resp || !resp.data || !resp.data.status) {
+			let errMsg = "Negative status returned by BBG_run_terminal_function: ";
+			console.error(errMsg, resp);
+			FSBL.Clients.Logger.error(errMsg, resp);
+			cb("Command returned negative status", resp);
+		} else {
+			let msg = "BBG_run_terminal_function successful, response: ";
+			console.log(msg, resp.data);
+			FSBL.Clients.Logger.log(msg, resp);
+			cb(null, resp.data);
+		}
+	};
+};
+
 //-----------------------------------------------------------------------------------------
 //functions related to runCommand
 window.runBBGCommand = () => {
 	let mnemonic = document.getElementById("mnemonic").value;
 	mnemonic = mnemonic ? mnemonic.trim() : null;
-	//TODO: integration currently only supports one security, so use the first one
-	let instrument = getSecurities("securities")[0];
+	let securities = getSecurities("securities");
 	let tails = document.getElementById("tails").value;
 	tails = tails ? tails.trim() : null;
 	let panel = document.getElementById("panel").value;
@@ -78,29 +99,39 @@ window.runBBGCommand = () => {
 	//validate input
 	let error = false;
 	if (!mnemonic || mnemonic == "") {
-		showError("mnemonicError");
+		showElement("mnemonicError");
 		error = true;
 	}
-	//many commands are valid with only one security
+	//many commands are valid with only one security, most can also be run with none
 	// if (!instrument || instrument == "") {
-	// 	showError("securityError");
+	// 	showElement("securityError");
 	// 	error = true;
 	// }
 	if (!error) {
-		_runBBGCommand(mnemonic, instrument, panel, tails)
+		_runBBGCommand(mnemonic, securities, panel, tails, (err, response) => {
+			if (err) {
+				showElement("commandError");
+			} else {
+				showElement("commandSuccess");
+			}
+		});
 	}
 };
 
-window._runBBGCommand = (mnemonic, instrument, panel, tails) => {
+window._runBBGCommand = (mnemonic, securities, panel, tails, cb) => {
+	hideElement("commandError");
+	hideElement("commandSuccess");
+	
 	let message = {
+		function: "RunFunction",
 		mnemonic: mnemonic,
-		"fdc3.instrument": { "id": { "ticker": instrument } },
+		securities: securities,
 		tails: tails,
 		panel: panel
 	};
 
-	console.log("Transmitting BBG_run_function message:", message);
-	FSBL.Clients.RouterClient.transmit("BBG_run_function", message);
+	console.log("BBG_run_terminal_function message:", message);
+	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
 };
 
 //-----------------------------------------------------------------------------------------
@@ -114,126 +145,128 @@ window.createWorksheet = () => {
 	//validate input
 	let error = false;
 	if (!worksheetName || worksheetName == "") {
-		showError("worksheetNameError");
+		showElement("worksheetNameError");
 		error = true;
 	}
 	if (!error) {
-		_runCreateWorksheet(worksheetName, securities);
-		
+		_runCreateWorksheet(worksheetName, securities, (err, data) => { 
+			if (err) {
+				showElement("worksheetError");
+			} else {
+				renderWorksheet(worksheetName, data.securities);
+			}
+			getAllWorksheets();
+		});
+	}
+};
+
+window._runCreateWorksheet = (worksheetName, securities, cb) => {
+	let message = {
+		function: "CreateWorksheet",
+		name: worksheetName,
+		securities: securities
+	};
+
+	console.log("BBG_run_terminal_function message:", message);
+	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
+};
+
+window.getAllWorksheets = () => {
+	hideElement("worksheetError");
+	_runGetAllWorksheets((err, response) => {
+		if (response && response.worksheets && Array.isArray(response.worksheets)) {
+			//clear the list
+			let theList = document.getElementById("allWorksheets");
+			while (theList.lastElementChild) {
+				theList.removeChild(theList.lastElementChild);
+			}
+			//render the updated list
+			response.worksheets.forEach(element => {
+				let li = document.createElement("li");
+				li.id = "li_worksheet_" + element.id;
+				li.className = "hover";
+				li.onclick = (e) => {
+					e.preventDefault();
+					loadWorkSheet(element.id);
+				};
+				li.appendChild(document.createTextNode(element.name));
+
+				theList.appendChild(li);
+			});
+		} else {
+			console.error("invalid response from _runGetAllWorksheets", response);
+			showElement("worksheetError");
+		}
+	});
+};
+
+window._runGetAllWorksheets = (cb) => {
+	let message = {
+		function: "GetAllWorksheets"
+	};
+
+	console.log("BBG_run_terminal_function message:", message);
+	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
+};
+
+window.loadWorkSheet = (worksheetId) => {
+	//TODO: the worksheet name should be swapped out for the worksheet ID as names are not unique
+	_runGetWorksheet(worksheetId, (err, response) => {
+		//TODO: support other types of worksheet
+		if (response && response.worksheet && Array.isArray(response.worksheet.securities)) {
+			renderWorksheet(response.worksheet.name, response.worksheet.id, response.worksheet.securities);
+		} else {
+			console.error("invalid response from _runGetWorksheet");
+		}
+	
+	});
+};
+
+window._runGetWorksheet = (worksheetId, cb) => {
+	let message = {
+		function: "GetWorksheet",
+		id: worksheetId
+	};
+
+	console.log("BBG_run_terminal_function message:", message);
+	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
+};
+
+
+
+
+
+
+
+
+
+window.replaceWorksheet = () => {
+	let worksheetName = document.getElementById("worksheetName").value;
+	worksheetName = worksheetName ? worksheetName.trim() : null;
+	let securities = getSecurities("worksheetSecurities");
+
+	//validate input
+	let error = false;
+	if (!worksheetName || worksheetName == "") {
+		showElement("worksheetNameError");
+		error = true;
+	}
+	if (!error) {
+		_runReplaceWorksheet(worksheetName, securities);
+
 		//wait a bit then reload worksheets
 		//TODO: fix this when there is a return from _runCreateWorksheet
 		setTimeout(getAllWorksheets, 1000);
 	}
 };
 
-window._runCreateWorksheet = (worksheetName, securities) => {
+window._runReplaceWorksheet = (worksheetName, securities) => {
 	let message = {
 		worksheet: worksheetName,
 		securities: securities
 	};
-
-	console.log("Transmitting BBG_create_worksheet message:", message);
-	FSBL.Clients.RouterClient.transmit("BBG_create_worksheet", message);
-};
-
-window.getAllWorksheets = () => {
-	_runGetAllWorksheets((err, response) => {
-		if (response) {
-			if (Array.isArray(response)) {
-				//clear the list
-				let theList = document.getElementById("allWorksheets");
-				while (theList.lastElementChild) {
-					theList.removeChild(theList.lastElementChild);
-				}
-				//render the updated list
-				response.forEach(element => {
-					let li = document.createElement("li");
-					li.id = "li_worksheet_" + element;
-					li.className = "hover";
-					li.onclick = (e) => {
-						e.preventDefault();
-						loadWorkSheet(element);
-					};
-					li.appendChild(document.createTextNode(element));
-
-					theList.appendChild(li);
-				});
-			} else {
-				console.error("invalid response from _runGetAllWorksheets");
-			}
-		}
-	});
-};
-
-window._runGetAllWorksheets = (cb) => {
-	console.log("Querying BBG_get_worksheets_of_user");
-	FSBL.Clients.RouterClient.query("BBG_get_worksheets_of_user", {}, (err, response) => {
-		if (err) {
-			console.error("error: ", err);
-			cb(err);
-		} else if (response.data) {
-			console.log("all worksheets: ", response.data);
-			cb(null, response.data);
-		} else {
-			cb(new Error("Response from BBG_get_worksheets_of_user was empty... response: " + JSON.stringify(response)));
-		}
-	});
-};
-
-window.loadWorkSheet = (worksheetName) => {
-	//TODO: the worksheet name should be swapped out for the worksheet ID as names are not unique
-	_runGetWorksheet(worksheetName, (err, response) => {
-		//TODO: support other types of worksheet
-		if (response && response.securities) {
-			if (Array.isArray(response.securities)) {
-				//clear the list
-				let theList = document.getElementById("worksheetSecurities");
-				while (theList.lastElementChild) {
-					theList.removeChild(theList.lastElementChild);
-				}
-				//render the updated list
-				response.securities.forEach(element => {
-					let li = document.createElement("li");
-					li.id = "li_security_" + element;
-					li.appendChild(document.createTextNode(element));
-
-					let removeButton = document.createElement("button");
-					removeButton.className = "removeButton";
-					removeButton.textContent = " X ";
-					removeButton.onclick = (e) => {
-						e.preventDefault();
-						window.removeSecurity(element, "worksheetSecurities");
-					};
-
-					li.appendChild(removeButton);
-
-					theList.appendChild(li);
-				});
-				document.getElementById("worksheetName").value = worksheetName;
-			} else {
-				console.error("invalid response from _runGetWorksheet");
-			}
-		}
-	});
-};
-
-window._runGetWorksheet = (worksheetName, cb) => {
-	console.log("Querying BBG_GetSecuritiesFromWorksheet");
-	FSBL.Clients.RouterClient.query("BBG_Get_Securities_From_Worksheet", { worksheet: worksheetName }, (err, response) => {
-		if (err) {
-			console.error("error: ", err);
-			cb(err);
-		} else if (response.data) {
-			console.log(`data from worksheet '${worksheetName}: `, response.data);
-			cb(null, response.data);
-		} else {
-			cb(new Error("Response from BBG_GetSecuritiesFromWorksheet was empty... response: " + JSON.stringify(response)));
-		}
-	});
-};
-
-window._runReplaceWorksheet = () => {
-
+	console.log("Transmitting to BBG_symbol_list message:", message);
+	FSBL.Clients.RouterClient.transmit("BBG_symbol_list", message);
 };
 
 
@@ -302,12 +335,14 @@ window.displayCol = (elementName) => {
 	}
 };
 
-window.showError = (errorId) => {
-	document.getElementById(errorId).className = "errorLabel";
+window.showElement = (id) => {
+	let element = document.getElementById(id);
+	element.classList.remove("hidden");
 };
 
-window.hideError = (errorId) => {
-	document.getElementById(errorId).className = "errorLabel hidden";
+window.hideElement = (id) => {
+	let element = document.getElementById(id);
+	element.classList.add("hidden");
 };
 
 window.showConnectedIcon = () => {
@@ -332,10 +367,13 @@ window.clickButtonOnEnter = (fieldId, buttonId) => {
 	});
 }
 
-window.addSecurity = (input, list) => {
+window.addSecurity = (input, list, sector) => {
 	let security = document.getElementById(input).value;
 	if (security) {
-		hideError("securityError");
+		hideElement("securityError");
+		if (sector) {
+			security = security + " " + sector;
+		}
 
 		let li = document.createElement("li");
 		li.id = "li_security_" + security;
@@ -376,6 +414,34 @@ window.getSecurities = (list) => {
 		element = element.nextSibling;
 	}
 	return securitiesArr;
+};
+
+window.renderWorksheet = (worksheetName, id, securities) => {
+	//clear the list
+	let theList = document.getElementById("worksheetSecurities");
+	while (theList.lastElementChild) {
+		theList.removeChild(theList.lastElementChild);
+	}
+	//render the updated list
+	securities.forEach(element => {
+		let li = document.createElement("li");
+		li.id = "li_security_" + element;
+		li.appendChild(document.createTextNode(element));
+
+		let removeButton = document.createElement("button");
+		removeButton.className = "removeButton";
+		removeButton.textContent = " X ";
+		removeButton.onclick = (e) => {
+			e.preventDefault();
+			window.removeSecurity(element, "worksheetSecurities");
+		};
+
+		li.appendChild(removeButton);
+
+		theList.appendChild(li);
+	});
+	document.getElementById("worksheetName").value = worksheetName;
+	document.getElementById("worksheetId").value = id;
 };
 
 if (window.FSBL && FSBL.addEventListener) {

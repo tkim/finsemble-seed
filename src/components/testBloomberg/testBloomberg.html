@@ -75,8 +75,21 @@
 				Add Security:
 				<input class="textField" id="securityInput" value=""></input>
 			</label>
-			<button class="button" id="addSecurityButton" onclick="window.addSecurity('securityInput','securities')">Add security</button>
+			<div class="securityButtonContainer">
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities','Equity')">Equity</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities','Comdty')">Comdty</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities','Corp')">Corp</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities','Curncy')">Curncy</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities','Govt')">Govt</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities','Index')">Index</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities','M-mkt')">M-mkt</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities','Mtge')">Mtge</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities','Muni')">Muni</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('securityInput','securities')">no sector</button>
+			</div>
 			
+
+
 			<!-- tails -->
 			<label class="inputLabel">
 				Tails (optional):
@@ -86,7 +99,8 @@
 			<hr />
 
 			<button class="button" id="runCommandButton" onclick="window.runBBGCommand()">Run command</button>
-
+			<label id="commandError" class="errorLabel hidden">Function returned an error (see Central logger for details)</label>
+			<label id="commandSuccess" class="successLabel hidden">Command Accepted</label>
 		</div>
 
 		<div class="column hidden" id="worksheetsCol">
@@ -102,6 +116,11 @@
 				Worksheet name:
 				<input class="textField" id="worksheetName" value=""></input>
 			</label>
+
+			<label class="inputLabel">
+				Worksheet id:
+				<input class="textField" id="worksheetId" value="" disabled></input>
+			</label>
 			<label id="worksheetNameError" class="errorLabel hidden">Set a name for the worksheet</label>
 			
 			<!-- securityList -->
@@ -113,16 +132,27 @@
 				Add Security:
 				<input class="textField" id="createWorksheetSecurityInput" value=""></input>
 			</label>
-			<button class="button" id="cwAddSecurityButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities')">Add
-				security</button>
-			
+			<div class="securityButtonContainer">
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities','Equity')">Equity</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities','Comdty')">Comdty</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities','Corp')">Corp</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities','Curncy')">Curncy</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities','Govt')">Govt</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities','Index')">Index</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities','M-mkt')">M-mkt</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities','Mtge')">Mtge</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities','Muni')">Muni</button>
+				<button class="marketSectorButton" onclick="window.addSecurity('createWorksheetSecurityInput','worksheetSecurities')">no sector</button>
+			</div>
+
+
 			<hr />
 
 			<button class="button" id="createWorksheetButton" onclick="window.createWorksheet()">Create Worksheet</button>
 			Note: There is no visible output for the creation of a worksheet, run the command 'W' command to see all worksheets.
 			<button class="button" id="replaceWorksheetButton" onclick="window.replaceWorksheet()">Save Worksheet</button>
 			<hr />
-
+			<label id="worksheetError" class="errorLabel hidden">Function returned an error (see Central logger for details)</label>
 			
 		</div>
 

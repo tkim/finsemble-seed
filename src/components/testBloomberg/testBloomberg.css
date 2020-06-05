@@ -70,6 +70,10 @@ body {
 	height: 0;
 }
 
+input:disabled {
+	background-color: darkgray;
+}
+
 .inputLabel {
 	align-self: stretch;
 	display: flex;
@@ -80,6 +84,11 @@ body {
 
 .errorLabel {
 	color: red;
+	font-weight: bold;
+}
+
+.successLabel {
+	color: green;
 	font-weight: bold;
 }
 
@@ -158,6 +167,31 @@ h3 {
     color: #FFF;
     font-family: var(--font-family);
 	font-weight: 400;
+	font-size: 125%;
+    border: 0px;
+    border-radius: 4px;
+    padding: 5px 10px;
+    vertical-align: middle;
+	transition: all .2s ease;
+}
+
+.securityButtonContainer {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.marketSectorButton {
+	
+    text-align: center !important;
+    margin: 5px;
+    flex-basis: 110px;
+    -webkit-appearance:none;
+	background-color: rgb(255, 208, 0);
+	text-transform: uppercase;
+    color: black;
+    font-family: var(--font-family);
+	font-weight: 700;
 	font-size: 125%;
     border: 0px;
     border-radius: 4px;
