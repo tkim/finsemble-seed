@@ -1,6 +1,8 @@
 
 //references to securities set on the runCommand form
 let UIReady = false;
+let connectionEventListener = null;
+let groupEventListener = null
 
 //-----------------------------------------------------------------------------------------
 //Ready function that sets up the form
@@ -14,38 +16,61 @@ const FSBLReady = () => {
 }
 
 //-----------------------------------------------------------------------------------------
-//functions related to connection status
-
-//TODO: extend status checks to determine if user is logged (once supported by native code)
-
-window.setupConnectionLifecycleChecks = () => { 
-	//listen for connection events (listen/transmit)
-	_listenForConnectionEvents(checkConnection);
-	//do the initial check
-	checkConnection();
-	//its also possible to poll for connection status, worth doing if the bridge process is killed off
-	setInterval(checkConnection, 30000);
-};
-
-window.checkConnection = () => {
-	_checkConnection((err, resp) => { 
-		if (resp) {
-			showConnectedIcon();
-		} else {
-			showDisconnectedIcon();
-		}
-	});
-};
-
+//API client functions
 /** Callback is called only on disconnect to trigger polling. */
-window._listenForConnectionEvents = (cb) => {
-	console.log("Listening for connection events...");
-	FSBL.Clients.RouterClient.addListener("BBG_connection_status", (err, resp) => {
+const _setConnectionEventListener = (cb) => {
+	if (connectionEventListener) {
+		_removeConnectionEventListener();
+	}
+	console.log("Set new Listener for Bloomberg connection events...");
+	connectionEventListener = (err, resp) => {
 		console.log("Received connection event... Response: ", resp);
+		if (err) {
+			console.error("Received Bloomberg connection error: ", err);
+		} else {
+			console.log("Received Bloomberg connection event: ", resp);
+		}
 		cb(err, resp);
-	});
+	};
+	FSBL.Clients.RouterClient.addListener("BBG_connection_status", connectionEventListener);
 };
-window._checkConnection = (cb) => {
+
+const _removeConnectionEventListener = () => {
+	if (connectionEventListener) {
+		FSBL.Clients.RouterClient.removeListener("BBG_connection_status", connectionEventListener);
+		console.log("Removed connection event listener");
+	} else {
+		console.warn("Tried to remove non-existent connection event listener");
+	}
+};
+
+const _setGroupEventListener = (cb) => {
+	if (groupEventListener) {
+		_removeGroupEventListener();
+	}
+	console.log("Set new listener for Bloomberg group context events...");
+	groupEventListener = (err, resp) => {
+		if (err) {
+			console.error("Received Bloomberg group context error: ", err);
+		} else {
+			console.log("Received Bloomberg group context event: ", resp);
+		}
+		cb(err, resp);
+	};
+	FSBL.Clients.RouterClient.addListener("BBG_group_context_events", groupEventListener);
+};
+
+const _removeGroupEventListener = () => {
+	if (groupEventListener) {
+		FSBL.Clients.RouterClient.removeListener("BBG_group_context_events", groupEventListener);
+		console.log("Removed group context event listener");
+	} else {
+		console.warn("Tried to remove non-existent group context event listener");
+	}
+
+};
+
+const _checkConnection = (cb) => {
 	console.log("Checking connection status...");
 
 	FSBL.Clients.RouterClient.query("BBG_connection_status", {}, (err, resp) => {
@@ -54,18 +79,24 @@ window._checkConnection = (cb) => {
 			cb(err, false);
 		} else {
 			if (resp && resp.data && resp.data["loggedIn"]) {
-				console.log("Received status: ", resp.data);
+				console.log("Received connection status: ", resp.data);
 				cb(null, true);
 			} else {
 				console.log("Received negative or empty response when checking connection status: ", resp);
 				cb(null, false);
 			}
-			
+
 		}
 	});
 };
 
-window.apiResponseHandler = (cb) => {
+const queryBloombergBridge = (message, cb) => {
+	console.log("BBG_run_terminal_function query:", message);
+	FSBL.Clients.Logger.log("BBG_run_terminal_function query:", message);
+	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
+}
+
+const apiResponseHandler = (cb) => {
 	return (err, resp) => {
 		if (err) {
 			let errMsg = "Error returned by BBG_run_terminal_function: ";
@@ -86,12 +117,116 @@ window.apiResponseHandler = (cb) => {
 	};
 };
 
+const _runBBGCommand = (mnemonic, securities, panel, tails, cb) => {
+	let message = {
+		function: "RunFunction",
+		mnemonic: mnemonic,
+		securities: securities,
+		tails: tails,
+		panel: panel
+	};
+
+	queryBloombergBridge(message, cb);
+};
+
+const _runCreateWorksheet = (worksheetName, securities, cb) => {
+	let message = {
+		function: "CreateWorksheet",
+		name: worksheetName,
+		securities: securities
+	};
+
+	queryBloombergBridge(message, cb);
+};
+
+const _runGetAllWorksheets = (cb) => {
+	let message = {
+		function: "GetAllWorksheets"
+	};
+
+	queryBloombergBridge(message, cb);
+};
+
+const _runGetWorksheet = (worksheetId, cb) => {
+	let message = {
+		function: "GetWorksheet",
+		id: worksheetId
+	};
+
+	queryBloombergBridge(message, cb);
+}
+
+const _runReplaceWorksheet = (worksheetId, securities, cb) => {
+	let message = {
+		function: "ReplaceWorksheet",
+		id: worksheetId,
+		securities: securities
+	};
+
+	queryBloombergBridge(message, cb);
+};
+
+const _runGetAllGroups= (cb) => {
+	let message = {
+		function: "GetAllGroups"
+	};
+
+	queryBloombergBridge(message, cb);
+};
+
+const _runGetGroupContext = (groupName, cb) => {
+	let message = {
+		function: "GetGroupContext",
+		name: groupName
+	};
+
+	queryBloombergBridge(message, cb);
+};
+
+const _runSetGroupContext = (groupName, value, cookie, cb) => {
+	let message = {
+		function: "SetGroupContext",
+		name: groupName,
+		value: value
+	};
+
+	if (cookie) {
+		message.cookie = cookie;
+	}
+
+	queryBloombergBridge(message, cb);
+}
+
+//-----------------------------------------------------------------------------------------
+//functions related to connection status
+
+window.setupConnectionLifecycleChecks = () => { 
+	//do the initial check
+	checkConnection();
+	//listen for connection events (listen/transmit)
+	_setConnectionEventListener(checkConnection);
+	//its also possible to poll for connection status,
+	//  worth doing in case the bridge process is killed off and doesn't get a chance to send an update
+	setInterval(checkConnection, 30000);
+};
+
+window.checkConnection = () => {
+	_checkConnection((err, resp) => { 
+		if (resp) {
+			showConnectedIcon();
+		} else {
+			showDisconnectedIcon();
+		}
+	});
+};
+
 //-----------------------------------------------------------------------------------------
 //functions related to runCommand
+
 window.runBBGCommand = () => {
-	hideElements(errorLabel);
-	hideElements(successLabel);
-	
+	hideElementsByClass("errorLabel");
+	hideElementsByClass("successLabel");
+
 	let mnemonic = document.getElementById("mnemonic").value;
 	mnemonic = mnemonic ? mnemonic.trim() : null;
 	let securities = getSecurities("securities");
@@ -121,26 +256,14 @@ window.runBBGCommand = () => {
 	}
 };
 
-window._runBBGCommand = (mnemonic, securities, panel, tails, cb) => {
-	
-	let message = {
-		function: "RunFunction",
-		mnemonic: mnemonic,
-		securities: securities,
-		tails: tails,
-		panel: panel
-	};
 
-	console.log("BBG_run_terminal_function message:", message);
-	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
-};
 
 //-----------------------------------------------------------------------------------------
 //functions related to worksheets
 
 window.createWorksheet = () => {
-	hideElements(errorLabel);
-	hideElements(successLabel);
+	hideElementsByClass("errorLabel");
+	hideElementsByClass("successLabel");
 
 	let worksheetName = document.getElementById("worksheetName").value;
 	worksheetName = worksheetName ? worksheetName.trim() : null;
@@ -165,20 +288,9 @@ window.createWorksheet = () => {
 	}
 };
 
-window._runCreateWorksheet = (worksheetName, securities, cb) => {
-	let message = {
-		function: "CreateWorksheet",
-		name: worksheetName,
-		securities: securities
-	};
-
-	console.log("BBG_run_terminal_function message:", message);
-	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
-};
-
 window.getAllWorksheets = () => {
-	hideElements(errorLabel);
-	hideElements(successLabel);
+	hideElementsByClass("errorLabel");
+	hideElementsByClass("successLabel");
 
 	_runGetAllWorksheets((err, response) => {
 		if (response && response.worksheets && Array.isArray(response.worksheets)) {
@@ -191,12 +303,15 @@ window.getAllWorksheets = () => {
 			response.worksheets.forEach(element => {
 				let li = document.createElement("li");
 				li.id = "li_worksheet_" + element.id;
-				li.className = "hover";
-				li.onclick = (e) => {
+				li.className = "worksheetLi";
+				let worksheetLabel = document.createElement("span");
+				worksheetLabel.className = "worksheetLabel hover";
+				worksheetLabel.textContent = element.name;
+				worksheetLabel.onclick = (e) => {
 					e.preventDefault();
 					loadWorkSheet(element.id);
 				};
-				li.appendChild(document.createTextNode(element.name));
+				li.appendChild(worksheetLabel);
 
 				theList.appendChild(li);
 			});
@@ -207,18 +322,9 @@ window.getAllWorksheets = () => {
 	});
 };
 
-window._runGetAllWorksheets = (cb) => {
-	let message = {
-		function: "GetAllWorksheets"
-	};
-
-	console.log("BBG_run_terminal_function message:", message);
-	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
-};
-
 window.loadWorkSheet = (worksheetId) => {
-	hideElements(errorLabel);
-	hideElements(successLabel);
+	hideElementsByClass("errorLabel");
+	hideElementsByClass("successLabel");
 	
 	_runGetWorksheet(worksheetId, (err, response) => {
 		//TODO: support other types of worksheet
@@ -232,19 +338,10 @@ window.loadWorkSheet = (worksheetId) => {
 	});
 };
 
-window._runGetWorksheet = (worksheetId, cb) => {
-	let message = {
-		function: "GetWorksheet",
-		id: worksheetId
-	};
-
-	console.log("BBG_run_terminal_function message:", message);
-	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
-};
 
 window.replaceWorksheet = () => {
-	hideElements(errorLabel);
-	hideElements(successLabel);
+	hideElementsByClass("errorLabel");
+	hideElementsByClass("successLabel");
 
 	let worksheetId = document.getElementById("worksheetId").value;
 	worksheetId = worksheetId ? worksheetId.trim() : null;
@@ -269,17 +366,123 @@ window.replaceWorksheet = () => {
 	}
 };
 
-window._runReplaceWorksheet = (worksheetId, securities, cb) => {
-	let message = {
-		function: "ReplaceWorksheet",
-		id: worksheetId,
-		securities: securities
-	};
-	console.log("BBG_run_terminal_function message:", message);
-	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
+
+//-----------------------------------------------------------------------------------------
+//UI functions related to groups
+
+window.getAllGroups = () => {
+	hideElementsByClass("errorLabel");
+	hideElementsByClass("successLabel");
+
+	_runGetAllGroups((err, response) => {
+		if (response && response.groups && Array.isArray(response.groups)) {
+			//clear the list
+			let theList = document.getElementById("allGroups");
+			while (theList.lastElementChild) {
+				theList.removeChild(theList.lastElementChild);
+			}
+			//render the updated list
+			response.groups.forEach(element => {
+				let li = document.createElement("li");
+				li.className = "groupLi";
+				li.id = "li_group_" + encodeURI(element.name);
+				let groupLabel = document.createElement("span");
+				groupLabel.textContent = element.name + " (" + element.type + ")";
+				groupLabel.className = " groupLabel hover";
+				groupLabel.onclick = (e) => {
+					e.preventDefault();
+					toggleGroup(li.id, element);
+				};
+				li.appendChild(groupLabel);
+
+				theList.appendChild(li);
+			});
+		} else {
+			console.error("invalid response from _runGetAllGroups", response);
+			showElement("allGroupsError");
+		}
+	});
 };
 
+window.toggleGroup = (elementId, group) => {
+	let element = document.getElementById(elementId);
+	let detailsArr = element.getElementsByClassName("groupDetails");
+	if (detailsArr.length > 0) {
+		Array.prototype.forEach.call(detailsArr, (deets) => { deets.remove() });
+	} else {
+		
+		let template = document.querySelector('#groupDetails');
+		let details = template.content.cloneNode(true).firstElementChild;
+		let nameField = details.children[0].children[0];
+		let typeField = details.children[1].children[0];
+		let valueField = details.children[2].children[0];
+		nameField.value = group.name;
+		typeField.value = group.type;
+		valueField.value = group.value;
 
+		element.appendChild(details);
+	}
+}
+
+window.setGroupContext = (detailsElement, sector) => {
+	hideElementsByClass("errorLabel");
+	hideElementsByClass("successLabel");
+
+	let name = detailsElement.children[0].children[0].value;
+	let newValueField = detailsElement.getElementsByClassName("newGroupValue")[0];
+	
+	let newValue = newValueField.value;
+	if (sector) {
+		newValue += " " + sector;
+	}
+
+	_runSetGroupContext(name, newValue, null, (err, data) => {
+		if (err) {
+			showElement("setGroupContextError");
+		} else {
+			showElement("setGroupContextSuccess");
+		}
+
+		//Retrieve context and update values 
+		refreshGroupContext(detailsElement);
+	});
+
+};
+
+window.refreshGroupContext = (detailsElement) => { 
+	let nameField = detailsElement.children[0].children[0];
+	let typeField = detailsElement.children[1].children[0];
+	let valueField = detailsElement.children[2].children[0];
+
+	//Retrieve context and update values 
+	_runGetGroupContext(nameField.value, (err, data2) => {
+		if (err) {
+			showElement("getGroupContextError");
+		} else {
+			nameField.value = data2.group.name;
+			typeField.value = data2.group.type;
+			valueField.value = data2.group.value;
+		}
+	});
+};
+
+window.setupGroupEventListener = () => {
+	_setGroupEventListener((err, resp) => {
+		let logElement = document.getElementById("groupEventLog");
+		let logEntry = "\n";
+		if (err) {
+			logEntry += JSON.stringify(err, null, 2) + "\n---";
+		} else {
+			logEntry += JSON.stringify(resp.data, null, 2) + "\n---";
+		}
+		//TODO: cap total length of log
+		
+		logElement.value += logEntry;
+		//scroll to bottom
+		logElement.scrollTop = logElement.scrollHeight;
+
+	});
+};
 
 //-----------------------------------------------------------------------------------------
 //UI functions related to components
@@ -297,6 +500,7 @@ const setupFormUX = () => {
 	clickButtonOnEnter("mnemonic", "runCommandButton");
 	clickButtonOnEnter("createWorksheetSecurityInput", "cwAddSecurityButton");
 	setupConnectionLifecycleChecks();
+	setupGroupEventListener();
 };
 
 const displayType = (heading, column) => {
@@ -339,7 +543,8 @@ window.displayCol = (elementName) => {
 		case "worksheets":
 			window.getAllWorksheets();
 			break;
-
+		case "groups":
+			window.getAllGroups();
 		default:
 			break;
 	}
@@ -355,7 +560,7 @@ window.hideElement = (id) => {
 	element.classList.add("hidden");
 };
 
-window.hideElements = (className) => {
+window.hideElementsByClass = (className) => {
 	Array.from(document.getElementsByClassName(className)).forEach((el) => {
 		el.classList.add("hidden");
 	});
@@ -392,7 +597,7 @@ window.addSecurity = (input, list, sector) => {
 		}
 
 		let li = document.createElement("li");
-		li.id = "li_security_" + security;
+		li.id = "li_security_" + encodeURI(security);
 		li.appendChild(document.createTextNode(security));
 
 		let removeButton = document.createElement("button");
@@ -413,7 +618,7 @@ window.addSecurity = (input, list, sector) => {
 };
 
 window.removeSecurity = (security, list) => {
-	let element = document.getElementById("li_security_" + security);
+	let element = document.getElementById("li_security_" + encodeURI(security));
 	if (element) {
 		document.getElementById(list).removeChild(element);
 	}
@@ -441,7 +646,7 @@ window.renderWorksheet = (worksheetName, id, securities) => {
 	//render the updated list
 	securities.forEach(element => {
 		let li = document.createElement("li");
-		li.id = "li_security_" + element;
+		li.id = "li_security_" + encodeURI(element);
 		li.appendChild(document.createTextNode(element));
 
 		let removeButton = document.createElement("button");

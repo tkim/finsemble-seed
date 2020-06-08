@@ -197,7 +197,7 @@
         },
         "Bloomberg Bridge Debug": {
             "window": {
-                "id": "Bloomberg Bridge Debug",
+				"id": "Bloomberg Bridge Debug",
                 "windowType": "native",
                 "path": "C:/Users/admin/Documents/code/fpe-bloomberg/BloombergBridge/bin/Debug/BloombergBridge.exe",
                 "arguments": "",
@@ -212,7 +212,7 @@
                 "width": 300
             },
             "component": {
-                "inject": false
+				"inject": false
             },
             "foreign": {
                 "services": {

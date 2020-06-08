@@ -151,22 +151,73 @@
 			Note: There is no visible output for the creation of a worksheet, run the command 'W' command to see all worksheets.
 			<button class="button" id="replaceWorksheetButton" onclick="window.replaceWorksheet()">Save Worksheet</button>
 			<hr />
-			<label id="allWorksheetsError" class="errorLabel hidden">Worksheet listing (see Central logger for details)</label>
+			<label id="allWorksheetsError" class="errorLabel hidden">Error retrieving all Worksheets (see Central logger for details)</label>
 			<label id="worksheetError" class="errorLabel hidden">Worksheet load returned an error (see Central logger for details)</label>
 			<label id="worksheetSaveSuccess" class="successLabel hidden">Worksheet saved</label>
 			<label id="worksheetCreateSuccess" class="successLabel hidden">Worksheet created</label>
 		</div>
 
 		<div class="column hidden" id="groupsCol">
-			<H3>Not implement yet!</H3>
-			<div class="spacer4"></div>
+
+			<template id="groupDetails">
+				<div class="groupDetails">
+					<label class="inputLabel">Name:
+						<input class="textField groupName" disabled></input>
+					</label>
+					<label class="inputLabel">Type:
+						<input class="textField groupType" disabled></input>
+					</label>
+					<label class="inputLabel">Value:
+						<input class="textField groupValue" disabled></input>
+					</label>
+					
+					<button class="button" onclick="window.refreshGroupContext(this.parentElement)">refresh</button>
+
+					<hr />
+
+					<label class="inputLabel">Set Context:
+						<input class="textField newGroupValue"></input>
+					</label>
+					<div class="securityButtonContainer">
+						<!-- TODO: this isn't exactly elegant, refactor to not require the reference to the top level div -->
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement, 'Equity')">Equity</button>
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement, 'Comdty')">Comdty</button>
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement, 'Corp')">Corp</button>
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement, 'Curncy')">Curncy</button>
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement, 'Govt')">Govt</button>
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement, 'Index')">Index</button>
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement, 'M-mkt')">M-mkt</button>
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement, 'Mtge')">Mtge</button>
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement, 'Muni')">Muni</button>
+						<button class="marketSectorButton" onclick="window.setGroupContext(this.parentElement.parentElement)">no sector</button>
+					</div>
+					
+				</div>
+			</template>
+
+			<label class="inputLabel">
+				All Launchpad Groups:
+				<ul id="allGroups"></ul>
+			</label>
+			<hr />
+			<button class="button" id="refreshGroupsButton" onclick="window.getAllGroups()">refresh groups</button>
+			<label id="allGroupsError" class="errorLabel hidden">Error retrieving all groups (see Central logger for details)</label>
+			<label id="setGroupContextError" class="errorLabel hidden">Error setting group context (see Central logger for details)</label>
+			<label id="setGroupContextSuccess" class="successLabel hidden">Set group context successfully</label>
+			<hr />
+			<label class="inputLabel">Group event log:
+				<textarea id="groupEventLog" rows="25" cols="60"></textarea>
+			</label>
+
+			
 		</div>
 
 		<div class="column hidden" id="componentsCol">
-			<H3>Not implement yet!</H3>
 			<div class="spacer4"></div>
+			<H3>Not implement yet!</H3>
+			
 		</div>
-		
+
 	</div>
 	
 
