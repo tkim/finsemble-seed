@@ -80,10 +80,10 @@ const _checkConnection = (cb) => {
 		} else {
 			if (resp && resp.data && resp.data["loggedIn"]) {
 				console.log("Received connection status: ", resp.data);
-				cb(null, true);
+				cb(null, resp.data["loggedIn"]);
 			} else {
 				console.log("Received negative or empty response when checking connection status: ", resp);
-				cb(null, false);
+				cb("Received negative or empty response when checking connection status", null);
 			}
 
 		}
@@ -212,7 +212,7 @@ window.setupConnectionLifecycleChecks = () => {
 
 window.checkConnection = () => {
 	_checkConnection((err, resp) => { 
-		if (resp) {
+		if (!err && resp === true) {
 			showConnectedIcon();
 		} else {
 			showDisconnectedIcon();
@@ -572,8 +572,8 @@ window.showConnectedIcon = () => {
 }
 
 window.showDisconnectedIcon = () => {
-	document.getElementById("connectedIndicator").classList.remove("hidden");
-	document.getElementById("disconnectedIndicator").classList.add("hidden");
+	document.getElementById("connectedIndicator").classList.add("hidden");
+	document.getElementById("disconnectedIndicator").classList.remove("hidden");
 }
 
 window.clickButtonOnEnter = (fieldId, buttonId) => {
