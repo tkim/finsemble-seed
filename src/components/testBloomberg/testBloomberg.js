@@ -1,8 +1,9 @@
+import BloombergBridgeClient from "./bloombergBridgeClient";
 
 //references to securities set on the runCommand form
 let UIReady = false;
-let connectionEventListener = null;
-let groupEventListener = null
+//Setup the BloombergBridgeClient that will be used for all messaging to/from Bloomberg
+let bbg = new BloombergBridgeClient(FSBL.Clients.RouterClient, FSBL.Clients.Logger);
 
 //-----------------------------------------------------------------------------------------
 //Ready function that sets up the form
@@ -16,202 +17,19 @@ const FSBLReady = () => {
 }
 
 //-----------------------------------------------------------------------------------------
-//API client functions
-/** Callback is called only on disconnect to trigger polling. */
-const _setConnectionEventListener = (cb) => {
-	if (connectionEventListener) {
-		_removeConnectionEventListener();
-	}
-	console.log("Set new Listener for Bloomberg connection events...");
-	connectionEventListener = (err, resp) => {
-		console.log("Received connection event... Response: ", resp);
-		if (err) {
-			console.error("Received Bloomberg connection error: ", err);
-		} else {
-			console.log("Received Bloomberg connection event: ", resp);
-		}
-		cb(err, resp);
-	};
-	FSBL.Clients.RouterClient.addListener("BBG_connection_status", connectionEventListener);
-};
-
-const _removeConnectionEventListener = () => {
-	if (connectionEventListener) {
-		FSBL.Clients.RouterClient.removeListener("BBG_connection_status", connectionEventListener);
-		console.log("Removed connection event listener");
-	} else {
-		console.warn("Tried to remove non-existent connection event listener");
-	}
-};
-
-const _setGroupEventListener = (cb) => {
-	if (groupEventListener) {
-		_removeGroupEventListener();
-	}
-	console.log("Set new listener for Bloomberg group context events...");
-	groupEventListener = (err, resp) => {
-		if (err) {
-			console.error("Received Bloomberg group context error: ", err);
-		} else {
-			console.log("Received Bloomberg group context event: ", resp);
-		}
-		cb(err, resp);
-	};
-	FSBL.Clients.RouterClient.addListener("BBG_group_context_events", groupEventListener);
-};
-
-const _removeGroupEventListener = () => {
-	if (groupEventListener) {
-		FSBL.Clients.RouterClient.removeListener("BBG_group_context_events", groupEventListener);
-		console.log("Removed group context event listener");
-	} else {
-		console.warn("Tried to remove non-existent group context event listener");
-	}
-
-};
-
-const _checkConnection = (cb) => {
-	console.log("Checking connection status...");
-
-	FSBL.Clients.RouterClient.query("BBG_connection_status", {}, (err, resp) => {
-		if (err) {
-			console.warn("Received error when checking connection status: ", err);
-			cb(err, false);
-		} else {
-			if (resp && resp.data && resp.data["loggedIn"]) {
-				console.log("Received connection status: ", resp.data);
-				cb(null, resp.data["loggedIn"]);
-			} else {
-				console.log("Received negative or empty response when checking connection status: ", resp);
-				cb("Received negative or empty response when checking connection status", null);
-			}
-
-		}
-	});
-};
-
-const queryBloombergBridge = (message, cb) => {
-	console.log("BBG_run_terminal_function query:", message);
-	FSBL.Clients.Logger.log("BBG_run_terminal_function query:", message);
-	FSBL.Clients.RouterClient.query("BBG_run_terminal_function", message, apiResponseHandler(cb));
-}
-
-const apiResponseHandler = (cb) => {
-	return (err, resp) => {
-		if (err) {
-			let errMsg = "Error returned by BBG_run_terminal_function: ";
-			console.error(errMsg, err);
-			FSBL.Clients.Logger.error(errMsg, err);
-			cb(err, resp);
-		} else if (!resp || !resp.data || !resp.data.status) {
-			let errMsg = "Negative status returned by BBG_run_terminal_function: ";
-			console.error(errMsg, resp);
-			FSBL.Clients.Logger.error(errMsg, resp);
-			cb("Command returned negative status", resp);
-		} else {
-			let msg = "BBG_run_terminal_function successful, response: ";
-			console.log(msg, resp.data);
-			FSBL.Clients.Logger.log(msg, resp);
-			cb(null, resp.data);
-		}
-	};
-};
-
-const _runBBGCommand = (mnemonic, securities, panel, tails, cb) => {
-	let message = {
-		function: "RunFunction",
-		mnemonic: mnemonic,
-		securities: securities,
-		tails: tails,
-		panel: panel
-	};
-
-	queryBloombergBridge(message, cb);
-};
-
-const _runCreateWorksheet = (worksheetName, securities, cb) => {
-	let message = {
-		function: "CreateWorksheet",
-		name: worksheetName,
-		securities: securities
-	};
-
-	queryBloombergBridge(message, cb);
-};
-
-const _runGetAllWorksheets = (cb) => {
-	let message = {
-		function: "GetAllWorksheets"
-	};
-
-	queryBloombergBridge(message, cb);
-};
-
-const _runGetWorksheet = (worksheetId, cb) => {
-	let message = {
-		function: "GetWorksheet",
-		id: worksheetId
-	};
-
-	queryBloombergBridge(message, cb);
-}
-
-const _runReplaceWorksheet = (worksheetId, securities, cb) => {
-	let message = {
-		function: "ReplaceWorksheet",
-		id: worksheetId,
-		securities: securities
-	};
-
-	queryBloombergBridge(message, cb);
-};
-
-const _runGetAllGroups= (cb) => {
-	let message = {
-		function: "GetAllGroups"
-	};
-
-	queryBloombergBridge(message, cb);
-};
-
-const _runGetGroupContext = (groupName, cb) => {
-	let message = {
-		function: "GetGroupContext",
-		name: groupName
-	};
-
-	queryBloombergBridge(message, cb);
-};
-
-const _runSetGroupContext = (groupName, value, cookie, cb) => {
-	let message = {
-		function: "SetGroupContext",
-		name: groupName,
-		value: value
-	};
-
-	if (cookie) {
-		message.cookie = cookie;
-	}
-
-	queryBloombergBridge(message, cb);
-}
-
-//-----------------------------------------------------------------------------------------
 //functions related to connection status
-
 window.setupConnectionLifecycleChecks = () => { 
 	//do the initial check
 	checkConnection();
 	//listen for connection events (listen/transmit)
-	_setConnectionEventListener(checkConnection);
+	bbg.setConnectionEventListener(checkConnection);
 	//its also possible to poll for connection status,
 	//  worth doing in case the bridge process is killed off and doesn't get a chance to send an update
 	setInterval(checkConnection, 30000);
 };
 
 window.checkConnection = () => {
-	_checkConnection((err, resp) => { 
+	bbg.checkConnection((err, resp) => { 
 		if (!err && resp === true) {
 			showConnectedIcon();
 		} else {
@@ -246,7 +64,7 @@ window.runBBGCommand = () => {
 	// 	error = true;
 	// }
 	if (!error) {
-		_runBBGCommand(mnemonic, securities, panel, tails, (err, response) => {
+		bbg.runBBGCommand(mnemonic, securities, panel, tails, (err, response) => {
 			if (err) {
 				showElement("commandError");
 			} else {
@@ -276,7 +94,7 @@ window.createWorksheet = () => {
 		error = true;
 	}
 	if (!error) {
-		_runCreateWorksheet(worksheetName, securities, (err, data) => { 
+		bbg.runCreateWorksheet(worksheetName, securities, (err, data) => { 
 			if (err) {
 				showElement("worksheetError");
 			} else {
@@ -292,7 +110,7 @@ window.getAllWorksheets = () => {
 	hideElementsByClass("errorLabel");
 	hideElementsByClass("successLabel");
 
-	_runGetAllWorksheets((err, response) => {
+	bbg.runGetAllWorksheets((err, response) => {
 		if (response && response.worksheets && Array.isArray(response.worksheets)) {
 			//clear the list
 			let theList = document.getElementById("allWorksheets");
@@ -326,7 +144,7 @@ window.loadWorkSheet = (worksheetId) => {
 	hideElementsByClass("errorLabel");
 	hideElementsByClass("successLabel");
 	
-	_runGetWorksheet(worksheetId, (err, response) => {
+	bbg.runGetWorksheet(worksheetId, (err, response) => {
 		//TODO: support other types of worksheet
 		if (response && response.worksheet && Array.isArray(response.worksheet.securities)) {
 			renderWorksheet(response.worksheet.name, response.worksheet.id, response.worksheet.securities);
@@ -354,7 +172,7 @@ window.replaceWorksheet = () => {
 		error = true;
 	}
 	if (!error) {
-		_runReplaceWorksheet(worksheetId, securities, (err, data) => {
+		bbg.runReplaceWorksheet(worksheetId, securities, (err, data) => {
 			if (err) {
 				showElement("worksheetError");
 			} else {
@@ -374,7 +192,7 @@ window.getAllGroups = () => {
 	hideElementsByClass("errorLabel");
 	hideElementsByClass("successLabel");
 
-	_runGetAllGroups((err, response) => {
+	bbg.runGetAllGroups((err, response) => {
 		if (response && response.groups && Array.isArray(response.groups)) {
 			//clear the list
 			let theList = document.getElementById("allGroups");
@@ -436,7 +254,7 @@ window.setGroupContext = (detailsElement, sector) => {
 		newValue += " " + sector;
 	}
 
-	_runSetGroupContext(name, newValue, null, (err, data) => {
+	bbg.runSetGroupContext(name, newValue, null, (err, data) => {
 		if (err) {
 			showElement("setGroupContextError");
 		} else {
@@ -455,7 +273,7 @@ window.refreshGroupContext = (detailsElement) => {
 	let valueField = detailsElement.children[2].children[0];
 
 	//Retrieve context and update values 
-	_runGetGroupContext(nameField.value, (err, data2) => {
+	bbg.runGetGroupContext(nameField.value, (err, data2) => {
 		if (err) {
 			showElement("getGroupContextError");
 		} else {
@@ -467,13 +285,19 @@ window.refreshGroupContext = (detailsElement) => {
 };
 
 window.setupGroupEventListener = () => {
-	_setGroupEventListener((err, resp) => {
+	bbg.setGroupEventListener((err, resp) => {
 		let logElement = document.getElementById("groupEventLog");
 		let logEntry = "\n";
 		if (err) {
 			logEntry += JSON.stringify(err, null, 2) + "\n---";
+		} else if (resp.data.group && resp.data.group.type == "monitor") {
+			logEntry += "Monitor event:\n" + JSON.stringify(resp.data, null, 2) + "\n---";
 		} else {
-			logEntry += JSON.stringify(resp.data, null, 2) + "\n---";
+			logEntry += "Security event:\n" + JSON.stringify(resp.data, null, 2) + "\n---";
+
+			//TODO: update group detail views for the change
+			
+
 		}
 		//TODO: cap total length of log
 		

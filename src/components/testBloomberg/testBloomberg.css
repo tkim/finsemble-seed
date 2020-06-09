@@ -92,7 +92,12 @@ input:disabled {
 	font-size: 12pt;
 }
 
+#allGroups {
+	align-self: stretch;
+}
+
 .groupLi {
+	align-self: stretch;
 	margin-bottom: 10px;
 }
 
@@ -102,9 +107,17 @@ input:disabled {
 }
 
 .groupDetails {
+	align-self: stretch;
 	background-color: #303030;
 	padding: 5px;
 	margin-top: 5px;
+}
+
+#groupEventLog {
+	font-size: 9pt;
+	background-color: lightgray;
+	color: black;
+	align-self: stretch;
 }
 
 .errorLabel {
@@ -183,6 +196,7 @@ h3 {
 }
 
 .securityButtonContainer {
+	align-self: stretch;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -191,16 +205,16 @@ h3 {
 .marketSectorButton {
 	
     text-align: center !important;
-    margin: 4px;
-	flex-basis: 80px;
-	height: 50px;
+    margin: 3px;
+	flex-basis: 65px;
+	height: 45px;
     -webkit-appearance:none;
 	background-color: rgb(255, 208, 0);
 	text-transform: uppercase;
     color: black;
     font-family: var(--font-family);
 	font-weight: 700;
-	font-size: 11pt;
+	font-size: 10pt;
     border: 0px;
     border-radius: 4px;
     padding: 4px;
