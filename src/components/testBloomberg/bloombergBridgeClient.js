@@ -11,13 +11,46 @@ export default class BloombergBridgeClient {
 	logger = null;
 
 	/**
+	* @typedef worksheet
+	* @type {object}
+	* @property {string} id The name of the worksheet (non-unique).
+	* @property {string} name The name of the worksheet assigned by the Bloomberg terminal and globally unique.
+	* @property {boolean} isActive the Worksheet's IsActive status.
+	*/
+
+	/**
+	* @typedef group
+	* @type {object}
+	* @property {string} type The type of the group: security or monitor.
+	* @property {string} name The name of the group assigned by the Bloomberg terminal, usually takes the form 'Group-A'.
+	* @property {string} value the current value of the group.
+	*/
+
+	/**
 	 * BloombergBridgeClient constructor.
 	 * @param {IRouterClient} routerClient An instance of the Finsemble router client to be used for all communication.
+	 * @param {ILogger} logger An instance of the Finsemble Logger to be used log messages.
 	 */
 	constructor(routerClient, logger) {
 		this.routerClient = routerClient;
 		this.logger = logger;
 	}
+
+
+	/**
+	* @callback simpleCallback
+	* @param {*} err A string or Object representing an error that occurred while running a function.
+	* @param {Object} resp The response to the API call.
+	* @param {boolean} resp.status Flag indicating whether the call was successful. A false value will also be accompanied by a message in err
+	*/
+
+	/**
+	* @callback connectionStatusCallback
+	* @param {*} err A string or Object representing an error that occurred while running a function.
+	* @param {Object} resp The response to the API call.
+	* @param {boolean} resp.registered Flag indicating whether the the BloombergBridge is registered with the Terminal connect API.
+	* @param {boolean} resp.loggedIn Flag indicating whether the a user is logged into the terminal. Must be true for any terminal functions to work,.
+	*/
 
 	/**
 	 * Set a handler function for connection events. 
@@ -25,7 +58,7 @@ export default class BloombergBridgeClient {
 	 * Note that only one handler function is permitted, hence calling
 	 * this multiple times will simply replace the existing handler.
 	 * 
-	 * @param {function} cb Node-style callback function (err, response)
+	 * @param {connectionStatusCallback} cb Callback
 	 */
 	setConnectionEventListener (cb) {
 		if (this.connectionEventListener) {
@@ -57,12 +90,20 @@ export default class BloombergBridgeClient {
 	}
 
 	/**
+	* @callback groupEventCallback
+	* @param {(string|Object))} err A string or Object representing an error that occurred while running a function.
+	* @param {Object} resp The response to the API call.
+	* @param {group} resp.group The group thats changed
+    * @param {group[]} resp.groups The groups that have changed (usually the same as group)
+	*/
+
+	/**
 	 * Set a handler function for Launchpad group context changed events.
 	 *
 	 * Note that only one handler function is permitted, hence calling
 	 * this multiple times will simply replace the existing handler.
 	 * 
-	 * @param {function} cb Node-style callback function (err, response)
+	 * @param {groupEventCallback} cb 
 	 */
 	setGroupEventListener (cb) {
 		if (this.groupEventListener) {
@@ -92,10 +133,15 @@ export default class BloombergBridgeClient {
 		}
 	};
 
+   /**
+	* @callback checkConnectionCallback
+	* @param {*} err A string or Object representing an error that occurred while running a function.
+	* @param {boolean} resp true if we are logged in and ready to run other commands.
+	*/
+
 	/**
-	 * Check that Bloomberg bridge is connected to teh Bloomberg Terminal and that a user is logged in.
-	 * @param {function} cb Node-style callback that is passed an error if we are not currently connected and
-	 * logged in, or a response consisting of `true` if we are.
+	 * Check that Bloomberg bridge is connected to the Bloomberg Terminal and that a user is logged in.
+	 * @param {checkConnectionCallback} cb 
 	 */
 	checkConnection(cb) {
 		console.log("Checking connection status...");
@@ -122,7 +168,8 @@ export default class BloombergBridgeClient {
 	 * which implements the majority functions for the BloombergBridgeClient.
 	 * @param {Object} message The query data to pass.
 	 * @param {string} message.function Required field that determines which function to run. 
-	 * @param {function} cb Node-style callback that will be passed the response from the Bloomberg Bridge.
+	 * @param {simpleCallback} cb Node-style callback that will be passed the response from the Bloomberg Bridge. 
+	 * Arguments passed to the response vary depending on the function you are running.
 	 */
 	queryBloombergBridge(message, cb) {
 		console.log("BBG_run_terminal_function query:", message);
@@ -133,7 +180,7 @@ export default class BloombergBridgeClient {
 	/**
 	 * Internal function used to return a call back that will wrap the supplied callback and log all responses
 	 * from the Bloomberg Bridge to aid debugging.
-	 * @param {function} cb Node-style callback to be wrapped.
+	 * @param {simpleCallback} cb Node-style callback to be wrapped.
 	 */
 	apiResponseHandler(cb) {
 		return (err, resp) => {
@@ -149,7 +196,7 @@ export default class BloombergBridgeClient {
 				cb("Command returned negative status", resp);
 			} else {
 				let msg = "BBG_run_terminal_function successful, response: ";
-				console.log(msg, resp.data);
+				console.log(msg + JSON.stringify(resp.data, null, 2));
 				this.logger.log(msg, resp);
 				cb(null, resp.data);
 			}
@@ -163,8 +210,7 @@ export default class BloombergBridgeClient {
 	 * to pass to the function.
 	 * @param {string} panel Panel number to run the command on (accepts values "1", "2", "3" or "4")
 	 * @param {string} tails (optional) paramaters passed to the function
-	 * @param {function} cb Node-style callback that will return an error on failure or a response 
-	 * containing a positive status value on success.
+	 * @param {simpleCallback} cb
 	 */
 	runBBGCommand(mnemonic, securities, panel, tails, cb) {
 		let message = {
@@ -179,12 +225,17 @@ export default class BloombergBridgeClient {
 	}
 
 	/**
+	* @callback worksheetCallback
+	* @param {(string|Object))} err A string or Object representing an error that occurred while running a function.
+	* @param {Object} resp The response to the API call.
+	* @param {worksheet} resp.worksheet The worksheet
+	*/
+
+	/**
 	 * Create a new worksheet with the specified securities and name.
 	 * @param {string} worksheetName Name for the worksheet.
 	 * @param {Array} securities An array of strings representing one or more securities.
-	 * @param {function} cb Node-style callback that will return an error on failure or a response 
-	 * containing a positive status value and details of the created worksheet (with securities resolved
-	 * and an id assigned) on success. 
+	 * @param {worksheetCallback} cb
 	 */
 	runCreateWorksheet(worksheetName, securities, cb) {
 		let message = {
@@ -197,9 +248,15 @@ export default class BloombergBridgeClient {
 	}
 
 	/**
+	 * @callback getAllWorksheetsCallback
+	 * @param {(string|Object))} err A string or Object representing an error that occurred while running a function.
+	 * @param {Object} resp The response to the API call.
+	 * @param {worksheet[]} resp.worksheets The worksheet created
+	 */
+
+	/**
 	 * Retrieve all worksheets for the user.
-	 * @param {function} cb Node-style callback that will return an error on failure or a response
-	 * containing a positive status value and a worksheets Array with details of all the user's worksheets.
+	 * @param {getAllWorksheetsCallback} cb
 	 */
 	runGetAllWorksheets(cb) {
 		let message = {
@@ -212,8 +269,7 @@ export default class BloombergBridgeClient {
 	/**
 	 * Retrieve a specific worksheet by id.
 	 * @param {string} worksheetId Worksheet ID to retrieve.
-	 * @param {function} cb Node-style callback that will return an error on failure or a response
-	 * containing a positive status value and a worksheet element with details of the retrieved worksheet.
+	 * @param {worksheetCallback} cb
 	 */
 	runGetWorksheet(worksheetId, cb) {
 		let message = {
@@ -228,8 +284,7 @@ export default class BloombergBridgeClient {
 	 * Replaces a specific worksheet by ID with a new list of securities.
 	 * @param {string} worksheetId  Worksheet ID to replace.
 	 * @param {Array} securities An array of strings representing one or more securities.
-	 * @param {function} cb Node-style callback that will return an error on failure or a response
-	 * containing a positive status value and a worksheet element with details of the updated worksheet.
+	 * @param {worksheetCallback} cb 
 	 */
 	runReplaceWorksheet(worksheetId, securities, cb) {
 		let message = {
@@ -242,9 +297,15 @@ export default class BloombergBridgeClient {
 	}
 
 	/**
+	 * @callback getAllGroupsCallback
+	 * @param {(string|Object))} err A string or Object representing an error that occurred while running a function.
+	 * @param {Object} resp The response to the API call.
+	 * @param {group[]} resp.groups An array of all current component groups
+	 */
+		
+	/**
 	 * Gets a list of all available Launchpad component groups.
-	 * @param {function} cb Node-style callback that will return an error on failure or a response
-	 * containing a positive status value and a groups Array with details of all the user's component groups.
+	 * @param {getAllGroupsCallback} cb
 	 */
 	runGetAllGroups(cb) {
 		let message = {
@@ -255,12 +316,16 @@ export default class BloombergBridgeClient {
 	};
 
 	/**
+	 * @callback groupCallback
+	 * @param {(string|Object))} err A string or Object representing an error that occurred while running a function.
+	 * @param {Object} resp The response to the API call.
+	 * @param {group} resp.group The group Object
+	 */
+
+	/**
 	 * Returns details of a Launchpad component group by name.
 	 * @param {string} groupName The name of the component group to retrieve.
-	 * @param {function} cb Node-style callback that will return an error on failure or a response
-	 * containing a positive status value and a group element with details of specified component group,
-	 * e.g.
-	 * 
+	 * @param {groupCallback} cb 
 	 */
 	runGetGroupContext(groupName, cb) {
 		let message = {
@@ -276,8 +341,7 @@ export default class BloombergBridgeClient {
 	 * @param {string} groupName The name of the component group to set the value of.
 	 * @param {string} value The value to set for hte group, this will usually be a string presenting a security.
 	 * @param {string} cookie (optional) Cookie value identifying a particual component within a group to set the context of.
-	 * @param {function} cb Node-style callback that will return an error on failure or a response
-	 * containing a positive status value.
+	 * @param {simpleCallback} cb
 	 */
 	runSetGroupContext(groupName, value, cookie, cb) {
 		let message = {
