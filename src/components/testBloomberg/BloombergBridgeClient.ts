@@ -1,5 +1,6 @@
-import { IRouterClient, RouterMessage } from '../../../finsemble/types/clients/IRouterClient';
-import { ILogger } from '../../../finsemble/types/clients/ILogger';
+import { IRouterClient, RouterMessage } from '@chartiq/finsemble/dist/types/clients/IRouterClient';
+import { ILogger } from '@chartiq/finsemble/dist/types/clients/ILogger';
+
 // tslint:disable:no-console
 
 interface BBGConnectionEventListener {
@@ -53,12 +54,26 @@ export default class BloombergBridgeClient {
     /**
      * BloombergBridgeClient constructor.
      * @param routerClient An instance of the Finsemble router client to be used for all =
-     * communication.
-     * @param logger An instance of the Finsemble Logger to be used log messages.
+     * communication. If not passed it will be retrieved from FSBL.Clients.RouterClient or
+     * an exception.
+     * @param logger An instance of the Finsemble Logger to be used log messages. If not
+     * passed it will be retrieved from FSBL.Clients.Logger or an exception.
      */
-    constructor(routerClient: IRouterClient, logger : ILogger) {
-        this.routerClient = routerClient;
-        this.logger = logger;
+    constructor(routerClient?: IRouterClient, logger?: ILogger) {
+        if (routerClient) {
+            this.routerClient = routerClient;
+        } else if (FSBL){
+            this.routerClient = FSBL.Clients.RouterClient;
+        } else {
+            throw new Error('No RouterClient was passed to the constructor and FSBL.Clients.RouterClient was not found!');
+        }
+        if (logger) {
+            this.logger = logger;
+        } else if (FSBL){
+            this.logger = FSBL.Clients.Logger;
+        } else {
+            throw new Error('No Finsemble Logger client was passed to the constructor and FSBL.Clients.Logger was not found!');
+        }
     }
 
     /**
@@ -144,7 +159,7 @@ export default class BloombergBridgeClient {
     checkConnection(cb: (err: string | CallbackError | Error, response: boolean) => void) {
         console.log('Checking connection status...');
 
-        this.routerClient.query('BBG_connection_status', {}, (err, resp) => {
+        this.routerClient.query('BBG_connection_status', {}, (err: string | CallbackError | Error, resp: { data?: {loggedIn: boolean}}) => {
             if (err) {
                 console.warn('Received error when checking connection status: ', err);
                 cb(err, false);
