@@ -212,18 +212,19 @@ function loadInstalledComponentsFromStore(cb = Function.prototype) {
 			// get the app info so we can load it into the launcher
 			return getApp(component.appID, (err, app) => {
 				if (err) {// don't want to kill this;
-					deleteApp(component.appID);
 					console.error("there was an error loading from FDC3", component, err);
 					return componentDone();
 				}
+				componentDone();
 			});
 		}
 		// We'll load our user defined components here
 		FSBL.Clients.LauncherClient.addUserDefinedComponent(component, (compAddErr) => {
 			if (compAddErr) {
 				console.warn("Failed to add new app:", compAddErr);
+				return componentDone(compAddErr);
 			}
-			componentDone(compAddErr);
+			componentDone();
 		});
 	}, (err) => {
 		cb(err);
@@ -419,7 +420,8 @@ function addApp(app = {}, cb) {
 		tags: app.tags !== "" ? app.tags.split(",") : [],
 		name: app.name,
 		url: app.url,
-		type: "component"
+		type: "component",
+		canDelete: true // Users can delete quick components
 	};
 	const { FAVORITES } = getConstants();
 
@@ -524,6 +526,7 @@ function renameFolder(oldName, newName) {
 	let oldFolder = data.folders[oldName];
 	data.folders[newName] = oldFolder;
 	delete data.folders[oldName];
+
 	_setFolders(() => {
 		let indexOfOld = data.foldersList.findIndex((folderName) => {
 			return folderName === oldName;
@@ -537,6 +540,12 @@ function renameFolder(oldName, newName) {
 			const deletedFolders = data.deleted;
 			deletedFolders.splice(index, 1);
 			_setValue("deleted", deletedFolders);
+		}
+
+		// If the active folder is the folder being renamed, change that value
+		if (data.activeFolder === oldName) {
+			data.activeFolder = newName;
+			_setValue("activeFolder", data.activeFolder);
 		}
 
 		_setValue("appFolders.list", data.foldersList);
