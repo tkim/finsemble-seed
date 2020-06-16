@@ -309,6 +309,36 @@ window.setupGroupEventListener = () => {
 };
 
 //-----------------------------------------------------------------------------------------
+//functions related to runSecurityLookup
+
+window.runSecurityLookup = () => {
+	hideElementsByClass("errorLabel");
+	hideElementsByClass("successLabel");
+
+	let security = document.getElementById("securityLookup").value;
+	security = security ? security.trim() : null;
+	
+	//validate input
+	let error = false;
+	if (!security || security == "") {
+		showElement("securityLookupDataError");
+		error = true;
+	}
+
+	if (!error) {
+		bbg.runSecurityLookup(security, (err, data) => {
+			if (err) {
+				showElement("securityLookupError");
+			} else {
+				let successLabel = document.getElementById("securityLookupSuccess");
+				successLabel.textContent = "Security Lookup successful: " + data.security + " " + data.type;
+				showElement("securityLookupSuccess");
+			}
+		});
+	}
+};
+
+//-----------------------------------------------------------------------------------------
 //UI functions related to components
 
 

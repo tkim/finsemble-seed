@@ -36,6 +36,10 @@
 			<h2>Groups</h2>
 		</div>
 		
+		<div class="heading" id="securityLookupHeading" onclick="window.displayCol('securityLookup');">
+			<h2>Security Lookup</h2>
+		</div>
+
 		<div class="heading" id="componentsHeading" onclick="window.displayCol('components');">
 			<h2>Components</h2>
 		</div>
@@ -210,6 +214,20 @@
 				<textarea id="groupEventLog" rows="20" cols="60"></textarea>
 			</label>
 
+			
+		</div>
+
+		<div class="column hidden" id="securityLookupCol">
+			
+			<label class="inputLabel">
+				Security to lookup:
+				<input class="textField" id="securityLookup" value=""></input>
+			</label>
+			<label id="securityLookupDataError" class="errorLabel hidden">Enter a String to lookup</label>
+		
+			<button class="button" id="runSecurityLookupButton" onclick="window.runSecurityLookup()">Lookup</button>
+			<label id="securityLookupError" class="errorLabel hidden">Function returned an error (see Central logger for details)</label>
+			<label id="securityLookupSuccess" class="successLabel hidden">Security Lookup successful: </label>
 			
 		</div>
 

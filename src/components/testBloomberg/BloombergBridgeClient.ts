@@ -381,4 +381,22 @@ export default class BloombergBridgeClient {
 
         this.queryBloombergBridge(message, cb);
     }
+
+    /**
+     * 
+     * @param security The string to lookup a security for
+     * @param cb Callback
+     */
+    runSecurityLookup(
+        security: string,
+        cb: (err: string | Error,
+            response: { status: boolean, security: string, type: string }) => void,
+    ) {
+        const message: { function: string, security: string } = {
+            function: 'SecurityLookup',
+            security,
+        };
+
+        this.queryBloombergBridge(message, cb);
+    }
 }
