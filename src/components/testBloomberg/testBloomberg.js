@@ -330,8 +330,15 @@ window.runSecurityLookup = () => {
 			if (err) {
 				showElement("securityLookupError");
 			} else {
+
+				//render results:
+				let results = "";
+				data.results.forEach(result => {
+					results += result.name + " " + result.type + "<br>";
+				});
+
 				let successLabel = document.getElementById("securityLookupSuccess");
-				successLabel.textContent = "Security Lookup successful: " + data.security + " " + data.type;
+				successLabel.innerHTML = "Security Lookup successful, results:<br>" + results;
 				showElement("securityLookupSuccess");
 			}
 		});

@@ -1,6 +1,7 @@
 import { IRouterClient, RouterMessage } from '@chartiq/finsemble/dist/types/clients/IRouterClient';
 import { ILogger } from '@chartiq/finsemble/dist/types/clients/ILogger';
 
+const CONNECTION_CHECK_TIMEOUT: number = 1000;
 // tslint:disable:no-console
 
 interface BBGConnectionEventListener {
@@ -159,7 +160,14 @@ export default class BloombergBridgeClient {
     checkConnection(cb: (err: string | CallbackError | Error, response: boolean) => void) {
         console.log('Checking connection status...');
 
+        // if we don't get a response something is wrong
+        const timeout = setTimeout(() => {
+            console.log('BBG_connection_status check timed-out', null);
+            cb('Connection check timeout', null);
+        }, CONNECTION_CHECK_TIMEOUT);
+
         this.routerClient.query('BBG_connection_status', {}, (err: string | CallbackError | Error, resp: { data?: {loggedIn: boolean}}) => {
+            clearTimeout(timeout);
             if (err) {
                 console.warn('Received error when checking connection status: ', err);
                 cb(err, false);
@@ -390,7 +398,7 @@ export default class BloombergBridgeClient {
     runSecurityLookup(
         security: string,
         cb: (err: string | Error,
-            response: { status: boolean, security: string, type: string }) => void,
+            response: { status: boolean, results: [{name: string, type: string}] }) => void,
     ) {
         const message: { function: string, security: string } = {
             function: 'SecurityLookup',
