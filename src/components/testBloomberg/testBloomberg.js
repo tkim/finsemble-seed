@@ -326,19 +326,24 @@ window.runSecurityLookup = () => {
 	}
 
 	if (!error) {
+		const start = Date.now();
 		bbg.runSecurityLookup(security, (err, data) => {
 			if (err) {
 				showElement("securityLookupError");
 			} else {
 
+				const end = Date.now();
 				//render results:
 				let results = "";
 				data.results.forEach(result => {
 					results += result.name + " " + result.type + "<br>";
+					results += "&nbsp;&nbsp;" + result.name + " " + result.type + "<br>";
 				});
 
 				let successLabel = document.getElementById("securityLookupSuccess");
 				successLabel.innerHTML = "Security Lookup successful, results:<br>" + results;
+				successLabel.innerHTML = "Security Lookup successful, response time: " + (end - start) + " milliseconds<br>"
+					+ "results:<br>" + results;
 				showElement("securityLookupSuccess");
 			}
 		});
