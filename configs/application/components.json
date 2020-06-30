@@ -191,6 +191,51 @@
 					}
 				}
 			}
+		},
+		"Google": {
+			"window": {
+				"url": "https://google.com",
+				"options": {
+					"resizable": true,
+					"autoShow": true,
+					"alwaysOnTop": false,
+					"securityPolicy": "trusted"
+				},
+				"top": "center",
+				"left": "center",
+				"width": 400,
+				"height": 432
+			},
+			"component": {
+				"displayName": "Google",
+				"spawnOnStartup": true,
+				"preload": "$applicationRoot/preloads/scrollbar.js"
+			},
+			"foreign": {
+				"services": {
+					"windowService": {
+						"allowSnapping": true,
+						"allowGrouping": true,
+						"allowAutoArrange": true,
+						"allowMinimize": true
+					}
+				},
+				"components": {
+					"App Launcher": {
+						"launchableByUser": true
+					},
+					"Window Manager": {
+						"alwaysOnTopIcon": false,
+						"showLinker": true,
+						"FSBLHeader": true,
+						"persistWindowState": true,
+						"title": "Google"
+					},
+					"Toolbar": {
+						"iconClass": "ff-component"
+					}
+				}
+			}
 		}
 	}
 }

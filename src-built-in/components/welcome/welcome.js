@@ -1,7 +1,3 @@
-window.quitFinsemble = function quitFinsemble() {
-	//console.log("Quit button successfully triggered");
-	FSBL.shutdownApplication();
-}
 
 if (window.FSBL && FSBL.addEventListener) {
 	FSBL.addEventListener('onReady', init);
@@ -10,11 +6,29 @@ if (window.FSBL && FSBL.addEventListener) {
 }
 
 function init() {
-	window.launchTutorial = function launchTutorial() {
-		FSBL.System.openUrlWithBrowser("https://www.chartiq.com/tutorials/?slug=finsemble", function () {
-			//console.log("successfully launched docs");
-		}, function (err) {
-			//console.log("failed to launch docs");
-		});
-	}
+	const dialogButton = document.getElementById("dialogButton");
+	dialogButton.addEventListener('click', openDialog)
+}
+
+
+function openDialog() {
+
+	const dialogParams = {
+		question: 'Would you like to execute this trade?',
+		affirmativeResponseText: 'Yes, buy',
+		negativeResponseText: 'No, cancel',
+		includeNegative: true,
+		includeCancel: false
+	};
+	FSBL.Clients.DialogManager.open('yesNo', dialogParams, function (err, response) {
+		//choice can be `'affirmative'`, `'negative'`, or `'cancel'`.
+		if (response.choice === 'affirmative') {
+			// add your function here
+			console.log('trade executed')
+		}
+		if (response.choice === 'negative') {
+			// add your function here
+			console.log('trade cancelled')
+		}
+	});
 }
