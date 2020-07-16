@@ -1,6 +1,6 @@
 
 /*!
-* Copyright 2017 by ChartIQ, Inc.
+* Copyright 2017 - 2020 by ChartIQ, Inc.
 * All rights reserved.
 */
 import React from "react";
@@ -463,8 +463,6 @@ function init () {
 		HeaderActions = storeExports.Actions;
 		windowTitleBarStore = storeExports.getStore();
 		ReactDOM.render(<WindowTitleBar />, FSBLHeader);
-		// Register with docking manager
-		FSBL.Clients.WindowClient.registerWithDockingManager();
 	});
 }
 
