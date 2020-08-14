@@ -23,10 +23,5 @@ server/stats.json
 package-lock.json
 installer-tmp/
 pkg/
-src/services/mytest/mytestService.js
-src/services/mytest/mytestClient.js
-src/services/mytest/mytest.html
-package.json
-configs/openfin/manifest-local.json
-configs/application/services.json
-configs/application/components.json
+pkg-development/
+pkg-production/
