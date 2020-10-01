@@ -66,19 +66,40 @@ function initialize(callback = Function.prototype) {
 		const store = getStore();
 
 		// 'deleted' is a list of folder names/app ids which have been deleted by a user. Finsemble's state
-		// keeps track of these so if the  foundation attempts to re-seed them, they will be excluded
+		// keeps track of these so if the foundation attempts to re-seed them, they will be excluded
 		// from what is shown to the user
 
 		// 'deleted' can also be empty, which means the user is not preserving previous state and instead 
 		// re-seeds the store everytime the distributed store service starts up
 		data.deleted = store.values.deleted || [];
+		data.folders = store.values.appFolders.folders;
 		let folderList, appList = {};
 
 		if (data.deleted.length > 0) {
 			//The folder list will be the folder seeded into the store filtered by any folders
 			//deleted in previous runs
-			folderList = Object.keys(store.values.appFolders.folders).filter(folderName => {
+			folderList = Object.keys(data.folders).filter(folderName => {
 				return !data.deleted.includes(folderName);
+			}).sort((name1, name2) => {
+				// Order in folder nav is determined by the order of the folder names in
+				// the folderList. Sorting them now by the folder object's "order" prop
+				// in appFolders.folders
+
+				const folder1 = data.folders[name1];
+				const folder2 = data.folders[name2];
+
+				if (folder1.order && folder2.order) {
+					const order1 = folder1.order;
+					const order2 = folder2.order;
+
+					if (order1 > order2) {
+						return 1;
+					} else if (order1 < order2) {
+						return -1;
+					}
+				}
+				
+				return 0;
 			});
 
 			//The app list will be the folder seeded into the store filtered by any folders
@@ -95,6 +116,7 @@ function initialize(callback = Function.prototype) {
 		}
 
 		data.folders = store.values.appFolders.folders;
+		validateFolderDataStructure();
 		data.foldersList = folderList || Object.keys(store.values.appFolders.folders);
 		data.apps = Object.keys(appList).length > 0 ? appList : store.values.appDefinitions;
 		data.tags = store.values.activeLauncherTags;
@@ -144,6 +166,30 @@ function appInAppList(appName) {
 	let app = findAppByField('name', appName);
 	return Boolean(app);
 }
+
+/**
+ * Ensures all 'apps' properties on folders conform
+ * to the new structure (Array vs object)
+ */
+function validateFolderDataStructure() {
+	Object.keys(data.folders).map(folderName => {
+		const folder = data.folders[folderName];
+		if (!Array.isArray(folder.apps)) {
+			const warning = "Application Launcher Persistent Store has data stored in deprecated format. Please check distributedStore configs";
+			// If the structure is wrong, notify the user in hopes that the foundation will be fixed
+			FSBL.Clients.Logger.warn(warning);
+			FSBL.UserNotification.alert("system", "ONCE-SINCE-STARTUP", "Distributed Store Type Mismatch", warning);
+			
+			const newApps = [];
+			Object.values(folder.apps).map(app => {
+				newApps.push(app);
+			});
+			folder.apps = newApps;
+		}
+	});
+	_setFolders();
+}
+
 //Update apps in folders with updated config information
 function updateAppsInFolders(cb = Function.prototype) {
 	//Loop through folders and update apps with new info
@@ -212,19 +258,18 @@ function loadInstalledComponentsFromStore(cb = Function.prototype) {
 			// get the app info so we can load it into the launcher
 			return getApp(component.appID, (err, app) => {
 				if (err) {// don't want to kill this;
+					deleteApp(component.appID);
 					console.error("there was an error loading from FDC3", component, err);
 					return componentDone();
 				}
-				componentDone();
 			});
 		}
 		// We'll load our user defined components here
 		FSBL.Clients.LauncherClient.addUserDefinedComponent(component, (compAddErr) => {
 			if (compAddErr) {
 				console.warn("Failed to add new app:", compAddErr);
-				return componentDone(compAddErr);
 			}
-			componentDone();
+			componentDone(compAddErr);
 		});
 	}, (err) => {
 		cb(err);
@@ -383,7 +428,7 @@ function getFoldersList() {
 }
 
 function getAllApps() {
-	let mergedApps = Object.assign({}, data.apps, data.configComponents);;
+	let mergedApps = Object.assign({}, data.apps, data.configComponents);
 	return mergedApps;
 }
 
@@ -408,12 +453,20 @@ function reorderFolders(destIndex, srcIndex) {
 		movedFolder,
 		...remainingItems.slice(srcIndex)
 	];
+
+	data.foldersList.map((folderName, i) => {
+		if (data.folders[folderName].order) {
+			data.folders[folderName].order = i;
+		}
+	});
+
 	_setValue("appFolders.list", data.foldersList);
+	_setValue("appFolders.folders", data.folders);
 	return data.foldersList;
 }
 
 function addApp(app = {}, cb) {
-	const appID = (new Date()).getTime();
+	const appID = (new Date()).getTime() + "";
 	const folder = data.activeFolder;
 	const newAppData = {
 		appID,
@@ -492,7 +545,8 @@ function addNewFolder(name) {
 		icon: "ff-adp-hamburger",
 		canEdit: true,
 		canDelete: true,
-		apps: []
+		apps: [],
+		order: Object.keys(data.folders).length
 	};
 	data.folders[folderName] = newFolder;
 	_setFolders(() => {
@@ -517,7 +571,15 @@ function deleteFolder(folderName) {
 		// Update the order of folders
 		const index = data.foldersList.indexOf(folderName);
 		data.foldersList.splice(index, 1);
+
+		data.foldersList.map((folderName, i) => {
+			if (data.folders[folderName].order) {
+				data.folders[folderName].order = i;
+			}
+		});
+
 		_setValue("appFolders.list", data.foldersList);
+		_setValue("appFolders.folders", data.folders);
 		_setValue("deleted", deletedFolders);
 	});
 }
@@ -526,6 +588,12 @@ function renameFolder(oldName, newName) {
 	let oldFolder = data.folders[oldName];
 	data.folders[newName] = oldFolder;
 	delete data.folders[oldName];
+
+	// If the folder being renamed is the activeFolder, activeFolder needs to be set
+	// to the new folder name
+	if (data.activeFolder === oldName) {
+		_setValue('activeFolder', newName);
+	}
 
 	_setFolders(() => {
 		let indexOfOld = data.foldersList.findIndex((folderName) => {
@@ -549,7 +617,6 @@ function renameFolder(oldName, newName) {
 		}
 
 		_setValue("appFolders.list", data.foldersList);
-		delete data.folders[oldName];
 	});
 }
 
