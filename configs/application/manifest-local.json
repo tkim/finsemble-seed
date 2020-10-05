@@ -61,8 +61,8 @@
     "fileName": "ChartIQ-local-installer",
     "appAssets": [
         {
-            "src": "https://assets.finsemble.com/assimilation/assimilation_4.4.1.0.zip",
-            "version": "4.4.1",
+            "src": "https://assets.finsemble.com/assimilation/assimilation_4.5.0.0.zip",
+            "version": "4.5.0",
             "alias": "assimilation",
             "target": "AssimilationMain.exe"
         }
@@ -90,6 +90,20 @@
                     "serverAddress": "ws://127.0.0.1:3376"
                 }
             }
+        },
+        "logger": {
+            "defaultClientLogLevels": {
+                "Error": true, 
+                "Warn": true, 
+                "Info": false, 
+                "Log": true, 
+                "Debug": false, 
+                "Verbose": false, 
+                "LocalOnly": false
+            }
         }
+    },
+    "finsemble-electron-adapter": {
+        "disableZoom": false
     }
 }
