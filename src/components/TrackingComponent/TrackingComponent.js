@@ -5,9 +5,6 @@ var currentBounds
 var trackingStore
 
 const FSBLReady = async () => {
-	document.getElementById("backup").onclick = persistTrackedState;
-	document.getElementById("restore").onclick = restoreTrackedState;
-
 	try {
 		FSBL.Clients.DistributedStoreClient.createStore(
 			{ store: `tracking-state-${finsembleWindow.identifier.windowName}`, global: true, persist:true, values: {} },
