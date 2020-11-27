@@ -19,7 +19,10 @@
 			"component": {
 				"displayName": "Welcome Component",
 				"spawnOnStartup": false,
-				"preload": "$applicationRoot/preloads/zoom.js"
+				"preload": [
+					"$applicationRoot/preloads/zoom.js",
+					"$applicationRoot/preloads/devtools.js"
+				]
 			},
 			"foreign": {
 				"services": {

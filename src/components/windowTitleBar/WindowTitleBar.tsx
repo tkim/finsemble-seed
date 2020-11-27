@@ -24,6 +24,7 @@ import {
  */
 import "@finsemble/finsemble-ui/react/assets/css/finsemble.css";
 import "../../../assets/css/theme.css";
+import DevToolsButton from "./DevToolsButton";
 
 /**
  * This is the Window Title Bar component, which is rendered at
@@ -58,6 +59,7 @@ const WindowTitleBar = () => {
 				<MinimizeButton />
 				<MaximizeButton />
 				<CloseButton />
+				<DevToolsButton />
 			</div>
 		</WindowTitleBarShell>
 	);
