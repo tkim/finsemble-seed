@@ -6,5 +6,9 @@
 	"zoom": {
 		"output": "preloads/zoom",
 		"entry": "./src/preloads/zoom.js"
+	},
+	"scrollbarStylingPreload": {
+		"output": "preloads/scrollbarStylingPreload",
+		"entry": "./src/preloads/scrollbarStylingPreload.js"
 	}
 }
