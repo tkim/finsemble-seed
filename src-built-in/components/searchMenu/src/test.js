@@ -1,5 +1,5 @@
 /*!
-* Copyright 2017 by ChartIQ, Inc.
+* Copyright 2017 - 2020 by ChartIQ, Inc.
 * All rights reserved.
 */
 var chai = require("chai");
@@ -158,8 +158,8 @@ RouterClient.addResponder("TestRunner.AppLauncherMenu", function (err, message) 
 				.then(sendSuccess)
 				.catch(sendError);
 		break;
-	case "createAdHoc":
-		document.getElementById("Adhoc").click();
+	case "createQuickComponent":
+		document.getElementById("QuickComponent").click();
 		setTimeout(function () {
 			sendSuccess();
 		}, 2500);
@@ -169,7 +169,7 @@ RouterClient.addResponder("TestRunner.AppLauncherMenu", function (err, message) 
 				.then(sendSuccess)
 				.catch(sendError);
 		break;
-	case "removeAdHoc":
+	case "removeQuickComponent":
 		getComponentElement(data.name)
 				.then(function (el) {
 					return new Promise(function (resolve, reject) {

@@ -1,5 +1,5 @@
 /*!
-* Copyright 2017 by ChartIQ, Inc.
+* Copyright 2017 - 2020 by ChartIQ, Inc.
 * All rights reserved.
 */
 
@@ -57,7 +57,7 @@ var Actions = {
 		});
 
 		//Whenever we add or remove a component, this event is fired. We get a list of all components, then filter it out to include only the ones that this particular launcher is capable of spawning.
-		FSBL.Clients.RouterClient.addListener("Launcher.update", function (err, response) {
+		FSBL.Clients.RouterClient.subscribe("Launcher.update", function (err, response) {
 			FSBL.Clients.Logger.debug("list updated", err, response);
 			if (err) {
 				return console.error(err);
@@ -65,7 +65,7 @@ var Actions = {
 			self.filterComponents(response.data.componentList);
 		});
 	},
-	//get adhoc components that the user created from storage.
+	//get quick components that the user created from storage.
 	getUserDefinedComponentList(cb) {
 		return cb();
 		var self = Actions;
@@ -84,7 +84,7 @@ var Actions = {
 			cb();
 		});
 	},
-	//saves adhoc components
+	//saves quick components
 	saveCustomComponents() {
 		var UDCs = {};
 		var components = Object.keys(Actions.componentList);
@@ -123,7 +123,7 @@ var Actions = {
 	// Custom Components are always shown @TODO - make this a setting
 	filterComponents(components) {
 		var self = this;
-		var settings = FSBL.Clients.WindowClient.options.customData.spawnData;
+		var settings = FSBL.Clients.WindowClient.options.customData.spawnData || {};
 		var componentList = {};
 		var keys = Object.keys(components);
 		if (settings.mode) {
@@ -169,33 +169,7 @@ var Actions = {
 			}
 		}
 
-		self.componentList = {};
-		// deal with groups
-		for (let componentType in componentList) {
-			let config = components[componentType];
-			let componentGroups = (config.component && config.component.launchGroups) ? config.component.launchGroups : false;
-			if (componentGroups) {
-				if (!Array.isArray(componentGroups)) {
-					componentGroups = [componentGroups];
-				}
-				for (let componentGroup of componentGroups) {
-					if (!self.componentList[componentGroup]) {
-						self.componentList[componentGroup] = {
-							group: componentGroup,
-							list: {}
-						};
-					}
-					self.componentList[componentGroup].list[componentType] = componentList[componentType];
-					if (componentList[componentType].component.windowGroup) {
-						componentList[componentType].params = {
-							groupName: componentList[componentType].component.windowGroup
-						};
-					};
-				}
-			}
-			config.component.type = componentType;
-			self.componentList[componentType] = componentList[componentType];
-		}
+		self.componentList = componentList;
 
 		FSBL.Clients.Logger.debug("appLauncher filterComponents", self.componentList, "settings", settings, "customData", FSBL.Clients.WindowClient.options.customData);
 		appLauncherStore.setValue({ field: "componentList", value: self.componentList });
@@ -267,7 +241,7 @@ var Actions = {
 			ToolbarStore.setValue({ field: "pins." + componentTypeDotRemove, value: thePin });
 		}
 	},
-	//Handler for when the user wants to remove an adhoc component.
+	//Handler for when the user wants to remove a quick component.
 	handleRemoveCustomComponent(componentName) {
 		var self = this;
 		FSBL.Clients.DialogManager.open("yesNo", {
@@ -315,7 +289,7 @@ var Actions = {
 	},
 	//Hide the window.
 	hideWindow() {
-		fin.desktop.Window.getCurrent().hide();
+		finsembleWindow.hide();
 	},
 	//Spawn a component.
 	launchComponent(config, params, cb) {

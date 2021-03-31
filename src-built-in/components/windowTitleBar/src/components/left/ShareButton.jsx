@@ -1,11 +1,12 @@
 /*!
-* Copyright 2017 by ChartIQ, Inc.
+* Copyright 2017 - 2020 by ChartIQ, Inc.
 * All rights reserved.
 */
 import React from "react";
 import ReactDOM from "react-dom";
 import { FinsembleHoverDetector } from "@chartiq/finsemble-react-controls";
 import { getStore, Actions as HeaderActions } from "../../stores/windowTitleBarStore";
+import { ReactComponent as ShareIcon } from '../../../../../../assets/img/titlebar/share.svg'
 let windowTitleBarStore;
 export default class ShareButton extends React.Component {
 	constructor(props) {
@@ -74,7 +75,8 @@ export default class ShareButton extends React.Component {
 			return null;
 		}
 		*/
-		return (<div className="fsbl-icon ff-share" title="Drag To Share" data-hover={this.state.hoverState} draggable="true" onDragStart={this.onDragStart}>
+		return (<div className="fsbl-icon fsbl-share" title="Drag To Share" data-hover={this.state.hoverState} draggable="true" onDragStart={this.onDragStart}>
+			<ShareIcon />
 			<FinsembleHoverDetector edge="top" hoverAction={this.hoverAction.bind(this)} />
 		</div>);
 	}

@@ -1,5 +1,5 @@
 /*!
-* Copyright 2017 by ChartIQ, Inc.
+* Copyright 2017 - 2020 by ChartIQ, Inc.
 * All rights reserved.
 */
 import React from "react";
@@ -86,15 +86,14 @@ class WorkspaceManagementMenu extends React.Component {
 	}
 }
 
-fin.desktop.main(function () {
-	if (window.FSBL && FSBL.addEventListener) { FSBL.addEventListener("onReady", FSBLReady); } else { window.addEventListener("FSBLReady", FSBLReady) }
-	function FSBLReady() {
-		//console.log("WorkspaceManagementMenu onReady");
-		storeExports.initialize(function (store) {
-			WorkspaceManagementMenuStore = store;
-			ReactDOM.render(
-				<WorkspaceManagementMenu />
-				, document.getElementById("workspaceManagementMenu-component-wrapper"));
-		});
-	}
-});
+
+if (window.FSBL && FSBL.addEventListener) { FSBL.addEventListener("onReady", FSBLReady); } else { window.addEventListener("FSBLReady", FSBLReady) }
+function FSBLReady() {
+	//console.log("WorkspaceManagementMenu onReady");
+	storeExports.initialize(function (store) {
+		WorkspaceManagementMenuStore = store;
+		ReactDOM.render(
+			<WorkspaceManagementMenu />
+			, document.getElementById("workspaceManagementMenu-component-wrapper"));
+	});
+}

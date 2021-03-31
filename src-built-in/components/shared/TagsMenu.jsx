@@ -1,5 +1,5 @@
 /*!
-* Copyright 2018 by ChartIQ, Inc.
+* Copyright 2017 - 2020 by ChartIQ, Inc.
 * All rights reserved.
 *
 */
@@ -81,9 +81,10 @@ export default class TagsMenu extends React.Component {
 		)
 	}
 	render() {
+		if(this.props.list.length===0) return <div></div>
 		return (
 			<div ref={this.setWrapperRef} className="tags-menu-wrapper" onClick={this.toggleMenu}>
-				<span><i className="ff-tag" />{this.props.label}</span>
+				<span>{this.props.label}<i className="ff-chevron-down" /></span>
 				{this.state.isVisible && this.renderList()}
 			</div>
 		)

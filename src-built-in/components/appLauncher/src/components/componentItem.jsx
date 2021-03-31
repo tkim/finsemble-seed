@@ -1,5 +1,5 @@
 /*!
-* Copyright 2017 by ChartIQ, Inc.
+* Copyright 2017 - 2020 by ChartIQ, Inc.
 * All rights reserved.
 */
 /**
@@ -85,6 +85,7 @@ export default class componentItem extends React.Component {
 
 		return (<FinsembleMenuItem
 			label={this.props.name}
+			title={this.props.name}
 			onLabelClick={function () {
 				itemAction(component, {});
 			}}

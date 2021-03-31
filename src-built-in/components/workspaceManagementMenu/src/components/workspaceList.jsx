@@ -1,5 +1,5 @@
 /*!
- * Copyright 2017 by ChartIQ, Inc.
+ * Copyright 2017 - 2020 by ChartIQ, Inc.
  * All rights reserved.
  * This is a list of workspaces that the user can click on, loading them.
  */
@@ -51,11 +51,14 @@ export default class WorkspaceManagementList extends React.Component {
 	render() {
 		let self = this;
 
-		let workspaces = this.props.workspaces.map(function (workspace, i) {
+		let workspaces = this.props.workspaces.map(function (workspaceName, i) {
+			const workspace = {
+				name: workspaceName
+			};
 			//Separate array for each workspace. This way, the activeWorkspace can be rendered without a trashcan.
 			let workspaceActions = [
 				{
-					iconClass: "ff-delete",
+					iconClass: "ff-adp-trash-outline",
 					method: self.removeWorkspace
 				},
 				{
@@ -67,6 +70,8 @@ export default class WorkspaceManagementList extends React.Component {
 			let isPinned = self.props.pinnedWorkspaces.includes(workspace.name);
 			const isSwitchingWorkspaces = WorkspaceManagementMenuStore.getValue("isSwitchingWorkspaces");
 			workspace.isPinned = isPinned;
+			const dragHandle = {iconClass: "ff-adp-hamburger"};
+
 			return (
 				<FinsembleDraggable
 					index={i}
@@ -75,6 +80,7 @@ export default class WorkspaceManagementList extends React.Component {
 					<Workspace
 						key={i}
 						isActiveWorkspace={isActiveWorkspace}
+						dragHandle={dragHandle}
 						workspace={workspace}
 						mainAction={WorkspaceManagementMenuActions.switchToWorkspace}
 						isSwitchingWorkspaces={isSwitchingWorkspaces}

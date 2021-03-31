@@ -1,6 +1,6 @@
 
 /*!
-* Copyright 2017 by ChartIQ, Inc.
+* Copyright 2017 - 2020 by ChartIQ, Inc.
 * All rights reserved.
 */
 import React from "react";
@@ -8,6 +8,7 @@ import ReactDOM from "react-dom";
 import { FinsembleHoverDetector } from "@chartiq/finsemble-react-controls";
 import LinkerGroups from "./LinkerGroups";
 import { getStore, Actions as HeaderActions } from "../../stores/windowTitleBarStore";
+import { ReactComponent as LinkerButtonIcon } from '../../../../../../assets/img/titlebar/linker.svg'
 let windowTitleBarStore;
 
 /**
@@ -156,10 +157,11 @@ export default class LinkerButton extends React.Component {
      */
     render() {
         return (<div ref="LinkerButton" title="Link Data" className="linkerSection">
-            <div className="fsbl-icon fsbl-linker ff-linker" data-hover={this.state.hoverState} onClick={this.showLinkerWindow} >
+            <div className="fsbl-icon fsbl-linker" data-hover={this.state.hoverState} onClick={this.showLinkerWindow} >
+                <LinkerButtonIcon />
                 <FinsembleHoverDetector edge="top left" hoverAction={this.hoverAction} />
-            </div>
+            </div >
             <LinkerGroups />
-        </div>);
+        </div >);
     }
 }
