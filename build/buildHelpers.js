@@ -60,15 +60,15 @@ const runWebpackAndCallback = (configPath, watch, bundleName, callback) => {
 		}
 		logToTerminal(msg, "cyan");
 
-        /* Uncomment to see webpack warnings.
-        if (stats.hasWarnings()) {
-            logToTerminal(`WEBPACK WARNINGS: ${configPath}`, "yellow");
-            console.warn(stats.toString('errors-warnings'));
-        } else
-        */
+		/* Uncomment to see webpack warnings.
+		if (stats.hasWarnings()) {
+			logToTerminal(`WEBPACK WARNINGS: ${configPath}`, "yellow");
+			console.warn(stats.toString('errors-warnings'));
+		} else 
+		*/
 		if (stats.hasErrors()) {
 			logToTerminal(`WEBPACK ERRORS: ${configPath}`, "red");
-            console.error(stats.toString('errors-only'));
+			console.error(stats.toString('errors-only'));
 		}
 
 		finish();
