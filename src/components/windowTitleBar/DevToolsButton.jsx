@@ -2,6 +2,12 @@ import * as React from 'react'
 
 export default function DevToolsButton() {
   const browserView = fin.desktop.System.currentWindow.getBrowserView()
+    // browserView will not exist on the Notifications Center if running FSBL 5.4+ 
+    //  if this sees that, then no need to bother with the rest - that way it works for 
+    //  normal windows and skips over oddities like Notifications Center
+    if (browserView == null) {
+        return "";
+    }
   const appWindow = browserView.webContents
 
   const [devtoolsOpen, setDevtoolsOpen] = React.useState(false)
