@@ -12,6 +12,7 @@ import {
 	DragHandle,
 	RevealAll,
 	MinimizeAll,
+    NotificationControl,
 	AutoArrange,
 	Search,
 	AdvancedAppLauncherMenu,
@@ -54,6 +55,7 @@ const Toolbar = () => {
 				<AutoArrange />
 				<MinimizeAll />
 				<RevealAll />
+                <NotificationControl />
 			</ToolbarSection>
 			<div className="resize-area"></div>
 		</ToolbarShell>

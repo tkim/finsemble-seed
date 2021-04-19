@@ -3,13 +3,13 @@ import * as React from 'react'
 export default function DevToolsButton() {
     const browserView = fin.desktop.System.currentWindow.getBrowserView();
 
-    const openDevTools = () => {
-        if (browserView) {
-            browserView.webContents.openDevTools();
-        } else {
-            fin.desktop.System.currentWindow.openDevTools()
-        }
-    }
+    // const openDevTools = () => {
+    //     if (browserView) {
+    //         browserView.webContents.openDevTools();
+    //     } else {
+    //         fin.desktop.System.currentWindow.openDevTools()
+    //     }
+    // }
   const appWindow = browserView.webContents
 
   const [devtoolsOpen, setDevtoolsOpen] = React.useState(false)

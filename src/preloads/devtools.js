@@ -1,7 +1,15 @@
 function runPreload() {
 
     // Apps with windowTitlebars have a browserView
-    const browserView = fin.desktop.System.currentWindow.getBrowserView()
+    const browserView = fin.desktop.System.currentWindow.getBrowserView();
+
+    const openDevTools = () => {
+        if (browserView) {
+            browserView.webContents.openDevTools();
+        } else {
+            fin.desktop.System.currentWindow.openDevTools()
+        }
+    }
 
     let appOrServiceWindow
 
