@@ -3,14 +3,11 @@ import * as React from 'react'
 export default function DevToolsButton() {
     const browserView = fin.desktop.System.currentWindow.getBrowserView();
 
-    // const openDevTools = () => {
-    //     if (browserView) {
-    //         browserView.webContents.openDevTools();
-    //     } else {
-    //         fin.desktop.System.currentWindow.openDevTools()
-    //     }
-    // }
-  const appWindow = browserView.webContents
+    if (browserView == null) {
+        return <></>;
+    }
+
+    const appWindow = browserView.webContents
 
   const [devtoolsOpen, setDevtoolsOpen] = React.useState(false)
 
@@ -42,20 +39,18 @@ export default function DevToolsButton() {
   }, [])
 
   function toggleDevTools() {
-
-
-    let devToolsOpen = appWindow.isDevToolsOpened();
-    console.log(`DevTools Is open ${devToolsOpen}`)
-    if (devToolsOpen) {
-      appWindow.closeDevTools()
-      FSBL.Clients.WindowClient.setComponentState({ field: 'devToolsOpen', value: false }, console.log);
+    //   const state = FSBL.Clients.WindowClient.getComponentState
+    //       ({ field: 'devToolsOpen' }, console.log)
+    //   console.log(state)
+    let devToolsOpen = appWindow.isDevToolsOpened();    
+      if (devToolsOpen) {
+          console.log(`DevTools Is open ${devToolsOpen}`)
+          appWindow.closeDevTools()
     } else {
       console.log("DevTools is opening")
-      appWindow.openDevTools()
-      FSBL.Clients.WindowClient.setComponentState({ field: 'devToolsOpen', value: true }, console.log);
+          appWindow.openDevTools()
     }
-
-
+    //FSBL.Clients.WindowClient.setComponentState({ field: 'devToolsOpen', value: !devToolsOpen }, console.log);
   }
 
 

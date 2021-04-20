@@ -3,14 +3,6 @@ function runPreload() {
     // Apps with windowTitlebars have a browserView
     const browserView = fin.desktop.System.currentWindow.getBrowserView();
 
-    const openDevTools = () => {
-        if (browserView) {
-            browserView.webContents.openDevTools();
-        } else {
-            fin.desktop.System.currentWindow.openDevTools()
-        }
-    }
-
     let appOrServiceWindow
 
     // Check to see if we are working in a component with a titlebar OR no titlebar / service
@@ -22,26 +14,24 @@ function runPreload() {
         appOrServiceWindow = fin.desktop.System.currentWindow
     }
 
-
     // event listeners for the devtools
     // appOrServiceWindow.addListener("devtools-opened", () => console.log("devtools-opened"))
     // appOrServiceWindow.addListener("devtools-closed", () => console.log("devtools-closed"))
 
     function toggleDevTools() {
-        const state = FSBL.Clients.WindowClient.getComponentState
-            ({ field: 'devToolsOpen' }, console.log)
-        console.log(state)
+        // const state = FSBL.Clients.WindowClient.getComponentState ({ field: 'devToolsOpen' }, console.log)
+        // console.log(state)
 
         let devToolsOpen = appOrServiceWindow.isDevToolsOpened();
-        console.log(`DevTools Is open ${devToolsOpen}`)
+        console.log(`DevTools Is open? ${devToolsOpen}`)
         if (devToolsOpen) {
+            console.log("DevTools is closing")
             appOrServiceWindow.closeDevTools()
         } else {
             console.log("DevTools is opening")
             appOrServiceWindow.openDevTools()
         }
-        FSBL.Clients.WindowClient.setComponentState({ field: 'devToolsOpen', value: devToolsOpen });
-
+        //FSBL.Clients.WindowClient.setComponentState({ field: 'devToolsOpen', value: !devToolsOpen }, console.log);
     }
 
     // === UI Section ===
@@ -49,10 +39,14 @@ function runPreload() {
     // make the devtools button
     let devToolsDiv = document.createElement("div");
     devToolsDiv.innerHTML = `
-    <button id="devtools">Open DevTools</button>`
+    <button id="devtools">DevTools</button>`
 
-    document.body.children[0].prepend(devToolsDiv)
-
+    // account for normal window or notification-center
+    if (document.body.children[0].id === "container") {
+        document.body.children[0].prepend(devToolsDiv);
+    } else {
+        document.body.children[1].prepend(devToolsDiv);
+    }
 
     // open the devtools via button click
     document.body.addEventListener('click', (event) => {
