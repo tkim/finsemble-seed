@@ -9,9 +9,12 @@ import { SingleInputDialog } from "@finsemble/finsemble-ui/react/components/sing
 import "@finsemble/finsemble-ui/react/assets/css/finsemble.css";
 import "../../../assets/css/theme.css";
 
+import CustomSingleInputDiaglog from "./CustomSingleInputDialog";
+
 ReactDOM.render(
 	<FinsembleProvider>
-		<SingleInputDialog />
+		{/* <SingleInputDialog /> */}
+		<CustomSingleInputDiaglog />
 	</FinsembleProvider>,
 	document.getElementById("SingleInputDialog-tsx")
 );
