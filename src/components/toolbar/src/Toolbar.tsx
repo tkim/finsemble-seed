@@ -64,8 +64,12 @@ const Toolbar = () => {
 				<div className="divider" />
 				<FavoritesShell />
 			</ToolbarSection>
-			<ToolbarSection className="right">
-				<div className="divider"></div>
+            <ToolbarSection className="right">
+                <div className="divider"></div>
+                <BloombergStatus />
+            </ToolbarSection>
+            <ToolbarSection className="right">
+                <div className="divider"></div>
 				<AutoArrange />
 				<MinimizeAll />
 				<RevealAll />
