@@ -25,6 +25,7 @@ import { FileMenu } from "./FileMenu";
 import { useHotkey } from "@finsemble/finsemble-ui/react/hooks/useHotkey";
 import "@finsemble/finsemble-ui/react/assets/css/finsemble.css";
 import "../../../../assets/css/theme.css";
+import { BloombergStatus } from "../../bbgHelpers/BloombergStatus";
 
 /**
  * Note: Set `FSBL.debug = true` if you need to reload the toolbar during development.
