@@ -15,6 +15,7 @@ import {
 } from "@finsemble/finsemble-ui/react/components/userPreferences";
 import "@finsemble/finsemble-ui/react/assets/css/finsemble.css";
 import "../../../assets/css/theme.css";
+import { BloombergPreferences } from "../bbgHelpers/BloombergPreferences";
 
 /*
  * Put your customized preference menu components here and pass this object as a prop to the UserPreferences component.
@@ -35,6 +36,7 @@ const sections = {
 	Workspaces: Workspaces,
 	Dashbar: DashbarEditor,
 	Notifications: Notifications,
+    "Bloomberg Terminal Connect": BloombergPreferences,
 };
 
 ReactDOM.render(

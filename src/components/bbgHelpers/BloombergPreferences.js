@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@finsemble/finsemble-ui/react/components/common/Button";
 import BloombergBridgeClient from "../../clients/BloombergBridgeClient/BloombergBridgeClient";
 //Setup the BloombergBridgeClient that will be used for all messaging to/from Bloomberg
 let bbg = new BloombergBridgeClient(FSBL.Clients.RouterClient, FSBL.Clients.Logger);
@@ -7,23 +6,35 @@ let bbg = new BloombergBridgeClient(FSBL.Clients.RouterClient, FSBL.Clients.Logg
 export const BloombergPreferences = () => {
     const [bbgRemoteAddress, setBbgRemoteAddress] = useState("");
     const [isRemote, setIsRemote] = useState(false);
-    const [showAddressField, setShowAddressField] = useState(false);
     const [isConnected, setIsConnected] = useState(false);
+    const [connectionStatus, setConnectionStatus] = useState("Disconnected");
+
+
 
     // TODO:
-    // * Show Connect/Disconnect as different button states (how?)
-    // * Connect/Disconnect should use Button and not button, but when I tried it didn't work (try again, maybe other things were issue)
-    // * once Connected, show Disconnect and disable all other fields
-    //      once disconnected, enable them all again (and show Connect)
-    // * not sure the bloomberg items are actually getting loaded - they are setup as components but this is appD
-    //          how to do equivalent here?
-    //      then test with BBG actually running
-    // * then get working in toolbar
-    //      should each check the status independantly or should they share a data store for that? 
-
+    // * is there a way to distinguish between the bridge being down and the bridge not running?
+    // * should "Connect" actually start the Bridge if it hasn't yet been opened by the App Menu?
+    //      * should Bridge just autostart in config?
 
 
     useEffect(() => {
+        function checkConnection() {
+            bbg.checkConnection((err, resp) => {
+                if (!err && resp === true) {
+                    setIsConnected(true);
+                    setConnectionStatus("Connected");
+                } else if (err) {
+                    FSBL.Clients.Logger.error("Error received when checking connection", err);
+                    setIsConnected(false);
+                    setConnectionStatus("Disconnected");
+                } else {
+                    FSBL.Clients.Logger.debug("Negative response when checking connection: ", resp);
+                    setIsConnected(false);
+                    setConnectionStatus("Disconnected");
+                }
+            });
+        };
+
         FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.remoteAddress', (err, value) => {
             if (err) {
                 FSBL.Clients.Logger.error(`ERR - Could not get Bloomberg remoteAddress: ${err}`);
@@ -40,65 +51,82 @@ export const BloombergPreferences = () => {
                 setIsRemote(value);
             }
         });
+        try {
+            //do the initial check
+            checkConnection();
+            //listen for connection events (listen/transmit)
+            bbg.setConnectionEventListener(checkConnection);
+            //its also possible to poll for connection status,
+            //  worth doing in case the bridge process is killed off and doesn't get a chance to send an update
+            setInterval(checkConnection, 30000);
+        } catch (e) {
+            FSBL.Clients.Logger.error(`error in bbg prefs: ${e}`);
+        }
     }, []);
 
-    // TODO - should there be something periodically checking this and updating it? 
-    //          if so, then especially in the toolbar
     function toggleBloombergConnection() {
-        FSBL.Clients.Logger.log("HIT A");
-        FSBL.Clients.BloombergBridgeClient.checkConnection((err, loggedIn) => {
-            if (!err && loggedIn) {
-                // connected: true
-                setIsConnected(true);
-                FSBL.Clients.Logger.log("HIT A true");
-            } else if (!err && !loggedIn) {
-                // connected: false
-                setIsConnected(false);
-                FSBL.Clients.Logger.log("HIT A false");
-            }
-            else {
-                FSBL.Clients.Logger.error(`The Bloomberg Bridge Client had an error: ${err}`);
-            }
-        });
-        FSBL.Clients.Logger.log("HIT B");
-        FSBL.Clients.BloombergBridgeClient.setConnectState(!isConnected, (err, resp) => {
+        bbg.setConnectState(!isConnected, (err, resp) => {
+        //FSBL.Clients.BloombergBridgeClient.setConnectState(!isConnected, (err, resp) => {
             if (err) {
                 FSBL.Clients.Logger.error("Error - There was an error setting the Bloomberg connection state:", err);
-                FSBL.Clients.Logger.log(`HIT B: ${err}`);
             }
             if (resp) {
                 //console.log("Response: " + resp); 
                 setIsConnected(!isConnected);
-                FSBL.Clients.Logger.log(`HIT B: ${isConnected}`);
             }
         });
-        FSBL.Clients.Logger.log("HIT C");
     }
 
-    const addressInput = React.createElement("input", {
-        id: "address",
-        type: "text",
-        value: bbgRemoteAddress,
-        onBlur: () => {
-            setBbgRemoteAddress(document.getElementById('address').value);
+    function updateAddress() {
+        setBbgRemoteAddress(document.getElementById('address').value);
             FSBL.Clients.ConfigClient.setPreference({
                 field: "finsemble.custom.bloomberg.remoteAddress",
                 value: bbgRemoteAddress
             }, (err, response) => {
                 //preference has been set
             });
-        }
+    }
 
+    // if only called onChange, it loses the last char (not sure why)
+    // if only called onBlur, there are spots where it doesn't get saved
+    //
+    // if just using the boolean in the return, this pops in and out cleanly on use
+    //  and on first load when it opens
+    // but if using the slide in and out css, it works fine on use, but also does it on
+    //  first load, which may look odd to users?
+    const addressInput = React.createElement("input", {
+        id: "address",
+        type: "text",
+        defaultValue: bbgRemoteAddress,
+        disabled: isConnected,
+        onChange: () => {
+            updateAddress();
+        },
+        onBlur: () => {
+            updateAddress();
+        }
     }, null);
-    const addressField = React.createElement("div", null, [`Address:`, addressInput]);
+    const addressField = React.createElement("div", {
+        style: {
+            maxHeight: isRemote ? "100px" : "0",
+            transition: isRemote ? "max-height 0.25s ease-in" : "max-height 0.15s ease-out",
+            overflow: isRemote ? "visible" : "hidden"
+        }
+    }, [`Address:`, addressInput]);
     const connectionRadioLocal = React.createElement("input", {
         type: "radio",
         value: "local",
         name: "location",
         checked: !isRemote,
+        disabled: isConnected,
         onClick: () => {
             setIsRemote(false);
-            setShowAddressField(false);
+            FSBL.Clients.ConfigClient.setPreference({
+                field: "finsemble.custom.bloomberg.remote",
+                value: false
+            }, (err, response) => {
+                //preference has been set
+            });
         }
     }, null);
     const connectionRadioRemote = React.createElement("input", {
@@ -106,9 +134,15 @@ export const BloombergPreferences = () => {
         value: "remote",
         name: "location",
         checked: isRemote,
+        disabled: isConnected,
         onClick: () => {
             setIsRemote(true);
-            setShowAddressField(true);
+            FSBL.Clients.ConfigClient.setPreference({
+                field: "finsemble.custom.bloomberg.remote",
+                value: true
+            }, (err, response) => {
+                //preference has been set
+            });
         }
     }, null);
     const connectionType = React.createElement("div", null, [
@@ -118,27 +152,61 @@ export const BloombergPreferences = () => {
         connectionRadioRemote,
         "Remote"
     ]);
-    const connectionButton = React.createElement("Button", {
-        onClick: () => {
-            toggleBloombergConnection();
-            isConnected ? setIsConnected(false) : setIsConnected(true);
-        }
-    }, isConnected ? "Connect" : "Disconnect");
-    const connectionButton2 = React.createElement("button", {
+    const connectionButton = React.createElement("button", {
         onClick: () => {
             toggleBloombergConnection();
         }
     }, isConnected ? "Disconnect" : "Connect");
 
-    const connection = React.createElement("div", null, [connectionButton2, "B status", "Connection status text"]);
+    // I can't figure out why it is squashing but doesn't in the toolbar
+    const bbgStatusMarker = React.createElement("span", {
+        style: {
+            background: isConnected ? "green" : "orange",
+            width: "15",
+            height: "15px",
+            borderRadius: "50%",
+            margin: "5px",
+            paddingLeft: "7px",
+            paddingRight: "7px"
+        }
+    }, " ");
 
+    const connection = React.createElement("div", {}, [connectionButton, bbgStatusMarker, connectionStatus]);
+
+
+    const debugDiv = React.createElement("div", {},
+        React.createElement("button", {
+            onClick: () => {
+                FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.remoteAddress', (err, value) => {
+                    if (err) {
+                        FSBL.Clients.Logger.error(`ERR - Could not get Bloomberg remoteAddress: ${err}`);
+                        setBbgRemoteAddress("");
+                    } else {
+                        setBbgRemoteAddress(value);
+                    }
+                });
+                FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.remote', (err, value) => {
+                    if (err) {
+                        FSBL.Clients.Logger.error(`ERR - Could not get Bloomberg remote state: ${err}`);
+                        setIsRemote(false);
+                    } else {
+                        setIsRemote(value);
+                    }
+                });
+            }
+        }, "Check Prefs"),
+        React.createElement("div", {}, `Remote Bool: ${isRemote}, Remote Address: ${bbgRemoteAddress}`)
+
+    )
 
     return <>
         <div>
             {connectionType}
-            {showAddressField && addressField}
+            {addressField}
         </div>
         <hr />
         {connection}
+        {debugDiv}
     </>;
 };
+
