@@ -33,14 +33,20 @@ import "../../../../assets/css/theme.css";
  */
 const Toolbar = () => {
 	useHotkey(["ctrl", "alt", "shift", "r"], () => FSBL.restartApplication());
-	useHotkey(["ctrl", "alt", "up"], () => FSBL.Clients.LauncherClient.bringWindowsToFront());
-	useHotkey(["ctrl", "alt", "down"], () => window.FSBL.Clients.WorkspaceClient.minimizeAll());
+	useHotkey(["ctrl", "alt", "up"], () =>
+		FSBL.Clients.LauncherClient.bringWindowsToFront()
+	);
+	useHotkey(["ctrl", "alt", "down"], () =>
+		window.FSBL.Clients.WorkspaceClient.minimizeAll()
+	);
 
 	const [useDOMBasedMovement, setDOMBasedMovement] = useState(true);
 
 	useEffect(() => {
 		async function fetchManifest() {
-			const response = await FSBL.Clients.ConfigClient.getValue("finsemble-electron-adapter.useDOMBasedMovement");
+			const response = await FSBL.Clients.ConfigClient.getValue(
+				"finsemble-electron-adapter.useDOMBasedMovement"
+			);
 			const { data: manifestValue } = response;
 			if (manifestValue !== null) setDOMBasedMovement(manifestValue);
 		}
@@ -49,15 +55,18 @@ const Toolbar = () => {
 	}, []);
 
 	return (
-		<ToolbarShell hotkeyShow={["ctrl", "alt", "t"]} hotkeyHide={["ctrl", "alt", "h"]}>
+		<ToolbarShell
+			hotkeyShow={["ctrl", "alt", "t"]}
+			hotkeyHide={["ctrl", "alt", "h"]}
+		>
 			<ToolbarSection className="left">
 				<DragHandle useDOMBasedMovement={useDOMBasedMovement} />
 				<FileMenu />
 				<Search openHotkey={["ctrl", "alt", "f"]} />
 				<WorkspaceManagementMenu />
 				{/* Uncomment the following to enable the AdvancedAppLauncherMenu*/}
-				{/* <AdvancedAppLauncherMenu enableQuickComponents={true} /> */}
-				<AppLauncherMenu enableQuickComponents={true} />
+				<AdvancedAppLauncherMenu enableQuickComponents={true} />
+				{/* <AppLauncherMenu enableQuickComponents={true} /> */}
 			</ToolbarSection>
 			<ToolbarSection className="center" hideBelowWidth={115}>
 				<div className="divider" />

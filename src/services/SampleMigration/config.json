@@ -1,0 +1,13 @@
+{
+	"$schema": "../../node_modules/@finsemble/finsemble-core/configs/schemas/fileBasedSchemas/servicesFile.schema.json",
+	"services": {
+		"SampleMigrationService": {
+			"bootParams": {
+				"stage": "preuser",
+				"dependencies": ["storageService"]
+			},
+			"name": "SampleMigrationService",
+			"html": "$applicationRoot/services/SampleMigration/sampleMigration.html"
+		}
+	}
+}
