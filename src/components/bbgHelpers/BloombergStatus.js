@@ -74,7 +74,7 @@ export const BloombergStatus = () => {
                 }
             );
         }
-    }, [`Bloomberg: ${isConnected ? "UP" : "DOWN"}`, bbgStatusMarker]);
+    }, ["Bloomberg", bbgStatusMarker]);
 
 
 

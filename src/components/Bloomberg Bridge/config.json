@@ -28,7 +28,7 @@
 				},
 				"components": {
 					"App Launcher": {
-                        "launchableByUser": false
+						"launchableByUser": true
 					},
 					"Window Manager": {
 						"persistWindowState": false,
@@ -58,7 +58,7 @@
 				"width": 300
 			},
 			"component": {
-                "spawnOnStartup": true,
+				"spawnOnStartup": false,
 				"displayName": "Bloomberg Bridge"
 			},
 			"foreign": {
@@ -70,7 +70,7 @@
 				},
 				"components": {
 					"App Launcher": {
-                        "launchableByUser": false
+						"launchableByUser": true
 					},
 					"Window Manager": {
 						"persistWindowState": false,

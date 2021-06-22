@@ -6,7 +6,6 @@
                 "stage": "user",
                 "stopOnFailure": false,
                 "autoStart": true,
-                "customFailureMessage": "Bloomberg Search Service Error",
                 "timeout": 10000
             },
             "name": "bloombergSearchService",
