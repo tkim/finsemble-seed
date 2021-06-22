@@ -171,7 +171,8 @@ class CustomSingleInputDialog extends React.Component<IProps, IState> {
 					)}
 					<FinsembleDialogButton
 						className="fsbl-button-affirmative"
-						show={true}
+						// @ts-ignore
+						show="true"
 						onClick={() => {
 							this.sendResponse("affirmative");
 						}}
