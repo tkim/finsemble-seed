@@ -8,25 +8,23 @@ const wrapperClasses = "finsemble-toolbar-button";
 
 export const BloombergStatus = () => {
     const errText = "Error Determining Bloomberg Status";
-    // possible states:
-    // up: connection to configured Bloomberg is up and working
-    //      TODO: if up, should its mouseover or any visual denote which machine?
-    // down: connection to configured Bloomberg is no active
-    // err (??): do we need an error case separate from "down"?
-    //         If so, does the Button need to show more info - e.g. mouseover text is error description?
     const [isConnected, setIsConnected] = useState(false);
+    const [indicatorColor, setIndicatorColor] = useState("red");
 
     useEffect(() => {
         function checkConnection() {
             bbg.checkConnection((err, resp) => {
                 if (!err && resp === true) {
                     setIsConnected(true);
+                    setIndicatorColor("green");
                 } else if (err) {
                     FSBL.Clients.Logger.error("Error received when checking connection", err);
+                    setIndicatorColor("red");
                     setIsConnected(false);
                 } else {
                     FSBL.Clients.Logger.debug("Negative response when checking connection: ", resp);
                     setIsConnected(false);
+                    setIndicatorColor("orange");
                 }
             });
         };
@@ -47,7 +45,7 @@ export const BloombergStatus = () => {
 
     const bbgStatusMarker = React.createElement("span", {
         style: {
-            background: isConnected ? "green" : "orange",
+            background: indicatorColor,
             position: "relative",
             left: "7px",
             width: "15px",
