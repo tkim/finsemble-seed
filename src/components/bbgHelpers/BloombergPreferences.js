@@ -127,7 +127,7 @@ export const BloombergPreferences = () => {
     }, null);
     const addressField = React.createElement("div", {
         style: {
-            maxHeight: isRemote ? "100px" : "0",
+            maxHeight: isRemote ? "90px" : "0",
             transition: isRemote ? "max-height 0.25s ease-in" : "max-height 0.15s ease-out",
             overflow: isRemote ? "visible" : "hidden",
             marginLeft: "55px",
@@ -190,7 +190,7 @@ export const BloombergPreferences = () => {
     ]);
     const connectionButton = React.createElement("button", {
         style: {
-            width: "62px",
+            width: isConnected ? "100px" : "62px",
             height: "24px",
             textAlign: "center",
             backgroundColor: "var(--button-affirmative-background-color)",
