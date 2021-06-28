@@ -188,23 +188,6 @@ export const BloombergPreferences = () => {
         connectionRadioRemote,
         "Remote"
     ]);
-    const connectionButton = React.createElement("button", {
-        style: {
-            width: isConnected ? "100px" : "62px",
-            height: "24px",
-            textAlign: "center",
-            backgroundColor: "var(--button-affirmative-background-color)",
-            color: "#000",
-            fontSize: "11px",
-            fontWeight: "600",
-            border: "0px",
-            borderRadius: "5px",
-            verticalAlign: "middle"
-        },
-        onClick: () => {
-            toggleBloombergConnection();
-        }
-    }, isConnected ? "Disconnect" : "Connect");
 
     const bbgStatusMarker = React.createElement("span", {
         style: {
@@ -220,16 +203,31 @@ export const BloombergPreferences = () => {
         }
     }, " ");
 
+    // the style on this doen't seem to actually apply to position it, not sure why
+    //  as a result, looks too high on the screen compared to its neighbors
+    const connectionToggle = React.createElement("input", {
+        type: "checkbox",
+        style: {
+            marginTop: "10px",
+            marginLeft: "10px",
+            paddingTop: "10px",
+            paddingLeft: "10px",
+            top: "10px"
+        },
+        checked: (isConnected ? "checked" : null),
+        onClick: () => { toggleBloombergConnection(); }
+    });
+
     const connection = React.createElement("div", {
         style: {
             opacity: "0.75",
             marginLeft: "55px"
         }
-    }, [connectionToggle, bbgStatusMarker, connectionStatus]);
+    }, ["Enabled ", connectionToggle, bbgStatusMarker, connectionStatus]);
 
     const customLine = React.createElement("div", {
         style: {
-            width: "419px",
+            width: "400px",
             height: "1px",
             margin: "14.5px 59px 14.5px 64px",
             border: "solid 1px #979797",

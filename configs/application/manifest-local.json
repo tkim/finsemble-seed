@@ -68,10 +68,10 @@
                 "Error": true,
                 "Warn": true,
                 "Log": true,
-                "Info": true,
-                "Debug": true,
-                "Verbose": true,
-                "LocalOnly": true
+                "Info": false,
+                "Debug": false,
+                "Verbose": false,
+                "LocalOnly": false
             }
         },
         "custom": {
