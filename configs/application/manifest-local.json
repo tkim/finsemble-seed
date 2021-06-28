@@ -67,11 +67,11 @@
             "defaultClientLogLevels": {
                 "Error": true,
                 "Warn": true,
-                "Info": false,
                 "Log": true,
-                "Debug": false,
-                "Verbose": false,
-                "LocalOnly": false
+                "Info": true,
+                "Debug": true,
+                "Verbose": true,
+                "LocalOnly": true
             }
         },
         "custom": {

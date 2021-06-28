@@ -206,15 +206,6 @@ export const BloombergPreferences = () => {
         }
     }, isConnected ? "Disconnect" : "Connect");
 
-    // can't get this to work
-    // const connectionButton = (<Button
-    //     onClick={() => {
-    //         toggleBloombergConnection();
-    //     }}
-    //     text={isConnected ? "Disconnect" : "Connect"}
-    // />);
-
-    // I can't figure out why it is squashing but doesn't in the toolbar
     const bbgStatusMarker = React.createElement("span", {
         style: {
             background: indicatorColor,
@@ -234,7 +225,7 @@ export const BloombergPreferences = () => {
             opacity: "0.75",
             marginLeft: "55px"
         }
-    }, [connectionButton, bbgStatusMarker, connectionStatus]);
+    }, [connectionToggle, bbgStatusMarker, connectionStatus]);
 
     const customLine = React.createElement("div", {
         style: {
@@ -246,37 +237,15 @@ export const BloombergPreferences = () => {
         }
     }, "");
 
-    // const debugDiv = React.createElement("div", {},
-    //     React.createElement("button", {
-    //         onClick: () => {
-    //             FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.remoteAddress', (err, value) => {
-    //                 if (err) {
-    //                     FSBL.Clients.Logger.error(`ERR - Could not get Bloomberg remoteAddress: ${ err } `);
-    //                     setBbgRemoteAddress("");
-    //                 } else {
-    //                     setBbgRemoteAddress(value);
-    //                 }
-    //             });
-    //             FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.remote', (err, value) => {
-    //                 if (err) {
-    //                     FSBL.Clients.Logger.error(`ERR - Could not get Bloomberg remote state: ${ err } `);
-    //                     setIsRemote(false);
-    //                 } else {
-    //                     setIsRemote(value);
-    //                 }
-    //             });
-    //         }
-    //     }, "Check Prefs"),
-    //     React.createElement("div", {}, `Remote Bool: ${ isRemote }, Remote Address: ${ bbgRemoteAddress }`)
-    // )
-
     return <>
+        <div>
+            {connection}
+            {customLine}
+        </div>
         <div>
             {connectionType}
             {addressField}
         </div>
-        {customLine}
-        {connection}
     </>;
 };
 
