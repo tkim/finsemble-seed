@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import BloombergBridgeClient from "../../clients/BloombergBridgeClient/BloombergBridgeClient";
+import {BloombergBridgeClient} from "../../clients/BloombergBridgeClient/BloombergBridgeClient";
 
 // cannot get either of these to work, seems to be the nested nature of how prefs work
 //import { Button } from "@finsemble/finsemble-ui/react/components/shared/Button";
@@ -18,6 +18,7 @@ let bbg = new BloombergBridgeClient(FSBL.Clients.RouterClient, FSBL.Clients.Logg
 export const BloombergPreferences = () => {
     const [bbgRemoteAddress, setBbgRemoteAddress] = useState("");
     const [isRemote, setIsRemote] = useState(false);
+    const [isEnabled, setIsEnabled] = useState(false);
     const [isConnected, setIsConnected] = useState(false);
     const [connectionStatus, setConnectionStatus] = useState("Disconnected");
     const [indicatorColor, setIndicatorColor] = useState("red");
@@ -63,6 +64,14 @@ export const BloombergPreferences = () => {
                 setIsRemote(value);
             }
         });
+        FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.enabled', (err, value) => {
+            if (err) {
+                FSBL.Clients.Logger.error(`ERR - Could not get Bloomberg enabled state: ${err}`);
+                setIsEnabled(false);
+            } else {
+                setIsEnabled(value);
+            }
+        });
         try {
             //do the initial check
             checkConnection();
@@ -77,14 +86,20 @@ export const BloombergPreferences = () => {
     }, []);
 
     function toggleBloombergConnection() {
-        bbg.setConnectState(!isConnected, (err, resp) => {
-        //FSBL.Clients.BloombergBridgeClient.setConnectState(!isConnected, (err, resp) => {
+        let _enabled = !isEnabled;
+        setIsEnabled(_enabled);
+        FSBL.Clients.ConfigClient.setPreference({
+            field: "finsemble.custom.bloomberg.enabled",
+            value: _enabled
+        }, (err, response) => {
+            //preference has been set
+        });
+        bbg.setEnabled(_enabled, (err, resp) => {
             if (err) {
-                FSBL.Clients.Logger.error("Error - There was an error setting the Bloomberg connection state:", err);
+                FSBL.Clients.Logger.error("Error - There was an error setting the Bloomberg connection enabled flag:", err);
             }
             if (resp) {
-                //console.log("Response: " + resp); 
-                setIsConnected(!isConnected);
+                //connection has been enabled
             }
         });
     }
@@ -131,6 +146,7 @@ export const BloombergPreferences = () => {
             transition: isRemote ? "max-height 0.25s ease-in" : "max-height 0.15s ease-out",
             overflow: isRemote ? "visible" : "hidden",
             marginLeft: "55px",
+            marginTop: "10px",
             opacity: "0.75"
         }
     }, ["Address", addressInput]);
@@ -139,7 +155,9 @@ export const BloombergPreferences = () => {
         value: "local",
         style: {
             marginLeft: "25px",
-            backgroundColor: "var(--button-affirmative-background-color)"
+            marginRight: "5px",
+            backgroundColor: "var(--button-affirmative-background-color)",
+            verticalAlign: "bottom"
         },
         name: "location",
         checked: !isRemote,
@@ -159,7 +177,9 @@ export const BloombergPreferences = () => {
         value: "remote",
         style: {
             marginLeft: "20px",
-            backgroundColor: "var(--button-affirmative-background-color)"
+            marginRight: "5px",
+            backgroundColor: "var(--button-affirmative-background-color)",
+            verticalAlign: "bottom"
         },
         name: "location",
         checked: isRemote,
@@ -203,25 +223,21 @@ export const BloombergPreferences = () => {
         }
     }, " ");
 
-    // the style on this doen't seem to actually apply to position it, not sure why
-    //  as a result, looks too high on the screen compared to its neighbors
     const connectionToggle = React.createElement("input", {
         type: "checkbox",
         style: {
-            marginTop: "10px",
             marginLeft: "10px",
-            paddingTop: "10px",
-            paddingLeft: "10px",
-            top: "10px"
+            verticalAlign: "bottom"
         },
-        checked: (isConnected ? "checked" : null),
+        checked: (isEnabled ? "checked" : null),
         onClick: () => { toggleBloombergConnection(); }
     });
 
     const connection = React.createElement("div", {
         style: {
             opacity: "0.75",
-            marginLeft: "55px"
+            marginLeft: "55px",
+            paddingTop: "10px"
         }
     }, ["Enabled ", connectionToggle, bbgStatusMarker, connectionStatus]);
 

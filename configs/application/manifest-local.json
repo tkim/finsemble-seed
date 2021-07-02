@@ -28,7 +28,7 @@
     "appAssets": [
         {
             "src": "http://localhost:3375/hosted/BloombergBridgeRelease.zip",
-            "version": "1.3.0",
+            "version": "1.2.2",
             "alias": "bloomberg_bridge",
             "target": "BloombergBridge.exe"
         },
@@ -76,7 +76,7 @@
         },
         "custom": {
             "//": "Customer macros definitions must go here (e.g. 'myApplicationRoot' so it can be referenced elsewhere as '$myApplicationRoot'), along with other custom config at this level.",
-            "bloombergBridgeFolder": "C:/Users/admin/Documents/code/finsemble-bloomberg/BloombergBridge"
+            "bloombergBridgeFolder": "C:/Users/Kris/Documents/code/finsemble-bloomberg/BloombergBridge"
         },
         "importConfig": [
             "$applicationRoot/configs/application/config.json"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import BloombergBridgeClient from "../../clients/BloombergBridgeClient/BloombergBridgeClient";
+import {BloombergBridgeClient} from "../../clients/BloombergBridgeClient/BloombergBridgeClient";
 //Setup the BloombergBridgeClient that will be used for all messaging to/from Bloomberg
 let bbg = new BloombergBridgeClient(FSBL.Clients.RouterClient, FSBL.Clients.Logger);
 
