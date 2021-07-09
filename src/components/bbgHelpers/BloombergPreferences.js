@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {BloombergBridgeClient} from "../../clients/BloombergBridgeClient/BloombergBridgeClient";
 
-// cannot get either of these to work, seems to be the nested nature of how prefs work
-//import { Button } from "@finsemble/finsemble-ui/react/components/shared/Button";
-//import "../../../assets/css/theme.css";
-
-
-// TODO: (maybe) - currnetly it is possible to get it into a Bridge up, Bloomberg down status,
-//          in which if you press the Connect button, it will show Disconnect on the button,
-//          but the connection status still (correctly) shows Disconnected.
-//          Eventually (30s) if checks again and fixes the button state make to Connect.
-//      But could make this show "...connecting..." or something in that middle state, or attempting, whatever
-
 // the BloombergBridgeClient that will be used for all messaging to/from Bloomberg
 let bbg = new BloombergBridgeClient(FSBL.Clients.RouterClient, FSBL.Clients.Logger);
 
@@ -22,25 +11,26 @@ export const BloombergPreferences = () => {
     const [isConnected, setIsConnected] = useState(false);
     const [connectionStatus, setConnectionStatus] = useState("Disconnected");
     const [indicatorColor, setIndicatorColor] = useState("red");
+    const [showBloomberg, setShowBloomberg] = useState(false);
 
     useEffect(() => {
         function checkConnection() {
             bbg.checkConnection((err, resp) => {
-                FSBL.Clients.Logger.log("RespBare", resp);
+                FSBL.Clients.Logger.log(`BBG checkConnection init`);
                 if (!err && resp === true) {
+                    FSBL.Clients.Logger.log(`BBG checkConnection A green`);
                     setIsConnected(true);
                     setConnectionStatus("Connected");
                     setIndicatorColor("green");
-                    FSBL.Clients.Logger.log("Resp1", resp);
                 } else if (err) {
+                    FSBL.Clients.Logger.log(`BBG checkConnection B err red`);
                     FSBL.Clients.Logger.error("Error received when checking connection", err);
-                    FSBL.Clients.Logger.log("Resp2", resp);
                     setIsConnected(false);
                     setConnectionStatus("Confirm Bloomberg and Bridge are both running.");
                     setIndicatorColor("red");
                 } else {
                     FSBL.Clients.Logger.debug("Negative response when checking connection: ", resp);
-                    FSBL.Clients.Logger.log("Resp3", resp);
+                    FSBL.Clients.Logger.log(`BBG checkConnection C orange`);
                     setIsConnected(false);
                     setConnectionStatus("Disconnected");
                     setIndicatorColor("orange");
@@ -48,45 +38,70 @@ export const BloombergPreferences = () => {
             });
         };
 
-        FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.remoteAddress', (err, value) => {
-            if (err) {
-                FSBL.Clients.Logger.error(`ERR - Could not get Bloomberg remoteAddress: ${err}`);
-                setBbgRemoteAddress("");
-            } else {
-                setBbgRemoteAddress(value);
-            }
-        });
-        FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.remote', (err, value) => {
-            if (err) {
-                FSBL.Clients.Logger.error(`ERR - Could not get Bloomberg remote state: ${err}`);
-                setIsRemote(false);
-            } else {
-                setIsRemote(value);
-            }
-        });
-        FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.enabled', (err, value) => {
-            if (err) {
-                FSBL.Clients.Logger.error(`ERR - Could not get Bloomberg enabled state: ${err}`);
-                setIsEnabled(false);
-            } else {
-                setIsEnabled(value);
-            }
-        });
         try {
             //do the initial check
+            FSBL.Clients.Logger.log(`BBG initial check`);
             checkConnection();
             //listen for connection events (listen/transmit)
             bbg.setConnectionEventListener(checkConnection);
+            FSBL.Clients.Logger.log(`BBG set event listener`);
             //its also possible to poll for connection status,
             //  worth doing in case the bridge process is killed off and doesn't get a chance to send an update
             setInterval(checkConnection, 30000);
+            FSBL.Clients.Logger.log(`BBG setInterval`);
         } catch (e) {
             FSBL.Clients.Logger.error(`error in bbg prefs: ${e}`);
         }
+
+        let statusHandler = (err, status) => {
+            if (err) {
+                FSBL.Clients.Logger.error("Error received when checking bloomberg bridge config", err);
+            } else {
+                let bbgStatus = typeof status.value == "undefined" ? status : status.value;
+                setShowBloomberg(bbgStatus);
+            }
+        };
+        FSBL.Clients.ConfigClient.getValue({ field: "finsemble.custom.bloomberg.showStatus" }, statusHandler);
+        FSBL.Clients.ConfigClient.addListener({ field: "finsemble.custom.bloomberg.showStatus" }, statusHandler);
+
+        let remoteAddressHandler = (err, address) => {
+            if (err) {
+                FSBL.Clients.Logger.error("Error received when checking bloomberg bridge config", err);
+            } else {
+                let remoteAddress = typeof address.value == "undefined" ? address : address.value;
+                setBbgRemoteAddress(remoteAddress);
+            }
+        };
+        FSBL.Clients.ConfigClient.getValue({ field: "finsemble.custom.bloomberg.remoteAddress" }, remoteAddressHandler);
+        FSBL.Clients.ConfigClient.addListener({ field: "finsemble.custom.bloomberg.remoteAddress" }, remoteAddressHandler);
+
+        let remoteHandler = (err, remote) => {
+            if (err) {
+                FSBL.Clients.Logger.error("Error received when checking bloomberg bridge config", err);
+            } else {
+                let bbgRemote = typeof remote.value == "undefined" ? remote : remote.value;
+                setIsRemote(bbgRemote);
+            }
+        };
+        FSBL.Clients.ConfigClient.getValue({ field: "finsemble.custom.bloomberg.remote" }, remoteHandler);
+        FSBL.Clients.ConfigClient.addListener({ field: "finsemble.custom.bloomberg.remote" }, remoteHandler);
+
+        let enabledHandler = (err, enabled) => {
+            checkConnection();
+            if (err) {
+                FSBL.Clients.Logger.error("Error received when checking bloomberg bridge config", err);
+            } else {
+                let bbgEnabled = typeof enabled.value == "undefined" ? enabled : enabled.value;
+                setIsEnabled(bbgEnabled);
+            }
+        };
+        FSBL.Clients.ConfigClient.getValue({ field: "finsemble.custom.bloomberg.enabled" }, enabledHandler);
+        FSBL.Clients.ConfigClient.addListener({ field: "finsemble.custom.bloomberg.enabled" }, enabledHandler);
+
     }, []);
 
     function toggleBloombergConnection() {
-        let _enabled = !isEnabled;
+        const _enabled = !isEnabled;
         setIsEnabled(_enabled);
         FSBL.Clients.ConfigClient.setPreference({
             field: "finsemble.custom.bloomberg.enabled",
@@ -104,6 +119,17 @@ export const BloombergPreferences = () => {
         });
     }
 
+    function toggleShowBloomberg() {
+        const _enabled = !showBloomberg;
+        setShowBloomberg(_enabled);
+        FSBL.Clients.ConfigClient.setPreference({
+            field: "finsemble.custom.bloomberg.showStatus",
+            value: _enabled
+        }, (err, response) => {
+            //preference has been set
+        });
+    }
+
     function updateAddress() {
         setBbgRemoteAddress(document.getElementById('address').value);
             FSBL.Clients.ConfigClient.setPreference({
@@ -114,13 +140,6 @@ export const BloombergPreferences = () => {
             });
     }
 
-    // if only called onChange, it loses the last char (not sure why)
-    // if only called onBlur, there are spots where it doesn't get saved
-    //
-    // if just using the boolean in the return, this pops in and out cleanly on use
-    //  and on first load when it opens
-    // but if using the slide in and out css, it works fine on use, but also does it on
-    //  first load, which may look odd to users?
     const addressInput = React.createElement("input", {
         id: "address",
         type: "text",
@@ -224,6 +243,7 @@ export const BloombergPreferences = () => {
     }, " ");
 
     const connectionToggle = React.createElement("input", {
+        name: "connection",
         type: "checkbox",
         style: {
             marginLeft: "10px",
@@ -251,8 +271,31 @@ export const BloombergPreferences = () => {
         }
     }, "");
 
+    const showStatusToggle = React.createElement("input", {
+        name: "showStatus",
+        type: "checkbox",
+        style: {
+            marginLeft: "10px",
+            verticalAlign: "bottom"
+        },
+        checked: (showBloomberg ? "checked" : null),
+        onClick: () => { toggleShowBloomberg(); }
+    });
+
+    const showStatus = React.createElement("div", {
+        style: {
+            opacity: "0.75",
+            marginLeft: "55px",
+            paddingTop: "10px"
+        }
+    }, ["Show Status in Toolbar ", showStatusToggle]);
+
+    const helper = React.createElement("div", {}, `isRemote: ${isRemote}, isConnected: ${isConnected}, isEnabled: ${isEnabled}`)
+
     return <>
         <div>
+            {helper}
+            {showStatus}
             {connection}
             {customLine}
         </div>
