@@ -1,0 +1,4 @@
+/* Hide focus indicator from everything by default */
+*:focus {
+	outline: none;
+}

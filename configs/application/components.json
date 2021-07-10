@@ -161,7 +161,7 @@
 		},
 		"Authentication": {
 			"window": {
-				"url": "$applicationRoot/components/authentication/Authentication.html",
+				"url": "https://finsemble.s3.amazonaws.com/authentication/Authentication.html",
 				"top": "center",
 				"left": "center",
 				"width": 358,
