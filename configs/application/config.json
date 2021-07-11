@@ -5,7 +5,9 @@
 	"authentication": {
 		"startup": {
 			"adapter": "PASSWORD",
-			"component": "Authentication"
+			"component": "Authentication",
+			"client_id": "Az8HDa8YLNw0sKApZsPwsonOTMRRyXnl",
+			"redirect_uri": "https://finsemble.s3.amazonaws.com/authentication/Authentication.html"
 		}
 	},
 	"servicesConfig": {

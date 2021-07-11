@@ -44,27 +44,25 @@ function saveStateAndVerifier(state: string, codeVerifier: string) {
 /* end helper functions */
 
 
+/**
+ * Logging helpers
+ */
+const finsembleLogger = FSBL.Clients.Logger
 
+const log = (...item: any) => {
+  finsembleLogger.log(item)
+  console.log(item)
+}
 
+const errorLog = (...error: any) => {
+  finsembleLogger.error(error)
+  console.error(error)
+}
 
-const currentLocation = new URL(window.location.href);
-export const authorizationCode = currentLocation.searchParams.get("code");
-
-
-/*
-=====
-Change the variables below to match your URLS & credentials
-======
-*/
-const clientID = "Az8HDa8YLNw0sKApZsPwsonOTMRRyXnl"
-
-// using window.location.origin means that we do not have to change the origin url per environment
-const redirectURL = `${window.location.origin}/authentication/Authentication.html`
-
-const authorizationEndpoint = "https://dev-xo6vgelc.eu.auth0.com/authorize"
-const tokenEndpoint = "https://dev-xo6vgelc.eu.auth0.com/auth/token"
-const userInfoEndpoint = "https://dev-xo6vgelc.eu.auth0.com/userinfo"
-
+const debugLog = (...item: any) => {
+  finsembleLogger.debug(item)
+  console.debug(item)
+}
 
 /**
  * we generate the URL and navigate the page to the authenication endpoint.
@@ -84,36 +82,75 @@ const userInfoEndpoint = "https://dev-xo6vgelc.eu.auth0.com/userinfo"
 export async function authorize({
   scopes = "openid email",
   state = "SU8nskju26XowSCg3bx2LeZq7MwKcwnQ7h6vQY8twd9QJECHRKs14OwXPdpNBI58",
-  redirectURI: redirect_uri,
+  redirectURI,
   endpoint,
   clientID
 }: {
-  scopes: string,
+    scopes?: string,
   state?: string,
-  redirectURI: string,
+    redirectURI?: string,
   endpoint: string,
-  clientID: string
+    clientID?: string
 }) {
 
-  const codeVerifier = createCodeVerifier()
-
-  // save the code verifier in the window session state to save for later
-  saveStateAndVerifier(state, codeVerifier)
-
-  const codeChallenge = await digestHex(codeVerifier);
+  try {
 
 
-  const authURL = `${endpoint}?
-      scope=${scopes}&
-      response_type=code&
-      state=${state}&
-      client_id=${clientID}&
-      redirect_uri=${redirect_uri}&
-      code_challenge=${codeChallenge}&
-      code_challenge_method=S256`
+    const { err, data: authConfigData } = await FSBL.Clients.ConfigClient.getValue({ field: "finsemble.authentication.startup" });
 
-  // navigate to the auth endpoint with the above params
-  window.location.href = authURL
+    if (err) throw new Error("cannot access the config client in authentication component");
+
+    // get client_id and redirect_uri from either the params or from the config, if we can't find either then throw an error
+
+    const client_id = clientID ?? authConfigData?.client_id
+    const redirect_uri = redirectURI ?? authConfigData?.redirect_uri
+
+    if (!redirect_uri || !client_id) return new Error("redirect_uri or client_id is missing or empty")
+
+    log(client_id, redirect_uri)
+
+    const codeVerifier = createCodeVerifier()
+
+    // save the code verifier in the window session state to save for later
+    saveStateAndVerifier(state, codeVerifier)
+
+    const codeChallenge = await digestHex(codeVerifier);
+
+    const url = new URL(endpoint);
+    const { searchParams } = url;
+
+    const urlParams = {
+      scope: scopes,
+      response_type: "code",
+      state,
+      client_id,
+      redirect_uri,
+      code_challenge: codeChallenge,
+      code_challenge_method: "S256"
+    }
+
+
+    Object.entries(urlParams).forEach(([key, value]: [string, any]) => {
+      console.log(key, value)
+      searchParams.set(key, value)
+    })
+
+    url.search = searchParams.toString();
+
+    log(url)
+
+    debugLog("PKCE auth phase 1")
+
+
+    // navigate to the auth endpoint with the above params
+    window.location.href = url.toString()
+
+  } catch (err) {
+    errorLog(err)
+    return err
+  }
+
+
 }
 
 
@@ -135,44 +172,75 @@ export async function authorize({
  * ```
  */
 export async function getToken({
-  clientID: client_id,
-  redirectURI: redirect_uri,
+  clientID,
+  redirectURI,
   endpoint,
 }: {
-  clientID: string,
-  redirectURI: string,
+    clientID?: string,
+    redirectURI?: string,
   endpoint: string,
 }) {
 
-  const authorizationCode = currentLocation.searchParams.get("code")
-  const initialCodeVerifier = window.sessionStorage.getItem("code_verifier");
+  try {
+    const currentLocation = new URL(window.location.href);
+    const authorizationCode = currentLocation.searchParams.get("code")
+    const initialCodeVerifier = window.sessionStorage.getItem("code_verifier");
+
+    const { err, data: authConfigData } = await FSBL.Clients.ConfigClient.getValue({ field: "finsemble.authentication.startup" });
+
+    if (err) throw new Error("cannot access the config client in authentication component");
+
+    // get client_id and redirect_uri from either the params or from the config, if we can't find either then throw an error
+
+    const client_id = clientID ?? authConfigData?.client_id
+    const redirect_uri = redirectURI ?? authConfigData?.redirect_uri
+
+    if (!redirect_uri || !client_id) return new Error("redirect_uri or client_id is missing or empty")
 
 
-  const data = {
-    grant_type: "authorization_code",
-    client_id,
-    code_verifier: initialCodeVerifier,
-    code: authorizationCode,
-    redirect_uri,
+    const data = {
+      grant_type: "authorization_code",
+      client_id,
+      code_verifier: initialCodeVerifier,
+      code: authorizationCode,
+      redirect_uri,
+    }
+
+    log(data)
+
+    debugLog("PKCE auth phase 2")
+
+    const result = await fetch(endpoint,
+      {
+        mode: "cors",
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(JSON.stringify(data))
+      })
+    // const result = await fetch(endpoint,
+    //   {
+    //     mode: "cors",
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(data)
+    //   })
+
+    //  if the token returns different data please change this type to reflect
+    type token = { access_token: string, id_token: string, scope: string, expires_in: number, token_type: string }
+
+    const token: token = await result.json()
+
+    return token
+
+  } catch (err) {
+    errorLog(err);
+    return err
   }
 
-
-  const result = await fetch(`${endpoint}`,
-    {
-      mode: "cors",
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-
-  //  if the token returns different data please change this type to reflect
-  type token = { access_token: string, id_token: string, scope: string, expires_in: number, token_type: string }
-
-  const token: token = await result.json()
-
-  return token
 }
 
 
@@ -191,12 +259,14 @@ export async function getToken({
 export async function getUserInfo(
   {
     accessToken,
-    endoint
+    endpoint
   }: {
     accessToken: string,
-    endoint: string
+      endpoint: string
   }) {
-  const getUserInfo = await fetch(`${endoint}`, {
+  debugLog("PKCE auth phase 3")
+
+  const getUserInfo = await fetch(endpoint, {
     "method": "GET",
     "headers": {
       "Authorization": `Bearer ${accessToken}`,

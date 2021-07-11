@@ -13,7 +13,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { FinsembleProvider } from "@finsemble/finsemble-ui/react/components/FinsembleProvider";
 import { useAuth, useAuthSimulator } from "@finsemble/finsemble-ui/react/hooks";
-import { authorizationCode, authorize, getToken, getUserInfo } from './oAuthPKCE'
+import { authorize, getToken, getUserInfo } from './oAuthPKCE'
 import "@finsemble/finsemble-ui/react/assets/css/finsemble.css";
 import "@finsemble/finsemble-ui/react/assets/css/dialogs.css";
 import "@finsemble/finsemble-ui/react/assets/css/authentication.css";
@@ -38,150 +38,60 @@ export const Authentication = () => {
 	useEffect(() => FSBL.Clients.WindowClient.bringWindowToFront(), []);
 
 	const { quitApplication, publishAuthorization } = useAuth();
-	const [authURL, setAuthURL] = useState('')
+
+
+
 
 
 	useEffect(() => {
 
 
 		const authenticate = async () => {
+			/*
+=====
+Change the variables below to match your URLS & credentials for oAuthPKCE
+======
+*/
 
+	// using window.location.origin means that we do not have to change the origin url per environment
+
+	// const redirectURL = `${window.location.origin}/authentication/Authentication.html`
+
+			const authorizationEndpoint = "https://dev-xo6vgelc.eu.auth0.com/authorize"
+			const tokenEndpoint = "https://dev-xo6vgelc.eu.auth0.com/auth/token"
+			const userInfoEndpoint = "https://dev-xo6vgelc.eu.auth0.com/userinfo"
 			try {
-
-				/* Helper functions */
-
-				async function digestHex(message: string) {
-					// encode as (utf-8) Uint8Array
-					const msgUint8 = new TextEncoder().encode(message);
-					// create the hash buffer array
-					const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
-					// make uint array for the buffer
-					let uintArr = new Uint8Array(hashBuffer);
-					// create new uint binary string by destructuring the array
-					let uintString = String.fromCharCode(...uintArr)
-					// convert binary string to Base64
-					const binaryString = window.btoa(uintString)
-					// the string can only contain unreserved characters ( [A-Z] / [a-z] / [0–9] / “-” / “.” / “_” / “~" ) with length between 43 and 128 characters
-					return binaryString
-						.replace(/\+/g, "-")
-						.replace(/\//g, "_")
-						.replace(/=/g, "");
-				}
-
-				function uuid() {
-					// @ts-ignore
-					return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, function (c: number) {
-						return (c ^ window.crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-					})
-				}
-
-				const createCodeVerifier = () => window.btoa(uuid())
-
-				function saveStateAndVerifier(state: string, codeVerifier: string) {
-					/*
-					Don't overwrite our saved state if location has the state parameter.
-					This means we got authorization from the AS, and we need to compare them later.
-				 */
-					if (window.location.search.includes("state")) return;
-					const storage = window.sessionStorage;
-					storage.clear();
-					storage.setItem("state", state);
-					storage.setItem("code_verifier", codeVerifier);
-				}
-
-				/* main code */
 
 				const currentLocation = new URL(window.location.href);
 				const authorizationCode = currentLocation.searchParams.get("code");
-				const CLIENT_ID = "Az8HDa8YLNw0sKApZsPwsonOTMRRyXnl"
-				const REDIRECT_URL = `${window.location.origin}/authentication/Authentication.html`
-				const ENDPOINT = "https://dev-xo6vgelc.eu.auth0.com"
 
-				// this should be a randomly generated string
-				let CODE_VERIFIER
-
+				// check for the authentication code in the search params,
+				// if it doesn't exist then we need to do the authorization step else skip it and continue to get the token
 				if (!authorizationCode) {
 
-					const state = "SU8nskju26XowSCg3bx2LeZq7MwKcwnQ7h6vQY8twd9QJECHRKs14OwXPdpNBI58"
-
-					CODE_VERIFIER = createCodeVerifier()
-					saveStateAndVerifier(state, CODE_VERIFIER)
-
-					log(CODE_VERIFIER)
-
-					const codeChallenge = await digestHex(CODE_VERIFIER);
-					const scopes = "openid email"
-
-
-					const authURL = `${ENDPOINT}/authorize?
-					scope=${scopes}&
-					response_type=code&
-					state=${state}&
-					client_id=${CLIENT_ID}&
-					redirect_uri=${REDIRECT_URL}&
-					code_challenge=${codeChallenge}&
-					code_challenge_method=S256`
-
-					setAuthURL(authURL)
-
-					window.location.href = authURL
-
+					authorize({
+						endpoint: authorizationEndpoint
+					})
 
 				} else {
 
-					const AUTHORIZATION_CODE = currentLocation.searchParams.get("code")
-					const initialCodeVerifier = window.sessionStorage.getItem("code_verifier");
-
-					log(initialCodeVerifier)
-					log(AUTHORIZATION_CODE)
-
-
-					const data = {
-						grant_type: "authorization_code",
-						client_id: CLIENT_ID,
-						code_verifier: initialCodeVerifier,
-						code: AUTHORIZATION_CODE,
-						redirect_uri: REDIRECT_URL,
-					}
-
-
-					const result = await fetch(`${ENDPOINT}/oauth/token`,
-						{
-							mode: "cors",
-							method: 'POST',
-							headers: {
-								'Content-type': 'application/json'
-							},
-							body: JSON.stringify(data)
-						})
-
-					type token = { access_token: string, id_token: string, scope: string, expires_in: number, token_type: string }
-
-
-					const token: token = await result.json()
-
-					log(token)
-
-
-					const getUserInfo = await fetch(`${ENDPOINT}/userinfo`, {
-						"method": "GET",
-						"headers": {
-							"Authorization": `Bearer ${token.access_token}`,
-							"Content-Type": "application/json"
-						}
+					const token = await getToken({
+						endpoint: tokenEndpoint
 					})
 
-					const userInfo = await getUserInfo.json()
+					const accessToken = token.access_token
+
+					const userInfo = await getUserInfo({ accessToken, endpoint: userInfoEndpoint })
 
 					const username = userInfo.email
 
-						/**
+				/**
 				 * This is the most important step. Once your back end server has authenticated the user
 				 * call publishAuthorization() from the useAuth() hook. The first parameter (username) is
 				 * required. The second parameter (credentials) is option. Credentials can contain anything
 				 * that is useful for session management, such as user ID, tokens, etc.
 				 */
-					publishAuthorization(username, { token, CLIENT_ID });
+					publishAuthorization(username, { token });
 
 				}
 			} catch (err) {
@@ -207,7 +117,7 @@ export const Authentication = () => {
 				<div className="fsbl-close">
 					<i className="ff-close" onClick={quitApplication}></i>
 				</div>
-				{authURL.length && <a href={authURL}>Login</a>}
+				<h1>Authenticating</h1>
 			</div>
 
 
