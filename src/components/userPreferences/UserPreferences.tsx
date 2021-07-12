@@ -36,7 +36,7 @@ const sections = {
 	Workspaces: Workspaces,
 	Dashbar: DashbarEditor,
 	Notifications: Notifications,
-    "Bloomberg Terminal Connect": BloombergPreferences,
+    "Bloomberg Terminal Connect": BloombergPreferences
 };
 
 ReactDOM.render(
