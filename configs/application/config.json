@@ -6,8 +6,11 @@
 		"startup": {
 			"adapter": "PASSWORD",
 			"component": "Authentication",
-			"client_id": "Az8HDa8YLNw0sKApZsPwsonOTMRRyXnl",
-			"redirect_uri": "https://finsemble.s3.amazonaws.com/authentication/Authentication.html"
+			"client_id": "3d2f0e64-5744-417e-beb7-e97436431045",
+			"redirect_uri": "https://finsemble.s3.amazonaws.com/authentication/Authentication.html",
+			"authorization_url": "",
+			"token_url": "",
+			"user_info_url": ""
 		}
 	},
 	"servicesConfig": {

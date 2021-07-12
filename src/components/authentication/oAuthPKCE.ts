@@ -27,7 +27,7 @@ function uuid(): string {
   })
 }
 
-const createCodeVerifier = () => window.btoa(uuid())
+const randomBase64Generator = () => window.btoa(uuid())
 
 function saveStateAndVerifier(state: string, codeVerifier: string) {
   /*
@@ -39,6 +39,18 @@ function saveStateAndVerifier(state: string, codeVerifier: string) {
   storage.clear();
   storage.setItem("state", state);
   storage.setItem("code_verifier", codeVerifier);
+}
+
+// check for missing values in an object
+const hasMissingValues = (obj: object) => {
+  const res = Object.entries(obj).filter(([, value]) => !value)
+
+  if (res.length) {
+    return res.map(([keys]) => keys)
+  }
+  else {
+    return false
+  }
 }
 
 /* end helper functions */
@@ -71,7 +83,7 @@ const debugLog = (...item: any) => {
  * @example
  * ```javascript
  * authorize({
-      scopes = "openid email",
+      scope = "openid email",
       state = "SU8nskju26XowSCg3bx2LeZq7MwKcwnQ7h6vQY8twd9QJECHRKs14OwXPdpNBI58",
       redirect_uri = "https://dev-xo6vgelc.eu.auth0.com/authorize",
       endpoint = "https://dev-xo6vgelc.eu.auth0.com" ,
@@ -79,18 +91,12 @@ const debugLog = (...item: any) => {
 })
  * ```
  */
-export async function authorize({
-  scopes = "openid email",
-  state = "SU8nskju26XowSCg3bx2LeZq7MwKcwnQ7h6vQY8twd9QJECHRKs14OwXPdpNBI58",
-  redirectURI,
-  endpoint,
-  clientID
-}: {
-    scopes?: string,
+export async function authorize(params?: {
+  scope?: string,
   state?: string,
-    redirectURI?: string,
-  endpoint: string,
-    clientID?: string
+  redirectURI?: string,
+  endpoint?: string,
+  clientID?: string
 }) {
 
   try {
@@ -100,47 +106,45 @@ export async function authorize({
 
     if (err) throw new Error("cannot access the config client in authentication component");
 
-    // get client_id and redirect_uri from either the params or from the config, if we can't find either then throw an error
 
-    const client_id = clientID ?? authConfigData?.client_id
-    const redirect_uri = redirectURI ?? authConfigData?.redirect_uri
 
-    if (!redirect_uri || !client_id) return new Error("redirect_uri or client_id is missing or empty")
+    const endpoint = params?.endpoint ?? authConfigData?.endpoint
 
-    log(client_id, redirect_uri)
+    if (!endpoint) { return new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://AUTH_PROVIDER.com/authorize`) }
 
-    const codeVerifier = createCodeVerifier()
+
+
+    const codeVerifier = randomBase64Generator()
+    const codeChallenge = await digestHex(codeVerifier);
+    const state = randomBase64Generator()
 
     // save the code verifier in the window session state to save for later
     saveStateAndVerifier(state, codeVerifier)
 
-    const codeChallenge = await digestHex(codeVerifier);
 
     const url = new URL(endpoint);
     const { searchParams } = url;
 
     const urlParams = {
-      scope: scopes,
+      scope: params?.scope ?? authConfigData?.scope ?? "openid",
       response_type: "code",
       state,
-      client_id,
-      redirect_uri,
+      client_id: params?.clientID ?? authConfigData?.client_id,
+      redirect_uri: params?.redirectURI ?? authConfigData?.redirect_uri,
       code_challenge: codeChallenge,
       code_challenge_method: "S256"
     }
 
+    // if we are missing values for the data then we want to log and error
+    if (hasMissingValues(urlParams)) { return new Error(`Data provided to getToken (phase 2) is missing values: ${hasMissingValues(urlParams)} `) }
 
-    Object.entries(urlParams).forEach(([key, value]: [string, any]) => {
-      console.log(key, value)
-      searchParams.set(key, value)
-    })
+    debugLog("PKCE auth phase 1 - Redirecting to login")
+
+
+    // set the search params for the url using the urlParams object
+    Object.entries(urlParams).forEach(([key, value]: [string, any]) => searchParams.set(key, value))
 
     url.search = searchParams.toString();
-
-    log(url)
-
-    debugLog("PKCE auth phase 1")
-
 
     // navigate to the auth endpoint with the above params
     window.location.href = url.toString()
@@ -153,8 +157,6 @@ export async function authorize({
 
 }
 
-
-// /oauth/token
 
 /**
  * Get the token after authorization - the main difference between authorization and token is the endpoint URL.
@@ -171,56 +173,43 @@ export async function authorize({
   const accessToken = token.access_token;
  * ```
  */
-export async function getToken({
-  clientID,
-  redirectURI,
-  endpoint,
-}: {
-    clientID?: string,
-    redirectURI?: string,
-  endpoint: string,
+export async function getToken(params?: {
+  clientID?: string,
+  redirectURI?: string,
+  endpoint?: string,
 }) {
 
   try {
     const currentLocation = new URL(window.location.href);
-    const authorizationCode = currentLocation.searchParams.get("code")
-    const stateFromLocation = currentLocation.searchParams.get("state");
-    const initialCodeVerifier = window.sessionStorage.getItem("code_verifier");
+    const authorizationCode = currentLocation.searchParams.get("code") ?? ""
+    const stateFromLocation = currentLocation.searchParams.get("state") ?? ""
+    const initialCodeVerifier = window.sessionStorage.getItem("code_verifier") ?? "";
 
     const { err, data: authConfigData } = await FSBL.Clients.ConfigClient.getValue({ field: "finsemble.authentication.startup" });
 
     if (err) throw new Error("cannot access the config client in authentication component");
 
-    // get client_id and redirect_uri from either the params or from the config, if we can't find either then throw an error
+    const endpoint = params?.endpoint ?? authConfigData?.endpoint
 
-    const client_id = clientID ?? authConfigData?.client_id
-    const redirect_uri = redirectURI ?? authConfigData?.redirect_uri
-
-    if (!redirect_uri || !client_id || !initialCodeVerifier || !authorizationCode || !stateFromLocation) return new Error("one of the data sending valies is missing or empty")
-    // TODO:make better error message
+    if (!endpoint) { return new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://localhost:3375/token`) }
 
 
-    const data: {
-      grant_type: string,
-      client_id: string,
-      code_verifier: string,
-      code: string,
-      redirect_uri: string,
-      state: string
-    } = {
+    const formData = {
       grant_type: "authorization_code",
-      client_id,
+      client_id: params?.clientID ?? authConfigData?.client_id,
       code_verifier: initialCodeVerifier,
       code: authorizationCode,
-      redirect_uri,
+      redirect_uri: params?.redirectURI ?? authConfigData?.redirect_uri,
       state: stateFromLocation
     }
 
-    log(data)
 
-    debugLog("PKCE auth phase 2")
+    // if we are missing values for the data then we want to log and error
+    if (hasMissingValues(formData)) { return new Error(`Data provided to getToken (phase 2) is missing values: ${hasMissingValues(formData)} `) }
 
-    const body = new URLSearchParams(data).toString()
+    debugLog("PKCE auth phase 2 - Access Token")
+
+    const body = new URLSearchParams(formData).toString()
 
     const result = await fetch(endpoint,
       {
@@ -232,17 +221,6 @@ export async function getToken({
         },
         body
       })
-    // const result = await fetch(endpoint,
-    //   {
-    //     mode: "cors",
-    //     cache: "no-cache",
-    //     credentials: "same-origin",
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify(data)
-    //   })
 
     //  if the token returns different data please change this type to reflect
     type token = { access_token: string, id_token: string, scope: string, expires_in: number, token_type: string }
@@ -274,12 +252,23 @@ export async function getToken({
 export async function getUserInfo(
   {
     accessToken,
-    endpoint
+    endpoint: endpointURL
   }: {
     accessToken: string,
-      endpoint: string
+      endpoint?: string
   }) {
-  debugLog("PKCE auth phase 3")
+
+  const { err, data: authConfigData } = await FSBL.Clients.ConfigClient.getValue({ field: "finsemble.authentication.startup" });
+
+  if (err) throw new Error("cannot access the config client in authentication component");
+
+
+  const endpoint = endpointURL ?? authConfigData?.endpoint
+
+  if (!endpoint) { return new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://AUTH_PROVIDER.com/userInfo`) }
+
+
+  debugLog("PKCE auth phase 3 - Get User Info")
 
   const getUserInfo = await fetch(endpoint, {
     "method": "GET",

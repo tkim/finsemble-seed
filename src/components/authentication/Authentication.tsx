@@ -53,13 +53,10 @@ Change the variables below to match your URLS & credentials for oAuthPKCE
 ======
 */
 
-	// using window.location.origin means that we do not have to change the origin url per environment
+			// const authorizationEndpoint = "https://auth.pingone.eu/b801265c-fff6-499b-99a1-b3fd0b231025/as/authorize"
+			// const tokenEndpoint = "https://auth.pingone.eu/b801265c-fff6-499b-99a1-b3fd0b231025/as/token"
+			// const userInfoEndpoint = "https://auth.pingone.eu/b801265c-fff6-499b-99a1-b3fd0b231025/as/userinfo"
 
-	// const redirectURL = `${window.location.origin}/authentication/Authentication.html`
-
-			const authorizationEndpoint = "https://dev-xo6vgelc.eu.auth0.com/authorize"
-			const tokenEndpoint = "https://dev-xo6vgelc.eu.auth0.com/auth/token"
-			const userInfoEndpoint = "https://dev-xo6vgelc.eu.auth0.com/userinfo"
 			try {
 
 				const currentLocation = new URL(window.location.href);
@@ -69,29 +66,25 @@ Change the variables below to match your URLS & credentials for oAuthPKCE
 				// if it doesn't exist then we need to do the authorization step else skip it and continue to get the token
 				if (!authorizationCode) {
 
-					authorize({
-						endpoint: authorizationEndpoint
-					})
+					authorize()
 
 				} else {
 
-					const token = await getToken({
-						endpoint: tokenEndpoint
-					})
+					const token = await getToken()
 
 					const accessToken = token.access_token
 
 					const userInfo = await getUserInfo({ accessToken, endpoint: userInfoEndpoint })
 
-					const username = userInfo.email
+					const username = userInfo.sub
 
-				/**
-				 * This is the most important step. Once your back end server has authenticated the user
-				 * call publishAuthorization() from the useAuth() hook. The first parameter (username) is
-				 * required. The second parameter (credentials) is option. Credentials can contain anything
-				 * that is useful for session management, such as user ID, tokens, etc.
-				 */
-					publishAuthorization(username, { token });
+					/**
+					 * This is the most important step. Once your back end server has authenticated the user
+					 * call publishAuthorization() from the useAuth() hook. The first parameter (username) is
+					 * required. The second parameter (credentials) is option. Credentials can contain anything
+					 * that is useful for session management, such as user ID, tokens, etc.
+					 */
+					publishAuthorization(username, { token, userInfo });
 
 				}
 			} catch (err) {
