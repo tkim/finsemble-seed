@@ -4,6 +4,8 @@ import {BloombergBridgeClient} from "../../clients/BloombergBridgeClient/Bloombe
 // the BloombergBridgeClient that will be used for all messaging to/from Bloomberg
 let bbg = new BloombergBridgeClient(FSBL.Clients.RouterClient, FSBL.Clients.Logger);
 
+// TODO: could refactor this (and the toolbar status code) to be JSX Elements instead of createElement
+
 export const BloombergPreferences = () => {
     const [bbgRemoteAddress, setBbgRemoteAddress] = useState("");
     const [isRemote, setIsRemote] = useState(false);
@@ -16,21 +18,17 @@ export const BloombergPreferences = () => {
     useEffect(() => {
         function checkConnection() {
             bbg.checkConnection((err, resp) => {
-                FSBL.Clients.Logger.log(`BBG checkConnection init`);
                 if (!err && resp === true) {
-                    FSBL.Clients.Logger.log(`BBG checkConnection A green`);
                     setIsConnected(true);
                     setConnectionStatus("Connected");
                     setIndicatorColor("green");
                 } else if (err) {
-                    FSBL.Clients.Logger.log(`BBG checkConnection B err red`);
                     FSBL.Clients.Logger.error("Error received when checking connection", err);
                     setIsConnected(false);
                     setConnectionStatus("Confirm Bloomberg and Bridge are both running.");
                     setIndicatorColor("red");
                 } else {
                     FSBL.Clients.Logger.debug("Negative response when checking connection: ", resp);
-                    FSBL.Clients.Logger.log(`BBG checkConnection C orange`);
                     setIsConnected(false);
                     setConnectionStatus("Disconnected");
                     setIndicatorColor("orange");
@@ -40,15 +38,12 @@ export const BloombergPreferences = () => {
 
         try {
             //do the initial check
-            FSBL.Clients.Logger.log(`BBG initial check`);
             checkConnection();
             //listen for connection events (listen/transmit)
             bbg.setConnectionEventListener(checkConnection);
-            FSBL.Clients.Logger.log(`BBG set event listener`);
-            //its also possible to poll for connection status,
+            // its also possible to poll for connection status,
             //  worth doing in case the bridge process is killed off and doesn't get a chance to send an update
             setInterval(checkConnection, 30000);
-            FSBL.Clients.Logger.log(`BBG setInterval`);
         } catch (e) {
             FSBL.Clients.Logger.error(`error in bbg prefs: ${e}`);
         }
@@ -57,7 +52,7 @@ export const BloombergPreferences = () => {
             if (err) {
                 FSBL.Clients.Logger.error("Error received when checking bloomberg bridge config", err);
             } else {
-                let bbgStatus = typeof status.value == "undefined" ? status : status.value;
+                let bbgStatus = (typeof status.value == "undefined" || status.value) ? true : false;
                 setShowBloomberg(bbgStatus);
             }
         };
@@ -290,11 +285,8 @@ export const BloombergPreferences = () => {
         }
     }, ["Show Status in Toolbar ", showStatusToggle]);
 
-    const helper = React.createElement("div", {}, `isRemote: ${isRemote}, isConnected: ${isConnected}, isEnabled: ${isEnabled}`)
-
     return <>
         <div>
-            {helper}
             {showStatus}
             {connection}
             {customLine}
