@@ -104,13 +104,13 @@ export async function authorize(params?: {
 
     const { err, data: authConfigData } = await FSBL.Clients.ConfigClient.getValue({ field: "finsemble.authentication.startup" });
 
-    if (err) throw new Error("cannot access the config client in authentication component");
+    if (err) { throw new Error("cannot access the config client in authentication component"); }
 
 
 
     const endpoint = params?.endpoint ?? authConfigData?.endpoint
 
-    if (!endpoint) { return new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://AUTH_PROVIDER.com/authorize`) }
+    if (!endpoint) { throw new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://AUTH_PROVIDER.com/authorize`) }
 
 
 
@@ -136,7 +136,7 @@ export async function authorize(params?: {
     }
 
     // if we are missing values for the data then we want to log and error
-    if (hasMissingValues(urlParams)) { return new Error(`Data provided to getToken (phase 2) is missing values: ${hasMissingValues(urlParams)} `) }
+    if (hasMissingValues(urlParams)) { throw new Error(`Data provided to getToken (phase 2) is missing values: ${hasMissingValues(urlParams)} `) }
 
     debugLog("PKCE auth phase 1 - Redirecting to login")
 
@@ -185,13 +185,17 @@ export async function getToken(params?: {
     const stateFromLocation = currentLocation.searchParams.get("state") ?? ""
     const initialCodeVerifier = window.sessionStorage.getItem("code_verifier") ?? "";
 
+    if (window.sessionStorage.getItem("state") !== stateFromLocation) {
+      throw Error("Probable session hijacking attack!");
+    }
+
     const { err, data: authConfigData } = await FSBL.Clients.ConfigClient.getValue({ field: "finsemble.authentication.startup" });
 
     if (err) throw new Error("cannot access the config client in authentication component");
 
     const endpoint = params?.endpoint ?? authConfigData?.endpoint
 
-    if (!endpoint) { return new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://localhost:3375/token`) }
+    if (!endpoint) { throw new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://localhost:3375/token`) }
 
 
     const formData = {
@@ -205,7 +209,7 @@ export async function getToken(params?: {
 
 
     // if we are missing values for the data then we want to log and error
-    if (hasMissingValues(formData)) { return new Error(`Data provided to getToken (phase 2) is missing values: ${hasMissingValues(formData)} `) }
+    if (hasMissingValues(formData)) { throw new Error(`Data provided to getToken (phase 2) is missing values: ${hasMissingValues(formData)} `) }
 
     debugLog("PKCE auth phase 2 - Access Token")
 
@@ -260,12 +264,12 @@ export async function getUserInfo(
 
   const { err, data: authConfigData } = await FSBL.Clients.ConfigClient.getValue({ field: "finsemble.authentication.startup" });
 
-  if (err) throw new Error("cannot access the config client in authentication component");
+  if (err) { throw new Error("cannot access the config client in authentication component"); }
 
 
   const endpoint = endpointURL ?? authConfigData?.endpoint
 
-  if (!endpoint) { return new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://AUTH_PROVIDER.com/userInfo`) }
+  if (!endpoint) { throw new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://AUTH_PROVIDER.com/userInfo`) }
 
 
   debugLog("PKCE auth phase 3 - Get User Info")

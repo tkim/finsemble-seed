@@ -47,20 +47,13 @@ export const Authentication = () => {
 
 
 		const authenticate = async () => {
-			/*
-=====
-Change the variables below to match your URLS & credentials for oAuthPKCE
-======
-*/
-
-			// const authorizationEndpoint = "https://auth.pingone.eu/b801265c-fff6-499b-99a1-b3fd0b231025/as/authorize"
-			// const tokenEndpoint = "https://auth.pingone.eu/b801265c-fff6-499b-99a1-b3fd0b231025/as/token"
-			// const userInfoEndpoint = "https://auth.pingone.eu/b801265c-fff6-499b-99a1-b3fd0b231025/as/userinfo"
-
+			// If your OAuth provider has an SDK you can replace the code sections with code from the SDK.
+			// You will still need to pass a username and credentials to publishAuthorization() as this allows Finsemble to access them
 			try {
 
 				const currentLocation = new URL(window.location.href);
 				const authorizationCode = currentLocation.searchParams.get("code");
+
 
 				// check for the authentication code in the search params,
 				// if it doesn't exist then we need to do the authorization step else skip it and continue to get the token
@@ -74,7 +67,7 @@ Change the variables below to match your URLS & credentials for oAuthPKCE
 
 					const accessToken = token.access_token
 
-					const userInfo = await getUserInfo({ accessToken, endpoint: userInfoEndpoint })
+					const userInfo = await getUserInfo({ accessToken })
 
 					const username = userInfo.sub
 
