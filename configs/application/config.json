@@ -8,9 +8,9 @@
 			"component": "Authentication",
 			"client_id": "3d2f0e64-5744-417e-beb7-e97436431045",
 			"redirect_uri": "https://finsemble.s3.amazonaws.com/authentication/Authentication.html",
-			"authorization_url": "",
-			"token_url": "",
-			"user_info_url": ""
+			"authorization_url": "https://auth.pingone.eu/b801265c-fff6-499b-99a1-b3fd0b231025/as/authorize",
+			"token_url": "https://auth.pingone.eu/b801265c-fff6-499b-99a1-b3fd0b231025/as/token",
+			"user_info_url": "https://auth.pingone.eu/b801265c-fff6-499b-99a1-b3fd0b231025/as/userinfo"
 		}
 	},
 	"servicesConfig": {

@@ -108,9 +108,9 @@ export async function authorize(params?: {
 
 
 
-    const endpoint = params?.endpoint ?? authConfigData?.endpoint
+    const endpoint = params?.endpoint ?? authConfigData?.authorization_url
 
-    if (!endpoint) { throw new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://AUTH_PROVIDER.com/authorize`) }
+    if (!endpoint) { throw new Error(`Data provided to authorization redirect (phase 1) is missing an endpoint URL e.g. http://AUTH_PROVIDER.com/authorize`) }
 
 
 
@@ -193,7 +193,7 @@ export async function getToken(params?: {
 
     if (err) throw new Error("cannot access the config client in authentication component");
 
-    const endpoint = params?.endpoint ?? authConfigData?.endpoint
+    const endpoint = params?.endpoint ?? authConfigData?.token_url
 
     if (!endpoint) { throw new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://localhost:3375/token`) }
 
@@ -267,7 +267,7 @@ export async function getUserInfo(
   if (err) { throw new Error("cannot access the config client in authentication component"); }
 
 
-  const endpoint = endpointURL ?? authConfigData?.endpoint
+  const endpoint = endpointURL ?? authConfigData?.user_info_url
 
   if (!endpoint) { throw new Error(`Data provided to getToken (phase 2) is missing an endpoint URL e.g. http://AUTH_PROVIDER.com/userInfo`) }
 
