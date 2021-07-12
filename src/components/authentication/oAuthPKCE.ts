@@ -184,6 +184,7 @@ export async function getToken({
   try {
     const currentLocation = new URL(window.location.href);
     const authorizationCode = currentLocation.searchParams.get("code")
+    const stateFromLocation = currentLocation.searchParams.get("state");
     const initialCodeVerifier = window.sessionStorage.getItem("code_verifier");
 
     const { err, data: authConfigData } = await FSBL.Clients.ConfigClient.getValue({ field: "finsemble.authentication.startup" });
@@ -195,33 +196,47 @@ export async function getToken({
     const client_id = clientID ?? authConfigData?.client_id
     const redirect_uri = redirectURI ?? authConfigData?.redirect_uri
 
-    if (!redirect_uri || !client_id) return new Error("redirect_uri or client_id is missing or empty")
+    if (!redirect_uri || !client_id || !initialCodeVerifier || !authorizationCode || !stateFromLocation) return new Error("one of the data sending valies is missing or empty")
+    // TODO:make better error message
 
 
-    const data = {
+    const data: {
+      grant_type: string,
+      client_id: string,
+      code_verifier: string,
+      code: string,
+      redirect_uri: string,
+      state: string
+    } = {
       grant_type: "authorization_code",
       client_id,
       code_verifier: initialCodeVerifier,
       code: authorizationCode,
       redirect_uri,
+      state: stateFromLocation
     }
 
     log(data)
 
     debugLog("PKCE auth phase 2")
 
+    const body = new URLSearchParams(data).toString()
+
     const result = await fetch(endpoint,
       {
         mode: "cors",
         method: 'POST',
         headers: {
-          'Content-type': 'application/x-www-form-urlencoded'
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Accept": "application/json"
         },
-        body: new URLSearchParams(JSON.stringify(data))
+        body
       })
     // const result = await fetch(endpoint,
     //   {
     //     mode: "cors",
+    //     cache: "no-cache",
+    //     credentials: "same-origin",
     //     method: 'POST',
     //     headers: {
     //       'Content-type': 'application/json'

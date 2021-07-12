@@ -113,7 +113,6 @@ Change the variables below to match your URLS & credentials for oAuthPKCE
 	return (
 		<>
 			<div className="fsbl-auth-top">
-				<img className="fsbl-company-logo" />
 				<div className="fsbl-close">
 					<i className="ff-close" onClick={quitApplication}></i>
 				</div>
