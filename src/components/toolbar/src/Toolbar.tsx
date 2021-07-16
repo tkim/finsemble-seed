@@ -80,7 +80,7 @@ const Toolbar = () => {
             }
         };
         FSBL.Clients.ConfigClient.getValue({ field: "finsemble.custom.bloomberg.showStatus" }, statusHandler);
-        FSBL.Clients.ConfigClient.addListener({ field: "finsemble.custom.bloomberg.showStatus" }, statusHandler)
+        FSBL.Clients.ConfigClient.addListener({ field: "finsemble.custom.bloomberg.showStatus" }, statusHandler);
 	}, []);
 
 	return (
