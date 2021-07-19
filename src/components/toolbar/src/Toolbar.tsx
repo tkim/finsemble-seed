@@ -37,50 +37,15 @@ const Toolbar = () => {
 	useHotkey(["ctrl", "alt", "up"], () => FSBL.Clients.LauncherClient.bringWindowsToFront());
 	useHotkey(["ctrl", "alt", "down"], () => window.FSBL.Clients.WorkspaceClient.minimizeAll());
 
-	const [useDOMBasedMovement, setDOMBasedMovement] = useState(true);
-    const [showBloomberg, setShowBloomberg] = useState(false);
-
-    function BloombergStatusSection() {
-        const bbg = <ToolbarSection className="right">
-            <div className="divider"></div>
-            <BloombergStatus />
-        </ToolbarSection>;
-        return (showBloomberg ? bbg : <></>);
-    }
+    const [useDOMBasedMovement, setDOMBasedMovement] = useState(true);
 
 	useEffect(() => {
 		async function fetchManifest() {
 			const response = await FSBL.Clients.ConfigClient.getValue("finsemble-electron-adapter.useDOMBasedMovement");
 			const { data: manifestValue } = response;
 			if (manifestValue !== null) setDOMBasedMovement(manifestValue);
-		}
-        async function fetchBloomberg() {
-            FSBL.Clients.ConfigClient.getValue('finsemble.custom.bloomberg.showStatus', (err: any, value: any) => {
-                if (err) {
-                    FSBL.Clients.Logger.error(`ERR - Could not determine Bloomberg show status: ${err}`);
-                    setShowBloomberg(false);
-                } else if (value) {
-                    setShowBloomberg(true);
-                }
-                else {
-                    setShowBloomberg(false);
-                }
-            });
         }
-
-		fetchManifest();
-        fetchBloomberg();
-
-        let statusHandler = (err: any, status: any) => {
-            if (err) {
-                FSBL.Clients.Logger.error("Error received when checking bloomberg bridge config", err);
-            } else {
-                let bbgStatus = typeof status.value == "undefined" ? status : status.value;
-                setShowBloomberg(bbgStatus);
-            }
-        };
-        FSBL.Clients.ConfigClient.getValue({ field: "finsemble.custom.bloomberg.showStatus" }, statusHandler);
-        FSBL.Clients.ConfigClient.addListener({ field: "finsemble.custom.bloomberg.showStatus" }, statusHandler);
+        fetchManifest();
 	}, []);
 
 	return (
@@ -98,7 +63,7 @@ const Toolbar = () => {
 				<div className="divider" />
 				<FavoritesShell />
 			</ToolbarSection>
-            <BloombergStatusSection />
+            <BloombergStatus />
             <ToolbarSection className="right">
                 <div className="divider"></div>
 				<AutoArrange />
