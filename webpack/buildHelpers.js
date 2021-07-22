@@ -65,7 +65,7 @@ const runWebpackAndCallback = (configPath, watch, bundleName, callback) => {
 
 		if (stats.hasErrors()) {
 			logToTerminal(`WEBPACK ERRORS: ${configPath}`, "red");
-			console.error(info.errors);
+			console.error(stats.toString("errors-only"));
 		}
 
 		/* Uncomment to see webpack warnings.
