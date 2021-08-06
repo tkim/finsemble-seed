@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { FinsembleProvider } from "@finsemble/finsemble-ui/react/components/FinsembleProvider";
 import {
@@ -25,6 +25,7 @@ import { FileMenu } from "./FileMenu";
 import { useHotkey } from "@finsemble/finsemble-ui/react/hooks/useHotkey";
 import "@finsemble/finsemble-ui/react/assets/css/finsemble.css";
 import "../../../../public/assets/css/theme.css";
+import { AppLaunchers } from "../../defaultAuthentication/AppLaunchers";
 
 /**
  * Note: Set `FSBL.debug = true` if you need to reload the toolbar during development.
@@ -43,10 +44,8 @@ const Toolbar = () => {
 				<FileMenu />
 				<Search openHotkey={["ctrl", "alt", "f"]} />
 				<WorkspaceManagementMenu />
-				{/* Uncomment the following to enable the AdvancedAppLauncherMenu*/}
-				{/* <AdvancedAppLauncherMenu /> */}
-				<AppLauncherMenu />
-				<AppLauncherMenu dynamic={true} />
+                {/* Component that generates dynamically configured menus */}
+                <AppLaunchers align="left" />
 			</ToolbarSection>
 			<ToolbarSection className="center" hideBelowWidth={115}>
 				<div className="divider" />
@@ -54,6 +53,7 @@ const Toolbar = () => {
 			</ToolbarSection>
 			<ToolbarSection className="right">
 				<div className="divider"></div>
+                <AppLaunchers align="right" />
 				<AutoArrange />
 				<MinimizeAll />
 				<RevealAll />

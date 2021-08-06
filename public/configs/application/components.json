@@ -204,13 +204,13 @@
 				}
 			}
 		},
-		"Authentication": {
+        "defaultAuthentication": {
 			"window": {
-				"url": "$applicationRoot/components/authentication/Authentication.html",
+                "url": "$applicationRoot/components/defaultAuthentication/defaultAuthentication.html",
 				"top": "center",
 				"left": "center",
 				"width": 358,
-				"height": 460,
+                "height": 192,
 				"ephemeral": true,
 				"alwaysOnTop": true,
 				"options": {

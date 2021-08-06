@@ -1,0 +1,857 @@
+{
+    "MultipleMenus1": {
+        "appd": {
+            "AG-Grid Example Blotter": {
+                "appId": "AG-Grid Example Blotter",
+                "name": "AG-Grid Example Blotter",
+                "description": "Organize data with FDC3 compliant blotters built on AG Grid",
+                "manifest": {
+                    "window": {
+                        "url": "https://assets.finsemble.com/components/ag-grid/index.html",
+                        "width": 1000,
+                        "height": 600
+                    },
+                    "foreign": {
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Toolbar": {
+                                "iconURL": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            }
+                        }
+                    },
+                    "interop": {
+                        "rewire": [
+                            {
+                                "contextType": "fdc3.instrument",
+                                "cc": "#Workspace"
+                            }
+                        ]
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "AG Grid FDC3 compatible blotter",
+                "tags": [
+                    "grid",
+                    "ag-grid",
+                    "blotter",
+                    "fdc3"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component1": {
+                "appId": "Component1",
+                "name": "Component1",
+                "description": "Component1 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "file",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component1",
+                "tags": [
+                    "component1"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Component2": {
+                "appId": "Component2",
+                "name": "Component2",
+                "description": "Component2 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "file",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component2",
+                "tags": [
+                    "component2"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Component3": {
+                "appId": "Component3",
+                "name": "Component3",
+                "description": "Component3 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "file",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component3",
+                "tags": [
+                    "component3"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Component4": {
+                "appId": "Component4",
+                "name": "Component4",
+                "description": "Component4 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "file",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component4",
+                "tags": [
+                    "component4"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Component5": {
+                "appId": "Component5",
+                "name": "Component5",
+                "description": "Component5 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "edit",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component5",
+                "tags": [
+                    "component5"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Component6": {
+                "appId": "Component6",
+                "name": "Component6",
+                "description": "Component6 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "edit",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component6",
+                "tags": [
+                    "component6"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Component7": {
+                "appId": "Component7",
+                "name": "Component7",
+                "description": "Component7 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "edit",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component7",
+                "tags": [
+                    "component7"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Component8": {
+                "appId": "Component8",
+                "name": "Component8",
+                "description": "Component8 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "view",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component8",
+                "tags": [
+                    "component8"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Component9": {
+                "appId": "Component9",
+                "name": "Component9",
+                "description": "Component9 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "view",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component9",
+                "tags": [
+                    "component9"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Component0": {
+                "appId": "Component0",
+                "name": "Component0",
+                "description": "Component0 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "view",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component0",
+                "tags": [
+                    "component0"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "Admin": {
+                "appId": "Admin",
+                "name": "Admin",
+                "description": "Admin Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "view",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Admin",
+                "tags": [
+                    "admin"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "User 1": {
+                "appId": "User 1",
+                "name": "User 1",
+                "description": "User 1 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "view",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "User 1",
+                "tags": [
+                    "user 1"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "User 2": {
+                "appId": "User 2",
+                "name": "User 2",
+                "description": "User 2 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "view",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "User 2",
+                "tags": [
+                    "user 2"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            },
+            "User 3": {
+                "appId": "User 3",
+                "name": "User 3",
+                "description": "User 3 Description",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "mode": "view",
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "User 3",
+                "tags": [
+                    "user 3"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic"
+            }
+        },
+        "menus": [
+            {
+                "align": "left",
+                "label": "File",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "file"
+                },
+                "fontIcon": "ff-document-2"
+            },
+            {
+                "align": "left",
+                "label": "Edit",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "edit"
+                },
+                "fontIcon": "ff-adp-edit"
+            },
+            {
+                "align": "left",
+                "label": "View",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "view"
+                },
+                "fontIcon": "ff-adp-workspace"
+            },
+            {
+                "align": "left",
+                "label": "Examples",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "example"
+                },
+                "fontIcon": "ff-adp-apps"
+            },
+            {
+                "align": "left",
+                "label": "Bloomberg",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "bloomberg"
+                },
+                "fontIcon": "ff-adp-apps"
+            },
+            {
+                "align": "left",
+                "label": "FDC3",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "fdc3"
+                },
+                "icon": "$applicationRoot/assets/img/fdc3-icon.png"
+            },
+            {
+                "align": "left",
+                "label": "Panopticon",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "panopticon"
+                },
+                "icon": "$applicationRoot/components/panopticon/Altair_icon.png"
+            },
+            {
+                "align": "right",
+                "label": "Admin",
+                "menuType": "App Launcher",
+                "customData": {
+                    "list": [
+                        "Admin",
+                        "User 1",
+                        "User 2",
+                        "User 3"
+                    ]
+                },
+                "fontIcon": "ff-user"
+            },
+            {
+                "align": "right",
+                "label": "Settings",
+                "menuType": "App Launcher",
+                "customData": {},
+                "fontIcon": "ff-settings"
+            }
+        ],
+        "workspaces": [
+            {
+                "name": "One Component",
+                "windows": [],
+                "components": [
+                    {
+                        "type": "Component1",
+                        "options": {
+                            "top": 50,
+                            "left": 50
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
