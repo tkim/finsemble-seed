@@ -1,7 +1,14 @@
 {
 	"comment": "Top-level application config for development, adding on top of the core config",
 	"$schema": "../../../node_modules/@finsemble/finsemble-core/configs/schemas/fileBasedSchemas/applicationConfigFile.schema.json",
-	"accessibleLinker": true,
+    "custom": {
+        "bloomberg": {
+            "showStatus": true,
+            "remote": false,
+            "enabled": false
+        }
+    },
+    "accessibleLinker": true,
 	"authentication": {
 		"startup": {
 			"adapter": "PASSWORD",
@@ -136,7 +143,11 @@
 		"$configRoot/application/workspaces.json",
 		"$configRoot/application/services.json",
 		"$configRoot/application/securityPolicies.json",
-		"$configRoot/application/dashbarConfig.json"
+        "$configRoot/application/dashbarConfig.json",
+        "$applicationRoot/components/Bloomberg Bridge/config.json",
+        "$applicationRoot/components/Bloomberg Terminal/config.json",
+        "$applicationRoot/components/SecurityFinder/config.json",
+        "$applicationRoot/components/testBloomberg/config.json"
 	],
 	"toolbarMenus": {}
 }

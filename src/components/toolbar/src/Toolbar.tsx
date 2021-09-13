@@ -26,6 +26,7 @@ import { useHotkey } from "@finsemble/finsemble-ui/react/hooks/useHotkey";
 import "@finsemble/finsemble-ui/react/assets/css/finsemble.css";
 import "../../../../public/assets/css/theme.css";
 import { DashbarView } from "@finsemble/finsemble-ui/react/types/dashbarTypes";
+import { BloombergStatus } from "../../bbgHelpers/BloombergStatus";
 
 /**
  * Note: Set `FSBL.debug = true` if you need to reload the toolbar during development.
@@ -53,6 +54,7 @@ const Toolbar = () => {
 				<div className="divider" />
 				<FavoritesShell />
 			</ToolbarSection>
+            <BloombergStatus />
 			<ToolbarSection className="right">
 				<div className="divider"></div>
 				<AutoArrange />
