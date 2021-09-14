@@ -805,7 +805,7 @@
                 "customData": {
                     "mode": "fdc3"
                 },
-                "icon": "$applicationRoot/assets/img/fdc3-icon.png"
+                "//icon": "$applicationRoot/assets/img/fdc3-icon.png"
             },
             {
                 "align": "left",
@@ -814,7 +814,7 @@
                 "customData": {
                     "mode": "panopticon"
                 },
-                "icon": "$applicationRoot/components/panopticon/Altair_icon.png"
+                "//icon": "$applicationRoot/components/panopticon/Altair_icon.png"
             },
             {
                 "align": "right",
@@ -848,6 +848,1247 @@
                         "options": {
                             "top": 50,
                             "left": 50
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "MultipleMenus2": {
+        "appd": {
+            "Component1": {
+                "appId": "Component1",
+                "name": "Component1",
+                "description": "Component1",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component1",
+                "tags": [
+                    "component1"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component2": {
+                "appId": "Component2",
+                "name": "Component2",
+                "description": "Component2",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component2",
+                "tags": [
+                    "component2"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component3": {
+                "appId": "Component3",
+                "name": "Component3",
+                "description": "Component3",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component3",
+                "tags": [
+                    "component3"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component4": {
+                "appId": "Component4",
+                "name": "Component4",
+                "description": "Component4",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component4",
+                "tags": [
+                    "component4"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component5": {
+                "appId": "Component5",
+                "name": "Component5",
+                "description": "Component5",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component5",
+                "tags": [
+                    "component5"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component6": {
+                "appId": "Component6",
+                "name": "Component6",
+                "description": "Component6",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component6",
+                "tags": [
+                    "component6"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component7": {
+                "appId": "Component7",
+                "name": "Component7",
+                "description": "Component7",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component7",
+                "tags": [
+                    "component7"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component8": {
+                "appId": "Component8",
+                "name": "Component8",
+                "description": "Component8",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component8",
+                "tags": [
+                    "component8"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component9": {
+                "appId": "Component9",
+                "name": "Component9",
+                "description": "Component9",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component9",
+                "tags": [
+                    "component9"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "Component0": {
+                "appId": "Component0",
+                "name": "Component0",
+                "description": "Component0",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "Component0",
+                "tags": [
+                    "component0"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentA": {
+                "appId": "ComponentA",
+                "name": "ComponentA",
+                "description": "ComponentA",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentA",
+                "tags": [
+                    "componenta"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentB": {
+                "appId": "ComponentB",
+                "name": "ComponentB",
+                "description": "ComponentB",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentB",
+                "tags": [
+                    "componentb"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentC": {
+                "appId": "ComponentC",
+                "name": "ComponentC",
+                "description": "ComponentC",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentC",
+                "tags": [
+                    "componentc"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentD": {
+                "appId": "ComponentD",
+                "name": "ComponentD",
+                "description": "ComponentD",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentD",
+                "tags": [
+                    "componentd"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentE": {
+                "appId": "ComponentE",
+                "name": "ComponentE",
+                "description": "ComponentE",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentE",
+                "tags": [
+                    "componente"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentF": {
+                "appId": "ComponentF",
+                "name": "ComponentF",
+                "description": "ComponentF",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentF",
+                "tags": [
+                    "componentf"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentG": {
+                "appId": "ComponentG",
+                "name": "ComponentG",
+                "description": "ComponentG",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentG",
+                "tags": [
+                    "componentg"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentH": {
+                "appId": "ComponentH",
+                "name": "ComponentH",
+                "description": "ComponentH",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentH",
+                "tags": [
+                    "componenth"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentI": {
+                "appId": "ComponentI",
+                "name": "ComponentI",
+                "description": "ComponentI",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentI",
+                "tags": [
+                    "componenti"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            },
+            "ComponentJ": {
+                "appId": "ComponentJ",
+                "name": "ComponentJ",
+                "description": "ComponentJ",
+                "manifest": {
+                    "window": {
+                        "url": "$applicationRoot/components/welcome/welcome.html",
+                        "frame": false,
+                        "resizable": true,
+                        "autoShow": true,
+                        "top": "center",
+                        "left": "center",
+                        "width": 400,
+                        "height": 370
+                    },
+                    "component": {
+                        "inject": false,
+                        "spawnOnStartup": false
+                    },
+                    "foreign": {
+                        "services": {
+                            "dockingService": {
+                                "canGroup": true,
+                                "isArrangable": true
+                            }
+                        },
+                        "components": {
+                            "App Launcher": {
+                                "launchableByUser": true
+                            },
+                            "Window Manager": {
+                                "FSBLHeader": true,
+                                "persistWindowState": true
+                            },
+                            "Toolbar": {
+                                "iconClass": "welcome"
+                            }
+                        }
+                    }
+                },
+                "version": "1.0.0",
+                "tooltip": "ComponentJ",
+                "tags": [
+                    "componentj"
+                ],
+                "contactEmail": "info@cosaic.io",
+                "supportEmail": "support@finsemble.com",
+                "publisher": "Cosaic",
+                "icons": [
+                    {
+                        "//url": "https://assets.finsemble.com/components/ag-grid/ag-grid-logo.png"
+                    }
+                ]
+            }
+        },
+        "menus": [
+            {
+                "align": "left",
+                "label": "File",
+                "menuType": "App Launcher",
+                "customData": {
+                    "list": [
+                        "Component1",
+                        "Component2",
+                        "Component3",
+                        "Component4",
+                        "ComponentA",
+                        "ComponentB",
+                        "ComponentC",
+                        "ComponentD"
+                    ]
+                },
+                "icon": "http://localhost:3375/assets/img/record.png"
+            },
+            {
+                "align": "left",
+                "label": "Edit",
+                "menuType": "App Launcher",
+                "customData": {
+                    "list": [
+                        "Component5",
+                        "Component6",
+                        "Component7",
+                        "ComponentE",
+                        "ComponentF",
+                        "ComponentG"
+                    ]
+                },
+                "icon": "http://localhost:3375/assets/img/check.png"
+            },
+            {
+                "align": "left",
+                "label": "View",
+                "menuType": "App Launcher",
+                "customData": {
+                    "list": [
+                        "Component8",
+                        "Component9",
+                        "Component0",
+                        "ComponentH",
+                        "ComponentI",
+                        "ComponentJ"
+                    ]
+                },
+                "icon": "http://localhost:3375/assets/img/presentation.png"
+            },
+            {
+                "align": "left",
+                "label": "Research",
+                "menuType": "App Launcher",
+                "customData": {
+                    "list": [
+                        "Component8",
+                        "Component6",
+                        "Component7",
+                        "Component5",
+                        "Component3",
+                        "Component0",
+                        "Component9"
+                    ]
+                },
+                "icon": "http://localhost:3375/assets/img/investment.png"
+            },
+            {
+                "align": "left",
+                "label": "Chat",
+                "menuType": "App Launcher",
+                "customData": {
+                    "list": [
+                        "ComponentH",
+                        "ComponentI",
+                        "ComponentB",
+                        "ComponentA",
+                        "ComponentB",
+                        "ComponentE"
+                    ]
+                },
+                "icon": "http://localhost:3375/assets/img/megaphone.png"
+            },
+            {
+                "align": "left",
+                "label": "Examples",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "example"
+                },
+                "icon": "http://localhost:3375/assets/img/briefcase.png"
+            },
+            {
+                "align": "left",
+                "label": "Bloomberg",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "bloomberg"
+                },
+                "fontIcon": "ff-adp-apps"
+            },
+            {
+                "align": "left",
+                "label": "Panopticon",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "panopticon"
+                },
+                "//icon": "$applicationRoot/components/panopticon/Altair_icon.png"
+            },
+            {
+                "align": "left",
+                "label": "FDC3",
+                "menuType": "App Launcher",
+                "customData": {
+                    "mode": "fdc3"
+                },
+                "//icon": "$applicationRoot/assets/img/fdc3-icon.png"
+            }
+        ],
+        "workspaces": [
+            {
+                "name": "Four components",
+                "windows": [],
+                "components": [
+                    {
+                        "type": "Component1",
+                        "options": {
+                            "top": 50,
+                            "left": 50
+                        }
+                    },
+                    {
+                        "type": "Component2",
+                        "options": {
+                            "top": 50,
+                            "right": 50
+                        }
+                    },
+                    {
+                        "type": "ComponentA",
+                        "options": {
+                            "bottom": 50,
+                            "left": 50
+                        }
+                    },
+                    {
+                        "type": "ComponentB",
+                        "options": {
+                            "bottom": 50,
+                            "right": 50
                         }
                     }
                 ]
