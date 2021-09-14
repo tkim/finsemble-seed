@@ -21,59 +21,59 @@ chalk.level = 1;
  * @param {string} bgcolor Color of the background
  */
 const logToTerminal = (msg, color = "white", bgcolor = "bgBlack") => {
-	if (!chalk[color]) color = "white";
-	if (!chalk[color][bgcolor]) bgcolor = "bgBlack";
-	console.log(`[${new Date().toLocaleTimeString()}] ${chalk[color][bgcolor](msg)}.`);
+    if (!chalk[color]) color = "white";
+    if (!chalk[color][bgcolor]) bgcolor = "bgBlack";
+    console.log(`[${new Date().toLocaleTimeString()}] ${chalk[color][bgcolor](msg)}.`);
 };
 
 const runWebpackAndCallback = (configPath, watch, bundleName, callback) => {
-	const config = require(configPath);
-	if (!config) return callback();
-	logToTerminal(`Starting to build ${bundleName}`);
-	config.watch = watch;
-	config.bail = true; // Causes webpack to break upon first encountered error. Pretty annoying when build errors scroll off the screen.
-	let startTime = process.hrtime();
-	const finish = (err) => {
-		// Webpack will call this function every time the bundle is built.
-		// Webpack is run in "watch" mode which means this function will be called over and over and over.
-		// We only want to invoke the async callback back to the gulp file once - the initial webpack build.
-		if (callback) {
-			callback(err);
-			callback = undefined;
-		}
-	};
-	webpack(config, (err, stats) => {
-		// err is a fatal webpack error. stats.hasErrors represents compilation errors,
-		// which are not fatal. Exit on fatal errors.
-		if (err) {
-			logToTerminal(`FATAL WEBPACK ERROR: ${err.stack || err}`, "red");
-			if (err.details) {
-				logToTerminal(`ERROR DETAILS: ${err.details}`, "red");
-			}
-			return finish(err);
-		}
+    const config = require(configPath);
+    if (!config) return callback();
+    logToTerminal(`Starting to build ${bundleName}`);
+    config.watch = watch;
+    config.bail = true; // Causes webpack to break upon first encountered error. Pretty annoying when build errors scroll off the screen.
+    let startTime = process.hrtime();
+    const finish = (err) => {
+        // Webpack will call this function every time the bundle is built.
+        // Webpack is run in "watch" mode which means this function will be called over and over and over.
+        // We only want to invoke the async callback back to the gulp file once - the initial webpack build.
+        if (callback) {
+            callback(err);
+            callback = undefined;
+        }
+    };
+    webpack(config, (err, stats) => {
+        // err is a fatal webpack error. stats.hasErrors represents compilation errors,
+        // which are not fatal. Exit on fatal errors.
+        if (err) {
+            logToTerminal(`FATAL WEBPACK ERROR: ${err.stack || err}`, "red");
+            if (err.details) {
+                logToTerminal(`ERROR DETAILS: ${err.details}`, "red");
+            }
+            return finish(err);
+        }
 
-		let msg = `Finished building ${bundleName}`;
-		//first run, add nice timer.
-		if (callback) {
-			let end = process.hrtime(startTime);
-			msg = `${msg} after ${chalk.magenta(prettyHrtime(end))}`;
-		}
-		logToTerminal(msg, "cyan");
+        let msg = `Finished building ${bundleName}`;
+        //first run, add nice timer.
+        if (callback) {
+            let end = process.hrtime(startTime);
+            msg = `${msg} after ${chalk.magenta(prettyHrtime(end))}`;
+        }
+        logToTerminal(msg, "cyan");
 
-		/* Uncomment to see webpack warnings.
-		if (stats.hasWarnings()) {
-			logToTerminal(`WEBPACK WARNINGS: ${configPath}`, "yellow");
-			console.warn(stats.toString('errors-warnings'));
-		} else 
-		*/
-		if (stats.hasErrors()) {
-			logToTerminal(`WEBPACK ERRORS: ${configPath}`, "red");
-			console.error(stats.toString('errors-only'));
-		}
+        /* Uncomment to see webpack warnings.
+        if (stats.hasWarnings()) {
+            logToTerminal(`WEBPACK WARNINGS: ${configPath}`, "yellow");
+            console.warn(stats.toString('errors-warnings'));
+        } else 
+        */
+        if (stats.hasErrors()) {
+            logToTerminal(`WEBPACK ERRORS: ${configPath}`, "red");
+            console.error(stats.toString('errors-only'));
+        }
 
-		finish();
-	});
+        finish();
+    });
 };
 
 /**
@@ -84,29 +84,29 @@ const runWebpackAndCallback = (configPath, watch, bundleName, callback) => {
  * @param {string} defaultValue The default value to return if the name isn't found as an env variable or arg
  */
 const envOrArg = (name, defaultValue) => {
-	let lc = name.toLowerCase();
-	let uc = name.toUpperCase();
-	let cc = name.replace(/(-|_)([a-z])/g, (g) => g[1].toUpperCase());
+    let lc = name.toLowerCase();
+    let uc = name.toUpperCase();
+    let cc = name.replace(/(-|_)([a-z])/g, (g) => g[1].toUpperCase());
 
-	// Check environment variables
-	if (env[lc]) return env[lc];
-	if (env[uc]) return env[uc];
+    // Check environment variables
+    if (env[lc]) return env[lc];
+    if (env[uc]) return env[uc];
 
-	// Check command line arguments
-	lc = `--${lc}:`;
-	uc = `--${uc}:`;
-	let rc = null;
-	process.argv.forEach((arg) => {
-		if (arg.startsWith(lc)) rc = arg.split(lc)[1];
-		if (arg.startsWith(uc)) rc = arg.split(uc)[1];
-	});
+    // Check command line arguments
+    lc = `--${lc}:`;
+    uc = `--${uc}:`;
+    let rc = null;
+    process.argv.forEach((arg) => {
+        if (arg.startsWith(lc)) rc = arg.split(lc)[1];
+        if (arg.startsWith(uc)) rc = arg.split(uc)[1];
+    });
 
-	// Look in startupConfig
-	if (!rc && typeof startupConfig !== "undefined") {
-		rc = startupConfig[env.NODE_ENV][cc] || startupConfig[env.NODE_ENV][lc] || startupConfig[env.NODE_ENV][uc];
-	}
-	rc = rc || defaultValue;
-	return rc;
+    // Look in startupConfig
+    if (!rc && typeof startupConfig !== "undefined") {
+        rc = startupConfig[env.NODE_ENV][cc] || startupConfig[env.NODE_ENV][lc] || startupConfig[env.NODE_ENV][uc];
+    }
+    rc = rc || defaultValue;
+    return rc;
 };
 
 /**
@@ -118,28 +118,28 @@ const envOrArg = (name, defaultValue) => {
  * @param {Function} done
  */
 const runWebpackInParallel = (webpackParallelConfigs, exitOnCompletion, done) => {
-	let finishedBuilds = 0;
-	// We set maxRetries to zero in order to avoid an infinite loop if a build process fails.
-	// workerFarm is probably the wrong tool for the job here. A simple thread forking mechanism
-	// is all that's needed but maybe we can get parallelism for free by using a site builder
-	// https://nodejs.org/api/worker_threads.html
-	const parallelWorkers = workerFarm({ maxRetries: 0 }, require.resolve("./buildWorker.js"));
+    let finishedBuilds = 0;
+    // We set maxRetries to zero in order to avoid an infinite loop if a build process fails.
+    // workerFarm is probably the wrong tool for the job here. A simple thread forking mechanism
+    // is all that's needed but maybe we can get parallelism for free by using a site builder
+    // https://nodejs.org/api/worker_threads.html
+    const parallelWorkers = workerFarm({ maxRetries: 0 }, require.resolve("./buildWorker.js"));
 
-	webpackParallelConfigs.forEach((config) => {
-		parallelWorkers(config, (e, output) => {
-			if (++finishedBuilds === webpackParallelConfigs.length) {
-				done(e);
-				if (exitOnCompletion) {
-					workerFarm.end(parallelWorkers);
-				}
-			}
-		});
-	});
+    webpackParallelConfigs.forEach((config) => {
+        parallelWorkers(config, (e, output) => {
+            if (++finishedBuilds === webpackParallelConfigs.length) {
+                done(e);
+                if (exitOnCompletion) {
+                    workerFarm.end(parallelWorkers);
+                }
+            }
+        });
+    });
 };
 
 module.exports = {
-	runWebpackAndCallback,
-	logToTerminal,
-	envOrArg,
-	runWebpackInParallel,
+    runWebpackAndCallback,
+    logToTerminal,
+    envOrArg,
+    runWebpackInParallel,
 };

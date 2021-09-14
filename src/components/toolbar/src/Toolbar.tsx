@@ -7,25 +7,26 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { FinsembleProvider } from "@finsemble/finsemble-ui/react/components/FinsembleProvider";
 import {
-	ToolbarShell,
-	FavoritesShell,
-	DragHandle,
-	RevealAll,
-	MinimizeAll,
-	NotificationControl,
-	AutoArrange,
-	Search,
-	Dashbar,
-	AdvancedAppLauncherMenu,
-	AppLauncherMenu,
-	WorkspaceManagementMenu,
-	ToolbarSection,
+    ToolbarShell,
+    FavoritesShell,
+    DragHandle,
+    RevealAll,
+    MinimizeAll,
+    NotificationControl,
+    AutoArrange,
+    Search,
+    Dashbar,
+    AdvancedAppLauncherMenu,
+    AppLauncherMenu,
+    WorkspaceManagementMenu,
+    ToolbarSection,
 } from "@finsemble/finsemble-ui/react/components/toolbar";
 import { FileMenu } from "./FileMenu";
 import { useHotkey } from "@finsemble/finsemble-ui/react/hooks/useHotkey";
 import "@finsemble/finsemble-ui/react/assets/css/finsemble.css";
 import "../../../../public/assets/css/theme.css";
 import { AppLaunchers } from "../../defaultAuthentication/AppLaunchers";
+import { DashbarView } from "@finsemble/finsemble-ui/react/types/dashbarTypes";
 
 /**
  * Note: Set `FSBL.debug = true` if you need to reload the toolbar during development.
@@ -33,41 +34,59 @@ import { AppLaunchers } from "../../defaultAuthentication/AppLaunchers";
  * a main window into finsemble functionality.
  */
 const Toolbar = () => {
-	useHotkey(["ctrl", "alt", "shift", "r"], () => FSBL.restartApplication());
-	useHotkey(["ctrl", "alt", "up"], () => FSBL.Clients.LauncherClient.bringWindowsToFront());
-	useHotkey(["ctrl", "alt", "down"], () => window.FSBL.Clients.WorkspaceClient.minimizeAll());
+    useHotkey(["ctrl", "alt", "shift", "r"], () => FSBL.restartApplication());
+    useHotkey(["ctrl", "alt", "up"], () => FSBL.Clients.LauncherClient.bringWindowsToFront());
+    useHotkey(["ctrl", "alt", "down"], () => window.FSBL.Clients.WorkspaceClient.minimizeAll());
 
-	return (
-		<ToolbarShell hotkeyShow={["ctrl", "alt", "t"]} hotkeyHide={["ctrl", "alt", "h"]}>
-			<ToolbarSection className="left">
-				<DragHandle />
-				<FileMenu />
-				<Search openHotkey={["ctrl", "alt", "f"]} />
-				<WorkspaceManagementMenu />
+    return (
+        <ToolbarShell hotkeyShow={["ctrl", "alt", "t"]} hotkeyHide={["ctrl", "alt", "h"]}>
+            <ToolbarSection className="left">
+                <DragHandle />
+                <FileMenu />
+                <Search openHotkey={["ctrl", "alt", "f"]} />
+                <WorkspaceManagementMenu />
                 {/* Component that generates dynamically configured menus */}
                 <AppLaunchers align="left" />
-			</ToolbarSection>
-			<ToolbarSection className="center" hideBelowWidth={115}>
-				<div className="divider" />
-				<FavoritesShell />
-			</ToolbarSection>
-			<ToolbarSection className="right">
-				<div className="divider"></div>
+            </ToolbarSection>
+            <ToolbarSection className="center" hideBelowWidth={115}>
+                <div className="divider" />
+                <FavoritesShell />
+            </ToolbarSection>
+            <ToolbarSection className="right">
+                <div className="divider"></div>
                 <AppLaunchers align="right" />
-				<AutoArrange />
-				<MinimizeAll />
-				<RevealAll />
-				<NotificationControl />
-			</ToolbarSection>
-			<div className="resize-area"></div>
-		</ToolbarShell>
-	);
+                <AutoArrange />
+                <MinimizeAll />
+                <RevealAll />
+                <NotificationControl />
+            </ToolbarSection>
+            <div className="resize-area"></div>
+        </ToolbarShell>
+    );
+};
+
+const handleWidgetTitleClick = (widget: DashbarView) => {
+    if (widget.raiseIntentOptions) {
+        FSBL.Interop.raiseIntent(
+            widget.raiseIntentOptions.intent,
+            widget.raiseIntentOptions.context,
+            widget.raiseIntentOptions.targetApp
+        );
+    }
+};
+
+const widgetTitleGenerator = (widget: DashbarView, titleRef: React.MutableRefObject<null>) => {
+    return (
+        <div ref={titleRef} onClick={() => handleWidgetTitleClick(widget)}>
+            <span dangerouslySetInnerHTML={{ __html: widget.title }}></span>
+        </div>
+    );
 };
 
 ReactDOM.render(
-	<FinsembleProvider>
-		<Toolbar />
-		<Dashbar />
-	</FinsembleProvider>,
-	document.getElementById("Toolbar-tsx")
+    <FinsembleProvider>
+        <Toolbar />
+        <Dashbar widgetTitleGenerator={widgetTitleGenerator} />
+    </FinsembleProvider>,
+    document.getElementById("Toolbar-tsx")
 );
