@@ -26,11 +26,11 @@ export const AppLaunchers: FunctionComponent<AppLaunchersProps> = ({ align }) =>
     /* #endregion */
     /* #region retrieve Finsemble config for dynamically configured menus */
     const [dynamicMenus, setDynamicMenus] = useState([] as any[]);
-    const [components, setComponents] = useState([] as any[]);
+    const [components, setComponents] = useState<Record<string,any>>({});
     useEffect(() => {
         FSBL.Clients.ConfigClient.getValue("finsemble", (err: any, config: any) => {
             const menuConfig = config.menus;
-            const components = config.components;
+            const components: Record<string,{}> = config.components;
             if (Array.isArray(menuConfig)) {
                 setDynamicMenus(
                     menuConfig.filter((menu) => menu.menuType === "App Launcher" || menu.menuType === "Advanced App Launcher"),
