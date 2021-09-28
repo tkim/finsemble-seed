@@ -6,6 +6,21 @@ See https://documentation.chartiq.com/finsemble/tutorial-UIComponents.html#css
 */
 
 :root {
+    --core-primary-3: #3D4455;
+    --scrollbar-color: white;
+
+    --font-family: "OpenSans", sans-serif;
+
+    --font-color: white;
+    --font-color-1: var(--core-primary-5);
+    --font-color-2: black;
+
+    --font-weight: 600;
+    --font-weight-1: 400;
+    --font-weight-2: bold;
+
+    --font-size: 12px;
+    
 	/*
     --core-primary: #22262f;
 
