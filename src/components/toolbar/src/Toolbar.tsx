@@ -15,8 +15,6 @@ import {
     NotificationControl,
     AutoArrange,
     Search,
-    Dashbar,
-    AdvancedAppLauncherMenu,
     AppLauncherMenu,
     WorkspaceManagementMenu,
     ToolbarSection,
@@ -25,7 +23,6 @@ import { FileMenu } from "./FileMenu";
 import { useHotkey } from "@finsemble/finsemble-ui/react/hooks/useHotkey";
 import "@finsemble/finsemble-ui/react/assets/css/finsemble.css";
 import "../../../../public/assets/css/theme.css";
-import { DashbarView } from "@finsemble/finsemble-ui/react/types/dashbarTypes";
 import { BloombergStatus } from "../../bbgHelpers/BloombergStatus";
 
 /**
@@ -70,7 +67,6 @@ const Toolbar = () => {
 ReactDOM.render(
     <FinsembleProvider>
         <Toolbar />
-        <Dashbar />
     </FinsembleProvider>,
     document.getElementById("Toolbar-tsx")
 );
