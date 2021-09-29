@@ -16,38 +16,6 @@ export const BloombergPreferences = () => {
     const [showBloomberg, setShowBloomberg] = useState(false);
 
     useEffect(() => {
-        function checkConnection() {
-            bbg.checkConnection((err, resp) => {
-                if (!err && resp === true) {
-                    setIsConnected(true);
-                    setConnectionStatus("Connected");
-                    setIndicatorColor("green");
-                } else if (err) {
-                    FSBL.Clients.Logger.error("Error received when checking connection", err);
-                    setIsConnected(false);
-                    setConnectionStatus("Confirm Bloomberg and Bridge are both running.");
-                    setIndicatorColor("red");
-                } else {
-                    FSBL.Clients.Logger.debug("Negative response when checking connection: ", resp);
-                    setIsConnected(false);
-                    setConnectionStatus("Disconnected");
-                    setIndicatorColor("orange");
-                }
-            });
-        };
-
-        try {
-            //do the initial check
-            checkConnection();
-            //listen for connection events (listen/transmit)
-            bbg.setConnectionEventListener(checkConnection);
-            // its also possible to poll for connection status,
-            //  worth doing in case the bridge process is killed off and doesn't get a chance to send an update
-            setInterval(checkConnection, 30000);
-        } catch (e) {
-            FSBL.Clients.Logger.error(`error in bbg prefs: ${e}`);
-        }
-
         let statusHandler = (err, status) => {
             if (err) {
                 FSBL.Clients.Logger.error("Error received when checking bloomberg bridge config", err);
@@ -92,6 +60,41 @@ export const BloombergPreferences = () => {
         };
         FSBL.Clients.ConfigClient.getValue({ field: "finsemble.custom.bloomberg.enabled" }, enabledHandler);
         FSBL.Clients.ConfigClient.addListener({ field: "finsemble.custom.bloomberg.enabled" }, enabledHandler);
+
+        function checkConnection() {
+            bbg.checkConnection((err, resp) => {
+                if (!err && resp === true) {
+                    setIsConnected(true);
+                    setConnectionStatus("Connected");
+                    setIndicatorColor("green");
+                } else if (err) {
+                    FSBL.Clients.Logger.debug("Error received when checking connection", err);
+                    // message says error, but should be reported at the debug level, not error as there are many ways it can show that are not true failures
+                    setIsConnected(false);
+                    setConnectionStatus("Confirm Bloomberg and Bridge are both running.");
+                    setIndicatorColor("red");
+                } else {
+                    FSBL.Clients.Logger.debug("Negative response when checking connection: ", resp);
+                    setIsConnected(false);
+                    setConnectionStatus("Disconnected");
+                    setIndicatorColor("orange");
+                }
+            });
+        };
+
+        if (isEnabled) {
+            try {
+                //do the initial check
+                checkConnection();
+                //listen for connection events (listen/transmit)
+                bbg.setConnectionEventListener(checkConnection);
+                // its also possible to poll for connection status,
+                //  worth doing in case the bridge process is killed off and doesn't get a chance to send an update
+                setInterval(checkConnection, 30000);
+            } catch (e) {
+                FSBL.Clients.Logger.error(`error in bbg prefs: ${e}`);
+            }
+        }
 
     }, []);
 

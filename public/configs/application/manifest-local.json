@@ -54,7 +54,13 @@
 			}
 		},
 		"custom": {
-			"//": "Customer macros definitions must go here (e.g. 'myApplicationRoot' so it can be referenced elsewhere as '$myApplicationRoot'), along with other custom config at this level."
+            "//": "Customer macros definitions must go here (e.g. 'myApplicationRoot' so it can be referenced elsewhere as '$myApplicationRoot'), along with other custom config at this level.",
+            "bloomberg": {
+                "enabled": false,
+                "remote": false,
+                "remoteAddress": "",
+                "showStatus": true
+            }
 		},
 		"importConfig": ["../../configs/application/config.json"]
 	},

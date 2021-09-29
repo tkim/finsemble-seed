@@ -16,6 +16,7 @@ import {
     AutoArrange,
     Search,
     AppLauncherMenu,
+    AdvancedAppLauncherMenu,
     WorkspaceManagementMenu,
     ToolbarSection,
 } from "@finsemble/finsemble-ui/react/components/toolbar";
@@ -51,7 +52,9 @@ const Toolbar = () => {
                 <div className="divider" />
                 <FavoritesShell />
             </ToolbarSection>
+
             <BloombergStatus />
+
             <ToolbarSection className="right">
                 <div className="divider"></div>
                 <AutoArrange />
