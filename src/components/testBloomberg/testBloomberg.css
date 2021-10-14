@@ -17,7 +17,6 @@ body {
 	align-items: center;
 	height: 100%;
 	padding: 10px;
-    color:white;
 }
 
 #headings {
@@ -47,7 +46,7 @@ body {
 }
 
 .active {
-	background-color: #70A5BA;
+	background-color: var(--button-affirmative-background-color);
 }
 
 .column {
@@ -228,7 +227,7 @@ h3 {
     margin: 5px;
     max-width: 2000px;
     -webkit-appearance:none;
-    background-color: #70A5BA;
+    background-color: var(--button-affirmative-background-color);
     color: #FFF;
     font-family: var(--font-family);
 	font-weight: 400;

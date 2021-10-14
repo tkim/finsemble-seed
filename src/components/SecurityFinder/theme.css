@@ -35,7 +35,6 @@
 	flex-grow: 1;
 	flex-shrink: 1;
 	min-height: 40px;
-    color: white;
 }
 .react-autosuggest__suggestions-container--open{
 	flex-grow: 1;
@@ -226,7 +225,6 @@
 	font-weight: var(--font-weight-1);
 	font-size: 10pt;
 	margin: 3px;
-    color: white;
 }
 .errorLabel{
 	font-family: var(--font-family);
@@ -248,7 +246,7 @@
     margin: 3px;
     max-width: 200px;
     -webkit-appearance:none;
-    background-color: #70A5BA;
+    background-color: var(--button-affirmative-background-color);
     color: #FFF;
     font-family: var(--font-family);
 	font-weight: var(--font-weight-1);
@@ -260,7 +258,7 @@
 	transition: all .2s ease;
 }
 #status{
-	color: white;
+	color: var(--core-secondary);
 	font-size: 12px;
 	padding: 5px 0 0 0;
 }

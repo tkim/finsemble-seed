@@ -21,7 +21,6 @@
                 },
                 "component": {
                     "preload": [
-                        "$applicationRoot/preloads/FDC3Client.js",
                         "$applicationRoot/clients/BloombergBridgeClient/BloombergBridgePreload.js"
                     ],
                     "spawnOnStartup": false,
@@ -47,7 +46,7 @@
                         },
                         "Window Manager": {
                             "alwaysOnTopIcon": true,
-                            "title": "BBG Security Finder (FDC3)",
+                            "title": "BBG Security Finder",
                             "persistWindowState": true,
                             "hideMaximize": true,
                             "showLinker": true
