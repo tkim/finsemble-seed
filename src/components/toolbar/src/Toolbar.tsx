@@ -65,28 +65,10 @@ const Toolbar = () => {
     );
 };
 
-const handleWidgetTitleClick = (widget: DashbarView) => {
-    if (widget.raiseIntentOptions) {
-        FSBL.Interop.raiseIntent(
-            widget.raiseIntentOptions.intent,
-            widget.raiseIntentOptions.context,
-            widget.raiseIntentOptions.targetApp
-        );
-    }
-};
-
-const widgetTitleGenerator = (widget: DashbarView, titleRef: React.MutableRefObject<null>) => {
-    return (
-        <div ref={titleRef} onClick={() => handleWidgetTitleClick(widget)}>
-            <span dangerouslySetInnerHTML={{ __html: widget.title }}></span>
-        </div>
-    );
-};
-
 ReactDOM.render(
-    <FinsembleProvider>
-        <Toolbar />
-        <Dashbar widgetTitleGenerator={widgetTitleGenerator} />
-    </FinsembleProvider>,
-    document.getElementById("Toolbar-tsx")
+	<FinsembleProvider>
+		<Toolbar />
+		<Dashbar />
+	</FinsembleProvider>,
+	document.getElementById("Toolbar-tsx")
 );

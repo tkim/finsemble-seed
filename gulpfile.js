@@ -12,6 +12,7 @@
 	const treeKill = require("tree-kill");
 	let FEA;
 	// Internal Cosaic development: exports doesn't exist when running yarn clean
+
 	try {
 		FEA = require("@finsemble/finsemble-electron-adapter/exports");
 	} catch (e) {
@@ -19,7 +20,6 @@
 	}
 	const FEA_PATH = path.resolve("./node_modules/@finsemble/finsemble-electron-adapter");
 	const FEAPackager = FEA ? FEA.packager : undefined;
-	console.log(`FEAPackager ${FEAPackager}`);
 	const startupConfig = require("./public/configs/other/server-environment-startup");
 	const { envOrArg, runWebpackAndCallback, logToTerminal, runWebpackInParallel } = require("./webpack/buildHelpers");
 	const INSTALLER_CERT_PASS = "INSTALLER_CERTIFICATE_PASSPHRASE";
@@ -521,15 +521,37 @@
 			async.series([taskMethods.setProdEnvironment, taskMethods.startServer], done);
 		},
 		startServer: async (done) => {
+			// @deprecated server-extensions are deprecated and will be removed in a future version
+			const extensions = fs.existsSync(path.join(__dirname, "server-extensions.js"))
+				? require("./server-extensions")
+				: {
+						pre: (done) => done(),
+						post: (done) => done(),
+						updateServer: (app, cb) => cb(),
+				  };
+
 			const root = path.join(__dirname, "public");
 			const port = process.env.PORT ? parseInt(process.env.PORT) : 3375;
 			logToTerminal(`Serving files from directory ${root}`, "white");
-			const { server, app } = await FEA.Server.start({ root, port });
-			logToTerminal(`Listening on port ${port}`, "white");
-			server.on("error", (err) => {
-				console.log(err.message);
+			extensions.pre(async (err) => {
+				if (err) {
+					console.error(err);
+					return;
+				}
+				const { server, app } = await FEA.Server.start({ root, port });
+				extensions.updateServer(app, (err) => {
+					logToTerminal(`Listening on port ${port}`, "white");
+					server.on("error", (err) => {
+						console.error(err.message);
+					});
+					extensions.post((err) => {
+						if (err) {
+							console.error(err);
+						}
+						if (done) done();
+					});
+				});
 			});
-			if (done) done();
 		},
 
 		setDevEnvironment: (done) => {
