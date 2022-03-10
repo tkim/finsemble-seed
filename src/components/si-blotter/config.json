@@ -1,0 +1,65 @@
+{
+    "appd": {
+        "SI Blotter": {
+            "name": "SI Blotter",
+            "appId": "SI Blotter",
+            "description": "si blotter",
+            "manifest": {
+                "window": {
+                    "url": "$applicationRoot/components/si-blotter/index.html",
+                    "width": 800,
+                    "height": 600,
+                    "options": {
+                        "minWidth": 75
+                    }
+                },
+                "foreign": {
+                    "components": {
+                        "App Launcher": {
+                            "launchableByUser": true
+                        },
+                        "Toolbar": {
+                            "iconClass": "ff-chart-advanced"
+                        },
+                        "Window Manager": {
+                            "FSBLHeader": true,
+                            "persistWindowState": true
+                        }
+                    }
+                },
+                "interop": {
+                    "selectConnect": [
+                        {
+                            "contextType": "layout",
+                            "fwd": "#Workspace"
+                        },
+                        {
+                            "contextType": "fdc3.instrument",
+                            "cc": "#Workspace"
+                        }
+                    ]
+                }
+            },
+            "version": "1.0.0",
+            "tooltip": "si blotter",
+            "images": [
+                {
+                    "url": "https://i.imgur.com/10C3LdH.png",
+                    "tooltip": "Blotter"
+                }
+            ],
+            "tags": [
+                "blotter",
+                "fdc3"
+            ],
+            "contactEmail": "info@cosaic.io",
+            "supportEmail": "support@finsemble.com",
+            "publisher": "Cosaic",
+            "icons": [
+                {
+                    "url": "https://i.imgur.com/mpBdiHd.png"
+                }
+            ]
+        }
+    }
+}
