@@ -3,9 +3,16 @@
 const linkerchannelName = "symbol";
 
 // TODO - when this is out to a URL, could look at a querystring and determine if B or S and show accordingly
+// TODO - when the algo is double clicked, it will send an fdc3.instrument event
+//      - should have that on the currency (it does, so that works) - but prob not on the algo name
+// TODO - use a cell rendering to open either CIQ or TF - ideally two icons in a single cell
+//          - but this seems to prefer cell renders and then the whole cell has an onclick event associated
+//          For now, using the button renderer (2x) as it was already implemented.
+//       might just be this function way of doing it instead? https://www.ag-grid.com/javascript-data-grid/component-cell-renderer/
+// TODO - currently filters by "SIDE" - add in filter so that when SIDE === 'S' then also filter on LP they tell us to use (BAML I think)
 
 const SIDE = 'B';
-const LP = ''; // n/a for buy side, for sell will end up being BAML
+const LP = ''; // n/a for buy side, for sell will end up being "BAML"
 const HEADERS = ["ParentOrderID", "ArrivalTime", "Side", "Symbol", "AlgoName", "LP", "Account", "TradeCurrency",
     "OrderQuantity", "OrderQuantityUSD", "TradeQuantityUSD", "Duration (Min)", "Assumed Risk (bps)",
     "Execution Speed ($m/min)"];
@@ -21,7 +28,7 @@ function tsv2Data(tsv) {
 
     for (let i = 1; i < lines.length; i++) {
         let obj = {};
-        let currentline = lines[i].split("t");
+        let currentline = lines[i].split("\t");
         for (let j = 0; j < headers.length; j++) {
             obj[headers[j]] = currentline[j];
         }
@@ -94,12 +101,14 @@ function setupGridOptions() {
 function createRowData() {
     let rowData = [];
     for (const row of data) {
-        let trade = {};
-        for (const headerName of HEADERS) {
-            trade[headerName.toLowerCase()] = row[headerName];
-        }
+        if (row['Side'] === SIDE) {
+            let trade = {};
+            for (const headerName of HEADERS) {
+                trade[headerName.toLowerCase()] = row[headerName];
+            }
 
-        rowData.push(trade);
+            rowData.push(trade);
+        }
     }
     return rowData;
 }
@@ -108,6 +117,7 @@ function createRowData() {
 // Utility functions for context sharing
 //----------------------------------------------------------------------------------
 
+// is this still needed in v6?
 function fdc3OnReady(cb) {
     // if fdc3 is already available don't wait just run the calback
     return window.fdc3 ? cb() : window.addEventListener('fdc3Ready', cb);
@@ -141,16 +151,12 @@ function raiseIntent(intent, ticker) {
  * Subscribe to context from other linked components.
  */
 function subscribeToContext() {
-    fdc3OnReady(
-        () => fdc3.addContextListener(null, context => {
-            if (context.type === "fdc3.instrument") {
-                const symbol = context.id.ticker;
-                document.getElementById("quick-filter-box").value = symbol;
-                gridOptions.api.setQuickFilter(symbol);
-                console.log(`Setting quick filter to ${symbol}, stringified: ${JSON.stringify(symbol)}`);
-            }
-        })
-    );
+    fdc3.addContextListener("fdc3.instrument", context => {
+        const symbol = context.id.ticker;
+        document.getElementById("quick-filter-box").value = symbol;
+        gridOptions.api.setQuickFilter(symbol);
+        console.log(`Setting quick filter to ${symbol}, stringified: ${JSON.stringify(symbol)}`);
+    });
 }
 
 function cellDoubleClickEventHandler(event) {
@@ -159,10 +165,10 @@ function cellDoubleClickEventHandler(event) {
     }
 }
 
-//==================================================================================
-// Renderer for action buttons
-//----------------------------------------------------------------------------------
-// this is not used, leftover from previous implementation
+// //==================================================================================
+// // Renderer for action buttons
+// //----------------------------------------------------------------------------------
+// // this is not used, leftover from previous implementation
 function BtnCellRenderer() { }
 
 BtnCellRenderer.prototype.init = function (params) {
@@ -191,9 +197,6 @@ BtnCellRenderer.prototype.btnClickedHandler = function (event) {
 // Main initialisation function
 //----------------------------------------------------------------------------------
 const init = () => {
-    //what context sharing are we using?
-    window.usingFDC3 = fdc3Check();
-    console.log('yerah');
     if (SIDE === 'B') {
         document.title = "Blotter - Buy Side";
     } else {
@@ -213,7 +216,6 @@ const init = () => {
             passContext(event.target.value.toUpperCase());
         }
     });
-
     //init context subscriptions
     subscribeToContext();
 };
