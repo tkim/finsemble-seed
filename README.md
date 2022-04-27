@@ -1,5 +1,15 @@
 [![Finsemble SmartDesktop](./public/assets/img/Finsemble+Cosaic.svg)](https://documentation.finsemble.com/)
 
+# Finsemble Seed with dotnet Authentication component example
+
+- On this branch, we demonstrate the use of a dotnet component registered for authentication.
+- The source of the dotnet component can be found in the [finsemble-dotnet-seed github repository](https://github.com/ChartIQ/finsemble-dotnet-seed/tree/master/AuthenticationExample)
+  - Per the [authentication tutorial](https://documentation.finsemble.com/tutorial-Authentication.html), Finsemble delegates authentication to this component, spawning it during startup, and waiting for it to call [publishAuthorization](https://documentation.finsemble.com/AuthenticationClient.html#publishAuthorization) with any authentication credentials or tokens that are needed by other components.
+- The following changes were made:
+  - The component is added as an AppAsset within `public/configs/application/manifest-local.json`
+  - The component is added as an app within `public/configs/application/appd.json`
+  - The component configured for authentication within `public/configs/application/config.json`
+
 # Finsemble Seed 🌱
 
 ## What is it?

@@ -7,6 +7,12 @@
 	"splashScreenTimeout": 3000,
 	"appAssets": [
 		{
+			"src": "https://assets.finsemble.com/releases/6.6.1/dotnet/examples/AuthenticationExample.zip",
+			"version": "6.6.1",
+			"alias": "AuthenticationExample",
+			"target": "AuthenticationExample.exe"
+		},
+		{
 			"src": "https://assets.finsemble.com/releases/6.6.0/assimilation/assimilation.zip",
 			"version": "6.6.0.0",
 			"alias": "assimilation",
