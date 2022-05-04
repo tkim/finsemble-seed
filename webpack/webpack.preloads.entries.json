@@ -1,14 +1,18 @@
 {
-	"preload": {
-		"output": "preloads/nativeOverrides",
-		"entry": "./src/preloads/nativeOverrides.js"
-	},
-	"zoom": {
-		"output": "preloads/zoom",
-		"entry": "./src/preloads/zoom.js"
-	},
-	"registration": {
-		"output": "preloads/registration",
-		"entry": "./src/preloads/registration.js"
-	}
+  "preload": {
+    "output": "preloads/nativeOverrides",
+    "entry": "./src/preloads/nativeOverrides.js"
+  },
+  "zoom": {
+    "output": "preloads/zoom",
+    "entry": "./src/preloads/zoom.js"
+  },
+  "registration": {
+    "output": "preloads/registration",
+    "entry": "./src/preloads/registration.js"
+  },
+  "myFirstPreload": {
+    "output": "preloads/myFirstPreload",
+    "entry": "./src/preloads/myFirstPreload.js"
+  }
 }
