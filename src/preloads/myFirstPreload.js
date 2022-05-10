@@ -1,7 +1,8 @@
 
 function runPreload() {
-// add your code or functions here and it will be executed
-// as soon as the preload is added
+    fdc3.addContextListener("customer", (context) => {
+        window.displayCustomer(context.customer);
+        });
 }
 
 // this code ensures that the FSBL library has been initialized
