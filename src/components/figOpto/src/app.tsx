@@ -7,12 +7,16 @@ const FigOpto = () => {
 	console.log("My code is running");
 	/* Your functional react component code here */
 
-	return <>{/*Your render code here*/}</>;
+	return <>{
+		/*Your render code here*/
+		<h1>FIG Optimizer</h1>
+	}</>;
+
 };
 
 ReactDOM.render(
 	<FinsembleProvider>
-		<FigOpto />
+		<FigOpto/>
 	</FinsembleProvider>,
 	document.getElementById("FigOpto-tsx")
 );
