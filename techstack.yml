@@ -1,0 +1,728 @@
+repo_name: tkim/finsemble-seed
+report_id: 8e23e3d8e19251fae6e322dbe42046f5
+version: 0.1
+repo_type: Public
+timestamp: '2024-02-25T14:54:52+00:00'
+requested_by: tkim
+provider: github
+branch: master
+detected_tools_count: 52
+tools:
+- name: CSS 3
+  description: The latest evolution of the Cascading Style Sheets language
+  website_url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/6727/css.png
+  detection_source_url: https://github.com/tkim/finsemble-seed
+  detection_source: Repo Metadata
+- name: JavaScript
+  description: Lightweight, interpreted, object-oriented language with first-class
+    functions
+  website_url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/tkim/finsemble-seed
+  detection_source: Repo Metadata
+- name: TypeScript
+  description: A superset of JavaScript that compiles to clean JavaScript output
+  website_url: http://www.typescriptlang.org
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1612/bynNY5dJ.jpg
+  detection_source_url: https://github.com/tkim/finsemble-seed
+  detection_source: Repo Metadata
+- name: ExpressJS
+  description: Sinatra inspired web development framework for node.js -- insanely
+    fast, flexible, and simple
+  website_url: http://expressjs.com/
+  version: 4.17.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Microframeworks (Backend)
+  image_url: https://img.stackshare.io/service/1163/hashtag.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-02-14 15:15:42.000000000 Z
+- name: React
+  description: A JavaScript library for building user interfaces
+  website_url: https://reactjs.org/
+  version: 17.0.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Javascript UI Libraries
+  image_url: https://img.stackshare.io/service/1020/OYIaJ1KK.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: css-loader
+  description: Helps webpack to collect CSS from all the css files
+  website_url: https://github.com/webpack-contrib/css-loader
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: CSS Pre-processors / Extensions
+  image_url: https://img.stackshare.io/service/8074/default_d2b16fd6997fb2e164de645a34f9b8d5a880d999.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: Babel
+  description: Use next generation JavaScript, today.
+  website_url: http://babeljs.io/
+  version: 7.17.4
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: JavaScript Compilers
+  image_url: https://img.stackshare.io/service/2739/-1wfGjNw.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: ESLint
+  description: The fully pluggable JavaScript code quality tool
+  website_url: http://eslint.org/
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Code Review
+  image_url: https://img.stackshare.io/service/3337/Q4L7Jncy.jpg
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Brad Carter
+  last_updated_on: 2017-03-27 16:30:25.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/tkim/finsemble-seed
+  detection_source: Repo Metadata
+- name: TSLint
+  description: An extensible linter for the TypeScript language
+  website_url: https://github.com/palantir/tslint
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Code Review
+  image_url: https://img.stackshare.io/service/5561/303157.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Brad Carter
+  last_updated_on: 2017-03-27 16:30:25.000000000 Z
+- name: Webpack
+  description: A bundler for javascript and friends
+  website_url: http://webpack.js.org
+  version: 5.69.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: JS Build Tools / JS Task Runners
+  image_url: https://img.stackshare.io/service/1682/IMG_4636.PNG
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: Yarn
+  description: A new package manager for JavaScript
+  website_url: https://yarnpkg.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Front End Package Manager
+  image_url: https://img.stackshare.io/service/5848/44mC-kJ3.jpg
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: yarn.lock
+  last_updated_by: Matt Swartz
+  last_updated_on: 2020-09-28 19:49:23.000000000 Z
+- name: gulp
+  description: The streaming build system
+  website_url: http://gulpjs.com/
+  version: 4.0.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: JS Build Tools / JS Task Runners
+  image_url: https://img.stackshare.io/service/844/iruTC031.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-02-14 15:15:42.000000000 Z
+- name: npm
+  description: The package manager for JavaScript.
+  website_url: https://www.npmjs.com/
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Front End Package Manager
+  image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Brad Carter
+  last_updated_on: 2017-03-27 16:30:25.000000000 Z
+- name: Lodash
+  description: A JavaScript utility library
+  website_url: https://lodash.com
+  version: 4.17.21
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Javascript Utilities & Libraries
+  image_url: https://img.stackshare.io/service/2438/lodash.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2021-11-09 21:02:46.000000000 Z
+- name: chalk
+  description: terminal colors
+  website_url: https://github.com/chalk/chalk
+  open_source: false
+  hosted_saas: false
+  image_url: https://img.stackshare.io/service/8072/13122722.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2021-09-20 13:34:01.000000000 Z
+- name: date-fns
+  description: Modern JavaScript date utility library
+  website_url: https://date-fns.org/
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Javascript Utilities & Libraries
+  image_url: https://img.stackshare.io/service/10865/default_5551fb8853689f607a2bc0d5a09355d5a3d52bf0.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2021-11-09 21:02:46.000000000 Z
+- name: "@babel/core"
+  description: Babel compiler core
+  package_url: https://www.npmjs.com/@babel/core
+  version: 7.17.4
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15810/default_004658cda9b38934f2871435e9dc15608c86e8be.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-18 13:47:24.000000000 Z
+- name: "@babel/plugin-proposal-class-properties"
+  description: This plugin transforms static class properties as well as properties
+    declared with the property initializer syntax
+  package_url: https://www.npmjs.com/@babel/plugin-proposal-class-properties
+  version: 7.16.7
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15903/default_3af1504b6f77c55205ba630fe08c472f43b95f6e.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@babel/plugin-proposal-decorators"
+  description: Compile class and object decorators to ES5
+  package_url: https://www.npmjs.com/@babel/plugin-proposal-decorators
+  version: 7.17.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16147/default_1f3a2fc7d882e29a43394ecdf491b8989ea3f0fa.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@babel/plugin-proposal-export-default-from"
+  description: Compile export default to ES2015
+  package_url: https://www.npmjs.com/@babel/plugin-proposal-export-default-from
+  version: 7.16.7
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16238/default_fef27d1523ac1844fc00e83e47bddd8898ff8a89.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@babel/plugin-transform-modules-commonjs"
+  description: This plugin transforms ES2015 modules to CommonJS
+  package_url: https://www.npmjs.com/@babel/plugin-transform-modules-commonjs
+  version: 7.16.8
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16321/default_17385ab3aa01d4c295c08d4a9736140df691c5e9.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@babel/plugin-transform-runtime"
+  description: Externalise references to helpers and builtins
+  package_url: https://www.npmjs.com/@babel/plugin-transform-runtime
+  version: 7.17.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15952/default_4040fefea2f98006727f63d042275b96a275ab2d.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@babel/preset-env"
+  description: A Babel preset for each environment
+  package_url: https://www.npmjs.com/@babel/preset-env
+  version: 7.16.8
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15819/default_98aa227f51aa9d787815ec3fd98d0ab2bfebbb91.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@babel/preset-react"
+  description: Babel preset for all React plugins
+  package_url: https://www.npmjs.com/@babel/preset-react
+  version: 7.16.7
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15890/default_6743ba96cf149a3c3c68a185199f9705d6eff80e.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@babel/runtime"
+  description: Babel's modular runtime helpers
+  package_url: https://www.npmjs.com/@babel/runtime
+  version: 7.17.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15934/default_54b691c123fc8979741e800e4dcd3936c0f3b246.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@svgr/webpack"
+  description: SVGR webpack loader
+  package_url: https://www.npmjs.com/@svgr/webpack
+  version: 5.5.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16411/default_aa91da3cee4d961f0eea8ca5de77f399ec7ec794.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@types/react"
+  description: TypeScript definitions for React
+  package_url: https://www.npmjs.com/@types/react
+  version: 17.0.39
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15894/default_1d65e37e65b7f80761374f0202776043277d505d.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: "@types/react-dom"
+  description: TypeScript definitions for React
+  package_url: https://www.npmjs.com/@types/react-dom
+  version: 17.0.11
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15946/default_54b691c123fc8979741e800e4dcd3936c0f3b246.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: async
+  description: Higher-order functions and common patterns for asynchronous code
+  package_url: https://www.npmjs.com/async
+  version: 3.2.3
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15851/default_a2f722724df977d0f7752839e5d8845ab41f69d5.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-02-14 15:15:42.000000000 Z
+- name: babel-loader
+  description: Babel module loader for webpack
+  package_url: https://www.npmjs.com/babel-loader
+  version: 8.2.3
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15800/default_4acafe585186b4157fa23322ae7ca89e24b5cdef.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: babel-plugin-add-module-exports
+  description: Fix babel/babel#2212
+  package_url: https://www.npmjs.com/babel-plugin-add-module-exports
+  version: 1.0.4
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15943/default_4040fefea2f98006727f63d042275b96a275ab2d.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-18 13:47:24.000000000 Z
+- name: case-sensitive-paths-webpack-plugin
+  description: Enforces module path case sensitivity in Webpack
+  package_url: https://www.npmjs.com/case-sensitive-paths-webpack-plugin
+  version: 2.4.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16073/default_5fd43aeff4d6a935abc13737de01a0355210499d.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: chalk
+  description: Terminal string styling done right
+  package_url: https://www.npmjs.com/chalk
+  version: 4.1.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15813/default_db4a7791d2f1174547374b9b587bc10fec088a5a.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2021-09-20 13:34:01.000000000 Z
+- name: compression
+  description: Node.js compression middleware
+  package_url: https://www.npmjs.com/compression
+  version: 1.7.4
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16187/default_9a7a7dcd69c12c746dc4000dc4d1b75758079c9f.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-18 13:47:24.000000000 Z
+- name: copy-webpack-plugin
+  description: Copy files &amp;&amp; directories with webpack
+  package_url: https://www.npmjs.com/copy-webpack-plugin
+  version: 10.2.4
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15941/default_b45165a5d30e541ab11711a34a78209b3e8ed7fd.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: cross-env
+  description: Run scripts that set and use environment variables across platforms
+  package_url: https://www.npmjs.com/cross-env
+  version: 7.0.3
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15828/default_14fd11531839d935f920b6d55bd6f3528c890ad7.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-02-14 15:15:42.000000000 Z
+- name: express
+  description: Fast, unopinionated, minimalist web framework
+  package_url: https://www.npmjs.com/express
+  version: 4.17.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15818/default_db4a7791d2f1174547374b9b587bc10fec088a5a.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-02-14 15:15:42.000000000 Z
+  vulnerabilities:
+  - name: qs vulnerable to Prototype Pollution
+    cve_id: CVE-2022-24999
+    cve_url: https://github.com/advisories/GHSA-hrpp-h998-j3pp
+    detected_date: Dec 7
+    severity: high
+    first_patched: 4.17.3
+- name: file-loader
+  description: A file loader module for webpack
+  package_url: https://www.npmjs.com/file-loader
+  version: 6.2.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15834/default_4479dbac220be99e50e724b2df6cf415241d71fd.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: minimist
+  description: Parse argument options
+  package_url: https://www.npmjs.com/minimist
+  version: 1.2.5
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15918/default_b45165a5d30e541ab11711a34a78209b3e8ed7fd.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2021-07-07 18:43:33.000000000 Z
+  vulnerabilities:
+  - name: Prototype Pollution in minimist
+    cve_id: CVE-2021-44906
+    cve_url: https://github.com/advisories/GHSA-xvch-5gv4-984h
+    detected_date: Mar 22
+    severity: critical
+    first_patched: 1.2.6
+- name: pretty-hrtime
+  description: Process.hrtime
+  package_url: https://www.npmjs.com/pretty-hrtime
+  version: 1.0.3
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17439/default_8c4651c288471a00b2fd6f2055b6de29cb9a049d.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: react-dom
+  description: React package for working with the DOM
+  package_url: https://www.npmjs.com/react-dom
+  version: 17.0.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15808/default_14fd11531839d935f920b6d55bd6f3528c890ad7.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: react-syntax-highlighter
+  description: Syntax highlighting component for react with prismjs or highlightjs
+    ast using inline styles
+  package_url: https://www.npmjs.com/react-syntax-highlighter
+  version: 15.4.5
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17323/default_78541a280e8cac42279d6c363e71e5b8f462e962.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: rimraf
+  description: A deep deletion module for node
+  package_url: https://www.npmjs.com/rimraf
+  version: 3.0.2
+  license: ISC
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15807/default_db4a7791d2f1174547374b9b587bc10fec088a5a.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2021-07-07 18:43:33.000000000 Z
+- name: shelljs
+  description: Portable Unix shell commands for Node.js
+  package_url: https://www.npmjs.com/shelljs
+  version: 0.8.5
+  license: BSD-3-Clause
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15897/default_1d65e37e65b7f80761374f0202776043277d505d.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-02-14 15:15:42.000000000 Z
+- name: source-map-loader
+  description: Extracts inlined source map and offers it to webpack
+  package_url: https://www.npmjs.com/source-map-loader
+  version: 3.0.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16190/default_351a89f21bfb241e8dabeb1444cf56f529948708.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: style-loader
+  description: Style loader module for webpack
+  package_url: https://www.npmjs.com/style-loader
+  version: 3.3.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15822/default_004658cda9b38934f2871435e9dc15608c86e8be.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: tree-kill
+  description: Kill trees of processes
+  package_url: https://www.npmjs.com/tree-kill
+  version: 1.2.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17621/default_b06ec1ccf403dac1459596b8571a4fb6a46577e1.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2021-07-07 18:43:33.000000000 Z
+- name: ts-loader
+  description: TypeScript loader for webpack
+  package_url: https://www.npmjs.com/ts-loader
+  version: 9.2.6
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15938/default_e0a4fb1126d7400f419f0931cf1669947a5bc552.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: url-loader
+  description: A loader for webpack which transforms files into base64 URIs
+  package_url: https://www.npmjs.com/url-loader
+  version: 4.1.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15858/default_a2f722724df977d0f7752839e5d8845ab41f69d5.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: webpack-bundle-analyzer
+  description: Webpack plugin and CLI utility that represents bundle content as convenient
+    interactive zoomable treemap
+  package_url: https://www.npmjs.com/webpack-bundle-analyzer
+  version: 4.4.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15991/default_cbd6c289400672b291755183817e9dd6abe1a612.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-10 19:25:04.000000000 Z
+- name: webpack-cli
+  description: CLI for webpack &amp; friends
+  package_url: https://www.npmjs.com/webpack-cli
+  version: 4.9.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15826/default_14fd11531839d935f920b6d55bd6f3528c890ad7.png
+  detection_source_url: https://github.com/tkim/finsemble-seed/blob/master/yarn.lock
+  detection_source: package.json
+  last_updated_by: Github Actions automation
+  last_updated_on: 2022-03-18 13:47:24.000000000 Z
